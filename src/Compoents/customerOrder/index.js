@@ -10,7 +10,7 @@ class CustomerOrder extends Component {
     units: "",
     trackingURL: "",
     fnskuSend: null,
-    boxlabelSend: null,
+    labelSend: null,
   };
 
   componentDidMount = () => {
@@ -39,7 +39,7 @@ class CustomerOrder extends Component {
 
   handleBoxlabelSendChange = (e) => {
     const file = e.target.files[0];
-    this.setState({ boxlabelSend: file });
+    this.setState({ labelSend: file });
   };
 
   handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ class CustomerOrder extends Component {
         units,
         trackingURL,
         fnskuSend,
-        boxlabelSend,
+        labelSend,
       } = this.state;
 
       const formData = new FormData();
@@ -64,10 +64,10 @@ class CustomerOrder extends Component {
       formData.append("units", units);
       formData.append("trackingURL", trackingURL);
       formData.append("fnskuSend", fnskuSend);
-      formData.append("boxlabelSend", boxlabelSend);
+      formData.append("labelSend", labelSend);
       console.log(formData);
       const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODc1MTY0OSwiZXhwIjoxNjk4NzU1MjQ5fQ.ZtEO4BhP3jGfiUB-dYYgF6rhuqtbhnU54LbOjTp5EG4";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODc1NTI4NCwiZXhwIjoxNjk4NzU4ODg0fQ.Cn65hCzYmOlLb-ekzsG73RwVRCW0kkP6Z81rhIe4ZRo";
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -143,7 +143,7 @@ class CustomerOrder extends Component {
           <label>Box Label Send:</label>
           <input
             type="file"
-            name="boxlabelSend"
+            name="labelSend"
             onChange={this.handleBoxlabelSendChange}
           />
           <br />
