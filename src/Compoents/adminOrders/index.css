@@ -1,0 +1,39 @@
+.admin-orders-product-container{
+    display: flex;
+}
+.admin-orders-product-id{
+    width:100px;
+}
+.admin-orders-product-name{
+    width:100px;
+}
+.admin-orders-product-service{
+    width:150px
+}
+.admin-orders-product-quantity{
+    width:150px
+}
+.admin-orders-product-url{
+    width:200px;
+}
+.admin-orders-product-buttons-container{
+    width:300px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.admin-orders-product-accept-button{
+    padding: 10px 15px;
+    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.admin-orders-product-decline-button{
+    padding: 10px 15px;
+    background-color:rgba(234, 15, 15, 0.877);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color:#fff;
+}
