@@ -6,9 +6,11 @@ import BodyComponent from "./Compoents/HomePage/BodyComponent";
 import HeaderComponent from "./Compoents/HomePage/HeaderComponent";
 import CustomerOrder from "./Compoents/customerOrder";
 import OrderViewDetail from "./Compoents/AdminDetailPage";
+import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 function App() {
   return (
     <Routes>
+      <Route path="dimensionUpdate" element={<DimensionsUpdate />} />
       <Route path="/upload" element={<CustomerOrder />} />
       <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
       <Route path="/" element={<HeaderComponent />} />
