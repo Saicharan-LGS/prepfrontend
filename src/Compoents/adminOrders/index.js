@@ -6,7 +6,7 @@ import DisplayAdminButton from "./adminButton";
 function ProductList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -17,7 +17,7 @@ function ProductList() {
           console.log(response);
           const data = await response.json();
           console.log(data.results);
-          setProducts(data);
+          setProducts(data.results);
         } else {
           console.error("Failed to fetch products");
         }
@@ -31,12 +31,11 @@ function ProductList() {
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Month is zero-based, so add 1
   const day = date.getDate();
-
+  console.log(products)
   const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`;
   console.log(formattedDate);
-
   const openDetailPage = (e) => {
     console.log(e);
     console.log(e.target.id);
@@ -64,6 +63,8 @@ function ProductList() {
         <p className="admin-orders-product-name">Name</p>
         <p className="admin-orders-product-service">Service</p>
         <p className="admin-orders-product-quantity">Quantity</p>
+        <p className="admin-order-box-label-checkbox">Box Label Status</p>
+        <p className="admin-order-fnsku-label-checkbox">FNSKU Status</p>
         <p className="admin-orders-product-url">Order Tracking Link</p>
         <div className="admin-orders-product-buttons-container">
           {/* <button className="admin-orders-product-accept-button">Accept</button>
@@ -71,33 +72,28 @@ function ProductList() {
         </div>
         <div>View in Detail</div>
       </div>
-      <div className="admin-orders-product-container">
-        <p className="admin-orders-product-id">1</p>
-        <p className="admin-orders-product-name">soap 5GB Free online</p>
-        <p className="admin-orders-product-service">label</p>
-        <p className="admin-orders-product-quantity">2</p>
-        <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton onClick id="1" />
-        <AiFillCaretRight id="1" value="1" onClick={openDetailPage} />
+      {products.map(eachProduct=>(
+        <div className="admin-orders-product-list-container">
+        <p className="admin-orders-product-id">{eachProduct.id}</p>
+        <p className="admin-orders-product-name">{eachProduct.name}</p>
+        <p className="admin-orders-product-service">{eachProduct.service}</p>
+        <p className="admin-orders-product-quantity">{eachProduct.unit}</p>
+        <div className="admin-order-box-label-checkbox-1">
+          <input type="checkbox" />
+        </div>
+        <div className="admin-order-fnsku-label-checkbox-1">
+        <input type="checkbox" />
+        </div>
+       
+        
+        <p className="admin-orders-product-url">{eachProduct.tacking_url}</p>
+        <DisplayAdminButton onClick id={eachProduct.id} />
+        <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} />
       </div>
-      <div className="admin-orders-product-container">
-        <p className="admin-orders-product-id">1</p>
-        <p className="admin-orders-product-name">soap 5GB Free online</p>
-        <p className="admin-orders-product-service">label</p>
-        <p className="admin-orders-product-quantity">2</p>
-        <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton id="2" />
-        <AiFillCaretRight />
-      </div>
-      <div className="admin-orders-product-container">
-        <p className="admin-orders-product-id">1</p>
-        <p className="admin-orders-product-name">soap 5GB Free online</p>
-        <p className="admin-orders-product-service">label</p>
-        <p className="admin-orders-product-quantity">2</p>
-        <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton id="3" />
-        <AiFillCaretRight />
-      </div>
+      ))
+      }
+      
+      
     </div>
   );
 }

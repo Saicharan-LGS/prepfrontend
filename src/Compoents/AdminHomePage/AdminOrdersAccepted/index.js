@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { AiFillCaretRight } from "react-icons/ai";
-function AdminOrdersRejected() {
+function AdminOrdersAccepted() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     console.log("Component rendered");
@@ -13,7 +13,7 @@ function AdminOrdersRejected() {
       const fetchProducts = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3009/api/v1/getOrders/${1}`
+            `http://localhost:3009/api/v1/getOrders/${2}`
           ); // Replace with your API endpoint
           if (response.ok) {
             console.log(response);
@@ -90,4 +90,4 @@ function AdminOrdersRejected() {
   );
 }
 
-export default AdminOrdersRejected;
+export default AdminOrdersAccepted;

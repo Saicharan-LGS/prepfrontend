@@ -1,20 +1,57 @@
 .admin-orders-product-container{
     display: flex;
+    gap:20px;
+    border:1px solid grey;
+    padding:0px 4px;
+    width:100%;
+}
+.admin-orders-product-list-container{
+    display: flex;
+    gap:20px;
+    padding:0px 4px;
+    border-bottom:1px solid grey;
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+    width:100%;
 }
 .admin-orders-product-id{
-    width:100px;
+    width:10%;
+    margin:0px;
 }
 .admin-orders-product-name{
-    width:100px;
+    width:10%;
+    margin:0px;
 }
 .admin-orders-product-service{
-    width:150px
+    width:10%;
+    margin:0px;
 }
 .admin-orders-product-quantity{
-    width:150px
+    width:10%;
+    margin:0px;
+}
+.admin-order-box-label-checkbox{
+    width:10%;
+    margin:0px;
+}
+.admin-order-fnsku-label-checkbox{
+    width:10%;
+    margin:0px;
+}
+.admin-order-box-label-checkbox-1{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:10%;
+}
+.admin-order-fnsku-label-checkbox-1{
+    width:10%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
 }
 .admin-orders-product-url{
-    width:200px;
+    width:10%;
 }
 .admin-orders-product-buttons-container{
     width:300px;

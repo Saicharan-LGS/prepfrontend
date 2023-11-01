@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 const DisplayAdminButton = (props) => {
-  const [product, setProduct] = useState(); // Set the initial value as a string '1'
+  const [product, setProduct] = useState("1"); // Set the initial value as a string '1'
 
-  const handleSubmit = async (id) => {
+  const handleSubmit = async (id, status) => {
     // Create an object with the data you want to send
     const requestData = {
-      status: product,
+      status: status,
     };
 
     try {
+      console.log(requestData);
       const response = await fetch(
         `http://localhost:3009/api/v1/adminUpdateOrderStatus/${id}`,
         {
@@ -32,13 +33,14 @@ const DisplayAdminButton = (props) => {
   };
 
   const onClickDecline = (e) => {
-    setProduct("1");
-    handleSubmit(e.target.value);
+    const status = "1"; // Set the status here
+    handleSubmit(e.target.value, status);
   };
 
-  const onClickRecieved = (e) => {
-    setProduct("2");
-    handleSubmit(e.target.value)
+  const onClickReceived = (e) => {
+    const status = "2"; // Set the status here
+    console.log("Received called");
+    handleSubmit(e.target.value, status);
   };
 
   return (
@@ -52,10 +54,10 @@ const DisplayAdminButton = (props) => {
       </button>
       <button
         value={props.id}
-        onClick={onClickRecieved}
+        onClick={onClickReceived}
         className="admin-orders-product-decline-button"
       >
-        Recieved
+        Received
       </button>
     </div>
   );
