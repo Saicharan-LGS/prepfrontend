@@ -29,11 +29,7 @@ const handeSubmit=async(id)=>{
     setProduct("declined")
     handeSubmit(e.target.value)
   };
-  const onClickRecieved=(e)=>{
-    console.log(e.target.value)
-    setProduct("recieved")
-    handeSubmit(e.target.value)
-  }
+ 
   return (
     <div className="admin-orders-product-buttons-container">
       <>
@@ -44,7 +40,6 @@ const handeSubmit=async(id)=>{
           Decline
         </button>
       </>
-      <button value={props.id} onClick={onClickRecieved} className="admin-orders-product-accept-button">Recieved</button>
     </div>
   );
 };

@@ -12,6 +12,7 @@ const OrderViewDetail = () => {
     trackingURL: "",
     fnskuSend: "",
     boxlabelSend: "",
+    status:"",
   });
 
 //   useEffect(() => {
@@ -44,6 +45,10 @@ const OrderViewDetail = () => {
     handleSubmit(e)
   }
 
+  const changeStatus=(e)=>{
+    //set status
+    handleSubmit(e)
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData)
@@ -72,7 +77,7 @@ const OrderViewDetail = () => {
   return (
     <div>
       <h1>Order Form</h1>
-      <form onSubmit={handleSubmit}>
+      <form >
         <label>Date:</label>
         <input
           type="date"
@@ -154,7 +159,7 @@ const OrderViewDetail = () => {
           >
             View Box Label File
           </button>
-        <button type="submit">Submit</button>
+        <button onClick={changeStatus} type="submit">Submit</button>
       </form>
     </div>
   );
