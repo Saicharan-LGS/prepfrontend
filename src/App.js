@@ -8,6 +8,7 @@ import CustomerOrder from "./Compoents/customerOrder";
 import OrderViewDetail from "./Compoents/AdminDetailPage";
 import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
+import AdminHomePage from "./Compoents/AdminHomePage";
 function App() {
   return (
     <Routes>
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<HeaderComponent />} />
       <Route path="/adminOrders" element={<ProductList />} />
       <Route path="/labelOrders" element={<LabelOrders />} />
+      <Route path="/adminhomepage" element={<AdminHomePage />} />
     </Routes>
   );
 }
