@@ -8,7 +8,7 @@ const DisplayAdminButton = (props) => {
     const requestData = {
       status: status,
     };
-
+    console.log(requestData);
     try {
       console.log(requestData);
       const response = await fetch(

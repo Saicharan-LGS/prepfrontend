@@ -214,7 +214,7 @@ class CustomerOrder extends Component {
         fnskuSend,
         labelSend,
       } = this.state;
-      console.log("submit called...")
+      console.log("submit called...");
       const formData = new FormData();
       formData.append("date", date);
       formData.append("customerName", customerName);
@@ -225,7 +225,8 @@ class CustomerOrder extends Component {
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       console.log(formData);
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0MDMyMCwiZXhwIjoxNjk5MTIxMTIwfQ.pl9o4uW2A3gQ-pEOvkvTPpkrnYR_vwa822iywR1-0OE"
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzODQ0NCwiZXhwIjoxNjk5MTE5MjQ0fQ.sd5NM1u63aAuoekzOV8nuHqgT3PN55ZtiBy7jdRDGxY";
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -247,94 +248,118 @@ class CustomerOrder extends Component {
   };
 
   render() {
-    return ( 
+    return (
       <div className="order-customer-container">
-          <center>
-              <h1 className="order-customer-main-heading">Customer Orders</h1>
-          </center>
-          <form className="order-customer-from-container">
-              <div className="order-customer-field1-container">
-                  <div  className="order-customer-input-feild">
-                    <label className="order-customer-label-name">Date:</label>
-                      <input className="order-customer-lable-container"
-                        type="date"
-                        name="date"
-                        value={this.state.date}
-                        onChange={this.handleChange}
-                        required
-                        readOnly
-                      />
-                  </div>
-                  <div className="order-customer-input-feild">
-                      <label className="order-customer-label-name">Customer Name:</label>
-                      <input className="order-customer-lable-container"
-                      type="text" 
-                      name="customerName"
-                      value={this.state.customerName}
-                      onChange={this.handleChange}
-                      required
-                      readOnly
-                      />
-                  </div>
-              </div>
-              <div className="order-customer-field2-container">
-                  <div className="order-customer-input-feild">
-                    <label className="order-customer-label-name">Services Required:</label>
-                    <select className="order-customer-lable-container" onChange={this.handleChange} required>
-                      <option value="Labeling">labling</option>
-                      <option value="Shipping">Shipping</option>
-                    </select>
-                            </div>
-                            <div className="order-customer-input-feild">
-                            <label className="order-customer-label-name">Product Name:</label>
-                    <input className="order-customer-lable-container"
-                      type="text"
-                      name="productName"
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="order-customer-input-feild">
-                    <label className="order-customer-label-name">FNSKU Send:</label>
-                    <input className="order-customer-lable-container"
-                    type="file" 
-                    name="fnskuSend"
-                    onChange={this.handleChange} />
-                            </div>
-                            <div className="order-customer-input-feild">
-                            <label className="order-customer-label-name">Box Label Send:</label>
-                    <input className="order-customer-lable-container"
-                    type="file" 
-                    name="boxlabelSend"
-                    onChange={this.handleChange} />
-           
-                  </div>
-                  
-              </div>
-              <div className="order-customer-field3-container">
-                <div className="order-customer-input-feild">
-                    <label className="order-customer-label-name">Units:</label>
-                    <input className="order-customer-lable-container"
-                    type="number"
-                      name="units"
-                      onChange={this.handleChange} 
-                      required />
-                            </div>
-                            <div className="order-customer-input-feild">
-                            <label className="order-customer-label-name">Tracking URL:</label>
-                    <input className="order-customer-lable-container"
-                    type="text"
-                    name="trackingURL" 
-                    onChange={this.handleChange} />
-                  </div>
-              </div>
-          </form>
-          <center>
-          <button onClick={this.handleSubmit} className="order-customer-button-container" type="button">Submit</button>
-          </center>
+        <center>
+          <h1 className="order-customer-main-heading">Customer Orders</h1>
+        </center>
+        <form className="order-customer-from-container">
+          <div className="order-customer-field1-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Date:</label>
+              <input
+                className="order-customer-lable-container"
+                type="date"
+                name="date"
+                value={this.state.date}
+                onChange={this.handleChange}
+                required
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Customer Name:
+              </label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="customerName"
+                value={this.state.customerName}
+                onChange={this.handleChange}
+                required
+                readOnly
+              />
+            </div>
+          </div>
+          <div className="order-customer-field2-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Services Required:
+              </label>
+              <select
+                className="order-customer-lable-container"
+                onChange={this.handleChange}
+                required
+              >
+                <option value="Labeling">labling</option>
+                <option value="Shipping">Shipping</option>
+              </select>
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Product Name:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="productName"
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">FNSKU Send:</label>
+              <input
+                className="order-customer-lable-container"
+                type="file"
+                name="fnskuSend"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Box Label Send:
+              </label>
+              <input
+                className="order-customer-lable-container"
+                type="file"
+                name="boxlabelSend"
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+          <div className="order-customer-field3-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Units:</label>
+              <input
+                className="order-customer-lable-container"
+                type="number"
+                name="units"
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Tracking URL:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="trackingURL"
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+        </form>
+        <center>
+          <button
+            onClick={this.handleSubmit}
+            className="order-customer-button-container"
+            type="button"
+          >
+            Submit
+          </button>
+        </center>
       </div>
-  
-       );
+    );
   }
 }
 
