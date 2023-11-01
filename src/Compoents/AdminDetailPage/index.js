@@ -17,7 +17,7 @@ function OrderViewDetail() {
 
   useEffect(() => {
     // Fetch data using the id passed as a prop
-    console.log(id)
+    console.log(id);
     async function fetchData() {
       try {
         const response = await fetch(
@@ -29,11 +29,13 @@ function OrderViewDetail() {
           setFormData({
             ...formData,
             date: data.date,
-            customerName: data.customerName,
-            servicesReq: data.servicesReq,
-            productName: data.productName,
-            units: data.units,
-            trackingURL: data.trackingURL,
+            customerName: data.name,
+            servicesReq: data.service,
+            productName: data.product,
+            units: data.unit,
+            trackingURL: data.tracking_url,
+            fnskuSend: data.fnsku,
+            boxlabelSend:data.label,
             // ... other fields you want to update
           });
         } else {

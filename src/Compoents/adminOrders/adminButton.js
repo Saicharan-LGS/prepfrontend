@@ -8,7 +8,7 @@ const DisplayAdminButton = (props) => {
     const requestData = {
       status: product,
     };
-
+    console.log(requestData);
     try {
       const response = await fetch(
         `http://localhost:3009/api/v1/adminUpdateOrderStatus/${id}`,
@@ -38,7 +38,7 @@ const DisplayAdminButton = (props) => {
 
   const onClickRecieved = (e) => {
     setProduct("2");
-    handleSubmit(e.target.value)
+    handleSubmit(e.target.value);
   };
 
   return (
