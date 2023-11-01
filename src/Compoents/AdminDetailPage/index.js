@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-const OrderViewDetail = () => {
-    const { id } = useParams(); 
+function OrderViewDetail() {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
     customerName: "",
@@ -10,79 +10,104 @@ const OrderViewDetail = () => {
     productName: "",
     units: "",
     trackingURL: "",
-    fnskuSend: "",
-    boxlabelSend: "",
-    status:"",
+    fnskuSend: null,
+    boxlabelSend: null,
+    status: "",
   });
 
-//   useEffect(() => {
-//     // Make a GET request to fetch initial data
-//     fetch()
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // Populate the formData state with the fetched data
-//         setFormData(data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching data: ", error);
-//       });
-//   }, []);
+  useEffect(() => {
+    // Fetch data using the id passed as a prop
+    console.log(id)
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setFormData({
+            ...formData,
+            date: data.date,
+            customerName: data.customerName,
+            servicesReq: data.servicesReq,
+            productName: data.productName,
+            units: data.units,
+            trackingURL: data.trackingURL,
+            // ... other fields you want to update
+          });
+        } else {
+          console.error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileData=(e)=>{
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-    handleSubmit(e)
-  }
+  const handleFileData = (e) => {
+    const { name, files } = e.target;
+    setFormData({ ...formData, [name]: files[0] });
+  };
 
-  const changeStatus=(e)=>{
-    //set status
-    handleSubmit(e)
-  }
+  const changeStatus = (e) => {
+    setFormData({ ...formData, status: "accepted" });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    // Make a PUT request to update the data
+
+    const formDataToSend = new FormData();
+    for (const key in formData) {
+      if (formData[key] !== null) {
+        formDataToSend.append(key, formData[key]);
+      }
+    }
+
     fetch("your-api-endpoint-here", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
+      method: "POST",
+      body: formDataToSend,
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Data updated successfully: ", data);
+        console.log("Data submitted successfully: ", data);
       })
       .catch((error) => {
-        console.error("Error updating data: ", error);
+        console.error("Error submitting data: ", error);
       });
   };
 
   const openFileInNewTab = (fileURL) => {
-    // Open the file URL in a new window or tab
     window.open(fileURL, "_blank");
   };
+
+  const {
+    date,
+    customerName,
+    servicesReq,
+    productName,
+    units,
+    trackingURL,
+    fnskuSend,
+    boxlabelSend,
+  } = formData;
 
   return (
     <div>
       <h1>Order Form</h1>
-      <form >
+      <form onSubmit={handleSubmit}>
         <label>Date:</label>
         <input
           type="date"
           name="date"
-          value={formData.date}
+          value={date}
           onChange={handleChange}
           required
         />
@@ -91,7 +116,7 @@ const OrderViewDetail = () => {
         <input
           type="text"
           name="customerName"
-          value={formData.customerName}
+          value={customerName}
           onChange={handleChange}
           required
         />
@@ -99,7 +124,7 @@ const OrderViewDetail = () => {
         <label>Services Required:</label>
         <select
           name="servicesReq"
-          value={formData.servicesReq}
+          value={servicesReq}
           onChange={handleChange}
           required
         >
@@ -111,7 +136,7 @@ const OrderViewDetail = () => {
         <input
           type="text"
           name="productName"
-          value={formData.productName}
+          value={productName}
           onChange={handleChange}
           required
         />
@@ -120,7 +145,7 @@ const OrderViewDetail = () => {
         <input
           type="number"
           name="units"
-          value={formData.units}
+          value={units}
           onChange={handleChange}
           required
         />
@@ -129,40 +154,39 @@ const OrderViewDetail = () => {
         <input
           type="text"
           name="trackingURL"
-          value={formData.trackingURL}
+          value={trackingURL}
           onChange={handleChange}
         />
         <br />
         <label>FNSKU Send:</label>
-        <input
-          type="file"
-          name="fnskuSend"
-          onChange={handleFileData}
-        />
-         <button
-            type="button"
-            onClick={() => openFileInNewTab(formData.fnskuSend)}
-          >
-            View FNSKU File
-          </button>
+        <input type="file" name="fnskuSend" onChange={handleFileData} />
+        <button
+          type="button"
+          onClick={() =>
+            openFileInNewTab(fnskuSend ? URL.createObjectURL(fnskuSend) : "")
+          }
+        >
+          View FNSKU File
+        </button>
         <br />
         <label>Box Label Send:</label>
-        <input
-          type="file"
-          name="boxlabelSend"
-          onChange={handleFileData}
-        />
-        <br />
+        <input type="file" name="boxlabelSend" onChange={handleFileData} />
         <button
-            type="button"
-            onClick={() => openFileInNewTab(formData.boxlabelSend)}
-          >
-            View Box Label File
-          </button>
-        <button onClick={changeStatus} type="submit">Submit</button>
+          type="button"
+          onClick={() =>
+            openFileInNewTab(
+              boxlabelSend ? URL.createObjectURL(boxlabelSend) : ""
+            )
+          }
+        >
+          View Box Label File
+        </button>
+        <button onClick={changeStatus} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );
-};
+}
 
 export default OrderViewDetail;

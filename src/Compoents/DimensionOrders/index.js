@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
+import "../AdminDetailPage/index.css";
 import { useNavigate } from "react-router-dom";
 import { AiFillCaretRight } from "react-icons/ai";
-import DisplayAdminButton from "./adminButton";
-function ProductList() {
+
+function DimensionOrderList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const token =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByYXNoYW50aHJlZGR5Nzc5OTU1QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzMTA3NSwiZXhwIjoxNjk4ODM0Njc1fQ.I1acr2Zd7rIEhVF2TXrzz_W0S6wTjEWIjoLaG2lLWtk";
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`
-        ); // Replace with your API endpoint
+          "http://localhost:3009/api/v1/dimensionorderlist",
+          {
+            method: "GET",
+            headers: {
+              Authorization:` Bearer ${token}`,
+            },
+          }
+        );
         if (response.ok) {
-          console.log(response);
           const data = await response.json();
-          console.log(data.results);
           setProducts(data);
         } else {
           console.error("Failed to fetch products");
@@ -41,34 +46,18 @@ function ProductList() {
     console.log(e);
     console.log(e.target.id);
 
-    navigate(`/adminViewDetail/${e.target.id}`);
+    navigate(`/dimensionupdate/${e.target.id}`);
   };
   return (
     <div>
       <h2>Orders List</h2>
-      {/* <ul>
-        {products.map((product) => (
-          <div>
-            <p>1</p>
-            <p>soap 5GB Free online</p>
-            <p>label</p>
-            <p>2</p>
-            <p>http://localhost:3000/get</p>
-            <button>Accept</button>
-            <button>decline</button>
-          </div>
-        ))}
-      </ul> */}
       <div className="admin-orders-product-container">
         <p className="admin-orders-product-id">Order ID</p>
         <p className="admin-orders-product-name">Name</p>
         <p className="admin-orders-product-service">Service</p>
         <p className="admin-orders-product-quantity">Quantity</p>
         <p className="admin-orders-product-url">Order Tracking Link</p>
-        <div className="admin-orders-product-buttons-container">
-          {/* <button className="admin-orders-product-accept-button">Accept</button>
-            <button className="admin-orders-product-decline-button">decline</button> */}
-        </div>
+        <div className="admin-orders-product-buttons-container"></div>
         <div>View in Detail</div>
       </div>
       <div className="admin-orders-product-container">
@@ -77,7 +66,6 @@ function ProductList() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton onClick id="1" />
         <AiFillCaretRight id="1" value="1" onClick={openDetailPage} />
       </div>
       <div className="admin-orders-product-container">
@@ -86,8 +74,8 @@ function ProductList() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton id="2" />
-        <AiFillCaretRight />
+
+        <AiFillCaretRight id="2" value="2" onClick={openDetailPage} />
       </div>
       <div className="admin-orders-product-container">
         <p className="admin-orders-product-id">1</p>
@@ -95,11 +83,10 @@ function ProductList() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <DisplayAdminButton id="3" />
-        <AiFillCaretRight />
+        <AiFillCaretRight id="3" value="3" onClick={openDetailPage} />
       </div>
     </div>
   );
 }
 
-export default ProductList;
+export default DimensionOrderList;
