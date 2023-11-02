@@ -335,7 +335,6 @@ class CustomerOrder extends Component {
                 type="file"
                 name="fnskuSend"
                 onChange={this.handleFnskuSendChange}
-                onChange={this.handleFnskuSendChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -346,7 +345,6 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="boxlabelSend"
-                onChange={this.handleBoxlabelSendChange}
                 onChange={this.handleBoxlabelSendChange}
               />
             </div>
