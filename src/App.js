@@ -23,6 +23,7 @@ function App() {
       <Route path="/adminOrders" element={<ProductList />} />
       <Route path="/labelOrders" element={<LabelOrders />} />
       <Route path="/adminhomepage" element={<AdminHomePage />} />
+      
     </Routes>
   );
 }

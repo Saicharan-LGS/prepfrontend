@@ -27,75 +27,59 @@ function ProductList() {
     };
     fetchProducts();
   }, []);
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Month is zero-based, so add 1
-  const day = date.getDate();
   console.log(products)
-  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
-    .toString()
-    .padStart(2, "0")}`;
-  console.log(formattedDate);
+ 
   const openDetailPage = (e) => {
+    console.log("called")
     console.log(e);
     console.log(e.target.id);
 
     navigate(`/adminViewDetail/${e.target.id}`);
   };
-  return (
-    <div>
-      <h2>Orders List</h2>
-      {/* <ul>
-        {products.map((product) => (
-          <div>
-            <p>1</p>
-            <p>soap 5GB Free online</p>
-            <p>label</p>
-            <p>2</p>
-            <p>http://localhost:3000/get</p>
-            <button>Accept</button>
-            <button>decline</button>
+
+  const refreshpage=()=>{
+    window.location.reload()
+  }
+
+  return(
+    <div className="admin-order-accepted-product-list">
+      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <div className="admin-order-accepted-category-types">
+        <p className="admin-order-accepted-order-id-category">Order Id</p>
+        <p className="admin-order-accepted-name-category">Name</p>
+        <p className="admin-order-accepted-service-category">Service</p>
+        <p className="admin-order-accepted-quantity-category">Quantity</p>
+        <p className="admin-order-accepted-order-tracking-category">Order Tracking Link</p>
+        <p className="admin-order-accepted-decline-category">Decline</p>
+        <p className="admin-order-accepted-accept-category">Accept</p>
+        <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
+        <p className="admin-order-accepted-box-label-category">Box Label Status</p>
+        <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
+      </div>
+      {products.map(eachProduct=>{
+        console.log("called")
+        console.log(eachProduct.fnsku_status,eachProduct.label_status)
+        return(
+        <div className="admin-order-accepted-display-of-products-container">
+          <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
+          <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
+          <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
+          <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
+          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
+            <DisplayAdminButton id={eachProduct.id} />
+          {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
+          <div className="admin-order-accepted-fnsku-sub-category">
+          <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
-        ))}
-      </ul> */}
-      <div className="admin-orders-product-container">
-        <p className="admin-orders-product-id">Order ID</p>
-        <p className="admin-orders-product-name">Name</p>
-        <p className="admin-orders-product-service">Service</p>
-        <p className="admin-orders-product-quantity">Quantity</p>
-        <p className="admin-order-box-label-checkbox">Box Label Status</p>
-        <p className="admin-order-fnsku-label-checkbox">FNSKU Status</p>
-        <p className="admin-orders-product-url">Order Tracking Link</p>
-        <div className="admin-orders-product-buttons-container">
-          {/* <button className="admin-orders-product-accept-button">Accept</button>
-            <button className="admin-orders-product-decline-button">decline</button> */}
+          <div className="admin-order-accepted-box-label-sub-category">
+          <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
+          </div>
+          <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
-        <div>View in Detail</div>
-      </div>
-      {products.map(eachProduct=>(
-        <div className="admin-orders-product-list-container">
-        <p className="admin-orders-product-id">{eachProduct.id}</p>
-        <p className="admin-orders-product-name">{eachProduct.name}</p>
-        <p className="admin-orders-product-service">{eachProduct.service}</p>
-        <p className="admin-orders-product-quantity">{eachProduct.unit}</p>
-        <div className="admin-order-box-label-checkbox-1">
-          <input type="checkbox" />
-        </div>
-        <div className="admin-order-fnsku-label-checkbox-1">
-        <input type="checkbox" />
-        </div>
-       
-        
-        <p className="admin-orders-product-url">{eachProduct.tacking_url}</p>
-        <DisplayAdminButton onClick id={eachProduct.id} />
-        <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} />
-      </div>
-      ))
-      }
-      
-      
+      )})}
     </div>
-  );
+  )
 }
 
 export default ProductList;

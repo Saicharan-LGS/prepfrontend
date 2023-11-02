@@ -248,8 +248,7 @@ class CustomerOrder extends Component {
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       console.log(formData);
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDY5MiwiZXhwIjoxNjk5MTI1NDkyfQ.aysYHWNIX7rZ9TroDB5APm26A42xNpIh7cZOLI8FRNs";
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDcxOCwiZXhwIjoxNjk5MTI1NTE4fQ.h1foMT1pBQyoBF8Y6_5d2QLX3gGZ3St9Qz3S8DGAHbs"
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
