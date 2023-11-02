@@ -13,6 +13,8 @@ function OrderViewDetail() {
     fnskuSend: null,
     boxlabelSend: null,
     status: "",
+    fnskuButton: "",
+    labelButton: "",
   });
 
   useEffect(() => {
@@ -35,7 +37,9 @@ function OrderViewDetail() {
             units: data.unit,
             trackingURL: data.tracking_url,
             fnskuSend: data.fnsku,
-            boxlabelSend:data.label,
+            labelSend: data.label,
+            fnskuButton: data.fnsku_status,
+            labelButton: data.label_status,
             // ... other fields you want to update
           });
         } else {
@@ -56,7 +60,12 @@ function OrderViewDetail() {
 
   const handleFileData = (e) => {
     const { name, files } = e.target;
-    setFormData({ ...formData, [name]: files[0] });
+    if (files.length > 0) {
+      // New file uploaded, set it
+      setFormData({ ...formData, [name]: files[0] });
+    }
+    // No new file uploaded, keep the existing file
+    handleSubmit(e);
   };
 
   const changeStatus = (e) => {
@@ -65,21 +74,20 @@ function OrderViewDetail() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const formDataToSend = new FormData();
     for (const key in formData) {
       if (formData[key] !== null) {
         formDataToSend.append(key, formData[key]);
       }
     }
-
-    fetch("your-api-endpoint-here", {
-      method: "POST",
+    fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
+      method: "PUT",
       body: formDataToSend,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Data submitted successfully: ", data);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error submitting data: ", error);
@@ -87,7 +95,10 @@ function OrderViewDetail() {
   };
 
   const openFileInNewTab = (fileURL) => {
-    window.open(fileURL, "_blank");
+    if (fileURL) {
+      console.log(fileURL);
+      window.open(`http://localhost:3009/${fileURL}`, "_blank");
+    }
   };
 
   const {
@@ -98,9 +109,11 @@ function OrderViewDetail() {
     units,
     trackingURL,
     fnskuSend,
-    boxlabelSend,
+    labelSend,
+    labelButton,
+    fnskuButton,
   } = formData;
-
+  console.log(fnskuSend);
   return (
     <div>
       <h1>Order Form</h1>
@@ -164,28 +177,22 @@ function OrderViewDetail() {
         <input type="file" name="fnskuSend" onChange={handleFileData} />
         <button
           type="button"
-          onClick={() =>
-            openFileInNewTab(fnskuSend ? URL.createObjectURL(fnskuSend) : "")
-          }
+          onClick={() => openFileInNewTab(fnskuSend)}
+          disabled={fnskuSend === null}
         >
           View FNSKU File
         </button>
         <br />
         <label>Box Label Send:</label>
-        <input type="file" name="boxlabelSend" onChange={handleFileData} />
+        <input type="file" name="labelSend" onChange={handleFileData} />
         <button
           type="button"
-          onClick={() =>
-            openFileInNewTab(
-              boxlabelSend ? URL.createObjectURL(boxlabelSend) : ""
-            )
-          }
+          onClick={() => openFileInNewTab(labelSend)}
+          disabled={labelSend === null}
         >
           View Box Label File
         </button>
-        <button onClick={changeStatus} type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

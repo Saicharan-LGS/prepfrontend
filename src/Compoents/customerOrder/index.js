@@ -218,15 +218,15 @@ class CustomerOrder extends Component {
       const formData = new FormData();
       formData.append("date", date);
       formData.append("customerName", customerName);
-      formData.append("servicesReq", servicesReq);
-      formData.append("productName", productName);
-      formData.append("units", units);
-      formData.append("trackingURL", trackingURL);
+      formData.append("service", servicesReq);
+      formData.append("product", productName);
+      formData.append("unit", units);
+      formData.append("tracking_url", trackingURL);
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       console.log(formData);
       const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzODQ0NCwiZXhwIjoxNjk5MTE5MjQ0fQ.sd5NM1u63aAuoekzOV8nuHqgT3PN55ZtiBy7jdRDGxY";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDY5MiwiZXhwIjoxNjk5MTI1NDkyfQ.aysYHWNIX7rZ9TroDB5APm26A42xNpIh7cZOLI8FRNs";
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -312,7 +312,7 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="fnskuSend"
-                onChange={this.handleChange}
+                onChange={this.handleFnskuSendChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -323,7 +323,7 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="boxlabelSend"
-                onChange={this.handleChange}
+                onChange={this.handleBoxlabelSendChange}
               />
             </div>
           </div>
