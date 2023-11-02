@@ -114,86 +114,232 @@ function OrderViewDetail() {
     fnskuButton,
   } = formData;
   console.log(fnskuSend);
+  // return (
+  //   <div>
+  //     <h1>Order Form</h1>
+  //     <form onSubmit={handleSubmit}>
+  //       <label>Date:</label>
+  //       <input
+  //         type="date"
+  //         name="date"
+  //         value={date}
+  //         onChange={handleChange}
+  //         required
+  //       />
+  //       <br />
+  //       <label>Customer Name:</label>
+  //       <input
+  //         type="text"
+  //         name="customerName"
+  //         value={customerName}
+  //         onChange={handleChange}
+  //         required
+  //       />
+  //       <br />
+  //       <label>Services Required:</label>
+  //       <select
+  //         name="servicesReq"
+  //         value={servicesReq}
+  //         onChange={handleChange}
+  //         required
+  //       >
+  //         <option value="Labeling">Labeling</option>
+  //         <option value="Shipping">Shipping</option>
+  //       </select>
+  //       <br />
+  //       <label>Product Name:</label>
+  //       <input
+  //         type="text"
+  //         name="productName"
+  //         value={productName}
+  //         onChange={handleChange}
+  //         required
+  //       />
+  //       <br />
+  //       <label>Units:</label>
+  //       <input
+  //         type="number"
+  //         name="units"
+  //         value={units}
+  //         onChange={handleChange}
+  //         required
+  //       />
+  //       <br />
+  //       <label>Tracking URL:</label>
+  //       <input
+  //         type="text"
+  //         name="trackingURL"
+  //         value={trackingURL}
+  //         onChange={handleChange}
+  //       />
+  //       <br />
+  //       <label>FNSKU Send:</label>
+  //       <input type="file" name="fnskuSend" onChange={handleFileData} />
+  //       <button
+  //         type="button"
+  //         onClick={() => openFileInNewTab(fnskuSend)}
+  //         disabled={fnskuSend === null}
+  //       >
+  //         View FNSKU File
+  //       </button>
+  //       <br />
+  //       <label>Box Label Send:</label>
+  //       <input type="file" name="labelSend" onChange={handleFileData} />
+  //       <button
+  //         type="button"
+  //         onClick={() => openFileInNewTab(labelSend)}
+  //         disabled={labelSend === null}
+  //       >
+  //         View Box Label File
+  //       </button>
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   </div>
+  // );
   return (
-    <div>
-      <h1>Order Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Date:</label>
-        <input
-          type="date"
-          name="date"
-          value={date}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label>Customer Name:</label>
-        <input
-          type="text"
-          name="customerName"
-          value={customerName}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label>Services Required:</label>
-        <select
-          name="servicesReq"
-          value={servicesReq}
-          onChange={handleChange}
-          required
-        >
-          <option value="Labeling">Labeling</option>
-          <option value="Shipping">Shipping</option>
-        </select>
-        <br />
-        <label>Product Name:</label>
-        <input
-          type="text"
-          name="productName"
-          value={productName}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label>Units:</label>
-        <input
-          type="number"
-          name="units"
-          value={units}
-          onChange={handleChange}
-          required
-        />
-        <br />
-        <label>Tracking URL:</label>
-        <input
-          type="text"
-          name="trackingURL"
-          value={trackingURL}
-          onChange={handleChange}
-        />
-        <br />
-        <label>FNSKU Send:</label>
-        <input type="file" name="fnskuSend" onChange={handleFileData} />
-        <button
-          type="button"
-          onClick={() => openFileInNewTab(fnskuSend)}
-          disabled={fnskuSend === null}
-        >
-          View FNSKU File
-        </button>
-        <br />
-        <label>Box Label Send:</label>
-        <input type="file" name="labelSend" onChange={handleFileData} />
-        <button
-          type="button"
-          onClick={() => openFileInNewTab(labelSend)}
-          disabled={labelSend === null}
-        >
-          View Box Label File
-        </button>
-        <button type="submit">Submit</button>
+    <div className="order-customer-container">
+      <center>
+        <h1 className="order-customer-main-heading">Customer Orders</h1>
+      </center>
+      <form className="order-customer-from-container">
+        <div className="order-customer-field1-container">
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Date:</label>
+            <input
+              className="order-customer-lable-container"
+              type="date"
+              name="date"
+              value={date}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">
+              Customer Name:
+            </label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+        </div>
+        <div className="order-customer-field2-container">
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">
+              Services Required:
+            </label>
+            <select
+              className="order-customer-lable-container"
+              onChange={handleChange}
+              required
+            >
+              <option value="Labeling">labling</option>
+              <option value="Shipping">Shipping</option>
+            </select>
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Product Name:</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="productName"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">FNSKU Send:</label>
+            <input
+              className="order-customer-lable-container"
+              type="file"
+              name="fnskuSend"
+              onChange={handleFileData}
+            />
+            <button
+              type="button"
+              onClick={() => openFileInNewTab(fnskuSend)}
+              disabled={fnskuSend === null}
+            >
+              View FNSKU File
+          </button>
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">
+              Box Label Send:
+            </label>
+            <input
+              className="order-customer-lable-container"
+              type="file"
+              name="boxlabelSend"
+              onChange={handleFileData}
+            />
+            <button
+              type="button"
+              onClick={() => openFileInNewTab(labelSend)}
+              disabled={labelSend === null}
+            >
+              View Box Label File
+            </button>
+          </div>
+        </div>
+        <div className="order-customer-field3-container">
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Units:</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="units"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Tracking URL:</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="trackingURL"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="order-customer-input-feild-fnsku-status">
+            <input
+                className="order-customer-lable-container-checkbox"
+                type="checkbox"
+                name="trackingURL"
+                onChange={handleChange}
+              />
+            <label className="order-customer-label-name">FNSKU Status</label>
+            
+          </div>
+          <div className="order-customer-input-feild-fnsku-status">
+         
+            <input
+              className="order-customer-lable-container-checkbox"
+              type="checkbox"
+              name="trackingURL"
+              onChange={handleChange}
+            />
+            <label className="order-customer-label-name">Label Status</label>
+          </div>
+        </div>
       </form>
+      <center>
+        <button
+          onClick={handleSubmit}
+          className="order-customer-button-container"
+          type="button"
+        >
+          Submit
+        </button>
+      </center>
     </div>
   );
 }

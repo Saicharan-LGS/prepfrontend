@@ -70,10 +70,10 @@ function ProductList() {
           {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
           <div className="admin-order-accepted-fnsku-sub-category">
-          <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
+          <input type="checkbox" checked={eachProduct.fnsku_status==="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <div className="admin-order-accepted-box-label-sub-category">
-          <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
+          <input type="checkbox" checked={eachProduct.label_status==="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
