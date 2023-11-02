@@ -9,7 +9,7 @@ import OrderViewDetail from "./Compoents/AdminDetailPage";
 import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
 import AdminHomePage from "./Compoents/AdminHomePage";
-
+import Navbar from "./Compoents/Navbar";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
       <Route path="/adminOrders" element={<ProductList />} />
       <Route path="/labelOrders" element={<LabelOrders />} />
       <Route path="/adminhomepage" element={<AdminHomePage />} />
+      <Route path="/navbar" element={<Navbar />} />
       
     </Routes>
   );
