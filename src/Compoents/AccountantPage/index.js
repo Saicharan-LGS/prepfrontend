@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import LabelPost from "./labelPost";
-function LabelOrders() {
+import AmountPost from "./AmountPost";
+function AccountOrders() {
   const [products, setProducts] = useState([]);
-
-  useEffect(() => {
+useEffect(() => {
     const fetchProducts = async () => {
       try {
         const token =
@@ -14,7 +13,7 @@ function LabelOrders() {
           {
             method: "GET",
             headers: {
-              Authorization: ` Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         ); // Replace with your API endpoint
@@ -32,6 +31,10 @@ function LabelOrders() {
     fetchProducts();
   }, []);
 
+
+  const onChangeInput=()=>{
+
+  }
   return (
     <div>
       <h2>Orders List</h2>
@@ -41,7 +44,7 @@ function LabelOrders() {
         <p className="admin-orders-product-service">Service</p>
         <p className="admin-orders-product-quantity">Quantity</p>
         <p className="admin-orders-product-url">Order Tracking Link</p>
-        <p>Label completed</p>
+        <p>Enter Amount</p>
         <div className="admin-orders-product-buttons-container"></div>
       </div>
       <div className="admin-orders-product-container">
@@ -50,7 +53,8 @@ function LabelOrders() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <LabelPost id="1" />
+        
+        <AmountPost id="1" />
       </div>
       <div className="admin-orders-product-container">
         <p className="admin-orders-product-id">1</p>
@@ -58,7 +62,8 @@ function LabelOrders() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <LabelPost id="2" />
+       
+        <AmountPost id="2" />
       </div>
       <div className="admin-orders-product-container">
         <p className="admin-orders-product-id">1</p>
@@ -66,10 +71,11 @@ function LabelOrders() {
         <p className="admin-orders-product-service">label</p>
         <p className="admin-orders-product-quantity">2</p>
         <p className="admin-orders-product-url">http://localhost:3000/get</p>
-        <LabelPost id="3" />
+
+        <AmountPost id="3" />
       </div>
     </div>
   );
 }
 
-export default LabelOrders;
+export default AccountOrders;
