@@ -225,8 +225,7 @@ class CustomerOrder extends Component {
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       console.log(formData);
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzODQ0NCwiZXhwIjoxNjk5MTE5MjQ0fQ.sd5NM1u63aAuoekzOV8nuHqgT3PN55ZtiBy7jdRDGxY";
+      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDcxOCwiZXhwIjoxNjk5MTI1NTE4fQ.h1foMT1pBQyoBF8Y6_5d2QLX3gGZ3St9Qz3S8DGAHbs"
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -312,7 +311,7 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="fnskuSend"
-                onChange={this.handleChange}
+                onChange={this.handleFnskuSendChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -323,7 +322,7 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="boxlabelSend"
-                onChange={this.handleChange}
+                onChange={this.handleBoxlabelSendChange}
               />
             </div>
           </div>

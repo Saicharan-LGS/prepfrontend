@@ -35,31 +35,33 @@ const DisplayAdminButton = (props) => {
   const onClickDecline = (e) => {
     const status = "1"; // Set the status here
     handleSubmit(e.target.value, status);
+    window.location.reload()
   };
 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
     console.log("Received called");
     handleSubmit(e.target.value, status);
+    window.location.reload()
   };
 
   return (
-    <div className="admin-orders-product-buttons-container">
+    <>
       <button
         value={props.id}
         onClick={onClickDecline}
-        className="admin-orders-product-decline-button"
+        className="admin-order-accepted-declined-button"
       >
         Decline
       </button>
       <button
         value={props.id}
         onClick={onClickReceived}
-        className="admin-orders-product-decline-button"
+        className="admin-order-accepted-received-button"
       >
         Received
       </button>
-    </div>
+    </>
   );
 };
 
