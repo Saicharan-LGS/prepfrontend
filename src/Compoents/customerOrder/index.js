@@ -170,6 +170,7 @@ class CustomerOrder extends Component {
     trackingURL: "",
     fnskuSend: null,
     labelSend: null,
+    customerId: "",
   };
 
   componentDidMount = () => {
@@ -191,7 +192,7 @@ class CustomerOrder extends Component {
       .then((data) => {
         // Set the customerName in the state based on the response data
         console.log(data);
-        this.setState({ customerName: data.name });
+        this.setState({ customerName: data.name, customerId: data.id });
       })
       .catch((error) => {
         console.error("Error fetching customer data: ", error);
@@ -236,6 +237,7 @@ class CustomerOrder extends Component {
         trackingURL,
         fnskuSend,
         labelSend,
+        customerId,
       } = this.state;
       console.log("submit called...");
       const formData = new FormData();
@@ -247,8 +249,10 @@ class CustomerOrder extends Component {
       formData.append("tracking_url", trackingURL);
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
+      formData.append("customer_id", customerId);
       console.log(formData);
-      const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDcxOCwiZXhwIjoxNjk5MTI1NTE4fQ.h1foMT1pBQyoBF8Y6_5d2QLX3gGZ3St9Qz3S8DGAHbs"
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDcxOCwiZXhwIjoxNjk5MTI1NTE4fQ.h1foMT1pBQyoBF8Y6_5d2QLX3gGZ3St9Qz3S8DGAHbs";
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
