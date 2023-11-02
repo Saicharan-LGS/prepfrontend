@@ -163,7 +163,7 @@ import "./index.css";
 class CustomerOrder extends Component {
   state = {
     date: "",
-    customerName: "Saicharan",
+    customerName: "",
     servicesReq: "Labeling",
     productName: "",
     units: "",
@@ -173,6 +173,29 @@ class CustomerOrder extends Component {
   };
 
   componentDidMount = () => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODkxMTgwMywiZXhwIjoxNjk5MTkyNjAzfQ.-HACcybzWXhwSSUW5cNA83-fZqaaOVLDOjKnZPiwW7w";
+    fetch("http://localhost:3009/api/v1/customerdata", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`, // You should include your authorization token here
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json(); // Assuming the response is in JSON format
+        } else {
+          throw new Error("Failed to fetch customer data");
+        }
+      })
+      .then((data) => {
+        // Set the customerName in the state based on the response data
+        console.log(data);
+        this.setState({ customerName: data.name });
+      })
+      .catch((error) => {
+        console.error("Error fetching customer data: ", error);
+      });
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -218,10 +241,10 @@ class CustomerOrder extends Component {
       const formData = new FormData();
       formData.append("date", date);
       formData.append("customerName", customerName);
-      formData.append("servicesReq", servicesReq);
-      formData.append("productName", productName);
+      formData.append("service", servicesReq);
+      formData.append("product", productName);
       formData.append("units", units);
-      formData.append("trackingURL", trackingURL);
+      formData.append("tracking_url", trackingURL);
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       console.log(formData);
@@ -312,6 +335,7 @@ class CustomerOrder extends Component {
                 type="file"
                 name="fnskuSend"
                 onChange={this.handleFnskuSendChange}
+                onChange={this.handleFnskuSendChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -322,6 +346,7 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="file"
                 name="boxlabelSend"
+                onChange={this.handleBoxlabelSendChange}
                 onChange={this.handleBoxlabelSendChange}
               />
             </div>
