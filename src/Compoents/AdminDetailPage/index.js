@@ -11,8 +11,10 @@ function OrderViewDetail() {
     units: "",
     trackingURL: "",
     fnskuSend: null,
-    boxlabelSend: null,
+    labelSend: null,
     status: "",
+    fnsku_status:"",
+    label_status:"",
     fnskuButton: "",
     labelButton: "",
   });
@@ -40,6 +42,8 @@ function OrderViewDetail() {
             labelSend: data.label,
             fnskuButton: data.fnsku_status,
             labelButton: data.label_status,
+            fnsku_status:data.fnsku_status,
+            label_status:data.label_status,
             // ... other fields you want to update
           });
         } else {
@@ -51,7 +55,7 @@ function OrderViewDetail() {
     }
 
     fetchData();
-  }, [id]);
+  }, [id,formData.labelSend,formData.fnskuSend]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,9 +72,9 @@ function OrderViewDetail() {
     handleSubmit(e);
   };
 
-  const changeStatus = (e) => {
-    setFormData({ ...formData, status: "accepted" });
-  };
+  // const changeStatus = (e) => {
+  //   setFormData({ ...formData, status: "accepted" });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -110,6 +114,8 @@ function OrderViewDetail() {
     trackingURL,
     fnskuSend,
     labelSend,
+    fnsku_status,
+    label_status,
     labelButton,
     fnskuButton,
   } = formData;
@@ -239,6 +245,7 @@ function OrderViewDetail() {
               className="order-customer-lable-container"
               onChange={handleChange}
               required
+              value={servicesReq}
             >
               <option value="Labeling">labling</option>
               <option value="Shipping">Shipping</option>
@@ -250,6 +257,7 @@ function OrderViewDetail() {
               className="order-customer-lable-container"
               type="text"
               name="productName"
+              value={productName}
               onChange={handleChange}
               required
             />
@@ -277,7 +285,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="file"
-              name="boxlabelSend"
+              name="labelSend"
               onChange={handleFileData}
             />
             <button
@@ -296,6 +304,7 @@ function OrderViewDetail() {
               className="order-customer-lable-container"
               type="number"
               name="units"
+              value={units}
               onChange={handleChange}
               required
             />
@@ -306,6 +315,7 @@ function OrderViewDetail() {
               className="order-customer-lable-container"
               type="text"
               name="trackingURL"
+              value={trackingURL}
               onChange={handleChange}
             />
           </div>
@@ -314,18 +324,17 @@ function OrderViewDetail() {
                 className="order-customer-lable-container-checkbox"
                 type="checkbox"
                 name="trackingURL"
-                onChange={handleChange}
+                checked={fnsku_status===1 ? true : false}
               />
             <label className="order-customer-label-name">FNSKU Status</label>
             
           </div>
           <div className="order-customer-input-feild-fnsku-status">
-         
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
               name="trackingURL"
-              onChange={handleChange}
+              checked={label_status===1 ? true : false}
             />
             <label className="order-customer-label-name">Label Status</label>
           </div>

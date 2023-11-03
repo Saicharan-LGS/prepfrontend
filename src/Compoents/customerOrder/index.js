@@ -175,7 +175,8 @@ class CustomerOrder extends Component {
 
   componentDidMount = () => {
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODkxMTgwMywiZXhwIjoxNjk5MTkyNjAzfQ.-HACcybzWXhwSSUW5cNA83-fZqaaOVLDOjKnZPiwW7w";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthQGdtYWlsLmNvbSIsImlhdCI6MTY5ODkzMDQzNCwiZXhwIjoxNjk5MjExMjM0fQ.PNXl_3vlnnEUt-8r49bCJ3m2B0a5hamRTDLPJvUI6fU"
+  
     fetch("http://localhost:3009/api/v1/customerdata", {
       method: "GET",
       headers: {
