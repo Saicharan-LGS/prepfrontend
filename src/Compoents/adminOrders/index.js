@@ -3,7 +3,6 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
-import AdminMainPage from "../AdminMainPage";
 import EmptyOrder from "../EmptyOrder";
 
 import DisplayAdminButton from "./adminButton";
@@ -48,7 +47,6 @@ function ProductList() {
   return(
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
-      <AdminMainPage/>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>

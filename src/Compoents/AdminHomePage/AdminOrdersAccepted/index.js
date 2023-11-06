@@ -5,6 +5,8 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+import EmptyOrder from "../../EmptyOrder";
+
 function AdminOrdersAccepted() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -103,6 +105,8 @@ function AdminOrdersAccepted() {
         <p className="admin-order-accepted-box-label-category">Box Label Status</p>
         <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
       </div>
+      {products.length>0?
+      <>
       {products.map(eachProduct=>(
         <div className="admin-order-accepted-display-of-products-container">
           <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
@@ -120,7 +124,7 @@ function AdminOrdersAccepted() {
           </div>
           <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={()=>openDetailPage(eachProduct.id)} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
-      ))}
+      ))}</>:<EmptyOrder/>}
     </div>
   )
 }
