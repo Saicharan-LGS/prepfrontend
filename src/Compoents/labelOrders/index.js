@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import LabelPost from "./labelPost";
-
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 function LabelOrders() {
   const [products, setProducts] = useState([]);
@@ -34,7 +34,14 @@ function LabelOrders() {
     fetchProducts();
   }, []);
 
-  return (
+  const navigate=useNavigate()
+
+  const openDetailPage = (e, productId) => {
+    console.log(productId);
+    navigate(`/adminViewDetail/${productId}`);
+  };
+
+  return(
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -51,6 +58,7 @@ function LabelOrders() {
         <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
         <p className="admin-order-accepted-fnsku-category">Check Box</p>
         <p className="admin-order-accepted-view-in-detail-category">Update</p>
+        <p className="admin-order-accepted-view-in-detail-category">View Detail</p>
       </div>
       {products.map((eachProduct) => {
         console.log(eachProduct.fnsku_status, eachProduct.label_status);
@@ -79,10 +87,15 @@ function LabelOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-            <LabelPost id={eachProduct.id} />
-          </div>
-        );
-      })}
+          <LabelPost id={eachProduct.id}/>
+          <BsFillArrowRightCircleFill
+            id={eachProduct.id}
+            value={eachProduct.id}
+            onClick={(e) => openDetailPage(e, eachProduct.id)}
+            className="admin-order-accepted-view-in-detail-sub-category"
+          />
+        </div>
+      )})}
     </div>
   );
 }
