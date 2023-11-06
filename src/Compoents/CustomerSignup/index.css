@@ -1,0 +1,79 @@
+.customer-signin-form-main-container {
+    width: 30%;
+    margin: 70px;
+    padding: 10px;
+    border: 2px solid #20b2aa;
+    border-radius: 5px;
+    box-shadow: 0 0 20px #282046(0, 0, 0, 0.1);
+    
+  }
+  .customer-signin-form-heading-container{
+    font-size:32px;
+    font-weight:600;
+    color:#000;
+  }
+  .customer-singin-form-container{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .customer-signin-form-group-container {
+    margin-bottom: 20px;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+.customer-singnin-form-lable-container {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+ .customer-signin-input-container{
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid#000080;
+    border-radius: 7px;
+  }
+  
+.customer-signin-form-button-container {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 2px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  @media  (min-width: 512px) and ( max-width: 768px) {
+    .customer-signin-form-main-container {
+        width: 60%;
+      
+      }
+  }
+  @media (max-width:512px){
+    .customer-signin-form-main-container {
+        width: 100%;
+      
+      }
+  }
+@media (max-width: 768px) {
+    .customer-signin-form-heading-container {
+      font-size: 24px;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .customer-signin-form-main-container{
+      width: 40%;
+    }
+  }

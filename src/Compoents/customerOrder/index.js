@@ -174,9 +174,8 @@ class CustomerOrder extends Component {
   };
 
   componentDidMount = () => {
-    const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthQGdtYWlsLmNvbSIsImlhdCI6MTY5ODkzMDQzNCwiZXhwIjoxNjk5MjExMjM0fQ.PNXl_3vlnnEUt-8r49bCJ3m2B0a5hamRTDLPJvUI6fU"
-  
+    const token = sessionStorage.getItem('token');
+    console.log(token)
     fetch("http://localhost:3009/api/v1/customerdata", {
       method: "GET",
       headers: {
@@ -241,7 +240,9 @@ class CustomerOrder extends Component {
         customerId,
       } = this.state;
       console.log("submit called...");
+      const token = sessionStorage.getItem('token');
       const formData = new FormData();
+      console.log(fnskuSend, labelSend);
       formData.append("date", date);
       formData.append("customerName", customerName);
       formData.append("service", servicesReq);
@@ -252,8 +253,6 @@ class CustomerOrder extends Component {
       formData.append("labelSend", labelSend);
       formData.append("customer_id", customerId);
       console.log(formData);
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthcGlsQGdtYWlsLmNvbSIsImlhdCI6MTY5ODg0NDcxOCwiZXhwIjoxNjk5MTI1NTE4fQ.h1foMT1pBQyoBF8Y6_5d2QLX3gGZ3St9Qz3S8DGAHbs";
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -280,7 +279,7 @@ class CustomerOrder extends Component {
         <center>
           <h1 className="order-customer-main-heading">Customer Orders</h1>
         </center>
-        <form className="order-customer-from-container">
+        <form className="order-customer-from-container" onSubmit={this.handleSubmit}>
           <div className="order-customer-field1-container">
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Date:</label>
@@ -372,18 +371,19 @@ class CustomerOrder extends Component {
                 type="text"
                 name="trackingURL"
                 onChange={this.handleChange}
+                required
               />
             </div>
           </div>
-        </form>
-        <center>
           <button
-            onClick={this.handleSubmit}
             className="order-customer-button-container"
-            type="button"
+            type="submit"
           >
             Submit
           </button>
+        </form>
+        <center>
+          
         </center>
       </div>
     );
