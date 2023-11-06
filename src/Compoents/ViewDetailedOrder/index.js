@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-function OrderViewDetail() {
+function ViewDetailedOrder() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
@@ -163,6 +163,66 @@ function OrderViewDetail() {
               readOnly
             />
           </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Amount</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Length</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Width</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Height</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Weight</label>
+            <input
+              className="order-customer-lable-container"
+              type="number"
+              name="customerName"
+              value={customerName}
+              onChange={handleChange}
+              required
+              readOnly
+            />
+          </div>
         </div>
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
@@ -190,14 +250,24 @@ function OrderViewDetail() {
               required
             />
           </div>
+          <div className="order-customer-input-feild-fnsku-status">
+            <input
+              className="order-customer-lable-container-checkbox"
+              type="checkbox"
+              name="trackingURL"
+              checked={fnsku_status === 1 ? true : false}
+            />
+            <label className="order-customer-label-name">FNSKU Status</label>
+            
+          </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">FNSKU Send:</label>
+            {/* <label className="order-customer-label-name">FNSKU Send:</label>
             <input
               className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="fnskuSend"
               onChange={handleFnskuFileData}
-            />
+            /> */}
             <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
@@ -206,15 +276,26 @@ function OrderViewDetail() {
             >
               View FNSKU File
             </button>
+            
+          </div>
+        
+          <div className="order-customer-input-feild-fnsku-status">
+            <input
+              className="order-customer-lable-container-checkbox"
+              type="checkbox"
+              name="trackingURL"
+              checked={label_status === 1 ? true : false}
+            />
+            <label className="order-customer-label-name">Label Status</label>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Box Label Send:</label>
+            {/* <label className="order-customer-label-name">Box Label Send:</label>
             <input
               className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="labelSend"
               onChange={handleLabelFileData}
-            />
+            /> */}
             <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
@@ -223,6 +304,15 @@ function OrderViewDetail() {
             >
               View Box Label File
             </button>
+            <div className="order-customer-input-feild-fnsku-status">
+            <input
+              className="order-customer-lable-container-checkbox"
+              type="checkbox"
+              name="trackingURL"
+              checked={label_status === 1 ? true : false}
+            />
+            <label className="order-customer-label-name">Payment Status</label>
+          </div>
           </div>
         </div>
         <div className="order-customer-field3-container">
@@ -247,24 +337,8 @@ function OrderViewDetail() {
               onChange={handleChange}
             />
           </div>
-          <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="trackingURL"
-              checked={fnsku_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">FNSKU Status</label>
-          </div>
-          <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="trackingURL"
-              checked={label_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">Label Status</label>
-          </div>
+          
+          
         </div>
       </form>
       <center>
@@ -280,7 +354,7 @@ function OrderViewDetail() {
   );
 }
 
-export default OrderViewDetail;
+export default ViewDetailedOrder;
 
 // return (
 //   <div>

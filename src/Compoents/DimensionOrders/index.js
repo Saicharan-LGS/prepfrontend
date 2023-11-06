@@ -44,11 +44,10 @@ function DimensionOrderList() {
     .padStart(2, "0")}`;
   console.log(formattedDate);
 
-  const openDetailPage = (e) => {
-    console.log(e);
-    console.log(e.target.id);
+  const openDetailPage = (id) => {
+   
 
-    navigate(`/dimensionupdate/${e.target.id}`);
+    navigate(`/dimensionupdate/${id}`);
   };
   return(
     <div className="admin-order-accepted-product-list">
@@ -64,6 +63,7 @@ function DimensionOrderList() {
         {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
         <p className="admin-order-accepted-view-in-detail-category">Update Dim/wt</p>
+        <p className="admin-order-accepted-accept-category">View Details</p>
       </div>
       {products.map(eachProduct=>(
         <div className="admin-order-accepted-display-of-products-container">
@@ -80,7 +80,8 @@ function DimensionOrderList() {
           <div className="admin-order-accepted-box-label-sub-category">
           {eachProduct.label_status==="0"?<input type="checkbox" className="admin-order-accepted-checkbox"/>:<input type="checkbox" checked className="admin-order-accepted-checkbox"/>}
           </div> */}
-          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+          <button className="admin-order-accepted-received-button">Update</button>
+          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={()=>openDetailPage(eachProduct.id)} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
       ))}
     </div>
