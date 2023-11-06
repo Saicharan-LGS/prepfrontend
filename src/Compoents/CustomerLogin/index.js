@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./index.css";
-
+import { useNavigate } from "react-router-dom";
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  const Navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -36,9 +36,10 @@ const CustomerLogin = () => {
           // Login successful
           response.json().then((data) => {
             // Store the token in sessionStorage
-            console.log(data.token)
+            console.log(data.token);
             sessionStorage.setItem("token", data.token);
             console.log("Login successful");
+            Navigate("/customerhomepage");
           });
         } else {
           // Handle other status codes or error messages
