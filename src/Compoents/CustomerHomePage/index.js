@@ -5,16 +5,16 @@ import { useNavigate } from "react-router-dom";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 import CustomerButton from "./customerButton";
-function CustomerHomePage() {
+function CustomerHomePage({id}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  
+  console.log(id)
   useEffect(() => {
     const fetchProducts = async () => {
       const token = sessionStorage.getItem('token');
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/customerorderlist`,
+          `http://localhost:3009/api/v1/customerorderlist/${id}`,
          // Replace with your API endpoint
         {
           method: "GET",
@@ -38,12 +38,16 @@ function CustomerHomePage() {
   }, []);
   console.log(products)
  
-  const openDetailPage = (e) => {
+  const openDetailPage = (id) => {
     console.log("called")
-    console.log(e);
-    console.log(e.target.id);
+    console.log("Clicked on item with id:", id);
+    // console.log(`/adminViewDetail/${e.target.id}`)
 
-    navigate(`/adminViewDetail/${e.target.id}`);
+    if (id) {
+      navigate(`/adminViewDetail/${id}`);
+    } else {
+      console.error("Invalid id:", id);
+    }
   };
 
   // const refreshpage=()=>{
@@ -67,8 +71,10 @@ function CustomerHomePage() {
       </div>
       {products.map(eachProduct=>{
         console.log("called")
+        console.log(eachProduct.id)
         console.log(eachProduct.fnsku_status,eachProduct.label_status)
         return(
+            
         <div className="admin-order-accepted-display-of-products-container">
           <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
           <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
@@ -82,7 +88,7 @@ function CustomerHomePage() {
             5000
           </p>
           
-          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={()=>openDetailPage(eachProduct.id)} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
       )})}
     </div>

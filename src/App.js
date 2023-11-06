@@ -16,6 +16,10 @@ import CustomerHomePage from "./Compoents/CustomerHomePage";
 
 import Customersignup from "./Compoents/CustomerSignup";
 import CustomerLogin from "./Compoents/CustomerLogin";
+import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
+
+import CustomerNavbar from "./Compoents/CustomerNavbar";
+
 function App() {
   return (
     <Routes>
@@ -33,6 +37,8 @@ function App() {
       <Route path="/adminhomepage" element={<AdminHomePage />} />
       <Route path="/navbar" element={<Navbar />} />
       <Route path="/customerhomepage" element={<CustomerHomePage />} />
+      <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
+      <Route path="/customernavbar" element={<CustomerNavbar />} />
     </Routes>
   );
 }

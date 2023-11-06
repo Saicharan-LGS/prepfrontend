@@ -48,7 +48,7 @@ function LabelOrders() {
         <p className="admin-order-accepted-accept-category">Accept</p> */}
         {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
-        <p className="admin-order-accepted-fnsku-category">Check</p>
+        <p className="admin-order-accepted-fnsku-category">Check Box</p>
         <p className="admin-order-accepted-view-in-detail-category">Update</p>
       </div>
       {products.map(eachProduct=>{
