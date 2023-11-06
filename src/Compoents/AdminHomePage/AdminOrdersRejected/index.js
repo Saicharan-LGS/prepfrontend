@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import { AiFillCaretRight } from "react-icons/ai";
+//import { AiFillCaretRight } from "react-icons/ai";
+import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+
 function AdminOrdersRejected() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -75,7 +77,7 @@ function AdminOrdersRejected() {
             <div className="admin-order-accepted-box-label-sub-category">
           <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
             </div>
-            <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+            <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
           </div>
         )})}
       </div>

@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import { AiFillCaretRight } from "react-icons/ai";
+//import { AiFillCaretRight } from "react-icons/ai";
+import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 function AdminOrdersAccepted() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -118,7 +119,7 @@ function AdminOrdersAccepted() {
           <div className="admin-order-accepted-box-label-sub-category">
           {eachProduct.label_status==="0"?<input type="checkbox" className="admin-order-accepted-checkbox"/>:<input type="checkbox" checked className="admin-order-accepted-checkbox"/>}
           </div>
-          <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
       ))}
     </div>

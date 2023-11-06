@@ -336,7 +336,7 @@ class CustomerOrder extends Component {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">FNSKU Send:</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container order-customer-label-file"
                 type="file"
                 name="fnskuSend"
                 onChange={this.handleFnskuSendChange}
@@ -347,7 +347,7 @@ class CustomerOrder extends Component {
                 Box Label Send:
               </label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container order-customer-label-file"
                 type="file"
                 name="boxlabelSend"
                 onChange={this.handleBoxlabelSendChange}

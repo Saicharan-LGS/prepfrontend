@@ -52,6 +52,7 @@ const StaffSigninPage = () => {
   };
 
   return (
+    <div className="signin-div-container">
     <div className="signin-form-main-container">
       <center>
         <h2 className="signin-form-heading-container">Sign In</h2>
@@ -62,6 +63,7 @@ const StaffSigninPage = () => {
           <input
             type="email"
             name="email"
+            className="signin-input-text"
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -72,6 +74,7 @@ const StaffSigninPage = () => {
           <input
             type="password"
             name="password"
+            className="signin-input-text"
             value={formData.password}
             onChange={handleInputChange}
             required
@@ -84,7 +87,9 @@ const StaffSigninPage = () => {
         </center>
       </form>
     </div>
+    </div>
   );
 };
 
 export default StaffSigninPage;
+

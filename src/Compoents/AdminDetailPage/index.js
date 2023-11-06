@@ -265,15 +265,17 @@ function OrderViewDetail() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">FNSKU Send:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="fnskuSend"
               onChange={handleFileData}
+             
             />
             <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend)}
               disabled={fnskuSend === null}
+              className="order-customer-view-file-button-container"
             >
               View FNSKU File
           </button>
@@ -283,7 +285,7 @@ function OrderViewDetail() {
               Box Label Send:
             </label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="labelSend"
               onChange={handleFileData}
@@ -292,6 +294,7 @@ function OrderViewDetail() {
               type="button"
               onClick={() => openFileInNewTab(labelSend)}
               disabled={labelSend === null}
+              className="order-customer-view-file-button-container"
             >
               View Box Label File
             </button>

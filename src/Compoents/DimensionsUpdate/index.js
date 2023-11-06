@@ -54,8 +54,10 @@ const DimensionsUpdate = () => {
       };
       console.log(dimensionsWithUnits);
       const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByYXNoYW50aHJlZGR5Nzc5OTU1QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzMTA3NSwiZXhwIjoxNjk4ODM0Njc1fQ.I1acr2Zd7rIEhVF2TXrzz_W0S6wTjEWIjoLaG2lLWtk";
-      const response = await fetch(
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5OTY5OTIsImV4cCI6MTY5OTI1NjE5Mn0.QQl3pQHzNWeNerlR5i2FLXr7xEPHvsjJ0jggaXNKiXQ"
+       
+      
+        const response = await fetch(
         `http://localhost:3009/api/v1/dimensionupdate/${id}`,
         {
           method: "PUT",
@@ -77,24 +79,24 @@ const DimensionsUpdate = () => {
   };
 
   return (
-    <div className="Dimension-container">
-      <form className="Dimension-form-container" onSubmit={handleSubmit}>
-        <div className="Dimension-whole-container">
+    <div className="dimensions-main-container">
+      <form className="dimensions-form-container" onSubmit={handleSubmit}>
+        <div>
           {["length", "width", "height", "weight"].map((dimension) => (
-            <div key={dimension} className="Dimension-length-container">
-              <label className="Dimension-label-container">
+            <div key={dimension} className="dimensions-input-container">
+              <label className="dimensions-label-text">
                 {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
               </label>
-              <div className="dimension-label-units-conatiner">
+              <div className="dimension-select-container">
                 <input
-                  className="Dimension-input-container"
+                  className="dimensions-input"
                   type="text"
                   name={dimension}
                   value={dimensions[dimension]}
                   onChange={handleInputChange}
                 />
                 <select
-                  className="Dimension-unit-select"
+                  className="dimensions-select"
                   value={selectedUnits[dimension]}
                   onChange={(e) => handleUnitChange(e, dimension)}
                 >
@@ -109,7 +111,9 @@ const DimensionsUpdate = () => {
           ))}
         </div>
         <center>
-          <button type="submit">Update</button>
+          <button className="dimensions-button" type="submit">
+            Update
+          </button>
         </center>
       </form>
     </div>

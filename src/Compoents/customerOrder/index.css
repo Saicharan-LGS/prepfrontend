@@ -71,7 +71,7 @@
 .order-customer-button-container:hover{
   background-color: #45a049;
 }
-input[type=file]::file-selector-button {
+.order-customer-label-file::file-selector-button {
   padding: 2px 8px;
   border-radius: 4px;
   background-color: #000080;

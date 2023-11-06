@@ -1,3 +1,10 @@
+.signup-div-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  min-height:100vh;
+}
 .signup-main-form-container {
     width: 30%;
     margin: 0 auto;
@@ -32,11 +39,8 @@
     font-weight: bold;
   }
   
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  select {
-    width: 100%;
+  .signin-input-text {
+    width: 90%;
     padding: 8px;
     font-size: 16px;
     border: 2px solid#000080;
@@ -52,11 +56,10 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
-    padding: 2px;
     transition: background-color 0.3s;
   }
   
-  button:hover {
+  .signup-form-button-container:hover {
     background-color: #45a049;
   }
   @media (max-width: 768px) {
