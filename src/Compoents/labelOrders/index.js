@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import LabelPost from "./labelPost";
 
-import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 function LabelOrders() {
   const [products, setProducts] = useState([]);
@@ -10,8 +10,7 @@ function LabelOrders() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5OTY5OTIsImV4cCI6MTY5OTI1NjE5Mn0.QQl3pQHzNWeNerlR5i2FLXr7xEPHvsjJ0jggaXNKiXQ"
+        const token = sessionStorage.getItem("token");
         const response = await fetch(
           "http://localhost:3009/api/v1/labelorderlist",
           {
@@ -35,7 +34,7 @@ function LabelOrders() {
     fetchProducts();
   }, []);
 
-  return(
+  return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -43,7 +42,9 @@ function LabelOrders() {
         <p className="admin-order-accepted-name-category">Name</p>
         <p className="admin-order-accepted-service-category">Service</p>
         <p className="admin-order-accepted-quantity-category">Quantity</p>
-        <p className="admin-order-accepted-order-tracking-category">Order Tracking Link</p>
+        <p className="admin-order-accepted-order-tracking-category">
+          Order Tracking Link
+        </p>
         {/* <p className="admin-order-accepted-decline-category">Decline</p>
         <p className="admin-order-accepted-accept-category">Accept</p> */}
         {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
@@ -51,30 +52,39 @@ function LabelOrders() {
         <p className="admin-order-accepted-fnsku-category">Check Box</p>
         <p className="admin-order-accepted-view-in-detail-category">Update</p>
       </div>
-      {products.map(eachProduct=>{
-        console.log(eachProduct.fnsku_status,eachProduct.label_status)
-        return(
-        <div className="admin-order-accepted-display-of-products-container">
-          <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
-          <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
-          <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
-          <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
-          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
-          {/* <button className="admin-order-accepted-received-button">Received</button>
+      {products.map((eachProduct) => {
+        console.log(eachProduct.fnsku_status, eachProduct.label_status);
+        return (
+          <div className="admin-order-accepted-display-of-products-container">
+            <p className="admin-order-accepted-order-id-sub-category">
+              {eachProduct.id}
+            </p>
+            <p className="admin-order-accepted-name-sub-category">
+              {eachProduct.name}
+            </p>
+            <p className="admin-order-accepted-service-sub-category">
+              {eachProduct.service}
+            </p>
+            <p className="admin-order-accepted-quantity-sub-category">
+              {eachProduct.unit}
+            </p>
+            <p className="admin-order-accepted-order-tracking-sub-category">
+              {eachProduct.tacking_url}
+            </p>
+            {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
-          {/* <div className="admin-order-accepted-fnsku-sub-category">
+            {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-          <LabelPost id={eachProduct.id}/>
-          
-        </div>
-      )})}
+            <LabelPost id={eachProduct.id} />
+          </div>
+        );
+      })}
     </div>
-  )
+  );
 }
-
 
 export default LabelOrders;

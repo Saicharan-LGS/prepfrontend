@@ -15,7 +15,7 @@ function AdminMainPage(){
     }
 
     const viewOrder=()=>{
-        navigate("/adminOrders")
+        navigate("/adminhomepage")
     }
     return(
         <div className="admin-main-page-button-container">

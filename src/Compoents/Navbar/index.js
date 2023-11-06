@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { SidebarData } from "./sidebar";
 import "./index.css";
 import { IconContext } from "react-icons";
-import AdminHomePage from "../AdminHomePage";
+import AdminMainPage from "../AdminMainPage";
 import DimensionOrderList from "../DimensionOrders";
 import LabelOrders from "../labelOrders";
 import AccountOrders from "../AccountantPage";
@@ -17,7 +17,7 @@ function Navbar() {
   useEffect(() => {
     const role = sessionStorage.getItem("role");
     if (role === "Admin") {
-      setCurrentComponent(<AdminHomePage />);
+      setCurrentComponent(<AdminMainPage />);
     } else if (role === "Dimension") {
       setCurrentComponent(<DimensionOrderList />);
     } else if (role === "Label") {
