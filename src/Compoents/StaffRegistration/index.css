@@ -62,6 +62,11 @@
   .signup-form-button-container:hover {
     background-color: #45a049;
   }
+  .signup-error-messages{
+    color:#ff0000;
+    font-size:12px;
+    margin:0px;
+  }
   @media (max-width: 768px) {
     .signup-main-form-container {
         width: 80%;

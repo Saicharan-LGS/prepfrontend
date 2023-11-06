@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
+import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import AdminMainPage from "../AdminMainPage";
 import EmptyOrder from "../EmptyOrder";
@@ -31,6 +32,11 @@ function ProductList() {
     };
     fetchProducts();
   }, []);
+  console.log(products)
+ 
+  const openDetailPage = (e, productId) => {
+    console.log(productId);
+    navigate(`/adminViewDetail/${productId}`);
   console.log(products);
 
   const openDetailPage = (e, productId) => {
@@ -89,6 +95,21 @@ function ProductList() {
                 <DisplayAdminButton id={eachProduct.id} />
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
+          <div className="admin-order-accepted-fnsku-sub-category">
+          <input type="checkbox" checked={eachProduct.fnsku_status===1 ? true : false} className="admin-order-accepted-checkbox"/>
+          </div>
+          <div className="admin-order-accepted-box-label-sub-category">
+          <input type="checkbox" checked={eachProduct.label_status===1 ? true : false} className="admin-order-accepted-checkbox"/>
+          </div>
+          <BsFillArrowRightCircleFill
+            id={eachProduct.id}
+            value={eachProduct.id}
+            onClick={(e) => openDetailPage(e, eachProduct.id)}
+            className="admin-order-accepted-view-in-detail-sub-category"
+          />
+        </div>
+      )})
+        }</>:<EmptyOrder/>}
                 <div className="admin-order-accepted-fnsku-sub-category">
                   <input
                     type="checkbox"

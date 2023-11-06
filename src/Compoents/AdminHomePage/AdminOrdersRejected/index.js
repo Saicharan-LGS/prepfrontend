@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
+import EmptyOrder from "../../EmptyOrder";
+
 function AdminOrdersRejected() {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -40,10 +42,9 @@ function AdminOrdersRejected() {
       .toString()
       .padStart(2, "0")}`;
     console.log(formattedDate);
-    const openDetailPage = (e) => {
-    
-  
-      navigate(`/adminViewDetail/${e.target.id}`);
+    const openDetailPage = (e, productId) => {
+      console.log(productId);
+      navigate(`/adminViewDetail/${productId}`);
     };
     return(
       <div className="admin-order-accepted-product-list">
@@ -60,6 +61,8 @@ function AdminOrdersRejected() {
           <p className="admin-order-accepted-box-label-category">Box Label Status</p>
           <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
         </div>
+        {products.length>0?
+        <>
         {products.map(eachProduct=>{
           console.log(eachProduct.fnsku_status,eachProduct.label_status)
           return(
@@ -72,14 +75,19 @@ function AdminOrdersRejected() {
             {/* <button className="admin-order-accepted-received-button">Received</button>
             <button className="admin-order-accepted-declined-button">Decline</button> */}
             <div className="admin-order-accepted-fnsku-sub-category">
-            <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
+            <input type="checkbox" checked={eachProduct.fnsku_status==="1" ? true : false} className="admin-order-accepted-checkbox"/>
             </div>
             <div className="admin-order-accepted-box-label-sub-category">
-          <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
+          <input type="checkbox" checked={eachProduct.label_status==="1" ? true : false} className="admin-order-accepted-checkbox"/>
             </div>
-            <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+            <BsFillArrowRightCircleFill
+              id={eachProduct.id}
+              value={eachProduct.id}
+              onClick={(e) => openDetailPage(e, eachProduct.id)}
+              className="admin-order-accepted-view-in-detail-sub-category"
+            />
           </div>
-        )})}
+        )})}</>:<EmptyOrder/>}
       </div>
     )
 }
