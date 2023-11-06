@@ -47,19 +47,20 @@ const DisplayAdminButton = (props) => {
 
   return (
     <>
-      <button
-        value={props.id}
-        onClick={onClickDecline}
-        className="admin-order-accepted-declined-button"
-      >
-        Decline
-      </button>
+      
       <button
         value={props.id}
         onClick={onClickReceived}
         className="admin-order-accepted-received-button"
       >
         Received
+      </button>
+      <button
+        value={props.id}
+        onClick={onClickDecline}
+        className="admin-order-accepted-declined-button"
+      >
+        Decline
       </button>
     </>
   );

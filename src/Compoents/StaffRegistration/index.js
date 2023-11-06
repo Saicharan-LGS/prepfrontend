@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./index.css";
 
+import { useNavigate } from "react-router-dom";
+
 const StaffSignupPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -19,6 +21,9 @@ const StaffSignupPage = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,6 +79,7 @@ const StaffSignupPage = () => {
           if (response.status === 201) {
             // Registration successful
             console.log("Staff Registered successfully");
+            navigate("/staffsignin")
             // Navigate to the signin page
           } else {
             // Handle other status codes or error messages

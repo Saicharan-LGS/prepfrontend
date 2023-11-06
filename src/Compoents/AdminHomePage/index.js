@@ -12,11 +12,11 @@ const tabList = [
   },
   {
     id: '1',
-    name: 'ProductList1',
+    name: 'Rejected',
   },
   {
     id: '2',
-    name: 'ProductList2',
+    name: 'Accepted',
   },
 ];
 
