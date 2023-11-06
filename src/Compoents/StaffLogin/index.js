@@ -37,8 +37,9 @@ const StaffSigninPage = () => {
           // Login successful
           response.json().then((data) => {
             // Store the token in sessionStorage
-            console.log(data.token)
+            console.log(data.token, data.role)
             sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("role",data.role)
             console.log("Login successful");
           });
         } else {
