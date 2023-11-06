@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
+import EmptyOrder from "../EmptyOrder";
+
 import DisplayAdminButton from "./adminButton";
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -58,7 +60,11 @@ function ProductList() {
         <p className="admin-order-accepted-box-label-category">Box Label Status</p>
         <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
       </div>
-      {products.map(eachProduct=>{
+      
+      {products.length>0?
+      <>
+      {
+      products.map(eachProduct=>{
         console.log("called")
         console.log(eachProduct.fnsku_status,eachProduct.label_status)
         return(
@@ -79,7 +85,8 @@ function ProductList() {
           </div>
           <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
-      )})}
+      )})
+        }</>:<EmptyOrder/>}
     </div>
   )
 }
