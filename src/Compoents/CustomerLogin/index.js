@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./index.css";
-
+import { useNavigate } from "react-router-dom";
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+const Navigate= useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -39,6 +39,7 @@ const CustomerLogin = () => {
             console.log(data.token)
             sessionStorage.setItem("token", data.token);
             console.log("Login successful");
+            Navigate("/ord")
           });
         } else {
           // Handle other status codes or error messages
