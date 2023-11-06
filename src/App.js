@@ -15,9 +15,13 @@ import StaffSignupPage from "./Compoents/StaffRegistration";
 
 import CustomerHomePage from "./Compoents/CustomerHomePage";
 
+import Customersignup from "./Compoents/CustomerSignup";
+import CustomerLogin from "./Compoents/CustomerLogin";
 function App() {
   return (
     <Routes>
+      <Route path="/CustomerLogin" element={<CustomerLogin />} />
+      <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/staffsignin" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
       <Route path="/accountOrders" element={<AccountOrders />} />
