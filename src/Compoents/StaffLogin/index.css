@@ -1,5 +1,12 @@
+.signin-div-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  min-height:100vh;
+}
 .signin-form-main-container {
-    width: 30%;
+    width: 24%;
     margin: 70px;
     padding: 10px;
     border: 2px solid #20b2aa;
@@ -24,6 +31,7 @@
     width:100%;
     display: flex;
     flex-direction: column;
+    gap:4px;
     
   }
   
@@ -32,9 +40,8 @@
     margin-bottom: 5px;
   }
   
-  input[type="email"],
-  input[type="password"] {
-    width: 100%;
+  .signin-input-text {
+    width: 90%;
     padding: 8px;
     font-size: 16px;
     border: 2px solid#000080;
@@ -49,11 +56,10 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
-    padding: 2px;
     transition: background-color 0.3s;
   }
   
-  button:hover {
+  .signin-form-button-container :hover {
     background-color: #45a049;
   }
   @media  (min-width: 512px) and ( max-width: 768px) {
@@ -78,4 +84,5 @@
     .signin-form-main-container{
       width: 40%;
     }
-  }
+  } 
+  

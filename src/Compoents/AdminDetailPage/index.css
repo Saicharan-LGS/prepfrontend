@@ -71,7 +71,7 @@
   .order-customer-button-container:hover{
     background-color: #45a049;
   }
-  input[type=file]::file-selector-button {
+  .order-customer-label-file::file-selector-button {
     padding: 2px 8px;
     border-radius: 4px;
     background-color: #000080;
@@ -88,7 +88,20 @@
     width:20px;
     height:20px;
   }
-  
+  .order-customer-view-file-button-container{
+    margin: 10px;
+    width:max-content;
+    padding: 10px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight:600;
+    transition: background-color 0.3s;
+    cursor:pointer;
+  }
   @media (max-width: 767px) {
     .order-customer-from-container {
         flex-direction: column;

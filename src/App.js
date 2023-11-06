@@ -11,6 +11,9 @@ import Navbar from "./Compoents/Navbar";
 import AccountOrders from "./Compoents/AccountantPage";
 import StaffSigninPage from "./Compoents/StaffLogin";
 import StaffSignupPage from "./Compoents/StaffRegistration";
+
+import CustomerHomePage from "./Compoents/CustomerHomePage";
+
 import Customersignup from "./Compoents/CustomerSignup";
 import CustomerLogin from "./Compoents/CustomerLogin";
 function App() {
@@ -21,7 +24,7 @@ function App() {
       <Route path="/staffsignin" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
       <Route path="/accountOrders" element={<AccountOrders />} />
-      <Route path="dimensionorderlist" element={<DimensionOrderList />} />
+      <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
       <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
       <Route path="/upload" element={<CustomerOrder />} />
       <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
@@ -29,6 +32,8 @@ function App() {
       <Route path="/labelOrders" element={<LabelOrders />} />
       <Route path="/adminhomepage" element={<AdminHomePage />} />
       <Route path="/navbar" element={<Navbar />} />
+      <Route path="/customerhomepage" element={<CustomerHomePage />} />
+      
     </Routes>
   );
 }

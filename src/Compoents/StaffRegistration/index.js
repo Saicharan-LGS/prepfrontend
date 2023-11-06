@@ -51,6 +51,7 @@ const StaffSignupPage = () => {
   };
 
   return (
+    <div className="signup-div-container">
     <div className="signup-main-form-container">
       <center>
         <h2 className="signup-form-heading-container">Signup</h2>
@@ -61,6 +62,7 @@ const StaffSignupPage = () => {
           <input
             type="text"
             name="name"
+            className="signin-input-text"
             value={formData.name}
             onChange={handleInputChange}
             required
@@ -71,6 +73,7 @@ const StaffSignupPage = () => {
           <input
             type="password"
             name="password"
+            className="signin-input-text"
             value={formData.password}
             onChange={handleInputChange}
             required
@@ -81,6 +84,7 @@ const StaffSignupPage = () => {
           <input
             type="email"
             name="email"
+            className="signin-input-text"
             value={formData.email}
             onChange={handleInputChange}
             required
@@ -90,6 +94,7 @@ const StaffSignupPage = () => {
           <label className="signup-form-lable-container">Role:</label>
           <select
             name="role"
+            className="signin-input-text"
             value={formData.role}
             onChange={handleInputChange}
           >
@@ -104,6 +109,7 @@ const StaffSignupPage = () => {
           </button>
         </center>
       </form>
+    </div>
     </div>
   );
 };

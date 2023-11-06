@@ -3,34 +3,41 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
+import AdminHomePage from '../AdminHomePage';
+import DimensionOrderList from '../DimensionOrders';
+import LabelOrders from '../labelOrders';
+import AccountOrders from '../AccountantPage';
+
 export const SidebarData = [
   {
     title: 'Admin',
-    path: '/',
+    
     icon: <AiIcons.AiFillHome />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    component:<AdminHomePage/>
+    
   },
   {
     title: 'Dimensions',
-    path: '/reports',
     icon: <IoIcons.IoIosPaper />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    component:<DimensionOrderList/>
+    
   },
   {
     title: 'Label',
-    path: '/products',
     icon: <FaIcons.FaCartPlus />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    component:<LabelOrders/>
   },
   {
     title: 'Accountant',
-    path: '/team',
     icon: <IoIcons.IoMdPeople />,
-    cName: 'nav-text'
+    cName: 'nav-text',
+    component:<AccountOrders/>
   },
   {
     title: 'Customer',
-    path: '/messages',
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: 'nav-text'
   },

@@ -1,0 +1,26 @@
+.admin-order-accepted-enter-amount{
+    font-size:18px;
+    margin:0px;
+    color:#000;
+    width:10%;
+    height:100%;
+    overflow: hidden;
+    font-weight:600;
+}
+.admin-order-accepted-enter-amount-input-container{
+    font-size:18px;
+    margin:0px;
+    color:#000;
+    width:10%;
+    height:100%;
+    overflow: hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.admin-order-accepted-enter-amount-input-box{
+    width:80%;
+    border-radius:4px;
+    height:60%;
+    text-align:center;
+}

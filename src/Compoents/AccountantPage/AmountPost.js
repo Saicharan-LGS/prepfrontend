@@ -40,8 +40,11 @@ const AmountPost = ({ id }) => {
 
   return (
     <>
-      <input type="text" id={id} onChange={onChangeInput} />
-      <button onClick={onSubmitFunction} id={id}>
+    <div className="admin-order-accepted-enter-amount-input-container">
+       <input className="admin-order-accepted-enter-amount-input-box" type="text" id={id} onChange={onChangeInput} />
+    </div>
+      
+      <button onClick={onSubmitFunction} id={id} className="admin-order-accepted-received-button">
         post
       </button>
     </>
