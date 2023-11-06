@@ -10,9 +10,8 @@ function DimensionOrderList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5OTY5OTIsImV4cCI6MTY5OTI1NjE5Mn0.QQl3pQHzNWeNerlR5i2FLXr7xEPHvsjJ0jggaXNKiXQ"    
-          const response = await fetch(
+        const token = sessionStorage.getItem("token");
+            const response = await fetch(
           "http://localhost:3009/api/v1/dimensionorderlist",
           {
             method: "GET",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -6,19 +6,25 @@ import { CustomerNavbarData } from './CustomerNavbar.js';
 import './index.css';
 import { IconContext } from 'react-icons';
 
-import ProductList from '../adminOrders';
+import CustomerHomePage from '../CustomerHomePage';
 
 function CustomerNavbar() {
   const [sidebar, setSidebar] = useState(false);
-  const [currentComponent, setCurrentComponent] = useState(<ProductList />);
+  const [status,setStaus]=useState(5)
+  const [currentComponent, setCurrentComponent] = useState(<CustomerHomePage id={status} />);
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleSidebarItemClick = (path, component) => {
-    setSidebar(false);
-    setCurrentComponent(component);
+  const handleSidebarItemClick = async(path, component,id) => {
+    await setSidebar(false);
+    console.log(id)
+    await setStaus(id)
+    await setCurrentComponent(component);
   };
 
+  useEffect(() => {
+    handleSidebarItemClick()
+  },[status])
   return (
     <div className="navbar-container">
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -35,14 +41,16 @@ function CustomerNavbar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {CustomerNavbarData.map((item, index) => (
-              <li key={index} className={item.cName} onClick={() => handleSidebarItemClick(item.path, item.component)}>
+            {CustomerNavbarData.map((item, index) =>{ 
+              
+              return(
+              <li key={index} className={item.cName} onClick={() => handleSidebarItemClick(item.path, item.component,item.id)}>
                 <Link to={item.path}>
                   {item.icon}
                   <span className=".span">{item.title}</span>
                 </Link>
               </li>
-            ))}
+            )})}
           </ul>
         </nav>
       </IconContext.Provider>

@@ -8,31 +8,32 @@ import * as IoIcons from 'react-icons/io';
 // import LabelOrders from '../labelOrders';
 import AccountOrders from '../AccountantPage';
 
-import ProductList from '../adminOrders';
-import AdminOrdersAccepted from '../AdminHomePage/AdminOrdersAccepted';
-import AdminOrdersRejected from '../AdminHomePage/AdminOrdersRejected';
+import CustomerHomePage from '../CustomerHomePage';
 
 export const CustomerNavbarData = [
   {
     title: 'Product',
+    id:5,
     
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text',
-    component:<ProductList/>
+    component:<CustomerHomePage id={5}/>
     
   },
   {
     title: 'Accepted',
+    id:6,
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text',
-    component:<AdminOrdersAccepted/>
+    component:<CustomerHomePage id={6}/>
     
   },
   {
     title: 'Rejected',
+    id:7,
     icon: <FaIcons.FaCartPlus />,
     cName: 'nav-text',
-    component:<AdminOrdersRejected/>
+    component:<CustomerHomePage id={7}/>
   },
 //   {
 //     title: 'Accountant',
