@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-const CustomerButton = (props) => {
+const CustomerButton = ({ id, amount }) => {
   const [product, setProduct] = useState("1"); // Set the initial value as a string '1'
-
+  const token = sessionStorage.getItem('token');
   const handleSubmit = async (id, status) => {
     // Create an object with the data you want to send
     const requestData = {
@@ -32,34 +32,62 @@ const CustomerButton = (props) => {
     }
   };
 
+  const handleSubmit1 = async () => {
+    console.log("called", id, amount);
+    try {
+      const amount2 = {
+        amount: amount,
+      };
+      const response = await fetch(
+        `http://localhost:3009/api/v1/acceptOrder/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(amount2),
+        }
+      );
+
+      if (response.ok) {
+        console.log("Product updated successfully");
+      } else {
+        console.error("Failed to updated product");
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
+  };
+
   const onClickDecline = (e) => {
     const status = "1"; // Set the status here
     handleSubmit(e.target.value, status);
-    window.location.reload()
+    window.location.reload();
   };
 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
     console.log("Received called");
-    handleSubmit(e.target.value, status);
-    window.location.reload()
+    handleSubmit1(e.target.value, status);
+    // window.location.reload();
   };
 
   return (
     <>
       <button
-        value={props.id}
+        value={id}
         onClick={onClickDecline}
         className="admin-order-accepted-declined-button"
       >
         Decline
       </button>
       <button
-        value={props.id}
+        value={id}
         onClick={onClickReceived}
         className="admin-order-accepted-received-button"
       >
-        Received
+        Accept
       </button>
     </>
   );

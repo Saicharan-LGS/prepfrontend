@@ -6,7 +6,7 @@ const CustomerLogin = () => {
     email: "",
     password: "",
   });
-const Navigate= useNavigate();
+  const Navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -36,10 +36,10 @@ const Navigate= useNavigate();
           // Login successful
           response.json().then((data) => {
             // Store the token in sessionStorage
-            console.log(data.token)
+            console.log(data.token);
             sessionStorage.setItem("token", data.token);
             console.log("Login successful");
-            Navigate("/ord")
+            Navigate("/customerhomepage");
           });
         } else {
           // Handle other status codes or error messages

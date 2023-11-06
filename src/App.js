@@ -33,7 +33,6 @@ function App() {
       <Route path="/adminhomepage" element={<AdminHomePage />} />
       <Route path="/navbar" element={<Navbar />} />
       <Route path="/customerhomepage" element={<CustomerHomePage />} />
-      
     </Routes>
   );
 }

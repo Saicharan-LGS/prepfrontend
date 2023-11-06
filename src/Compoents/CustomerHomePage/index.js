@@ -11,10 +11,17 @@ function CustomerHomePage() {
   
   useEffect(() => {
     const fetchProducts = async () => {
+      const token = sessionStorage.getItem('token');
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`
-        ); // Replace with your API endpoint
+          `http://localhost:3009/api/v1/customerorderlist`,
+         // Replace with your API endpoint
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           console.log(response);
           const data = await response.json();
@@ -39,9 +46,9 @@ function CustomerHomePage() {
     navigate(`/adminViewDetail/${e.target.id}`);
   };
 
-  const refreshpage=()=>{
-    window.location.reload()
-  }
+  // const refreshpage=()=>{
+  //   window.location.reload()
+  // }
 
   return(
     <div className="admin-order-accepted-product-list">
@@ -68,7 +75,7 @@ function CustomerHomePage() {
           <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
           <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
           <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
-            <CustomerButton id={eachProduct.id} />
+            <CustomerButton id={eachProduct.id} amount={5000} />
           {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
           <p className="admin-order-accepted-fnsku-sub-category">
