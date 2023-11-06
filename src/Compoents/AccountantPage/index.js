@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 import AmountPost from "./AmountPost";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 function AccountOrders() {
@@ -32,6 +33,13 @@ useEffect(() => {
     fetchProducts();
   }, []);
 
+
+  const navigate = useNavigate()
+
+  const openDetailPage = (e, productId) => {
+    console.log(productId);
+    navigate(`/adminViewDetail/${productId}`);
+  };
 
   const onChangeInput=()=>{
 
@@ -72,7 +80,12 @@ useEffect(() => {
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
           <AmountPost id={eachProduct.id}/>
-          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} className="admin-order-accepted-view-in-detail-sub-category" />
+          <BsFillArrowRightCircleFill
+            id={eachProduct.id}
+            value={eachProduct.id}
+            onClick={(e) => openDetailPage(e, eachProduct.id)}
+            className="admin-order-accepted-view-in-detail-sub-category"
+          />
         </div>
       )})}
     </div>

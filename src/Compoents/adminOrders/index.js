@@ -32,12 +32,9 @@ function ProductList() {
   }, []);
   console.log(products)
  
-  const openDetailPage = (e) => {
-    console.log("called")
-    console.log(e);
-    console.log(e.target.id);
-
-    navigate(`/adminViewDetail/${e.target.id}`);
+  const openDetailPage = (e, productId) => {
+    console.log(productId);
+    navigate(`/adminViewDetail/${productId}`);
   };
 
   const refreshpage=()=>{
@@ -82,7 +79,12 @@ function ProductList() {
           <div className="admin-order-accepted-box-label-sub-category">
           <input type="checkbox" checked={eachProduct.label_status===1 ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
-          <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} className="admin-order-accepted-view-in-detail-sub-category" />
+          <BsFillArrowRightCircleFill
+            id={eachProduct.id}
+            value={eachProduct.id}
+            onClick={(e) => openDetailPage(e, eachProduct.id)}
+            className="admin-order-accepted-view-in-detail-sub-category"
+          />
         </div>
       )})
         }</>:<EmptyOrder/>}
