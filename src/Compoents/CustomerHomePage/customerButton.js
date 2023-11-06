@@ -1,18 +1,17 @@
-import { useState } from "react";
 
-const CustomerButton = ({ id, amount }) => {
-  const [product, setProduct] = useState("1"); // Set the initial value as a string '1'
+
+const CustomerButton = ({ id, amount }) => { // Set the initial value as a string '1'
   const token = sessionStorage.getItem('token');
-  const handleSubmit = async (id, status) => {
+  const handleSubmit = async (id)=> {
     // Create an object with the data you want to send
     const requestData = {
-      status: status,
+      status: 7,
     };
     console.log(requestData);
     try {
       console.log(requestData);
       const response = await fetch(
-        `http://localhost:3009/api/v1/adminUpdateOrderStatus/${id}`,
+        `http://localhost:3009/api/v1/declineOrder/${id}`,
         {
           method: "PUT",
           headers: {
