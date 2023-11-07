@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { CustomerNavbarData } from "./CustomerNavbar.js";
 import "./index.css";
 import { IconContext } from "react-icons";
-
+import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
 
 function CustomerNavbar() {
@@ -16,7 +16,7 @@ function CustomerNavbar() {
   );
 
   console.log(status);
-
+  const navigate = useNavigate();
   const showSidebar = () => setSidebar(!sidebar);
 
   const handleSidebarItemClick = async (id) => {
@@ -31,6 +31,11 @@ function CustomerNavbar() {
     setCurrentComponent(<CustomerHomePage key={status} id={status} />);
   }, [status]);
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div className="navbar-container">
       <IconContext.Provider value={{ color: "#fff" }}>
@@ -38,7 +43,9 @@ function CustomerNavbar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <p className="navbar-logout-button">Logout</p>
+          <p className="navbar-logout-button" onClick={handleLogout}>
+            Logout
+          </p>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
