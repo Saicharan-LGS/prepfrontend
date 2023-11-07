@@ -20,14 +20,14 @@ import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 
-import Login from "./Compoents/Login";
+// import Login from "./Compoents/Login";
 
 function App() {
   return (
     <Routes>
       <Route path="/CustomerLogin" element={<CustomerLogin />} />
       <Route path="/Customersignup" element={<Customersignup />} />
-      <Route path="/staffsignin" element={<StaffSigninPage />} />
+      <Route path="/" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
       <Route path="/accountOrders" element={<AccountOrders />} />
       <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
@@ -41,7 +41,7 @@ function App() {
       <Route path="/customerhomepage" element={<CustomerHomePage />} />
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route path="/customernavbar" element={<CustomerNavbar />} />
-      <Route path="/" element={<Login />} />
+      {/* <Route path="/" element={<Login />} /> */}
     </Routes>
   );
 }

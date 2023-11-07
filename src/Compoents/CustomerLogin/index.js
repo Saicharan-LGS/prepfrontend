@@ -181,9 +181,11 @@ const CustomerLogin = () => {
       });
   };
 
-  const onClickStaff = () => {
-    navigate("/staffsignin");
-  };
+  const navigate=useNavigate()
+
+  const onClickStaff=()=>{
+    navigate("/")
+  }
 
   return (
     <div className="customer-signin-div-container">

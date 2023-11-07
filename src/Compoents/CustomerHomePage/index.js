@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 import CustomerButton from "./customerButton";
+import EmptyOrder from "../EmptyOrder";
 function CustomerHomePage({id}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  console.log(id)
   useEffect(() => {
     const fetchProducts = async () => {
       const token = sessionStorage.getItem('token');
@@ -55,6 +55,7 @@ function CustomerHomePage({id}) {
   // }
 
   return(
+    
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -69,6 +70,8 @@ function CustomerHomePage({id}) {
         
         <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
       </div>
+      { products.length >0 ? 
+      <>
       {products.map(eachProduct=>{
         console.log("called")
         console.log(eachProduct.id)
@@ -80,7 +83,7 @@ function CustomerHomePage({id}) {
           <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
           <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
           <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
-          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
+          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tracking_url}</p>
             <CustomerButton id={eachProduct.id} amount={5000} />
           {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
@@ -90,8 +93,8 @@ function CustomerHomePage({id}) {
           
           <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={()=>openDetailPage(eachProduct.id)} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
-      )})}
-    </div>
+      )})}</> : <EmptyOrder /> }
+    </div> 
   )
 }
 

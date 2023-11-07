@@ -171,7 +171,7 @@ const StaffSigninPage = () => {
         <center>
           <h2 className="signin-form-heading-container">Staff Login</h2>
         </center>
-        
+
         <form onSubmit={handleSubmit} className="signin-form-container">
           <div className="signin-form-group-container">
             <label className="signin-form-label-container">Email:</label>
@@ -199,7 +199,8 @@ const StaffSigninPage = () => {
             <button className="signin-form-button-container" type="submit">
               Sign In
             </button>
-            {error && <p className="error-message">{error}</p>} {/* Display error message */}
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/* Display error message */}
           </center>
         </form>
       </div>
