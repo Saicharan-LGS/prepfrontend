@@ -251,7 +251,7 @@ function CustomerOrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="tracking_url"
+              name="tracking_url" 
               checked={fnsku_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">FNSKU Status</label>
