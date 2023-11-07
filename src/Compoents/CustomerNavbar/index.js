@@ -7,7 +7,9 @@ import "./index.css";
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
-
+import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
+import CustomerRejected from "../CustomerHomePage/customerRejected.js";
+import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 function CustomerNavbar() {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(5);
@@ -74,7 +76,17 @@ function CustomerNavbar() {
       </IconContext.Provider>
 
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
-        {currentComponent}
+        {status === 5 ? (
+          <CustomerHomePage />
+        ) : status ===6 ? (
+          <CustomerAccepted />
+        ) : status === 7 ? (
+          <CustomerRejected />
+        ) : status === 8 ? (
+          <CustomerAllProducts />
+        ) : (
+          <div>Other components for different status values</div>
+        )}
       </div>
     </div>
   );

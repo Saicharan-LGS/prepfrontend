@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-function OrderViewDetail() {
+function CustomerOrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
-    name: "",
-    service: "Labeling",
+    customerName: "",
+    servicesReq: "Labeling",
     productName: "",
-    unit: "",
-    tracking_url: "",
+    units: "",
+    trackingURL: "",
     fnskuSend: null,
     labelSend: null,
     fnskuSend1: null,
@@ -35,11 +35,11 @@ function OrderViewDetail() {
           setFormData({
             ...formData,
             date: data.date,
-            name: data.name,
-            service: data.service,
+            customerName: data.name,
+            servicesReq: data.service,
             productName: data.product,
-            unit: data.unit,
-            tracking_url: data.tracking_url,
+            units: data.unit,
+            trackingURL: data.tracking_url,
             fnskuSend1: data.fnsku,
             labelSend1: data.label,
             fnskuButton: data.fnsku_status,
@@ -86,17 +86,17 @@ function OrderViewDetail() {
     const formDataToSend = new FormData();
     console.log(fnskuSend, labelSend);
     formDataToSend.append("date", date);
-    formDataToSend.append("name", name);
-    formDataToSend.append("service", service);
-    formDataToSend.append("product", name);
-    formDataToSend.append("unit", unit);
-    formDataToSend.append("tracking_url", tracking_url);
+    formDataToSend.append("customerName", customerName);
+    formDataToSend.append("service", servicesReq);
+    formDataToSend.append("product", productName);
+    formDataToSend.append("units", units);
+    formDataToSend.append("tracking_url", trackingURL);
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
 
     // Add any other fields you want to update
 
-    fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
+    fetch(`http://localhost:3009/api/v1/customerOrderDetail/${id}`, {
       method: "PUT",
       body: formDataToSend,
     })
@@ -119,11 +119,11 @@ function OrderViewDetail() {
 
   const {
     date,
-    name,
-    service,
-    product,
-    unit,
-    tracking_url,
+    customerName,
+    servicesReq,
+    productName,
+    units,
+    trackingURL,
     fnskuSend,
     labelSend,
     fnskuSend1,
@@ -152,12 +152,12 @@ function OrderViewDetail() {
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name"> Name:</label>
+            <label className="order-customer-label-name">Customer Name:</label>
             <input
               className="order-customer-lable-container"
               type="text"
               name="customerName"
-              value={name}
+              value={customerName}
               onChange={handleChange}
               required
               readOnly
@@ -167,25 +167,25 @@ function OrderViewDetail() {
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">
-              Service:
+              Services Required:
             </label>
             <select
               className="order-customer-lable-container"
               onChange={handleChange}
               required
-              value={service}
+              value={servicesReq}
             >
               <option value="Labeling">labeling</option>
               <option value="Shipping">Shipping</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product:</label>
+            <label className="order-customer-label-name">Product Name:</label>
             <input
               className="order-customer-lable-container"
               type="text"
               name="productName"
-              value={product}
+              value={productName}
               onChange={handleChange}
               required
             />
@@ -227,23 +227,23 @@ function OrderViewDetail() {
         </div>
         <div className="order-customer-field3-container">
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Unit:</label>
+            <label className="order-customer-label-name">Units:</label>
             <input
               className="order-customer-lable-container"
               type="number"
               name="units"
-              value={unit}
+              value={units}
               onChange={handleChange}
               required
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Tracking_url:</label>
+            <label className="order-customer-label-name">Tracking URL:</label>
             <input
               className="order-customer-lable-container"
               type="text"
               name="trackingURL"
-              value={tracking_url}
+              value={trackingURL}
               onChange={handleChange}
             />
           </div>
@@ -280,7 +280,7 @@ function OrderViewDetail() {
   );
 }
 
-export default OrderViewDetail;
+export default CustomerOrderViewDetail;
 
 // return (
 //   <div>
