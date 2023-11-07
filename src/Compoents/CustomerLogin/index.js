@@ -54,7 +54,7 @@ const CustomerLogin = () => {
   const navigate=useNavigate()
 
   const onClickStaff=()=>{
-    navigate("/staffsignin")
+    navigate("/")
   }
 
   return (
