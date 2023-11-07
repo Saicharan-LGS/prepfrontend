@@ -13,9 +13,15 @@ function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        const token = sessionStorage.getItem('token');
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`
-        ); // Replace with your API endpoint
+          `http://localhost:3009/api/v1/getOrders/${0}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }); // Replace with your API endpoint
         if (response.ok) {
           console.log(response);
           const data = await response.json();

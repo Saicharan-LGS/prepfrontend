@@ -38,6 +38,7 @@ const CustomerLogin = () => {
             // Store the token in sessionStorage
             console.log(data.token);
             sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("role", data.role);
             console.log("Login successful");
             Navigate("/customernavbar");
           });
