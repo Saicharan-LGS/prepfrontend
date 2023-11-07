@@ -14,9 +14,8 @@ const AmountPost = ({ id }) => {
       const amount2 = {
         amount: amount1,
       };
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5MTkzMjcsImV4cCI6MTY5ODkyMjkyN30.pYGaT86LRWBD5evUUbWXgJurVSf0JmpqDBz-vdb6xTQ";
-      const response = await fetch(
+      const token = sessionStorage.getItem("token");
+       const response = await fetch(
         `http://localhost:3009/api/v1/amountUpdate/${id}`,
         {
           method: "PUT",

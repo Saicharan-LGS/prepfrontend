@@ -141,7 +141,7 @@ const StaffSigninPage = () => {
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role);
             console.log("Login successful");
-            navigate("/") // Navigate to the home page
+            navigate("/navbar"); // Navigate to the home page
           });
         } else if (response.status === 400) {
           // Password required or incorrect
@@ -163,7 +163,7 @@ const StaffSigninPage = () => {
         <center>
           <h2 className="signin-form-heading-container">Sign In</h2>
         </center>
-        
+
         <form onSubmit={handleSubmit} className="signin-form-container">
           <div className="signin-form-group-container">
             <label className="signin-form-label-container">Email:</label>
@@ -191,7 +191,8 @@ const StaffSigninPage = () => {
             <button className="signin-form-button-container" type="submit">
               Sign In
             </button>
-            {error && <p className="error-message">{error}</p>} {/* Display error message */}
+            {error && <p className="error-message">{error}</p>}{" "}
+            {/* Display error message */}
           </center>
         </form>
       </div>

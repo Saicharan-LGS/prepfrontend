@@ -8,7 +8,6 @@ import CustomerButton from "./customerButton";
 function CustomerHomePage({id}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  console.log(id)
   useEffect(() => {
     const fetchProducts = async () => {
       const token = sessionStorage.getItem('token');
@@ -80,7 +79,7 @@ function CustomerHomePage({id}) {
           <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
           <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
           <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
-          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
+          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tracking_url}</p>
             <CustomerButton id={eachProduct.id} amount={5000} />
           {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}

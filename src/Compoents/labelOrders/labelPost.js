@@ -8,10 +8,9 @@ const LabelPost = ({ id }) => {
       const labelstatus = {
         status: product1,
       };
-      const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5OTY5OTIsImV4cCI6MTY5OTI1NjE5Mn0.QQl3pQHzNWeNerlR5i2FLXr7xEPHvsjJ0jggaXNKiXQ"
-         const response = await fetch(
-        `http://localhost:3009/api/v1/labelorderlist/${id}`,
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3009/api/v1/updatelabelorder/${id}`,
         {
           method: "PUT",
           headers: {
@@ -40,18 +39,22 @@ const LabelPost = ({ id }) => {
   };
   return (
     <>
-    <div className="admin-order-accepted-fnsku-sub-category">
-      <input
-        type="checkbox"
-        id="myCheckbox"
-        name="myCheckbox"
-        onChange={onChangeCheckBox}
-        checked={product}
-        value="checkValue"
-        className="admin-order-accepted-checkbox"
-      />
+      <div className="admin-order-accepted-fnsku-sub-category">
+        <input
+          type="checkbox"
+          id="myCheckbox"
+          name="myCheckbox"
+          onChange={onChangeCheckBox}
+          checked={product}
+          value="checkValue"
+          className="admin-order-accepted-checkbox"
+        />
       </div>
-      <button value={id} onClick={onClickSubmit} className="label-update-button">
+      <button
+        value={id}
+        onClick={onClickSubmit}
+        className="label-update-button"
+      >
         update
       </button>
     </>
