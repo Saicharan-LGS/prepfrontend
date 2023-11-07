@@ -92,9 +92,12 @@ const StaffSignupPage = () => {
     }
   };
 
+  
+
   return (
     <div className="signup-div-container">
     <div className="signup-main-form-container">
+      
       <center>
         <h2 className="signup-form-heading-container">Signup</h2>
       </center>

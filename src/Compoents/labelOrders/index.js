@@ -4,6 +4,8 @@ import LabelPost from "./labelPost";
 import { useNavigate } from "react-router-dom";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
+import EmptyOrder from "../EmptyOrder";
+
 function LabelOrders() {
   const [products, setProducts] = useState([]);
 
@@ -60,26 +62,18 @@ function LabelOrders() {
         <p className="admin-order-accepted-view-in-detail-category">Update</p>
         <p className="admin-order-accepted-view-in-detail-category">View Detail</p>
       </div>
-      {products.map((eachProduct) => {
-        console.log(eachProduct.fnsku_status, eachProduct.label_status);
-        return (
-          <div className="admin-order-accepted-display-of-products-container">
-            <p className="admin-order-accepted-order-id-sub-category">
-              {eachProduct.id}
-            </p>
-            <p className="admin-order-accepted-name-sub-category">
-              {eachProduct.name}
-            </p>
-            <p className="admin-order-accepted-service-sub-category">
-              {eachProduct.service}
-            </p>
-            <p className="admin-order-accepted-quantity-sub-category">
-              {eachProduct.unit}
-            </p>
-            <p className="admin-order-accepted-order-tracking-sub-category">
-              {eachProduct.tacking_url}
-            </p>
-            {/* <button className="admin-order-accepted-received-button">Received</button>
+      {products.length>0?<>
+     
+      {products.map(eachProduct=>{
+        console.log(eachProduct.fnsku_status,eachProduct.label_status)
+        return(
+        <div className="admin-order-accepted-display-of-products-container">
+          <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
+          <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
+          <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
+          <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
+          <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
+          {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
             {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
@@ -95,7 +89,7 @@ function LabelOrders() {
             className="admin-order-accepted-view-in-detail-sub-category"
           />
         </div>
-      )})}
+      )})}</>:<EmptyOrder/>}
     </div>
   );
 }

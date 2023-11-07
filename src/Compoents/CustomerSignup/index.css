@@ -1,3 +1,9 @@
+.customer-signin-div-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+}
 .customer-signin-form-main-container {
     width: 30%;
     margin: 70px;
@@ -32,7 +38,7 @@
     margin-bottom: 5px;
   }
  .customer-signin-input-container{
-    width: 100%;
+    width: 90%;
     padding: 8px;
     font-size: 16px;
     border: 2px solid#000080;
@@ -54,6 +60,7 @@
   button:hover {
     background-color: #45a049;
   }
+  
   @media  (min-width: 512px) and ( max-width: 768px) {
     .customer-signin-form-main-container {
         width: 60%;

@@ -3,6 +3,7 @@ import "../AdminDetailPage/index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+import EmptyOrder from "../EmptyOrder";
 
 function DimensionOrderList() {
   const [products, setProducts] = useState([]);
@@ -68,6 +69,8 @@ function DimensionOrderList() {
         <p className="admin-order-accepted-view-in-detail-category">Update Dim/wt</p>
         <p className="admin-order-accepted-accept-category">View Details</p>
       </div>
+      {products.length>0?
+      <>
       {products.map(eachProduct=>(
         <div className="admin-order-accepted-display-of-products-container">
           <p className="admin-order-accepted-order-id-sub-category">{eachProduct.id}</p>
@@ -91,7 +94,7 @@ function DimensionOrderList() {
             className="admin-order-accepted-view-in-detail-sub-category"
           />
         </div>
-      ))}
+      ))}</>:<EmptyOrder/>}
     </div>
   )
 }
