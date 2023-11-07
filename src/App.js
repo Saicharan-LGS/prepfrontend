@@ -19,26 +19,40 @@ import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 
 import CustomerNavbar from "./Compoents/CustomerNavbar";
-
+import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 // import Login from "./Compoents/Login";
+const role = sessionStorage.getItem("role");
 
+console.log(role, "app");
 function App() {
   return (
     <Routes>
-      <Route path="/CustomerLogin" element={<CustomerLogin />} />
+      <Route
+        path="/CustomerOrderViewDetail/:id"
+        element={<CustomerOrderViewDetail />}
+      />
+      {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
       <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
       <Route path="/accountOrders" element={<AccountOrders />} />
-      <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
-      <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
-      <Route path="/upload" element={<CustomerOrder />} />
+      {role === "Dimension" && (
+        <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
+      )}
+      {role === "Dimension" && (
+        <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
+      )}
+      {role === "Customer" && (
+        <Route path="/upload" element={<CustomerOrder />} />
+      )}
       <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
       <Route path="/adminOrders" element={<ProductList />} />
       <Route path="/labelOrders" element={<LabelOrders />} />
       <Route path="/adminhomepage" element={<AdminHomePage />} />
       <Route path="/navbar" element={<Navbar />} />
-      <Route path="/customerhomepage" element={<CustomerHomePage />} />
+      {role === "Customer" && (
+        <Route path="/customerhomepage" element={<CustomerHomePage />} />
+      )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route path="/customernavbar" element={<CustomerNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}

@@ -1,21 +1,22 @@
-
-
-const CustomerButton = ({ id, amount }) => { // Set the initial value as a string '1'
-  const token = sessionStorage.getItem('token');
-  const handleSubmit = async (id)=> {
+const CustomerButton = ({ id, amount }) => {
+  // Set the initial value as a string '1'
+  const token = sessionStorage.getItem("token");
+  const handleSubmit = async (id) => {
     // Create an object with the data you want to send
     const requestData = {
       status: 7,
     };
-    console.log(requestData);
+
     try {
-      console.log(requestData);
+      console.log(requestData, "reject called");
       const response = await fetch(
         `http://localhost:3009/api/v1/declineOrder/${id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData), // Stringify the data
         }
@@ -62,7 +63,7 @@ const CustomerButton = ({ id, amount }) => { // Set the initial value as a strin
   const onClickDecline = (e) => {
     const status = "1"; // Set the status here
     handleSubmit(e.target.value, status);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const onClickReceived = (e) => {

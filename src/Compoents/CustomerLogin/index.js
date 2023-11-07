@@ -163,6 +163,7 @@ const CustomerLogin = () => {
             // Store the token in sessionStorage
             console.log(data.token);
             sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("role", "Customer");
             console.log("Login successful");
             navigate("/customernavbar"); // Navigate to the home page on successful login
           });

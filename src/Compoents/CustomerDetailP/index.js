@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-function OrderViewDetail() {
+function CustomerOrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
@@ -88,7 +88,7 @@ function OrderViewDetail() {
     formDataToSend.append("date", date);
     formDataToSend.append("name", name);
     formDataToSend.append("service", service);
-    formDataToSend.append("product", name);
+    formDataToSend.append("product", product);
     formDataToSend.append("unit", unit);
     formDataToSend.append("tracking_url", tracking_url);
     formDataToSend.append("fnskuSend", fnskuSend);
@@ -96,7 +96,7 @@ function OrderViewDetail() {
 
     // Add any other fields you want to update
 
-    fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
+    fetch(`http://localhost:3009/api/v1/customerOrderDetail/${id}`, {
       method: "PUT",
       body: formDataToSend,
     })
@@ -156,7 +156,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="text"
-              name="Name"
+              name="name"
               value={name}
               onChange={handleChange}
               required
@@ -180,7 +180,7 @@ function OrderViewDetail() {
             </select>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product:</label>
+            <label className="order-customer-label-name">Product :</label>
             <input
               className="order-customer-lable-container"
               type="text"
@@ -280,7 +280,7 @@ function OrderViewDetail() {
   );
 }
 
-export default OrderViewDetail;
+export default CustomerOrderViewDetail;
 
 // return (
 //   <div>

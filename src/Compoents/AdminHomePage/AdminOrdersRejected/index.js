@@ -16,9 +16,15 @@ function AdminOrdersRejected() {
         console.log("reject called")
       const fetchProducts = async () => {
         try {
+          const token = sessionStorage.getItem('token');
           const response = await fetch(
-            `http://localhost:3009/api/v1/getOrders/${1}`
-          ); // Replace with your API endpoint
+            `http://localhost:3009/api/v1/getOrders/${0}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });// Replace with your API endpoint
           if (response.ok) {
             console.log(response);
             const data = await response.json();
@@ -71,7 +77,7 @@ function AdminOrdersRejected() {
             <p className="admin-order-accepted-name-sub-category">{eachProduct.name}</p>
             <p className="admin-order-accepted-service-sub-category">{eachProduct.service}</p>
             <p className="admin-order-accepted-quantity-sub-category">{eachProduct.unit}</p>
-            <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
+            <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tracking_url}</p>
             {/* <button className="admin-order-accepted-received-button">Received</button>
             <button className="admin-order-accepted-declined-button">Decline</button> */}
             <div className="admin-order-accepted-fnsku-sub-category">
