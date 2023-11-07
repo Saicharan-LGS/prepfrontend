@@ -10,6 +10,7 @@ import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
 import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
+import CustomerOrder from "../customerOrder/index.js";
 function CustomerNavbar() {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(5);
@@ -35,6 +36,11 @@ function CustomerNavbar() {
 
   const navigate=useNavigate()
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    navigate("/");
+  };
   const postOrder=()=>{
     navigate("/upload")
   }
@@ -47,8 +53,7 @@ function CustomerNavbar() {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="navbar-logout-button-container">
-            <button className="navbar-logout-button" onClick={postOrder}>Post Order</button>
-            <button className="navbar-logout-button">Logout</button>
+            <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
           
         </div>
@@ -88,7 +93,7 @@ function CustomerNavbar() {
         ) : status === 8 ? (
           <CustomerAllProducts />
         ) : (
-          <div>Other components for different status values</div>
+          <CustomerOrder/>
         )}
       </div>
     </div>

@@ -20,6 +20,8 @@ import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
+
+
 // import Login from "./Compoents/Login";
 const role = sessionStorage.getItem("role");
 

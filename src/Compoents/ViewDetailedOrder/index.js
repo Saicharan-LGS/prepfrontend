@@ -19,6 +19,7 @@ function ViewDetailedOrder() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
+    fnsku_label_printed:null
   });
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function ViewDetailedOrder() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
+            fnsku_label_printed:data.fnsku_label_printed
             // ... other fields you want to update
           });
         } else {
@@ -130,6 +132,7 @@ function ViewDetailedOrder() {
     labelSend1,
     fnsku_status,
     label_status,
+    fnsku_label_printed
   } = formData;
 
   return (
@@ -312,6 +315,15 @@ function ViewDetailedOrder() {
               checked={label_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">Payment Status</label>
+          </div>
+          <div className="order-customer-input-feild-fnsku-status">
+            <input
+              className="order-customer-lable-container-checkbox"
+              type="checkbox"
+              name="trackingURL"
+              checked={fnsku_label_printed === 1 ? true : false}
+            />
+            <label className="order-customer-label-name">Labelling</label>
           </div>
           </div>
         </div>

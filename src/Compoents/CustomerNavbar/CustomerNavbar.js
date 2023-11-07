@@ -8,7 +8,7 @@ import * as IoIcons from "react-icons/io";
 // import LabelOrders from '../labelOrders';
 
 import CustomerHomePage from "../CustomerHomePage";
-
+import CustomerOrder from "../customerOrder";
 export const CustomerNavbarData = [
   {
     title: "Product",
@@ -38,6 +38,13 @@ export const CustomerNavbarData = [
     icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
     component: <CustomerHomePage />,
+  },
+  {
+    title: "Post Order",
+    id: 9,
+    icon: <FaIcons.FaCartPlus />,
+    cName: "nav-text",
+    component: <CustomerOrder />,
   },
   //   {
   //     title: 'Accountant',
