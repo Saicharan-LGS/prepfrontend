@@ -4,6 +4,8 @@ import LabelPost from "./labelPost";
 import { useNavigate } from "react-router-dom";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
+import EmptyOrder from "../EmptyOrder";
+
 function LabelOrders() {
   const [products, setProducts] = useState([]);
 
@@ -59,6 +61,8 @@ function LabelOrders() {
         <p className="admin-order-accepted-view-in-detail-category">Update</p>
         <p className="admin-order-accepted-view-in-detail-category">View Detail</p>
       </div>
+      {products.length>0?<>
+     
       {products.map(eachProduct=>{
         console.log(eachProduct.fnsku_status,eachProduct.label_status)
         return(
@@ -84,7 +88,7 @@ function LabelOrders() {
             className="admin-order-accepted-view-in-detail-sub-category"
           />
         </div>
-      )})}
+      )})}</>:<EmptyOrder/>}
     </div>
   )
 }

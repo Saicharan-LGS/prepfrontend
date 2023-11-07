@@ -51,38 +51,52 @@ const CustomerLogin = () => {
       });
   };
 
+  const navigate=useNavigate()
+
+  const onClickStaff=()=>{
+    navigate("/staffsignin")
+  }
+
   return (
-    <div className="signin-form-main-container">
-      <center>
-        <h2 className="signin-form-heading-container">Customer Login</h2>
-      </center>
-      <form onSubmit={handleSubmit} className="signin-form-container">
-        <div className="signin-form-group-container">
-          <label className="signin-form-label-container">Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="signin-form-group-container">
-          <label className="signin-form-label-container">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
+    <div className="customer-signin-div-container">
+      <div className="signin-form-main-container">
+        <div className="customer-staff-customer-button-container">
+          <button className="customer-staff-button" onClick={onClickStaff}>Staff Signin</button>
+          <button className="customer-customer-button" >Customer Signin</button>
         </div>
         <center>
-          <button className="signin-form-button-container" type="submit">
-            Sign In
-          </button>
+          <h2 className="signin-form-heading-container">Customer Login</h2>
         </center>
-      </form>
+        <form onSubmit={handleSubmit} className="signin-form-container">
+          <div className="signin-form-group-container">
+            <label className="signin-form-label-container">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className="signin-input-text"
+            />
+          </div>
+          <div className="signin-form-group-container">
+            <label className="signin-form-label-container">Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              className="signin-input-text"
+            />
+          </div>
+          <center>
+            <button className="signin-form-button-container" type="submit">
+              Sign In
+            </button>
+          </center>
+        </form>
+      </div>
     </div>
   );
 };

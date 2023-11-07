@@ -67,6 +67,7 @@
     font-size:12px;
     margin:0px;
   }
+  
   @media (max-width: 768px) {
     .signup-main-form-container {
         width: 80%;

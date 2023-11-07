@@ -66,19 +66,19 @@ function ViewDetailedOrder() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFnskuFileData = (e) => {
-    const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("fnsku called", files[0]);
-     setFormData({ ...formData, ["fnskuSend"]: files[0] });
-  };
+  // const handleFnskuFileData = (e) => {
+  //   const { name, files } = e.target;
+  //   console.log(e.target.name);
+  //   console.log("fnsku called", files[0]);
+  //    setFormData({ ...formData, ["fnskuSend"]: files[0] });
+  // };
   
-  const handleLabelFileData = async (e) => {
-    const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("label called", files[0]);
-   setFormData({ ...formData, ["labelSend"]: files[0] });
-  };
+  // const handleLabelFileData = async (e) => {
+  //   const { name, files } = e.target;
+  //   console.log(e.target.name);
+  //   console.log("label called", files[0]);
+  //  setFormData({ ...formData, ["labelSend"]: files[0] });
+  // };
   
 
   const handleSubmit = (e) => {
