@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ProductList from '../adminOrders';
 import AdminOrdersRejected from './AdminOrdersRejected';
 import AdminOrdersAccepted from './AdminOrdersAccepted';
-
+import ViewAllOrders from '../ViewAllOrders';
 import './index.css'
 
 const tabList = [
@@ -18,6 +18,10 @@ const tabList = [
     id: '2',
     name: 'Accepted',
   },
+  {
+    id:'3',
+    name:"All Orders"
+  }
 ];
 
 class AdminHomePage extends Component {
@@ -58,6 +62,7 @@ class AdminHomePage extends Component {
           {activeProductTab === '0' && <ProductList  />}
           {activeProductTab === '1' && <AdminOrdersRejected />}
           {activeProductTab === '2' && <AdminOrdersAccepted/>}
+          {activeProductTab === '3' && <ViewAllOrders/>}
         </div>
       </>
     );

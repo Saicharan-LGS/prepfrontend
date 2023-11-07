@@ -19,7 +19,7 @@ function ProductList() {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: ` Bearer ${token}`,
             },
           }
         ); // Replace with your API endpoint

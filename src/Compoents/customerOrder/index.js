@@ -1,19 +1,46 @@
+
+
 // import React, { Component } from "react";
 // import "./index.css";
 
 // class CustomerOrder extends Component {
 //   state = {
 //     date: "",
-//     customerName: "Saicharan",
+//     customerName: "",
 //     servicesReq: "Labeling",
 //     productName: "",
 //     units: "",
 //     trackingURL: "",
 //     fnskuSend: null,
 //     labelSend: null,
+//     customerId: "",
 //   };
 
+
 //   componentDidMount = () => {
+//     const token = sessionStorage.getItem('token');
+//     console.log(token)
+//     fetch("http://localhost:3009/api/v1/customerdata", {
+//       method: "GET",
+//       headers: {
+//         Authorization: `Bearer ${token}`, // You should include your authorization token here
+//       },
+//     })
+//       .then((response) => {
+//         if (response.ok) {
+//           return response.json(); // Assuming the response is in JSON format
+//         } else {
+//           throw new Error("Failed to fetch customer data");
+//         }
+//       })
+//       .then((data) => {
+//         // Set the customerName in the state based on the response data
+//         console.log(data);
+//         this.setState({ customerName: data.name, customerId: data.id });
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching customer data: ", error);
+//       });
 //     const date = new Date();
 //     const year = date.getFullYear();
 //     const month = date.getMonth() + 1;
@@ -42,6 +69,8 @@
 //     this.setState({ labelSend: file });
 //   };
 
+ 
+
 //   handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
@@ -54,20 +83,22 @@
 //         trackingURL,
 //         fnskuSend,
 //         labelSend,
+//         customerId,
 //       } = this.state;
-
+//       console.log("submit called...");
+//       const token = sessionStorage.getItem('token');
 //       const formData = new FormData();
+//       console.log(fnskuSend, labelSend);
 //       formData.append("date", date);
 //       formData.append("customerName", customerName);
-//       formData.append("servicesReq", servicesReq);
-//       formData.append("productName", productName);
+//       formData.append("service", servicesReq);
+//       formData.append("product", productName);
 //       formData.append("units", units);
-//       formData.append("trackingURL", trackingURL);
+//       formData.append("tracking_url", trackingURL);
 //       formData.append("fnskuSend", fnskuSend);
 //       formData.append("labelSend", labelSend);
+//       formData.append("customer_id", customerId);
 //       console.log(formData);
-//       const token =
-//         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdhbmd1bGEuc2FpY2hhcmFuOTg0QGdtYWlsLmNvbSIsImlhdCI6MTY5ODgzMjg1MSwiZXhwIjoxNjk5MTEzNjUxfQ.y0BNNtV9boXmV86Wku8Av6vvCJrEjQ4lJ31lU7cqpD0";
 //       const response = await fetch(
 //         "http://localhost:3009/api/v1/customerorder",
 //         {
@@ -80,6 +111,8 @@
 //       );
 //       if (response.ok) {
 //         console.log("Order created successfully");
+//         this.props.history.push("/customernavbar")
+        
 //       } else {
 //         console.error("Error creating the order");
 //       }
@@ -90,65 +123,118 @@
 
 //   render() {
 //     return (
-//       <div>
-//         <h1>Order Form</h1>
-//         <form onSubmit={this.handleSubmit}>
-//           <label>Date:</label>
-//           <input
-//             type="date"
-//             name="date"
-//             value={this.state.date}
-//             onChange={this.handleChange}
-//             required
-//             readOnly
-//           />
-//           <br />
-//           <label>Customer Name:</label>
-//           <input
-//             type="text"
-//             name="customerName"
-//             value={this.state.customerName}
-//             onChange={this.handleChange}
-//             required
-//             readOnly
-//           />
-//           <br />
-//           <label>Services Required:</label>
-//           <select name="servicesReq" onChange={this.handleChange} required>
-//             <option value="Labeling">Labelling</option>
-//             <option value="Shipping">Shipping</option>
-//           </select>
-//           <br />
+//       <div className="order-customer-container">
+//         <center>
+//           <h1 className="order-customer-main-heading">Customer Orders</h1>
+//         </center>
+//         <form  onSubmit={this.handleSubmit}>
+//           <div className="order-customer-from-container">
+//           <div className="order-customer-field1-container">
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">Date:</label>
+//               <input
+//                 className="order-customer-lable-container"
+//                 type="date"
+//                 name="date"
+//                 value={this.state.date}
+//                 onChange={this.handleChange}
+//                 required
+//                 readOnly
+//               />
+//             </div>
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">
+//                 Customer Name:
+//               </label>
+//               <input
+//                 className="order-customer-lable-container"
+//                 type="text"
+//                 name="customerName"
+//                 value={this.state.customerName}
+//                 onChange={this.handleChange}
+//                 required
+//                 readOnly
+//               />
+//             </div>
+//           </div>
+//           <div className="order-customer-field2-container">
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">
+//                 Services Required:
+//               </label>
+//               <select
+//                 className="order-customer-lable-container"
+//                 onChange={this.handleChange}
+//                 required
+//               >
+//                 <option value="Labeling">labling</option>
+//                 <option value="Shipping">Shipping</option>
+//               </select>
+//             </div>
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">Product Name:</label>
+//               <input
+//                 className="order-customer-lable-container"
+//                 type="text"
+//                 name="productName"
+//                 onChange={this.handleChange}
+//                 required
+//               />
+//             </div>
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">FNSKU Send:</label>
+//               <input
+//                 className="order-customer-lable-container order-customer-label-file"
+//                 type="file"
+//                 name="fnskuSend"
+//                 onChange={this.handleFnskuSendChange}
+//               />
+//             </div>
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">
+//                 Box Label Send:
+//               </label>
+//               <input
+//                 className="order-customer-lable-container order-customer-label-file"
+//                 type="file"
+//                 name="boxlabelSend"
+//                 onChange={this.handleBoxlabelSendChange}
+//               />
+//             </div>
+//           </div>
+//           <div className="order-customer-field3-container">
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">Units:</label>
+//               <input
+//                 className="order-customer-lable-container"
+//                 type="number"
+//                 name="units"
+//                 onChange={this.handleChange}
+//                 required
+//               />
+//             </div>
+//             <div className="order-customer-input-feild">
+//               <label className="order-customer-label-name">Tracking URL:</label>
+//               <input
+//                 className="order-customer-lable-container"
+//                 type="text"
+//                 name="trackingURL"
+//                 onChange={this.handleChange}
+//                 required
+//               />
+//             </div>
+//           </div>
+//           </div>
+//           <div className="order-customer-submit-button-container">
 
-//           <label>Product Name:</label>
-//           <input type="text" name="productName" onChange={this.handleChange} />
-//           <br />
-
-//           <label>Units:</label>
-//           <input type="number" name="units" onChange={this.handleChange} />
-//           <br />
-
-//           <label>Tracking URL:</label>
-//           <input type="text" name="trackingURL" onChange={this.handleChange} />
-//           <br />
-
-//           <label>FNSKU Send:</label>
-//           <input
-//             type="file"
-//             name="fnskuSend"
-//             onChange={this.handleFnskuSendChange}
-//           />
-//           <br />
-
-//           <label>Box Label Send:</label>
-//           <input
-//             type="file"
-//             name="labelSend"
-//             onChange={this.handleBoxlabelSendChange}
-//           />
-//           <br />
-
-//           <button type="submit">Submit</button>
+         
+//           <button
+//             className="order-customer-button-container"
+//             type="submit"
+//           >
+//             Submit
+//           </button>
+//           </div>
 //         </form>
 //       </div>
 //     );
@@ -157,25 +243,29 @@
 
 // export default CustomerOrder;
 
-import React, { Component } from "react";
+
+import React, { useState, useEffect } from "react";
 import "./index.css";
 
-class CustomerOrder extends Component {
-  state = {
-    date: "",
-    customerName: "",
-    servicesReq: "Labeling",
-    productName: "",
-    units: "",
-    trackingURL: "",
-    fnskuSend: null,
-    labelSend: null,
-    customerId: "",
-  };
+import { useNavigate } from "react-router-dom";
 
-  componentDidMount = () => {
-    const token = sessionStorage.getItem('token');
-    console.log(token)
+const CustomerOrder = ({ history }) => {
+  const [date, setDate] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [servicesReq, setServicesReq] = useState("Labeling");
+  const [productName, setProductName] = useState("");
+  const [units, setUnits] = useState("");
+  const [trackingURL, setTrackingURL] = useState("");
+  const [fnskuSend, setFnskuSend] = useState(null);
+  const [labelSend, setLabelSend] = useState(null);
+  const [customerId, setCustomerId] = useState("");
+
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    console.log(token);
     fetch("http://localhost:3009/api/v1/customerdata", {
       method: "GET",
       headers: {
@@ -192,57 +282,62 @@ class CustomerOrder extends Component {
       .then((data) => {
         // Set the customerName in the state based on the response data
         console.log(data);
-        this.setState({ customerName: data.name, customerId: data.id });
+        setCustomerName(data.name);
+        setCustomerId(data.id);
       })
       .catch((error) => {
         console.error("Error fetching customer data: ", error);
       });
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
-      .toString()
-      .padStart(2, "0")}`;
-    this.setState({ date: formattedDate });
-  };
 
-  handleChange = (e) => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+    setDate(formattedDate);
+  }, []);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    switch (name) {
+      case "date":
+        setDate(value);
+        break;
+      case "customerName":
+        setCustomerName(value);
+        break;
+      case "servicesReq":
+        setServicesReq(value);
+        break;
+      case "productName":
+        setProductName(value);
+        break;
+      case "units":
+        setUnits(value);
+        break;
+      case "trackingURL":
+        setTrackingURL(value);
+        break;
+      default:
+        break;
+    }
   };
 
-  handleFnskuSendChange = (e) => {
+  const handleFnskuSendChange = (e) => {
     const file = e.target.files[0];
-    this.setState({ fnskuSend: file });
+    setFnskuSend(file);
   };
 
-  handleBoxlabelSendChange = (e) => {
+  const handleLabelSendChange = (e) => {
     const file = e.target.files[0];
-    this.setState({ labelSend: file });
+    setLabelSend(file);
   };
 
-  handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {
-        date,
-        customerName,
-        servicesReq,
-        productName,
-        units,
-        trackingURL,
-        fnskuSend,
-        labelSend,
-        customerId,
-      } = this.state;
-      console.log("submit called...");
-      const token = sessionStorage.getItem('token');
+      const token = sessionStorage.getItem("token");
       const formData = new FormData();
-      console.log(fnskuSend, labelSend);
       formData.append("date", date);
       formData.append("customerName", customerName);
       formData.append("service", servicesReq);
@@ -253,18 +348,16 @@ class CustomerOrder extends Component {
       formData.append("labelSend", labelSend);
       formData.append("customer_id", customerId);
       console.log(formData);
-      const response = await fetch(
-        "http://localhost:3009/api/v1/customerorder",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      const response = await fetch("http://localhost:3009/api/v1/customerorder", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
       if (response.ok) {
         console.log("Order created successfully");
+        navigate("/customernavbar");
       } else {
         console.error("Error creating the order");
       }
@@ -273,13 +366,13 @@ class CustomerOrder extends Component {
     }
   };
 
-  render() {
-    return (
-      <div className="order-customer-container">
-        <center>
-          <h1 className="order-customer-main-heading">Customer Orders</h1>
-        </center>
-        <form className="order-customer-from-container" onSubmit={this.handleSubmit}>
+  return (
+    <div className="order-customer-container">
+      <center>
+        <h1 className="order-customer-main-heading">Customer Orders</h1>
+      </center>
+      <form onSubmit={handleSubmit}>
+        <div className="order-customer-from-container">
           <div className="order-customer-field1-container">
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Date:</label>
@@ -287,22 +380,20 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="date"
                 name="date"
-                value={this.state.date}
-                onChange={this.handleChange}
+                value={date}
+                onChange={handleChange}
                 required
                 readOnly
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Customer Name:
-              </label>
+              <label className="order-customer-label-name">Customer Name:</label>
               <input
                 className="order-customer-lable-container"
                 type="text"
                 name="customerName"
-                value={this.state.customerName}
-                onChange={this.handleChange}
+                value={customerName}
+                onChange={handleChange}
                 required
                 readOnly
               />
@@ -310,15 +401,15 @@ class CustomerOrder extends Component {
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Services Required:
-              </label>
+              <label className="order-customer-label-name">Services Required:</label>
               <select
                 className="order-customer-lable-container"
-                onChange={this.handleChange}
+                name="servicesReq"
+                value={servicesReq}
+                onChange={handleChange}
                 required
               >
-                <option value="Labeling">labling</option>
+                <option value="Labeling">Labeling</option>
                 <option value="Shipping">Shipping</option>
               </select>
             </div>
@@ -328,7 +419,8 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="text"
                 name="productName"
-                onChange={this.handleChange}
+                value={productName}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -338,18 +430,16 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container order-customer-label-file"
                 type="file"
                 name="fnskuSend"
-                onChange={this.handleFnskuSendChange}
+                onChange={handleFnskuSendChange}
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Box Label Send:
-              </label>
+              <label className="order-customer-label-name">Label Send:</label>
               <input
                 className="order-customer-lable-container order-customer-label-file"
                 type="file"
-                name="boxlabelSend"
-                onChange={this.handleBoxlabelSendChange}
+                name="labelSend"
+                onChange={handleLabelSendChange}
               />
             </div>
           </div>
@@ -360,7 +450,8 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="number"
                 name="units"
-                onChange={this.handleChange}
+                value={units}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -370,24 +461,21 @@ class CustomerOrder extends Component {
                 className="order-customer-lable-container"
                 type="text"
                 name="trackingURL"
-                onChange={this.handleChange}
+                value={trackingURL}
+                onChange={handleChange}
                 required
               />
             </div>
           </div>
-          <button
-            className="order-customer-button-container"
-            type="submit"
-          >
+        </div>
+        <div className="order-customer-submit-button-container">
+          <button className="order-customer-button-container" type="submit">
             Submit
           </button>
-        </form>
-        <center>
-          
-        </center>
-      </div>
-    );
-  }
-}
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default CustomerOrder;

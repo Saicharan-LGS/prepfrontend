@@ -18,7 +18,7 @@ function CustomerNavbar() {
   );
 
   console.log(status);
-  const navigate = useNavigate();
+
   const showSidebar = () => setSidebar(!sidebar);
 
   const handleSidebarItemClick = async (id) => {
@@ -33,10 +33,11 @@ function CustomerNavbar() {
     setCurrentComponent(<CustomerHomePage key={status} id={status} />);
   }, [status]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    navigate("/");
-  };
+  const navigate=useNavigate()
+
+  const postOrder=()=>{
+    navigate("/upload")
+  }
 
   return (
     <div className="navbar-container">
@@ -45,9 +46,11 @@ function CustomerNavbar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <p className="navbar-logout-button" onClick={handleLogout}>
-            Logout
-          </p>
+          <div className="navbar-logout-button-container">
+            <button className="navbar-logout-button" onClick={postOrder}>Post Order</button>
+            <button className="navbar-logout-button">Logout</button>
+          </div>
+          
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
