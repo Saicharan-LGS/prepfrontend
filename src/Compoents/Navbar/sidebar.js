@@ -32,7 +32,7 @@ export const SidebarData = [
   },
   {
     title: "Accountant",
-    value: "accountant",
+    value: "Accountant",
     icon: <IoIcons.IoMdPeople />,
     cName: "nav-text",
     component: <AccountOrders />,

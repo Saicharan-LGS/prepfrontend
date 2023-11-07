@@ -6,7 +6,7 @@ import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
-function CustomerHomePage({id}) {
+function CustomerHomePage() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -14,7 +14,7 @@ function CustomerHomePage({id}) {
       const token = sessionStorage.getItem('token');
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/customerorderlist/${id}`,
+          `http://localhost:3009/api/v1/customerorderlist/${5}`,
          // Replace with your API endpoint
         {
           method: "GET",

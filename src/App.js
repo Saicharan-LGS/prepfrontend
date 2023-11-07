@@ -19,7 +19,7 @@ import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 
 import CustomerNavbar from "./Compoents/CustomerNavbar";
-
+import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 // import Login from "./Compoents/Login";
 const role = sessionStorage.getItem("role");
 
@@ -27,6 +27,10 @@ console.log(role, "app");
 function App() {
   return (
     <Routes>
+      <Route
+        path="/CustomerOrderViewDetail/:id"
+        element={<CustomerOrderViewDetail />}
+      />
       {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
       <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/" element={<StaffSigninPage />} />
