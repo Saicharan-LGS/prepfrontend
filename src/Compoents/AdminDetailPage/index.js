@@ -7,7 +7,7 @@ function OrderViewDetail() {
     date: "",
     name: "",
     service: "Labeling",
-    productName: "",
+    product: "",
     unit: "",
     tracking_url: "",
     fnskuSend: null,
@@ -37,7 +37,7 @@ function OrderViewDetail() {
             date: data.date,
             name: data.name,
             service: data.service,
-            productName: data.product,
+            product: data.product,
             unit: data.unit,
             tracking_url: data.tracking_url,
             fnskuSend1: data.fnsku,
@@ -156,7 +156,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="text"
-              name="customerName"
+              name="Name"
               value={name}
               onChange={handleChange}
               required
@@ -184,7 +184,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="text"
-              name="productName"
+              name="product"
               value={product}
               onChange={handleChange}
               required
@@ -231,7 +231,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="number"
-              name="units"
+              name="unit"
               value={unit}
               onChange={handleChange}
               required
@@ -242,7 +242,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container"
               type="text"
-              name="trackingURL"
+              name="tracking_url"
               value={tracking_url}
               onChange={handleChange}
             />
@@ -251,7 +251,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="trackingURL"
+              name="tracking_url"
               checked={fnsku_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">FNSKU Status</label>
@@ -260,7 +260,7 @@ function OrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="trackingURL"
+              name="tracking_url"
               checked={label_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">Label Status</label>

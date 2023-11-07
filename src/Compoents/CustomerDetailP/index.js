@@ -5,11 +5,11 @@ function CustomerOrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
-    customerName: "",
-    servicesReq: "Labeling",
-    productName: "",
-    units: "",
-    trackingURL: "",
+    name: "",
+    service: "Labeling",
+    product: "",
+    unit: "",
+    tracking_url: "",
     fnskuSend: null,
     labelSend: null,
     fnskuSend1: null,
@@ -35,11 +35,11 @@ function CustomerOrderViewDetail() {
           setFormData({
             ...formData,
             date: data.date,
-            customerName: data.name,
-            servicesReq: data.service,
-            productName: data.product,
-            units: data.unit,
-            trackingURL: data.tracking_url,
+            name: data.name,
+            service: data.service,
+            product: data.product,
+            unit: data.unit,
+            tracking_url: data.tracking_url,
             fnskuSend1: data.fnsku,
             labelSend1: data.label,
             fnskuButton: data.fnsku_status,
@@ -86,11 +86,11 @@ function CustomerOrderViewDetail() {
     const formDataToSend = new FormData();
     console.log(fnskuSend, labelSend);
     formDataToSend.append("date", date);
-    formDataToSend.append("customerName", customerName);
-    formDataToSend.append("service", servicesReq);
-    formDataToSend.append("product", productName);
-    formDataToSend.append("units", units);
-    formDataToSend.append("tracking_url", trackingURL);
+    formDataToSend.append("name", name);
+    formDataToSend.append("service", service);
+    formDataToSend.append("product", product);
+    formDataToSend.append("unit", unit);
+    formDataToSend.append("tracking_url", tracking_url);
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
 
@@ -119,11 +119,11 @@ function CustomerOrderViewDetail() {
 
   const {
     date,
-    customerName,
-    servicesReq,
-    productName,
-    units,
-    trackingURL,
+    name,
+    service,
+    product,
+    unit,
+    tracking_url,
     fnskuSend,
     labelSend,
     fnskuSend1,
@@ -152,12 +152,12 @@ function CustomerOrderViewDetail() {
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Customer Name:</label>
+            <label className="order-customer-label-name"> Name:</label>
             <input
               className="order-customer-lable-container"
               type="text"
-              name="customerName"
-              value={customerName}
+              name="name"
+              value={name}
               onChange={handleChange}
               required
               readOnly
@@ -167,25 +167,25 @@ function CustomerOrderViewDetail() {
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">
-              Services Required:
+              Service:
             </label>
             <select
               className="order-customer-lable-container"
               onChange={handleChange}
               required
-              value={servicesReq}
+              value={service}
             >
               <option value="Labeling">labeling</option>
               <option value="Shipping">Shipping</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product Name:</label>
+            <label className="order-customer-label-name">Product :</label>
             <input
               className="order-customer-lable-container"
               type="text"
-              name="productName"
-              value={productName}
+              name="product"
+              value={product}
               onChange={handleChange}
               required
             />
@@ -227,23 +227,23 @@ function CustomerOrderViewDetail() {
         </div>
         <div className="order-customer-field3-container">
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Units:</label>
+            <label className="order-customer-label-name">Unit:</label>
             <input
               className="order-customer-lable-container"
               type="number"
-              name="units"
-              value={units}
+              name="unit"
+              value={unit}
               onChange={handleChange}
               required
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Tracking URL:</label>
+            <label className="order-customer-label-name">Tracking_url:</label>
             <input
               className="order-customer-lable-container"
               type="text"
-              name="trackingURL"
-              value={trackingURL}
+              name="tracking_url"
+              value={tracking_url}
               onChange={handleChange}
             />
           </div>
@@ -251,7 +251,7 @@ function CustomerOrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="trackingURL"
+              name="tracking_url"
               checked={fnsku_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">FNSKU Status</label>
@@ -260,7 +260,7 @@ function CustomerOrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="trackingURL"
+              name="tracking_url"
               checked={label_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">Label Status</label>
