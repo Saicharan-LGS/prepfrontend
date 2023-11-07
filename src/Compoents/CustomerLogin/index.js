@@ -39,7 +39,7 @@ const CustomerLogin = () => {
             console.log(data.token);
             sessionStorage.setItem("token", data.token);
             console.log("Login successful");
-            Navigate("/customerhomepage");
+            Navigate("/customernavbar");
           });
         } else {
           // Handle other status codes or error messages

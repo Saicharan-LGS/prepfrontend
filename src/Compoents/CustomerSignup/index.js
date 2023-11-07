@@ -17,7 +17,31 @@ const Customersignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Construct the request object with the POST method and the request body as JSON
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    };
+
+    // Send the POST request using the fetch API
+    fetch("http://localhost:3009/api/v1/registration", requestOptions)
+      .then((response) => {
+        if (response.status === 201) {
+          return response.json();
+        } else {
+          throw new Error(`Failed with status: ${response.status}`);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        // Handle success, e.g., redirect the user to a login page.
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error, e.g., display an error message to the user.
+      });
   };
 
   

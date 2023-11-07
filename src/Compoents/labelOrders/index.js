@@ -12,8 +12,7 @@ function LabelOrders() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBrZ2FtaW5nLnByYXNoYW50aEBnbWFpbC5jb20iLCJpYXQiOjE2OTg5OTY5OTIsImV4cCI6MTY5OTI1NjE5Mn0.QQl3pQHzNWeNerlR5i2FLXr7xEPHvsjJ0jggaXNKiXQ"
+        const token = sessionStorage.getItem("token");
         const response = await fetch(
           "http://localhost:3009/api/v1/labelorderlist",
           {
@@ -52,7 +51,9 @@ function LabelOrders() {
         <p className="admin-order-accepted-name-category">Name</p>
         <p className="admin-order-accepted-service-category">Service</p>
         <p className="admin-order-accepted-quantity-category">Quantity</p>
-        <p className="admin-order-accepted-order-tracking-category">Order Tracking Link</p>
+        <p className="admin-order-accepted-order-tracking-category">
+          Order Tracking Link
+        </p>
         {/* <p className="admin-order-accepted-decline-category">Decline</p>
         <p className="admin-order-accepted-accept-category">Accept</p> */}
         {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
@@ -74,7 +75,7 @@ function LabelOrders() {
           <p className="admin-order-accepted-order-tracking-sub-category">{eachProduct.tacking_url}</p>
           {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
-          {/* <div className="admin-order-accepted-fnsku-sub-category">
+            {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <div className="admin-order-accepted-box-label-sub-category">
@@ -90,8 +91,7 @@ function LabelOrders() {
         </div>
       )})}</>:<EmptyOrder/>}
     </div>
-  )
+  );
 }
-
 
 export default LabelOrders;
