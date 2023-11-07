@@ -9,11 +9,14 @@ import AdminMainPage from "../AdminMainPage";
 import DimensionOrderList from "../DimensionOrders";
 import LabelOrders from "../labelOrders";
 import AccountOrders from "../AccountantPage";
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [currentComponent, setCurrentComponent] = useState("");
 
   const showSidebar = () => setSidebar(!sidebar);
+  const navigate = useNavigate();
   useEffect(() => {
     const role = sessionStorage.getItem("role");
     if (role === "Admin") {
@@ -22,14 +25,20 @@ function Navbar() {
       setCurrentComponent(<DimensionOrderList />);
     } else if (role === "Label") {
       setCurrentComponent(<LabelOrders />);
-    }else if (role==="Accountant"){
-      setCurrentComponent(<AccountOrders />)
+    } else if (role === "Accountant") {
+      setCurrentComponent(<AccountOrders />);
     }
   }, []);
 
   const handleSidebarItemClick = (path, component) => {
     setSidebar(false);
     setCurrentComponent(component);
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    navigate("/");
   };
 
   return (
@@ -39,7 +48,9 @@ function Navbar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <p className="navbar-logout-button">Logout</p>
+          <p className="navbar-logout-button" onClick={handleLogout}>
+            Logout
+          </p>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>

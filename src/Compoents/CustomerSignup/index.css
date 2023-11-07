@@ -60,7 +60,10 @@
   button:hover {
     background-color: #45a049;
   }
-  
+  .error-message{
+    font-size:12px;
+    color:#ff0000;
+  }
   @media  (min-width: 512px) and ( max-width: 768px) {
     .customer-signin-form-main-container {
         width: 60%;
