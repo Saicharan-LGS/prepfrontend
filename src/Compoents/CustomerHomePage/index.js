@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 import CustomerButton from "./customerButton";
+import EmptyOrder from "../EmptyOrder";
 function CustomerHomePage({id}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function CustomerHomePage({id}) {
   // }
 
   return(
+    
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -68,6 +70,8 @@ function CustomerHomePage({id}) {
         
         <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
       </div>
+      { products.length >0 ? 
+      <>
       {products.map(eachProduct=>{
         console.log("called")
         console.log(eachProduct.id)
@@ -89,8 +93,8 @@ function CustomerHomePage({id}) {
           
           <BsFillArrowRightCircleFill id={eachProduct.id} value={eachProduct.id} onClick={()=>openDetailPage(eachProduct.id)} className="admin-order-accepted-view-in-detail-sub-category" />
         </div>
-      )})}
-    </div>
+      )})}</> : <EmptyOrder /> }
+    </div> 
   )
 }
 
