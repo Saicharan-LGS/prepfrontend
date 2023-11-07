@@ -55,6 +55,12 @@
   border: 2px solid #000080; 
   outline:none;
 }
+.order-customer-submit-button-container{
+  width:100%;
+  display:flex;
+  justify-content: center;
+}
+
 .order-customer-button-container{
   margin: 10px;
   padding: 6px 12px;
@@ -71,6 +77,7 @@
 .order-customer-button-container:hover{
   background-color: #45a049;
 }
+
 .order-customer-label-file::file-selector-button {
   padding: 2px 8px;
   border-radius: 4px;

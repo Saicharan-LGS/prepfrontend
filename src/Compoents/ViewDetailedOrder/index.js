@@ -163,7 +163,7 @@ function ViewDetailedOrder() {
               readOnly
             />
           </div>
-          <div className="order-customer-input-feild">
+          {/* <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Amount</label>
             <input
               className="order-customer-lable-container"
@@ -174,7 +174,7 @@ function ViewDetailedOrder() {
               required
               readOnly
             />
-          </div>
+          </div> */}
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Length</label>
             <input

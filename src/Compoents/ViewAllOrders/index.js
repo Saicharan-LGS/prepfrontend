@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
+import "../adminOrders/index.css";
+
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 import EmptyOrder from "../EmptyOrder";
 
-import DisplayAdminButton from "./adminButton";
-function ProductList() {
+import DisplayAdminButton from "../adminOrders/adminButton";
+function ViewAllOrders() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   
@@ -15,7 +16,7 @@ function ProductList() {
       try {
         const token = sessionStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`,
+          `http://localhost:3009/api/v1/getOrders/${8}`,
           {
             method: "GET",
             headers: {
@@ -99,4 +100,4 @@ function ProductList() {
   )
 }
 
-export default ProductList;
+export default ViewAllOrders;
