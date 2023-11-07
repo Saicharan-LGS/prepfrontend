@@ -20,7 +20,7 @@ import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 
-import Login from "./Compoents/Login";
+// import Login from "./Compoents/Login";
 
 function App() {
   return (
