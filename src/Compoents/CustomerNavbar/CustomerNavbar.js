@@ -6,7 +6,6 @@ import * as IoIcons from "react-icons/io";
 // import AdminHomePage from '../AdminHomePage';
 // import DimensionOrderList from '../DimensionOrders';
 // import LabelOrders from '../labelOrders';
-import AccountOrders from "../AccountantPage";
 
 import CustomerHomePage from "../CustomerHomePage";
 

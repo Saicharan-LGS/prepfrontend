@@ -6,7 +6,6 @@ import { CustomerNavbarData } from "./CustomerNavbar.js";
 import "./index.css";
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
 import CustomerRejected from "../CustomerHomePage/customerRejected.js";
