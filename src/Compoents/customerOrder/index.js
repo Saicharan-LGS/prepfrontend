@@ -381,7 +381,7 @@ const CustomerOrder = ({ history }) => {
   return (
     <div className="order-customer-container">
       <center>
-        <h1 className="order-customer-main-heading">Customer Orders</h1>
+        <h1 className="order-customer-main-heading">Post Order</h1>
       </center>
       <form onSubmit={handleSubmit}>
         <div className="order-customer-from-container">
