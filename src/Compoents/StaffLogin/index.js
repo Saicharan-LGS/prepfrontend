@@ -179,7 +179,6 @@ const StaffSigninPage = () => {
   const onClickCustomer = () => {
     navigate("/CustomerLogin");
   };
-  
 
   return (
     <div className="signin-div-container">
@@ -190,6 +189,7 @@ const StaffSigninPage = () => {
             Customer Signin
           </button>
         </div>
+        
         <center>
           <h2 className="signin-form-heading-container">Staff Login</h2>
         </center>
