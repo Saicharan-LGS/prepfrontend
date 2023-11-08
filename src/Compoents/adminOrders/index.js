@@ -11,7 +11,6 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of products per page
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;

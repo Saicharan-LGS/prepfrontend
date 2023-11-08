@@ -61,6 +61,15 @@ function ViewAllOrders() {
     window.location.reload();
   };
 
+  const handleSearch = (e) => {
+    setOrderId(e.target.value);
+  };
+
+  // Filter products based on orderId
+  const filteredProducts = products.filter((product) => {
+    return product.id.toString().includes(orderId);
+  });
+
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
@@ -92,9 +101,9 @@ function ViewAllOrders() {
         </p>
       </div>
 
-      {products.length > 0 ? (
+      {filteredProducts.length > 0 ? (
         <>
-          {currentProducts.map((eachProduct) => {
+          {filteredProducts.map((eachProduct) => {
             console.log("called");
             console.log(eachProduct.fnsku_status, eachProduct.label_status);
             return (
