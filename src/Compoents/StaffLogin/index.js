@@ -97,6 +97,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import React Router
 import "./index.css";
+import Toast from "../utlis/toast";
 
 const StaffSigninPage = () => {
   const [formData, setFormData] = useState({
@@ -137,15 +138,23 @@ const StaffSigninPage = () => {
         if (response.status === 200) {
           // Login successful
           response.json().then((data) => {
-            // Store the token in sessionStorage
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
+
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role);
-            console.log("Login successful");
-            navigate("/navbar") // Navigate to the home page
+            navigate("/navbar"); // Navigate to the home page
           });
         } else if (response.status === 400) {
           // Password required or incorrect
-          setError("Password required or incorrect");
+          response.json().then((data) => {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          });
         } else {
           // Handle other status codes or error messages
           setError("Login failed");
@@ -157,17 +166,19 @@ const StaffSigninPage = () => {
       });
   };
 
-  const onClickCustomer=()=>{
-    navigate("/CustomerLogin")
-  }
+  const onClickCustomer = () => {
+    navigate("/CustomerLogin");
+  };
 
   return (
     <div className="signin-div-container">
       <div className="signin-form-main-container">
-      <div className="signin-staff-customer-button-container">
-        <button className="signin-staff-button">Staff Signin</button>
-        <button className="signin-customer-button" onClick={onClickCustomer}>Customer Signin</button>
-      </div>
+        <div className="signin-staff-customer-button-container">
+          <button className="signin-staff-button">Staff Signin</button>
+          <button className="signin-customer-button" onClick={onClickCustomer}>
+            Customer Signin
+          </button>
+        </div>
         <center>
           <h2 className="signin-form-heading-container">Staff Login</h2>
         </center>

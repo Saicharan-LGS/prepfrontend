@@ -106,6 +106,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+import Toast from "../utlis/toast";
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -161,19 +162,30 @@ const CustomerLogin = () => {
           // Login successful
           response.json().then((data) => {
             // Store the token in sessionStorage
-            console.log(data.token);
+            Toast.fire({
+              icon: "success",
+              title: data.message,
+            });
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", "Customer");
-            console.log("Login successful");
+
             navigate("/customernavbar"); // Navigate to the home page on successful login
           });
         } else if (response.status === 401) {
+          response.json().then((data) => {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          });
           // Unauthorized - Incorrect username or password
-          setLoginError("Incorrect username or password");
         } else {
-          // Handle other status codes or error messages
-          console.error("Login failed");
-          setLoginError("Login failed. Please try again.");
+          response.json().then((data) => {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          });
         }
       })
       .catch((error) => {
@@ -182,10 +194,9 @@ const CustomerLogin = () => {
       });
   };
 
-
-  const onClickStaff=()=>{
-    navigate("/")
-  }
+  const onClickStaff = () => {
+    navigate("/");
+  };
 
   return (
     <div className="customer-signin-div-container">
@@ -209,9 +220,7 @@ const CustomerLogin = () => {
               onChange={handleInputChange}
               className="signin-input-text"
             />
-            {errors.email && (
-              <p className="error-message">{errors.email}</p>
-            )}
+            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
           <div className="signin-form-group-container">
             <label className="signin-form-label-container">Password:</label>
@@ -239,4 +248,3 @@ const CustomerLogin = () => {
 };
 
 export default CustomerLogin;
-

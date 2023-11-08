@@ -6,7 +6,7 @@ function OrderViewDetail() {
   const [formData, setFormData] = useState({
     date: "",
     name: "",
-    service: "Labeling",
+    service: "Prep Service",
     product: "",
     unit: "",
     tracking_url: "",
@@ -19,11 +19,11 @@ function OrderViewDetail() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
-    length:"",
-    height:"",
-    width:"",
-    weight:"",
-    amount:null
+    length: "",
+    height: "",
+    width: "",
+    weight: "",
+    amount: null,
   });
 
   // const statusLabels = {
@@ -64,13 +64,13 @@ function OrderViewDetail() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
-            length:data.length,
-            width:data.width,
-            height:data.height,
-            weight:data.weight,
-            amount:data.amount,
-            status:data.status,
-            
+            length: data.length,
+            width: data.width,
+            height: data.height,
+            weight: data.weight,
+            amount: data.amount,
+            status: data.status,
+
             // ... other fields you want to update
           });
         } else {
@@ -93,16 +93,15 @@ function OrderViewDetail() {
     const { name, files } = e.target;
     console.log(e.target.name);
     console.log("fnsku called", files[0]);
-     setFormData({ ...formData, ["fnskuSend"]: files[0] });
+    setFormData({ ...formData, ["fnskuSend"]: files[0] });
   };
-  
+
   const handleLabelFileData = async (e) => {
     const { name, files } = e.target;
     console.log(e.target.name);
     console.log("label called", files[0]);
-   setFormData({ ...formData, ["labelSend"]: files[0] });
+    setFormData({ ...formData, ["labelSend"]: files[0] });
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -116,12 +115,12 @@ function OrderViewDetail() {
     formDataToSend.append("tracking_url", tracking_url);
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
-    formDataToSend.append("length",length);
-    formDataToSend.append("width",width);
-    formDataToSend.append("weight",weight);
-    formDataToSend.append("height",height);
-    formDataToSend.append("amount",amount);
-    formDataToSend.append("status",status);
+    formDataToSend.append("length", length);
+    formDataToSend.append("width", width);
+    formDataToSend.append("weight", weight);
+    formDataToSend.append("height", height);
+    formDataToSend.append("amount", amount);
+    formDataToSend.append("status", status);
 
     // Add any other fields you want to update
 
@@ -164,7 +163,7 @@ function OrderViewDetail() {
     weight,
     height,
     status,
-    amount
+    amount,
   } = formData;
 
   return (
@@ -241,17 +240,14 @@ function OrderViewDetail() {
         </div>
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">
-              Service:
-            </label>
+            <label className="order-customer-label-name">Service:</label>
             <select
               className="order-customer-lable-container"
               onChange={handleChange}
               required
               value={service}
             >
-              <option value="Labeling">labeling</option>
-              <option value="Shipping">Shipping</option>
+              <option value="Prep Service">Prep Service</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
@@ -385,4 +381,3 @@ function OrderViewDetail() {
 }
 
 export default OrderViewDetail;
-

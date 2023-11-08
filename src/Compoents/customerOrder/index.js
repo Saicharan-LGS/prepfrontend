@@ -1,5 +1,3 @@
-
-
 // import React, { Component } from "react";
 // import "./index.css";
 
@@ -15,7 +13,6 @@
 //     labelSend: null,
 //     customerId: "",
 //   };
-
 
 //   componentDidMount = () => {
 //     const token = sessionStorage.getItem('token');
@@ -69,8 +66,6 @@
 //     this.setState({ labelSend: file });
 //   };
 
- 
-
 //   handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
@@ -112,7 +107,7 @@
 //       if (response.ok) {
 //         console.log("Order created successfully");
 //         this.props.history.push("/customernavbar")
-        
+
 //       } else {
 //         console.error("Error creating the order");
 //       }
@@ -227,7 +222,6 @@
 //           </div>
 //           <div className="order-customer-submit-button-container">
 
-         
 //           <button
 //             className="order-customer-button-container"
 //             type="submit"
@@ -243,16 +237,15 @@
 
 // export default CustomerOrder;
 
-
 import React, { useState, useEffect } from "react";
 import "./index.css";
-
+import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
 
 const CustomerOrder = ({ history }) => {
   const [date, setDate] = useState("");
   const [customerName, setCustomerName] = useState("");
-  const [servicesReq, setServicesReq] = useState("Labeling");
+  const [servicesReq, setServicesReq] = useState("Prep Service");
   const [productName, setProductName] = useState("");
   const [units, setUnits] = useState("");
   const [trackingURL, setTrackingURL] = useState("");
@@ -260,8 +253,7 @@ const CustomerOrder = ({ history }) => {
   const [labelSend, setLabelSend] = useState(null);
   const [customerId, setCustomerId] = useState("");
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -293,7 +285,9 @@ const CustomerOrder = ({ history }) => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();
-    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+      .toString()
+      .padStart(2, "0")}`;
     setDate(formattedDate);
   }, []);
 
@@ -348,18 +342,36 @@ const CustomerOrder = ({ history }) => {
       formData.append("labelSend", labelSend);
       formData.append("customer_id", customerId);
       console.log(formData);
-      const response = await fetch("http://localhost:3009/api/v1/customerorder", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        "http://localhost:3009/api/v1/customerorder",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
       if (response.ok) {
-        console.log("Order created successfully");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+        });
+        setProductName("");
+        setUnits("");
+        setTrackingURL("");
+        setFnskuSend(null);
+        setLabelSend(null);
         navigate("/customernavbar");
       } else {
-        console.error("Error creating the order");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+        });
       }
     } catch (error) {
       console.error("Error creating the order: ", error);
@@ -387,7 +399,9 @@ const CustomerOrder = ({ history }) => {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Customer Name:</label>
+              <label className="order-customer-label-name">
+                Customer Name:
+              </label>
               <input
                 className="order-customer-lable-container"
                 type="text"
@@ -401,7 +415,9 @@ const CustomerOrder = ({ history }) => {
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Services Required:</label>
+              <label className="order-customer-label-name">
+                Services Required:
+              </label>
               <select
                 className="order-customer-lable-container"
                 name="servicesReq"
@@ -409,8 +425,7 @@ const CustomerOrder = ({ history }) => {
                 onChange={handleChange}
                 required
               >
-                <option value="Labeling">Labeling</option>
-                <option value="Shipping">Shipping</option>
+                <option value="Prep Service">Prep Service</option>
               </select>
             </div>
             <div className="order-customer-input-feild">
