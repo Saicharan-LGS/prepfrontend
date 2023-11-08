@@ -32,7 +32,9 @@ function App() {
     <Routes>
       <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/" element={<StaffSigninPage />} />
-      <Route path="/staffsignup" element={<StaffSignupPage />} />
+      {role === undefined && (
+        <Route path="/staffsignup" element={<StaffSignupPage />} />
+      )}
       {role === "Customer" && (
         <Route
           path="/CustomerOrderViewDetail/:id"

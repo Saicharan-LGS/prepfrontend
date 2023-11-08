@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const DisplayAdminButton = (props) => {
-  const [product, setProduct] = useState("1"); // Set the initial value as a string '1'
 
   const handleSubmit = async (id, status) => {
     // Create an object with the data you want to send
@@ -33,7 +32,7 @@ const DisplayAdminButton = (props) => {
   };
 
   const onClickDecline = (e) => {
-    const status = "1"; // Set the status here
+    const status = "1"; 
     handleSubmit(e.target.value, status);
     window.location.reload()
   };
@@ -47,7 +46,6 @@ const DisplayAdminButton = (props) => {
 
   return (
     <>
-      
       <button
         value={props.id}
         onClick={onClickReceived}
