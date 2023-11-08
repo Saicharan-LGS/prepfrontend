@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../adminOrders/index.css";
-
+import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -9,7 +9,19 @@ import EmptyOrder from "../EmptyOrder";
 import DisplayAdminButton from "../adminOrders/adminButton";
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
+  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,24 +57,31 @@ function ViewAllOrders() {
     navigate(`/adminViewDetail/${productId}`);
   };
 
-  const statusLabels = {
-    0: "Pending",
-    1: "Rejected",
-    2: "Received",
-    3: "Dimension",
-    4: "Label",
-    5: "Invoice",
-    6: "Invoice Accepted",
-    7: "Invoice Rejected",
-  };
-
   const refreshpage = () => {
     window.location.reload();
   };
 
+  const handleSearch = (e) => {
+    setOrderId(e.target.value);
+  };
+
+  // Filter products based on orderId
+  const filteredProducts = products.filter((product) => {
+    return product.id.toString().includes(orderId);
+  });
+
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <input
+        type="number"
+        name="orderid"
+        value={orderId}
+        onChange={handleSearch}
+        placeholder="Search by Order ID" // Add a placeholder for the input
+        required
+        className="admin-order-accepted-search-filter-input"
+      />
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -79,11 +98,17 @@ function ViewAllOrders() {
         <p className="admin-order-accepted-view-in-detail-category">
           View In Detail
         </p>
+        <p className="admin-order-accepted-box-label-category">
+          Box Label Status
+        </p>
+        <p className="admin-order-accepted-view-in-detail-category">
+          View In Detail
+        </p>
       </div>
 
-      {products.length > 0 ? (
+      {filteredProducts.length > 0 ? (
         <>
-          {products.map((eachProduct) => {
+          {filteredProducts.map((eachProduct) => {
             console.log("called");
             console.log(eachProduct.fnsku_status, eachProduct.label_status);
             return (
@@ -103,9 +128,9 @@ function ViewAllOrders() {
                 <p className="admin-order-accepted-order-tracking-sub-category">
                   {eachProduct.tacking_url}
                 </p>
-                <p className="admin-order-accepted-quantity-sub-category">
-                  {statusLabels[eachProduct.status] || "Unknown Status"}
-                </p>
+                <DisplayAdminButton id={eachProduct.id} />
+                {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
                 <div className="admin-order-accepted-fnsku-sub-category">
                   <input
                     type="checkbox"
@@ -129,6 +154,21 @@ function ViewAllOrders() {
               </div>
             );
           })}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />

@@ -71,6 +71,10 @@
   .span {
     margin-left: 16px;
   }
+  .customer-navbar-logout-button-container{
+    display:flex;
+    gap:20px;
+  }
   .navbar-logout-button{
     background-color: #fff;
     border-radius:4px;
@@ -81,6 +85,12 @@
     cursor:pointer;
     min-width:max-content;
     border:none;
+  }
+  .customer-navbar-nav-item-name{
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    margin:0px;
   }
   .content-container {
     width: calc(100% - 60px); /* Adjust for the width of the closed sidebar */

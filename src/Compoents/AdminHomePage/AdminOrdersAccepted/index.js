@@ -8,6 +8,18 @@ import EmptyOrder from "../../EmptyOrder";
 function AdminOrdersAccepted() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   console.log("Component rendered");
   useEffect(() => {
     console.log("reject called");
@@ -116,7 +128,7 @@ function AdminOrdersAccepted() {
       </div>
       {products.length > 0 ? (
         <>
-          {products.map((eachProduct) => (
+          {currentProducts.map((eachProduct) => (
             <div className="admin-order-accepted-display-of-products-container">
               <p className="admin-order-accepted-order-id-sub-category">
                 {eachProduct.id}
@@ -171,6 +183,21 @@ function AdminOrdersAccepted() {
               />
             </div>
           ))}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />

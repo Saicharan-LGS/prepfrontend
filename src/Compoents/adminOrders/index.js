@@ -8,7 +8,19 @@ import EmptyOrder from "../EmptyOrder";
 import DisplayAdminButton from "./adminButton";
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of products per page
   const navigate = useNavigate();
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -48,6 +60,8 @@ function ProductList() {
     window.location.reload();
   };
 
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
@@ -72,7 +86,7 @@ function ProductList() {
 
       {products.length > 0 ? (
         <>
-          {products.map((eachProduct) => {
+          {currentProducts.map((eachProduct) => {
             console.log("called");
             console.log(eachProduct.fnsku_status, eachProduct.label_status);
             return (
@@ -118,9 +132,41 @@ function ProductList() {
               </div>
             );
           })}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />
+      )}
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button
+            onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span>{currentPage}</span>
+          <button
+            onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       )}
     </div>
   );

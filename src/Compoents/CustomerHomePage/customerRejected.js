@@ -9,6 +9,19 @@ import EmptyOrder from "../EmptyOrder";
 function CustomerRejected() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  // Number of products to display per page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       const token = sessionStorage.getItem("token");
@@ -75,7 +88,7 @@ function CustomerRejected() {
       </div>
       {products.length > 0 ? (
         <>
-          {products.map((eachProduct) => {
+          {currentProducts.map((eachProduct) => {
             console.log("called");
             console.log(eachProduct.id);
             console.log(eachProduct.fnsku_status, eachProduct.label_status);
@@ -110,6 +123,21 @@ function CustomerRejected() {
               </div>
             );
           })}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />
@@ -119,3 +147,5 @@ function CustomerRejected() {
 }
 
 export default CustomerRejected;
+
+
