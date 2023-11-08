@@ -19,7 +19,23 @@ function OrderViewDetail() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
+    length:"",
+    height:"",
+    width:"",
+    weight:"",
+    amount:null
   });
+
+  // const statusLabels = {
+  //   0: "Pending",
+  //   1: "Rejected",
+  //   2: "Received",
+  //   3: "Dimension Done",
+  //   4: "Labelling Done",
+  //   5: "Invoice Generated",
+  //   6: "Invoice Accepted",
+  //   7: "Invoice Rejected",
+  // };
 
   useEffect(() => {
     // Fetch data using the id passed as a prop
@@ -48,6 +64,13 @@ function OrderViewDetail() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
+            length:data.length,
+            width:data.width,
+            height:data.height,
+            weight:data.weight,
+            amount:data.amount,
+            status:data.status,
+            
             // ... other fields you want to update
           });
         } else {
@@ -93,6 +116,12 @@ function OrderViewDetail() {
     formDataToSend.append("tracking_url", tracking_url);
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
+    formDataToSend.append("length",length);
+    formDataToSend.append("width",width);
+    formDataToSend.append("weight",weight);
+    formDataToSend.append("height",height);
+    formDataToSend.append("amount",amount);
+    formDataToSend.append("status",status);
 
     // Add any other fields you want to update
 
@@ -130,6 +159,12 @@ function OrderViewDetail() {
     labelSend1,
     fnsku_status,
     label_status,
+    length,
+    width,
+    weight,
+    height,
+    status,
+    amount
   } = formData;
 
   return (
@@ -161,6 +196,46 @@ function OrderViewDetail() {
               onChange={handleChange}
               required
               readOnly
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Length</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="customerName"
+              value={length}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Width</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="customerName"
+              value={width}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Height</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="customerName"
+              value={height}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Weight</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="customerName"
+              value={weight}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -247,6 +322,35 @@ function OrderViewDetail() {
               onChange={handleChange}
             />
           </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Amount</label>
+            <input
+              className="order-customer-lable-container"
+              type="text"
+              name="amount"
+              value={amount}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="order-customer-input-feild">
+            <label className="order-customer-label-name">Status</label>
+            <select
+              className="order-customer-lable-container"
+              type="text"
+              name="status"
+              value={status || "Unknown Status"}
+              onChange={handleChange}
+            >
+              <option value="0">Pending</option>
+              <option value="1">Rejected</option>
+              <option value="2">Received</option>
+              <option value="3">Dimension Done</option>
+              <option value="4">Labelling Done</option>
+              <option value="5">Invoice Generated</option>
+              <option value="6">Invoice Accepted</option>
+              <option value="7">Invoice Rejected</option>
+            </select>
+          </div>
           <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -282,85 +386,3 @@ function OrderViewDetail() {
 
 export default OrderViewDetail;
 
-// return (
-//   <div>
-//     <h1>Order Form</h1>
-//     <form onSubmit={handleSubmit}>
-//       <label>Date:</label>
-//       <input
-//         type="date"
-//         name="date"
-//         value={date}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Customer Name:</label>
-//       <input
-//         type="text"
-//         name="customerName"
-//         value={customerName}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Services Required:</label>
-//       <select
-//         name="servicesReq"
-//         value={servicesReq}
-//         onChange={handleChange}
-//         required
-//       >
-//         <option value="Labeling">Labeling</option>
-//         <option value="Shipping">Shipping</option>
-//       </select>
-//       <br />
-//       <label>Product Name:</label>
-//       <input
-//         type="text"
-//         name="productName"
-//         value={productName}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Units:</label>
-//       <input
-//         type="number"
-//         name="units"
-//         value={units}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Tracking URL:</label>
-//       <input
-//         type="text"
-//         name="trackingURL"
-//         value={trackingURL}
-//         onChange={handleChange}
-//       />
-//       <br />
-//       <label>FNSKU Send:</label>
-//       <input type="file" name="fnskuSend" onChange={handleFnskuFileData} />
-//       <button
-//         type="button"
-//         onClick={() => openFileInNewTab(fnskuSend1)}
-//         disabled={fnskuSend1 === null}
-//       >
-//         View FNSKU File
-//       </button>
-//       <br />
-//       <label>Box Label Send:</label>
-//       <input type="file" name="labelSend" onChange={handleLabelFileData} />
-//       <button
-//         type="button"
-//         onClick={() => openFileInNewTab(labelSend1)}
-//         disabled={labelSend1 === null}
-//       >
-//         View Box Label File
-//       </button>
-//       <button type="submit">Submit</button>
-//     </form>
-//   </div>
-// );

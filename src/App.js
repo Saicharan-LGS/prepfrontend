@@ -38,10 +38,10 @@ function App() {
       <Route path="/" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
       <Route path="/accountOrders" element={<AccountOrders />} />
-      {role === "Dimension" && (
+      {(role === "Dimension"|| role==="Admin")&& (
         <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
       )}
-      {role === "Dimension" && (
+      {(role === "Dimension"|| role==="Admin") && (
         <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
       )}
       {role === "Customer" && (

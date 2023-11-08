@@ -19,7 +19,11 @@ function ViewDetailedOrder() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
-    fnsku_label_printed:null
+    fnsku_label_printed:null,
+    length:"",
+    height:"",
+    width:"",
+    weight:""
   });
 
   useEffect(() => {
@@ -49,7 +53,11 @@ function ViewDetailedOrder() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
-            fnsku_label_printed:data.fnsku_label_printed
+            fnsku_label_printed:data.fnsku_label_printed,
+            length:data.length,
+            width:data.width,
+            height:data.height,
+            weight:data.weight
             // ... other fields you want to update
           });
         } else {
@@ -63,54 +71,8 @@ function ViewDetailedOrder() {
     fetchData();
   }, [id]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  // const handleFnskuFileData = (e) => {
-  //   const { name, files } = e.target;
-  //   console.log(e.target.name);
-  //   console.log("fnsku called", files[0]);
-  //    setFormData({ ...formData, ["fnskuSend"]: files[0] });
-  // };
   
-  // const handleLabelFileData = async (e) => {
-  //   const { name, files } = e.target;
-  //   console.log(e.target.name);
-  //   console.log("label called", files[0]);
-  //  setFormData({ ...formData, ["labelSend"]: files[0] });
-  // };
   
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formDataToSend = new FormData();
-    console.log(fnskuSend, labelSend);
-    formDataToSend.append("date", date);
-    formDataToSend.append("customerName", customerName);
-    formDataToSend.append("service", servicesReq);
-    formDataToSend.append("product", productName);
-    formDataToSend.append("units", units);
-    formDataToSend.append("tracking_url", trackingURL);
-    formDataToSend.append("fnskuSend", fnskuSend);
-    formDataToSend.append("labelSend", labelSend);
-
-    // Add any other fields you want to update
-
-    fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
-      method: "PUT",
-      body: formDataToSend,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data submitted successfully: ", data);
-        console.log(formDataToSend);
-      })
-      .catch((error) => {
-        console.error("Error submitting data: ", error);
-      });
-  };
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
@@ -126,13 +88,15 @@ function ViewDetailedOrder() {
     productName,
     units,
     trackingURL,
-    fnskuSend,
-    labelSend,
     fnskuSend1,
     labelSend1,
     fnsku_status,
     label_status,
-    fnsku_label_printed
+    fnsku_label_printed,
+    length,
+    width,
+    weight,
+    height
   } = formData;
 
   return (
@@ -149,8 +113,6 @@ function ViewDetailedOrder() {
               type="date"
               name="date"
               value={date}
-              onChange={handleChange}
-              required
               readOnly
             />
           </div>
@@ -161,8 +123,6 @@ function ViewDetailedOrder() {
               type="text"
               name="customerName"
               value={customerName}
-              onChange={handleChange}
-              required
               readOnly
             />
           </div>
@@ -182,11 +142,9 @@ function ViewDetailedOrder() {
             <label className="order-customer-label-name">Length</label>
             <input
               className="order-customer-lable-container"
-              type="number"
+              type="text"
               name="customerName"
-              value={customerName}
-              onChange={handleChange}
-              required
+              value={length}
               readOnly
             />
           </div>
@@ -194,11 +152,9 @@ function ViewDetailedOrder() {
             <label className="order-customer-label-name">Width</label>
             <input
               className="order-customer-lable-container"
-              type="number"
+              type="text"
               name="customerName"
-              value={customerName}
-              onChange={handleChange}
-              required
+              value={width}
               readOnly
             />
           </div>
@@ -206,11 +162,9 @@ function ViewDetailedOrder() {
             <label className="order-customer-label-name">Height</label>
             <input
               className="order-customer-lable-container"
-              type="number"
+              type="text"
               name="customerName"
-              value={customerName}
-              onChange={handleChange}
-              required
+              value={height}
               readOnly
             />
           </div>
@@ -218,11 +172,9 @@ function ViewDetailedOrder() {
             <label className="order-customer-label-name">Weight</label>
             <input
               className="order-customer-lable-container"
-              type="number"
+              type="text"
               name="customerName"
-              value={customerName}
-              onChange={handleChange}
-              required
+              value={weight}
               readOnly
             />
           </div>
@@ -234,9 +186,9 @@ function ViewDetailedOrder() {
             </label>
             <select
               className="order-customer-lable-container"
-              onChange={handleChange}
-              required
+            
               value={servicesReq}
+              readOnly
             >
               <option value="Labeling">labeling</option>
               <option value="Shipping">Shipping</option>
@@ -249,8 +201,7 @@ function ViewDetailedOrder() {
               type="text"
               name="productName"
               value={productName}
-              onChange={handleChange}
-              required
+              readOnly
             />
           </div>
           <div className="order-customer-input-feild-fnsku-status">
@@ -259,6 +210,7 @@ function ViewDetailedOrder() {
               type="checkbox"
               name="trackingURL"
               checked={fnsku_status === 1 ? true : false}
+              readOnly
             />
             <label className="order-customer-label-name">FNSKU Status</label>
             
@@ -288,6 +240,7 @@ function ViewDetailedOrder() {
               type="checkbox"
               name="trackingURL"
               checked={label_status === 1 ? true : false}
+              readOnly
             />
             <label className="order-customer-label-name">Label Status</label>
           </div>
@@ -313,6 +266,7 @@ function ViewDetailedOrder() {
               type="checkbox"
               name="trackingURL"
               checked={label_status === 1 ? true : false}
+              readOnly
             />
             <label className="order-customer-label-name">Payment Status</label>
           </div>
@@ -322,6 +276,7 @@ function ViewDetailedOrder() {
               type="checkbox"
               name="trackingURL"
               checked={fnsku_label_printed === 1 ? true : false}
+              readOnly
             />
             <label className="order-customer-label-name">Labelling</label>
           </div>
@@ -335,8 +290,7 @@ function ViewDetailedOrder() {
               type="number"
               name="units"
               value={units}
-              onChange={handleChange}
-              required
+              readOnly
             />
           </div>
           <div className="order-customer-input-feild">
@@ -346,107 +300,16 @@ function ViewDetailedOrder() {
               type="text"
               name="trackingURL"
               value={trackingURL}
-              onChange={handleChange}
+              readOnly
             />
           </div>
           
           
         </div>
       </form>
-      <center>
-        <button
-          onClick={handleSubmit}
-          className="order-customer-button-container"
-          type="button"
-        >
-          Submit
-        </button>
-      </center>
     </div>
   );
 }
 
 export default ViewDetailedOrder;
 
-// return (
-//   <div>
-//     <h1>Order Form</h1>
-//     <form onSubmit={handleSubmit}>
-//       <label>Date:</label>
-//       <input
-//         type="date"
-//         name="date"
-//         value={date}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Customer Name:</label>
-//       <input
-//         type="text"
-//         name="customerName"
-//         value={customerName}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Services Required:</label>
-//       <select
-//         name="servicesReq"
-//         value={servicesReq}
-//         onChange={handleChange}
-//         required
-//       >
-//         <option value="Labeling">Labeling</option>
-//         <option value="Shipping">Shipping</option>
-//       </select>
-//       <br />
-//       <label>Product Name:</label>
-//       <input
-//         type="text"
-//         name="productName"
-//         value={productName}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Units:</label>
-//       <input
-//         type="number"
-//         name="units"
-//         value={units}
-//         onChange={handleChange}
-//         required
-//       />
-//       <br />
-//       <label>Tracking URL:</label>
-//       <input
-//         type="text"
-//         name="trackingURL"
-//         value={trackingURL}
-//         onChange={handleChange}
-//       />
-//       <br />
-//       <label>FNSKU Send:</label>
-//       <input type="file" name="fnskuSend" onChange={handleFnskuFileData} />
-//       <button
-//         type="button"
-//         onClick={() => openFileInNewTab(fnskuSend1)}
-//         disabled={fnskuSend1 === null}
-//       >
-//         View FNSKU File
-//       </button>
-//       <br />
-//       <label>Box Label Send:</label>
-//       <input type="file" name="labelSend" onChange={handleLabelFileData} />
-//       <button
-//         type="button"
-//         onClick={() => openFileInNewTab(labelSend1)}
-//         disabled={labelSend1 === null}
-//       >
-//         View Box Label File
-//       </button>
-//       <button type="submit">Submit</button>
-//     </form>
-//   </div>
-// );

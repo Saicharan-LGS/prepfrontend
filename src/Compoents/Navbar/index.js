@@ -10,10 +10,10 @@ import './index.css';
 import { useNavigate } from "react-router-dom";
 import { IconContext } from 'react-icons';
 import ProductList from '../adminOrders';
-
+import AdminHomePage from '../AdminHomePage';
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
-  const [currentComponent, setCurrentComponent] = useState(<ProductList />);
+  const [currentComponent, setCurrentComponent] = useState(<AdminHomePage />);
 
   const showSidebar = () => setSidebar(!sidebar);
 

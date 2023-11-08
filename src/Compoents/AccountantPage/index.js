@@ -36,7 +36,7 @@ function AccountOrders() {
 
   const openDetailPage = (e, productId) => {
     console.log(productId);
-    navigate(`/adminViewDetail/${productId}`);
+    navigate(`/viewDetailedorder/${productId}`);
   };
 
   const onChangeInput = () => {};
