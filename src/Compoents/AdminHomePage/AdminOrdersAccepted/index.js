@@ -111,7 +111,7 @@ function AdminOrdersAccepted() {
   // );
   return (
     <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <h2 className="admin-order-accepted-order-list-heading">Accepted List</h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -146,8 +146,9 @@ function AdminOrdersAccepted() {
               <p className="admin-order-accepted-quantity-sub-category">
                 {eachProduct.unit}
               </p>
-              <p className="admin-order-accepted-order-tracking-sub-category">
-                {eachProduct.tacking_url}
+              <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
+                  Order Link
+                </a>
               </p>
               {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}

@@ -299,7 +299,7 @@ function OrderViewDetail() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-            <button
+            {fnsku_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
               disabled={fnskuSend1 === null}
@@ -307,6 +307,7 @@ function OrderViewDetail() {
             >
               View FNSKU File
             </button>
+          }
           </div>
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Box Label Send:</label>
@@ -316,7 +317,7 @@ function OrderViewDetail() {
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            <button
+            {label_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
               disabled={labelSend1 === null}
@@ -324,6 +325,7 @@ function OrderViewDetail() {
             >
               View Box Label File
             </button>
+          }
           </div>
         </div>
         <div className="order-customer-field3-container">
@@ -377,7 +379,7 @@ function OrderViewDetail() {
               <option value="7">Invoice Rejected</option>
             </select>
           </div>
-          <div className="order-customer-input-feild-fnsku-status">
+          {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
@@ -394,8 +396,8 @@ function OrderViewDetail() {
               checked={label_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">Label Status</label>
-          </div>
-        </div>
+          </div>*/}
+        </div> 
       </form>
       <center>
         <button
