@@ -30,6 +30,9 @@ function Navbar() {
     navigate("/");
   };
 
+  const role = sessionStorage.getItem("role")
+  const name = sessionStorage.getItem("sname")
+
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -38,6 +41,8 @@ function Navbar() {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="navbar-logout-button-container">
+            <p className="navbar-nav-item-name">{name}</p>
+            <p className="navbar-nav-item-name">{role}</p>
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
         </div>

@@ -1,0 +1,37 @@
+.common-navbar {
+    background-color: #060b26;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .common-menu-bars {
+    margin-left: 2rem;
+    font-size: 2rem;
+    background: none;
+    color:#fff;
+    cursor:pointer;
+  }
+  .common-navbar-logout-button-container{
+    display:flex;
+    gap:20px;
+  }
+  .common-navbar-nav-item-name{
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    margin:0px;
+  }
+  .common-navbar-logout-button{
+    background-color: #fff;
+    border-radius:4px;
+    padding:4px 12px;
+    color:#000;
+    margin-right:20px;
+    font-size:16px;
+    cursor:pointer;
+    min-width:max-content;
+    border:none;
+  }
+  

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../adminOrders/index.css";
-
+import './index.css'
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -9,6 +9,7 @@ import EmptyOrder from "../EmptyOrder";
 import DisplayAdminButton from "../adminOrders/adminButton";
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
+  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
@@ -63,6 +64,15 @@ function ViewAllOrders() {
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <input
+        type="number"
+        name="orderid"
+        value={orderId}
+        onChange={handleSearch}
+        placeholder="Search by Order ID" // Add a placeholder for the input
+        required
+        className="admin-order-accepted-search-filter-input"
+      />
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>

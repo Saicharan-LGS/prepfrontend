@@ -73,6 +73,13 @@
   }
   .navbar-logout-button-container{
     display:flex;
+    gap:20px;
+  }
+  .navbar-nav-item-name{
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    margin:0px;
   }
   .navbar-logout-button{
     background-color: #fff;

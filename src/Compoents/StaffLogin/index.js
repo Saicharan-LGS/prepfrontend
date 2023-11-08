@@ -140,6 +140,7 @@ const StaffSigninPage = () => {
             // Store the token in sessionStorage
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role);
+            sessionStorage.setItem("sname",data.name)
             console.log("Login successful");
             navigate("/navbar") // Navigate to the home page
           });
