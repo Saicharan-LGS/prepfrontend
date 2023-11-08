@@ -70,6 +70,10 @@ function ViewAllOrders() {
     return product.id.toString().includes(orderId);
   });
 
+  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
+  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+
+
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
@@ -149,10 +153,12 @@ function ViewAllOrders() {
               </div>
             );
           })}
-          <div className="pagination">
+          <div className="pagination-button-container">
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              className={previousButton}
+
             >
               Previous
             </button>
@@ -160,6 +166,7 @@ function ViewAllOrders() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
+              className={NextButton}
             >
               Next
             </button>

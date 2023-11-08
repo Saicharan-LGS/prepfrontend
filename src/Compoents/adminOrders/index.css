@@ -76,3 +76,34 @@
     cursor: pointer;
     color:#fff;
 }
+.pagination-button-container{
+    display:flex;
+    justify-content: center;
+    margin:10px 0px;
+}
+.pagination-button-previous-button{
+    cursor:pointer;
+    border:none;
+    background-color:#4caf50;
+    color:#fff;
+    border-radius:4px;
+    height:30px;
+    padding:0px 8px;
+    margin-right:4px;
+    width:100px;
+}
+.pagination-button-next-button{
+    cursor:pointer;
+    border:none;
+    background-color:#4caf50;
+    color:#fff;
+    border-radius:4px;
+    height:30px;
+    padding:0px 8px;
+    margin-left:4px;
+    width:100px;
+}
+.disable-previous-next-button{
+    background-color:grey !important;
+    cursor:not-allowed;
+}

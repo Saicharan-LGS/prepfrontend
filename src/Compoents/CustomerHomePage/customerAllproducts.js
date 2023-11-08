@@ -68,6 +68,10 @@ const paginate = (pageNumber) => {
     7: "Invoice Rejected",
   };
 
+  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
+  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+
+
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
@@ -128,21 +132,24 @@ const paginate = (pageNumber) => {
               
             );
           })}
-          <div className="pagination">
-                  <button
-                    onClick={() => paginate(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    Previous
-                  </button>
-                  <span>Page {currentPage}</span>
-                  <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={indexOfLastProduct >= products.length}
-                  >
-                    Next
-                  </button>
-                </div>
+          <div className="pagination-button-container">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={previousButton}
+
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className={NextButton}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />

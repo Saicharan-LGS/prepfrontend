@@ -3,6 +3,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 import AmountPost from "./AmountPost";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import EmptyOrder from "../EmptyOrder";
 function AccountOrders() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -61,6 +62,8 @@ function AccountOrders() {
           View In Detail
         </p>
       </div>
+      {products.length>0?
+      <>
       {products.map((eachProduct) => {
         console.log(eachProduct.fnsku_status, eachProduct.label_status);
         return (
@@ -98,7 +101,7 @@ function AccountOrders() {
             />
           </div>
         );
-      })}
+      })}</>:<EmptyOrder/>}
     </div>
   );
 }
