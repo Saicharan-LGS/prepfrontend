@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../../EmptyOrder";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 function AdminOrdersAccepted() {
   const [products, setProducts] = useState([]);
@@ -187,24 +188,15 @@ function AdminOrdersAccepted() {
               />
             </div>
           ))}
-          <div className="pagination-button-container">
-            <button
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={previousButton}
-
-            >
-              Previous
-            </button>
-            <span>Page {currentPage}</span>
-            <button
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-              className={NextButton}
-            >
-              Next
-            </button>
-          </div>
+         <div className="pagination-button-container">
+           
+           <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
+          
+           <span>Page {currentPage}</span>
+          
+          <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
+       
+         </div>
         </>
       ) : (
         <EmptyOrder />
