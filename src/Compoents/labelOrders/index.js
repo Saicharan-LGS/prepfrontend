@@ -54,6 +54,11 @@ function LabelOrders() {
     navigate(`/viewDetailedorder/${productId}`);
   };
 
+  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
+  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+
+
+
   return (
     <>
       <CommonNavbar />
@@ -106,36 +111,36 @@ function LabelOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                  <LabelPost id={eachProduct.id} />
-                  <BsFillArrowRightCircleFill
-                    id={eachProduct.id}
-                    value={eachProduct.id}
-                    onClick={(e) => openDetailPage(e, eachProduct.id)}
-                    className="admin-order-accepted-view-in-detail-sub-category"
-                  />
-                </div>
-              );
-            })}
-            <div className="pagination">
-              <button
-                onClick={() => paginate(currentPage - 1)}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              <span>Page {currentPage}</span>
-              <button
-                onClick={() => paginate(currentPage + 1)}
-                disabled={indexOfLastProduct >= products.length}
-              >
-                Next
-              </button>
-            </div>
-          </>
-        ) : (
-          <EmptyOrder />
-        )}
-      </div>
+                <LabelPost id={eachProduct.id} />
+                <BsFillArrowRightCircleFill
+                  id={eachProduct.id}
+                  value={eachProduct.id}
+                  onClick={(e) => openDetailPage(e, eachProduct.id)}
+                  className="admin-order-accepted-view-in-detail-sub-category"
+                />
+              </div>
+            );
+          })}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      ) : (
+        <EmptyOrder />
+      )}
+    </div>
     </>
   );
 }

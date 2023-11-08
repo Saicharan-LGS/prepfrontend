@@ -9,7 +9,6 @@ import DisplayAdminButton from "./adminButton";
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Number of products per page
   const navigate = useNavigate();
   const [productsPerPage] = useState(10); // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -60,7 +59,8 @@ function ProductList() {
     window.location.reload();
   };
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
+  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
 
   return (
     <div className="admin-order-accepted-product-list">
@@ -132,10 +132,12 @@ function ProductList() {
               </div>
             );
           })}
-          <div className="pagination">
+          <div className="pagination-button-container">
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              className={previousButton}
+
             >
               Previous
             </button>
@@ -143,6 +145,7 @@ function ProductList() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
+              className={NextButton}
             >
               Next
             </button>

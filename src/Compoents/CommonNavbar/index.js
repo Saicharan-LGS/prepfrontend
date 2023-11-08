@@ -10,6 +10,7 @@ function CommonNavbar(){
     const handleLogout = () => {
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("role");
+        sessionStorage.removeItem("sname");
         navigate("/");
       };
 

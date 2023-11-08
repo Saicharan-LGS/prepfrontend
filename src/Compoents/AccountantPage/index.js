@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AmountPost from "./AmountPost";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import CommonNavbar from "../CommonNavbar";
+import EmptyOrder from "../EmptyOrder";
 function AccountOrders() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -60,29 +61,31 @@ function AccountOrders() {
         <p className="admin-order-accepted-accept-category">Accept</p> */}
           {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
-          <p className="admin-order-accepted-view-in-detail-category">
-            View In Detail
-          </p>
-        </div>
-        {products.map((eachProduct) => {
-          console.log(eachProduct.fnsku_status, eachProduct.label_status);
-          return (
-            <div className="admin-order-accepted-display-of-products-container">
-              <p className="admin-order-accepted-order-id-sub-category">
-                {eachProduct.id}
-              </p>
-              <p className="admin-order-accepted-name-sub-category">
-                {eachProduct.name}
-              </p>
-              <p className="admin-order-accepted-service-sub-category">
-                {eachProduct.service}
-              </p>
-              <p className="admin-order-accepted-quantity-sub-category">
-                {eachProduct.unit}
-              </p>
-              <p className="admin-order-accepted-order-tracking-sub-category">
-                {eachProduct.tacking_url}
-              </p>
+        <p className="admin-order-accepted-view-in-detail-category">
+          View In Detail
+        </p>
+      </div>
+      {products.length>0?
+      <>
+      {products.map((eachProduct) => {
+        console.log(eachProduct.fnsku_status, eachProduct.label_status);
+        return (
+          <div className="admin-order-accepted-display-of-products-container">
+            <p className="admin-order-accepted-order-id-sub-category">
+              {eachProduct.id}
+            </p>
+            <p className="admin-order-accepted-name-sub-category">
+              {eachProduct.name}
+            </p>
+            <p className="admin-order-accepted-service-sub-category">
+              {eachProduct.service}
+            </p>
+            <p className="admin-order-accepted-quantity-sub-category">
+              {eachProduct.unit}
+            </p>
+            <p className="admin-order-accepted-order-tracking-sub-category">
+              {eachProduct.tacking_url}
+            </p>
 
               {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
@@ -92,18 +95,19 @@ function AccountOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-              <AmountPost id={eachProduct.id} />
-              <BsFillArrowRightCircleFill
-                id={eachProduct.id}
-                value={eachProduct.id}
-                onClick={(e) => openDetailPage(e, eachProduct.id)}
-                className="admin-order-accepted-view-in-detail-sub-category"
-              />
-            </div>
-          );
-        })}
-      </div>
+            <AmountPost id={eachProduct.id} />
+            <BsFillArrowRightCircleFill
+              id={eachProduct.id}
+              value={eachProduct.id}
+              onClick={(e) => openDetailPage(e, eachProduct.id)}
+              className="admin-order-accepted-view-in-detail-sub-category"
+            />
+          </div>
+        );
+      })}</>:<EmptyOrder/>}
+    </div>
     </>
+
   );
 }
 

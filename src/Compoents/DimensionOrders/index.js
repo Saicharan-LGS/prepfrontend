@@ -65,6 +65,10 @@ function DimensionOrderList() {
     navigate(`/viewDetailedorder/${productId}`);
   };
 
+  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
+  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+
+
   return (
     <>
     CommonNavbar
@@ -128,10 +132,12 @@ function DimensionOrderList() {
               />
             </div>
           ))}
-          <div className="pagination">
+         <div className="pagination-button-container">
             <button
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
+              className={previousButton}
+
             >
               Previous
             </button>
@@ -139,6 +145,7 @@ function DimensionOrderList() {
             <button
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
+              className={NextButton}
             >
               Next
             </button>
