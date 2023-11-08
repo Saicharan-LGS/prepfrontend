@@ -75,19 +75,20 @@ const CustomerButton = ({ id, amount }) => {
 
   return (
     <>
-      <button
-        value={id}
-        onClick={onClickDecline}
-        className="admin-order-accepted-declined-button"
-      >
-        Decline
-      </button>
+      
       <button
         value={id}
         onClick={onClickReceived}
         className="admin-order-accepted-received-button"
       >
         Accept
+      </button>
+      <button
+        value={id}
+        onClick={onClickDecline}
+        className="admin-order-accepted-declined-button"
+      >
+        Decline
       </button>
     </>
   );

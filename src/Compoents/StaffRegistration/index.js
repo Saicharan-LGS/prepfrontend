@@ -79,7 +79,7 @@ const StaffSignupPage = () => {
           if (response.status === 201) {
             // Registration successful
             console.log("Staff Registered successfully");
-            navigate("/staffsignin")
+            navigate("/")
             // Navigate to the signin page
           } else {
             // Handle other status codes or error messages

@@ -53,9 +53,8 @@ function App() {
       {role === "Customer" && (
         <Route path="/upload" element={<CustomerOrder />} />
       )}
-      {role === "Admin" && (
         <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
-      )}
+  
       {role === "Admin" && (
         <Route path="/adminOrders" element={<ProductList />} />
       )}

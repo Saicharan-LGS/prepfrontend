@@ -299,14 +299,15 @@ console.log(amount, 'amount')
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-           {fnsku_status === 1  && <button
+            {fnsku_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
               disabled={fnskuSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View FNSKU File
-            </button> }
+            </button>
+          }
           </div>
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Box Label Send:</label>
@@ -316,14 +317,15 @@ console.log(amount, 'amount')
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            {label_status === 1  && <button
+            {label_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
               disabled={labelSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View Box Label File
-            </button> }
+            </button>
+          }
           </div>
         </div>
         <div className="order-customer-field3-container">
@@ -377,7 +379,7 @@ console.log(amount, 'amount')
               <option value="7">Invoice Rejected</option>
             </select>
           </div>
-          <div className="order-customer-input-feild-fnsku-status">
+          {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
@@ -394,8 +396,8 @@ console.log(amount, 'amount')
               checked={label_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">Label Status</label>
-          </div>
-        </div>
+          </div>*/}
+        </div> 
       </form>
       <center>
         <button
