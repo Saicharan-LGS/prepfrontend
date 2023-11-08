@@ -69,7 +69,9 @@ function CustomerHomePage() {
 
   return (
     <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <h2 className="admin-order-accepted-order-list-heading">
+        Pending Order List
+      </h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -109,10 +111,15 @@ function CustomerHomePage() {
                 <p className="admin-order-accepted-order-tracking-sub-category">
                   {eachProduct.tracking_url}
                 </p>
-                <CustomerButton id={eachProduct.id} amount={5000} />
+                <CustomerButton
+                  id={eachProduct.id}
+                  amount={eachProduct.amount}
+                />
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                <p className="admin-order-accepted-fnsku-sub-category">5000</p>
+                <p className="admin-order-accepted-fnsku-sub-category">
+                  {eachProduct.amount}
+                </p>
 
                 <BsFillArrowRightCircleFill
                   id={eachProduct.id}

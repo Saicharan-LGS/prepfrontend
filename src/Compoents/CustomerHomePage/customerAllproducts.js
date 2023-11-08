@@ -10,13 +10,16 @@ function CustomerAllProducts() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-const [productsPerPage] = useState(10); // Number of products to display per page
-const indexOfLastProduct = currentPage * productsPerPage;
-const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-const paginate = (pageNumber) => {
-  setCurrentPage(pageNumber);
-};
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,9 +57,9 @@ const paginate = (pageNumber) => {
     }
   };
 
-  const refreshpage=()=>{
-    window.location.reload()
-   }
+  const refreshpage = () => {
+    window.location.reload();
+  };
   const statusLabels = {
     0: "Pending",
     1: "Rejected",
@@ -70,7 +73,9 @@ const paginate = (pageNumber) => {
 
   return (
     <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <h2 className="admin-order-accepted-order-list-heading">
+        All Order List
+      </h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -125,24 +130,23 @@ const paginate = (pageNumber) => {
                   className="admin-order-accepted-view-in-detail-sub-category"
                 />
               </div>
-              
             );
           })}
           <div className="pagination">
-                  <button
-                    onClick={() => paginate(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    Previous
-                  </button>
-                  <span>Page {currentPage}</span>
-                  <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={indexOfLastProduct >= products.length}
-                  >
-                    Next
-                  </button>
-                </div>
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />

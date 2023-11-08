@@ -7,7 +7,7 @@ function OrderViewDetail() {
   const [formData, setFormData] = useState({
     date: "",
     name: "",
-    service: "Labeling",
+    service: "Prep Service",
     product: "",
     unit: "",
     tracking_url: "",
@@ -46,13 +46,13 @@ function OrderViewDetail() {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-  
+
           // Split the dimensions into value and unit
           const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
           const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
           const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
           const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
-  
+
           setFormData({
             date: data.date,
             name: data.name,
@@ -68,11 +68,16 @@ function OrderViewDetail() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
+            length: data.length,
+            width: data.width,
+            height: data.height,
+            weight: data.weight,
             amount: data.amount,
             status: data.status,
+
             // ... other fields you want to update
           });
-  
+
           // Set dimensions only if they are not null
           setDimensions({
             length: lengthParts ? parseFloat(lengthParts[1]) : null,
@@ -80,7 +85,7 @@ function OrderViewDetail() {
             height: heightParts ? parseFloat(heightParts[1]) : null,
             weight: weightParts ? parseFloat(weightParts[1]) : null,
           });
-  
+
           // Set selected units
           setSelectedUnits({
             length: lengthParts ? lengthParts[2] : "cm",
@@ -95,11 +100,9 @@ function OrderViewDetail() {
         console.error("Error fetching data:", error);
       }
     }
-  
+
     fetchData();
   }, [id]);
-  ;
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -107,11 +110,15 @@ function OrderViewDetail() {
 
   const handleFnskuFileData = (e) => {
     const { name, files } = e.target;
+    console.log(e.target.name);
+    console.log("fnsku called", files[0]);
     setFormData({ ...formData, ["fnskuSend"]: files[0] });
   };
 
   const handleLabelFileData = async (e) => {
     const { name, files } = e.target;
+    console.log(e.target.name);
+    console.log("label called", files[0]);
     setFormData({ ...formData, ["labelSend"]: files[0] });
   };
 
@@ -125,16 +132,15 @@ function OrderViewDetail() {
     formDataToSend.append("tracking_url", tracking_url || "");
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
+    formDataToSend.append("length", length);
+    formDataToSend.append("width", width);
+    formDataToSend.append("weight", weight);
+    formDataToSend.append("height", height);
+    formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
-  
-    // Assign the selected units to length, width, height, and weight
-    formDataToSend.append("length", dimensions.length + selectedUnits.length);
-    formDataToSend.append("width", dimensions.width + selectedUnits.width);
-    formDataToSend.append("height", dimensions.height + selectedUnits.height);
-    formDataToSend.append("weight", dimensions.weight + selectedUnits.weight);
-  
-    formDataToSend.append("amount", amount || "");
-  
+
+    // Add any other fields you want to update
+
     fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
       method: "PUT",
       body: formDataToSend,
@@ -148,7 +154,6 @@ function OrderViewDetail() {
         console.error("Error submitting data: ", error);
       });
   };
-  
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
@@ -195,15 +200,14 @@ function OrderViewDetail() {
       [dimension]: dimensions[dimension],
     });
   };
- 
 
-const handleDimensionsChange = (e, dimension) => {
-  const newValue = e.target.value;
-  setDimensions({
-    ...dimensions,
-    [dimension]: newValue,
-  });
-}
+  const handleDimensionsChange = (e, dimension) => {
+    const newValue = e.target.value;
+    setDimensions({
+      ...dimensions,
+      [dimension]: newValue,
+    });
+  };
 
   return (
     <div className="order-customer-container">
@@ -236,7 +240,7 @@ const handleDimensionsChange = (e, dimension) => {
               readOnly
             />
           </div>
-          { ["length", "width", "height", "weight"].map((dimension) => (
+          {["length", "width", "height", "weight"].map((dimension) => (
             <div key={dimension} className="dimensions-input-container">
               <label className="dimensions-label-text">
                 {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
@@ -261,8 +265,8 @@ const handleDimensionsChange = (e, dimension) => {
                   ))}
                 </select>
               </div>
-            </div>)
-          )}
+            </div>
+          ))}
         </div>
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
@@ -273,8 +277,7 @@ const handleDimensionsChange = (e, dimension) => {
               required
               value={service}
             >
-              <option value="Labeling">labeling</option>
-              <option value="Shipping">Shipping</option>
+              <option value="Prep Service">Prep Service</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
@@ -404,7 +407,7 @@ const handleDimensionsChange = (e, dimension) => {
         </button>
       </center>
     </div>
-  )
+  );
 }
 
 export default OrderViewDetail;
