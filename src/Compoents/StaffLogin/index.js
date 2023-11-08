@@ -179,9 +179,7 @@ const StaffSigninPage = () => {
   const onClickCustomer = () => {
     navigate("/CustomerLogin");
   };
-  const onClickCustomer = () => {
-    navigate("/CustomerLogin");
-  };
+  
 
   return (
     <div className="signin-div-container">
