@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../adminOrders/index.css";
-
+import './index.css'
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
@@ -9,7 +9,9 @@ import EmptyOrder from "../EmptyOrder";
 import DisplayAdminButton from "../adminOrders/adminButton";
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
+  const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
+
   
   useEffect(() => {
     const fetchProducts = async () => {
@@ -49,9 +51,27 @@ function ViewAllOrders() {
     window.location.reload()
   }
 
+  const handleSearch = (e) => {
+    setOrderId(e.target.value);
+  };
+
+  // Filter products based on orderId
+  const filteredProducts = products.filter((product) => {
+    return product.id.toString().includes(orderId);
+  });
+
   return(
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <input
+        type="number"
+        name="orderid"
+        value={orderId}
+        onChange={handleSearch}
+        placeholder="Search by Order ID" // Add a placeholder for the input
+        required
+        className="admin-order-accepted-search-filter-input"
+      />
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -65,10 +85,10 @@ function ViewAllOrders() {
         <p className="admin-order-accepted-view-in-detail-category">View In Detail</p>
       </div>
       
-      {products.length>0?
+      {filteredProducts.length>0?
       <>
       {
-      products.map(eachProduct=>{
+      filteredProducts.map(eachProduct=>{
         console.log("called")
         console.log(eachProduct.fnsku_status,eachProduct.label_status)
         return(
