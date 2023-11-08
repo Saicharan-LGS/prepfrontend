@@ -21,6 +21,7 @@ import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 
+import CommonNavbar from "./Compoents/CommonNavbar";
 
 // import Login from "./Compoents/Login";
 const role = sessionStorage.getItem("role");
@@ -57,6 +58,7 @@ function App() {
       )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route path="/customernavbar" element={<CustomerNavbar />} />
+      <Route path="/commonNavbar" element={<CommonNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}
     </Routes>
   );

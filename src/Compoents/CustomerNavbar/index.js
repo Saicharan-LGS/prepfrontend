@@ -44,6 +44,8 @@ function CustomerNavbar() {
   const postOrder=()=>{
     navigate("/upload")
   }
+  const role = sessionStorage.getItem("role")
+  const name = sessionStorage.getItem("sname")
 
   return (
     <div className="navbar-container">
@@ -52,7 +54,9 @@ function CustomerNavbar() {
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <div className="navbar-logout-button-container">
+          <div className="customer-navbar-logout-button-container">
+            <p className="customer-navbar-nav-item-name">{name}</p>
+            <p className="customer-navbar-nav-item-name">{role}</p>
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
           
