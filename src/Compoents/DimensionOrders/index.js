@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
-
+import CommonNavbar from "../CommonNavbar";
 function DimensionOrderList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -66,6 +66,8 @@ function DimensionOrderList() {
   };
 
   return (
+    <>
+    CommonNavbar
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -146,6 +148,7 @@ function DimensionOrderList() {
         <EmptyOrder />
       )}
     </div>
+    </>
   );
 }
 

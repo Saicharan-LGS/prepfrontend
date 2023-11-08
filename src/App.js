@@ -30,34 +30,47 @@ console.log(role, "app");
 function App() {
   return (
     <Routes>
-      <Route
-        path="/CustomerOrderViewDetail/:id"
-        element={<CustomerOrderViewDetail />}
-      />
-      {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
       <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/" element={<StaffSigninPage />} />
       <Route path="/staffsignup" element={<StaffSignupPage />} />
-      <Route path="/accountOrders" element={<AccountOrders />} />
-      {(role === "Dimension"|| role==="Admin")&& (
-        <Route path="/dimensionorderlist" element={<DimensionOrderList />} />
+      {role === "Customer" && (
+        <Route
+          path="/CustomerOrderViewDetail/:id"
+          element={<CustomerOrderViewDetail />}
+        />
       )}
-      {(role === "Dimension"|| role==="Admin") && (
+      {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
+
+      {(role === "Accountant" || role === "Admin") && (
+        <Route path="/accountOrders" element={<AccountOrders />} />
+      )}
+      {(role === "Dimension" || role === "Admin") && (
+        <Route path="/dimensionorders" element={<DimensionOrderList />} />
+      )}
+      {(role === "Dimension" || role === "Admin") && (
         <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
       )}
       {role === "Customer" && (
         <Route path="/upload" element={<CustomerOrder />} />
       )}
-      <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
-      <Route path="/adminOrders" element={<ProductList />} />
+      {role === "Admin" && (
+        <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
+      )}
+      {role === "Admin" && (
+        <Route path="/adminOrders" element={<ProductList />} />
+      )}
       <Route path="/labelOrders" element={<LabelOrders />} />
-      <Route path="/adminhomepage" element={<AdminHomePage />} />
+      {role === "Customer" && (
+        <Route path="/adminhomepage" element={<AdminHomePage />} />
+      )}
       <Route path="/navbar" element={<Navbar />} />
       {role === "Customer" && (
         <Route path="/customerhomepage" element={<CustomerHomePage />} />
       )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
-      <Route path="/customernavbar" element={<CustomerNavbar />} />
+      {role === "Customer" && (
+        <Route path="/customernavbar" element={<CustomerNavbar />} />
+      )}
       <Route path="/commonNavbar" element={<CommonNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}
     </Routes>
