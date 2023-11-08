@@ -11,6 +11,17 @@ function ProductList() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of products per page
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,7 +87,7 @@ function ProductList() {
 
       {products.length > 0 ? (
         <>
-          {products.map((eachProduct) => {
+          {currentProducts.map((eachProduct) => {
             console.log("called");
             console.log(eachProduct.fnsku_status, eachProduct.label_status);
             return (
@@ -122,6 +133,21 @@ function ProductList() {
               </div>
             );
           })}
+          <div className="pagination">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span>Page {currentPage}</span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+            >
+              Next
+            </button>
+          </div>
         </>
       ) : (
         <EmptyOrder />
