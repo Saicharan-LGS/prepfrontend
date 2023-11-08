@@ -19,7 +19,7 @@ function LabelOrders() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+  const role = sessionStorage.getItem("role");
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -61,7 +61,7 @@ function LabelOrders() {
 
   return (
     <>
-      <CommonNavbar />
+      {role==="Label" && <CommonNavbar /> }
       <div className="admin-order-accepted-product-list">
         <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
         <div className="admin-order-accepted-category-types">

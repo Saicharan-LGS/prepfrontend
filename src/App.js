@@ -34,13 +34,11 @@ function App() {
       <Route path="/" element={<StaffSigninPage />} />
       {role === undefined && (
         <Route path="/staffsignup" element={<StaffSignupPage />} />
-      )}
-      {role === "Customer" && (
+      )} (
         <Route
           path="/CustomerOrderViewDetail/:id"
           element={<CustomerOrderViewDetail />}
         />
-      )}
       {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
 
       {(role === "Accountant" || role === "Admin") && (
@@ -70,9 +68,9 @@ function App() {
         <Route path="/customerhomepage" element={<CustomerHomePage />} />
       )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
-      {role === "Customer" && (
-        <Route path="/customernavbar" element={<CustomerNavbar />} />
-      )}
+
+      <Route path="/customernavbar" element={<CustomerNavbar />} />
+
       <Route path="/commonNavbar" element={<CommonNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}
     </Routes>

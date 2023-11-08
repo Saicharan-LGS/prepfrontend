@@ -208,7 +208,7 @@ function OrderViewDetail() {
       [dimension]: newValue,
     });
   };
-
+console.log(amount, 'amount')
   return (
     <div className="order-customer-container">
       <center>
@@ -299,14 +299,14 @@ function OrderViewDetail() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-            <button
+           {fnsku_status === 1  && <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
               disabled={fnskuSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View FNSKU File
-            </button>
+            </button> }
           </div>
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Box Label Send:</label>
@@ -316,14 +316,14 @@ function OrderViewDetail() {
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            <button
+            {label_status === 1  && <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
               disabled={labelSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View Box Label File
-            </button>
+            </button> }
           </div>
         </div>
         <div className="order-customer-field3-container">
