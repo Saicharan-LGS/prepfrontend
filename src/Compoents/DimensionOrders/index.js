@@ -79,7 +79,7 @@ function DimensionOrderList() {
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
-        <p className="admin-order-accepted-service-category">Service</p>
+        <p className="admin-order-accepted-service-category">Product</p>
         <p className="admin-order-accepted-quantity-category">Quantity</p>
         <p className="admin-order-accepted-order-tracking-category">
           Order Tracking Link
@@ -104,7 +104,7 @@ function DimensionOrderList() {
                 {eachProduct.name}
               </p>
               <p className="admin-order-accepted-service-sub-category">
-                {eachProduct.service}
+                {eachProduct.product}
               </p>
               <p className="admin-order-accepted-quantity-sub-category">
                 {eachProduct.unit}
@@ -139,7 +139,6 @@ function DimensionOrderList() {
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
               className={previousButton}
-
             >
               Previous
             </button>

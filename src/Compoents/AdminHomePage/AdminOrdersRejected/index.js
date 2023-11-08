@@ -72,7 +72,7 @@ function AdminOrdersRejected() {
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
-        <p className="admin-order-accepted-service-category">Service</p>
+        <p className="admin-order-accepted-service-category">Product</p>
         <p className="admin-order-accepted-quantity-category">Quantity</p>
         <p className="admin-order-accepted-order-tracking-category">
           Order Tracking Link
@@ -100,7 +100,7 @@ function AdminOrdersRejected() {
                   {eachProduct.name}
                 </p>
                 <p className="admin-order-accepted-service-sub-category">
-                  {eachProduct.service}
+                  {eachProduct.product}
                 </p>
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
