@@ -1,9 +1,8 @@
 .admin-home-page-main-container{
     display:flex;
     flex-direction: column;
-    align-items: center;
     width:95%;
-    padding:2% 4%;
+    padding:0% 4% 0% 4%;
 }
 .admin-home-page-order-heading{
     font-size:32px;
@@ -14,9 +13,8 @@
 }
 .admin-home-page-product-tabs-container{
     display:flex;
-    justify-content: space-between;
+    gap:20px;
     list-style-type: none;
-    width:60%;
     padding:0px;
 }
 .admin-home-page-product-tab{

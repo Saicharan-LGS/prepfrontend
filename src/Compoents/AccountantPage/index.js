@@ -35,6 +35,7 @@ function AccountOrders() {
   }, []);
 
   const navigate = useNavigate();
+  const role = sessionStorage.getItem("role");
 
   const openDetailPage = (e, productId) => {
     console.log(productId);
@@ -44,7 +45,7 @@ function AccountOrders() {
   const onChangeInput = () => {};
   return (
     <>
-      <CommonNavbar />
+      {role === "Accountant" && <CommonNavbar />}
       <div className="admin-order-accepted-product-list">
         <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
         <div className="admin-order-accepted-category-types">
@@ -89,7 +90,7 @@ function AccountOrders() {
 
               {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
-              {/* <div className="admin-order-accepted-fnsku-sub-category">
+                  {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <div className="admin-order-accepted-box-label-sub-category">
@@ -104,11 +105,9 @@ function AccountOrders() {
             />
           </div>
         );
-        
       })}</>:<EmptyOrder/>}
     </div>
     </>
-
   );
 }
 

@@ -34,13 +34,11 @@ function App() {
       <Route path="/" element={<StaffSigninPage />} />
       {role === undefined && (
         <Route path="/staffsignup" element={<StaffSignupPage />} />
-      )}
-      {role === "Customer" && (
+      )} (
         <Route
           path="/CustomerOrderViewDetail/:id"
           element={<CustomerOrderViewDetail />}
         />
-      )}
       {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
 
       {(role === "Accountant" || role === "Admin") && (
@@ -55,9 +53,8 @@ function App() {
       {role === "Customer" && (
         <Route path="/upload" element={<CustomerOrder />} />
       )}
-      {role === "Admin" && (
         <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
-      )}
+  
       {role === "Admin" && (
         <Route path="/adminOrders" element={<ProductList />} />
       )}
@@ -70,9 +67,9 @@ function App() {
         <Route path="/customerhomepage" element={<CustomerHomePage />} />
       )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
-      {role === "Customer" && (
-        <Route path="/customernavbar" element={<CustomerNavbar />} />
-      )}
+
+      <Route path="/customernavbar" element={<CustomerNavbar />} />
+
       <Route path="/commonNavbar" element={<CommonNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}
     </Routes>

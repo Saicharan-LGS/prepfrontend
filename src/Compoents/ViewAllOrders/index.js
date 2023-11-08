@@ -74,10 +74,20 @@ function ViewAllOrders() {
   const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
   const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
 
+  const statusLabels = {
+    0: "Pending",
+    1: "Rejected",
+    2: "Received",
+    3: "Dimension",
+    4: "Label",
+    5: "Invoice",
+    6: "Invoice Accepted",
+    7: "Invoice Rejected",
+  };
 
   return (
     <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <h2 className="admin-order-accepted-order-list-heading">All Orders</h2>
       <input
         type="number"
         name="orderid"
@@ -96,7 +106,8 @@ function ViewAllOrders() {
           Order Tracking Link
         </p>
         <p className="admin-order-accepted-fnsku-category">Status</p>
-        <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
+        <p className="admin-order-accepted-fnsku-category">Amount</p>
+        {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">
           Box Label Status
         </p>
@@ -105,7 +116,7 @@ function ViewAllOrders() {
         </p>
         <p className="admin-order-accepted-box-label-category">
           Box Label Status
-        </p>
+        </p> */}
         <p className="admin-order-accepted-view-in-detail-category">
           View In Detail
         </p>
@@ -130,12 +141,15 @@ function ViewAllOrders() {
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
                 </p>
-                <p className="admin-order-accepted-order-tracking-sub-category">
-                  {eachProduct.tacking_url}
+                <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
+                  Order Link
+                </a>
                 </p>
-                <DisplayAdminButton id={eachProduct.id} />
-                {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
+                  
+                
+                {/* <DisplayAdminButton id={eachProduct.id} />
+                <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button>
                 <div className="admin-order-accepted-fnsku-sub-category">
                   <input
                     type="checkbox"
@@ -149,7 +163,13 @@ function ViewAllOrders() {
                     checked={eachProduct.label_status === 1 ? true : false}
                     className="admin-order-accepted-checkbox"
                   />
-                </div>
+                </div> */}
+                <p className="admin-order-accepted-quantity-sub-category">
+                  {statusLabels[eachProduct.status] || "Unknown Status"}
+                </p>
+                <p className="admin-order-accepted-quantity-sub-category">
+                  {eachProduct.amount}
+                </p>
                 <BsFillArrowRightCircleFill
                   id={eachProduct.id}
                   value={eachProduct.id}

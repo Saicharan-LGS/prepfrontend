@@ -75,8 +75,9 @@ function ProductList() {
         <p className="admin-order-accepted-order-tracking-category">
           Order Tracking Link
         </p>
+        
+        <p className="admin-order-accepted-accept-category">Received</p>
         <p className="admin-order-accepted-decline-category">Decline</p>
-        <p className="admin-order-accepted-accept-category">Accept</p>
         <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">
           Box Label Status
@@ -105,8 +106,9 @@ function ProductList() {
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
                 </p>
-                <p className="admin-order-accepted-order-tracking-sub-category">
-                  {eachProduct.tracking_url}
+                <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
+                  Order Link
+                </a>
                 </p>
                 <DisplayAdminButton id={eachProduct.id} />
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>

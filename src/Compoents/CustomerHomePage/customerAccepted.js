@@ -111,8 +111,9 @@ function CustomerAccepted() {
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
                 </p>
-                <p className="admin-order-accepted-order-tracking-sub-category">
-                  {eachProduct.tracking_url}
+                <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
+                  Order Link
+                </a>
                 </p>
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}

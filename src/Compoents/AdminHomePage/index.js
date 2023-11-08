@@ -42,7 +42,7 @@ class AdminHomePage extends Component {
     return (
       <>
         <div className="admin-home-page-main-container">
-          <h1 className="admin-home-page-order-heading">Orders</h1>
+          {/* <h1 className="admin-home-page-order-heading">Orders</h1> */}
           <ul className="admin-home-page-product-tabs-container">
             {tabList.map((eachProduct) => { 
                 const activeProductTabColor = eachProduct.id===activeProductTab ? `admin-home-page-product-tab admin-home-page-active-product-tab-color` : "admin-home-page-product-tab"
