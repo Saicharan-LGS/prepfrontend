@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const DimensionsUpdate = () => {
@@ -31,6 +32,7 @@ const DimensionsUpdate = () => {
       [name]: value,
     });
   };
+  const navigate = useNavigate();
 
   const handleUnitChange = (e, dimension) => {
     const selectedUnit = e.target.value;
@@ -54,8 +56,8 @@ const DimensionsUpdate = () => {
       };
       console.log(dimensionsWithUnits);
       const token = sessionStorage.getItem("token");
-      
-        const response = await fetch(
+
+      const response = await fetch(
         `http://localhost:3009/api/v1/dimensionupdate/${id}`,
         {
           method: "PUT",
@@ -67,6 +69,7 @@ const DimensionsUpdate = () => {
         }
       );
       if (response.ok) {
+        navigate("/navbar");
         console.log("Dimension Updated successfully");
       } else {
         console.error("Error creating the order");

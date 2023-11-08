@@ -6,7 +6,7 @@ function CustomerOrderViewDetail() {
   const [formData, setFormData] = useState({
     date: "",
     name: "",
-    service: "Labeling",
+    service: "Prep Service",
     product: "",
     unit: "",
     tracking_url: "",
@@ -19,11 +19,11 @@ function CustomerOrderViewDetail() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
-    length:"",
-    height:"",
-    width:"",
-    weight:"",
-    amount:"",
+    length: "",
+    height: "",
+    width: "",
+    weight: "",
+    amount: "",
   });
 
   const statusLabels = {
@@ -62,12 +62,12 @@ function CustomerOrderViewDetail() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
-            length:data.length,
-            width:data.width,
-            height:data.height,
-            weight:data.weight,
-            amount:data.amount,
-            status:data.status
+            length: data.length,
+            width: data.width,
+            height: data.height,
+            weight: data.weight,
+            amount: data.amount,
+            status: data.status,
             // ... other fields you want to update
           });
         } else {
@@ -90,16 +90,15 @@ function CustomerOrderViewDetail() {
     const { name, files } = e.target;
     console.log(e.target.name);
     console.log("fnsku called", files[0]);
-     setFormData({ ...formData, ["fnskuSend"]: files[0] });
+    setFormData({ ...formData, ["fnskuSend"]: files[0] });
   };
-  
+
   const handleLabelFileData = async (e) => {
     const { name, files } = e.target;
     console.log(e.target.name);
     console.log("label called", files[0]);
-   setFormData({ ...formData, ["labelSend"]: files[0] });
+    setFormData({ ...formData, ["labelSend"]: files[0] });
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -128,7 +127,7 @@ function CustomerOrderViewDetail() {
       .catch((error) => {
         console.error("Error submitting data: ", error);
       });
-      window.location.reload()
+    window.location.reload();
   };
 
   const openFileInNewTab = (fileURL) => {
@@ -156,7 +155,7 @@ function CustomerOrderViewDetail() {
     weight,
     height,
     amount,
-    status
+    status,
   } = formData;
 
   return (
@@ -233,17 +232,14 @@ function CustomerOrderViewDetail() {
         </div>
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">
-              Service:
-            </label>
+            <label className="order-customer-label-name">Service:</label>
             <select
               className="order-customer-lable-container"
               onChange={handleChange}
               required
               value={service}
             >
-              <option value="Labeling">labeling</option>
-              <option value="Shipping">Shipping</option>
+              <option value="Prep Service">Prep Service</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
@@ -338,7 +334,7 @@ function CustomerOrderViewDetail() {
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
-              name="tracking_url" 
+              name="tracking_url"
               checked={fnsku_status === 1 ? true : false}
             />
             <label className="order-customer-label-name">FNSKU Status</label>
@@ -367,5 +363,4 @@ function CustomerOrderViewDetail() {
   );
 }
 
-export default CustomerOrderViewDetail
-
+export default CustomerOrderViewDetail;

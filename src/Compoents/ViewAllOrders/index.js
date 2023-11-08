@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../adminOrders/index.css";
-import './index.css'
+import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
@@ -94,9 +94,14 @@ function ViewAllOrders() {
         <p className="admin-order-accepted-order-tracking-category">
           Order Tracking Link
         </p>
-        <p className="admin-order-accepted-decline-category">Decline</p>
-        <p className="admin-order-accepted-accept-category">Accept</p>
+        <p className="admin-order-accepted-fnsku-category">Status</p>
         <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
+        <p className="admin-order-accepted-box-label-category">
+          Box Label Status
+        </p>
+        <p className="admin-order-accepted-view-in-detail-category">
+          View In Detail
+        </p>
         <p className="admin-order-accepted-box-label-category">
           Box Label Status
         </p>

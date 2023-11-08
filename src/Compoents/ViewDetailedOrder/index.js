@@ -6,7 +6,7 @@ function ViewDetailedOrder() {
   const [formData, setFormData] = useState({
     date: "",
     customerName: "",
-    servicesReq: "Labeling",
+    servicesReq: "Prep Service",
     productName: "",
     units: "",
     trackingURL: "",
@@ -19,11 +19,11 @@ function ViewDetailedOrder() {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
-    fnsku_label_printed:null,
-    length:"",
-    height:"",
-    width:"",
-    weight:""
+    fnsku_label_printed: null,
+    length: "",
+    height: "",
+    width: "",
+    weight: "",
   });
 
   useEffect(() => {
@@ -53,11 +53,11 @@ function ViewDetailedOrder() {
             label_status: data.label_status,
             fnskuSend: null,
             labelSend: null,
-            fnsku_label_printed:data.fnsku_label_printed,
-            length:data.length,
-            width:data.width,
-            height:data.height,
-            weight:data.weight
+            fnsku_label_printed: data.fnsku_label_printed,
+            length: data.length,
+            width: data.width,
+            height: data.height,
+            weight: data.weight,
             // ... other fields you want to update
           });
         } else {
@@ -70,9 +70,6 @@ function ViewDetailedOrder() {
 
     fetchData();
   }, [id]);
-
-  
-  
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
@@ -96,7 +93,7 @@ function ViewDetailedOrder() {
     length,
     width,
     weight,
-    height
+    height,
   } = formData;
 
   return (
@@ -186,12 +183,10 @@ function ViewDetailedOrder() {
             </label>
             <select
               className="order-customer-lable-container"
-            
               value={servicesReq}
               readOnly
             >
-              <option value="Labeling">labeling</option>
-              <option value="Shipping">Shipping</option>
+              <option value="Prep Service">Prep Service</option>
             </select>
           </div>
           <div className="order-customer-input-feild">
@@ -213,7 +208,6 @@ function ViewDetailedOrder() {
               readOnly
             />
             <label className="order-customer-label-name">FNSKU Status</label>
-            
           </div>
           <div className="order-customer-input-feild">
             {/* <label className="order-customer-label-name">FNSKU Send:</label>
@@ -231,9 +225,8 @@ function ViewDetailedOrder() {
             >
               View FNSKU File
             </button>
-            
           </div>
-        
+
           <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -261,25 +254,27 @@ function ViewDetailedOrder() {
               View Box Label File
             </button>
             <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="trackingURL"
-              checked={label_status === 1 ? true : false}
-              readOnly
-            />
-            <label className="order-customer-label-name">Payment Status</label>
-          </div>
-          <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="trackingURL"
-              checked={fnsku_label_printed === 1 ? true : false}
-              readOnly
-            />
-            <label className="order-customer-label-name">Labelling</label>
-          </div>
+              <input
+                className="order-customer-lable-container-checkbox"
+                type="checkbox"
+                name="trackingURL"
+                checked={label_status === 1 ? true : false}
+                readOnly
+              />
+              <label className="order-customer-label-name">
+                Payment Status
+              </label>
+            </div>
+            <div className="order-customer-input-feild-fnsku-status">
+              <input
+                className="order-customer-lable-container-checkbox"
+                type="checkbox"
+                name="trackingURL"
+                checked={fnsku_label_printed === 1 ? true : false}
+                readOnly
+              />
+              <label className="order-customer-label-name">Labelling</label>
+            </div>
           </div>
         </div>
         <div className="order-customer-field3-container">
@@ -303,8 +298,6 @@ function ViewDetailedOrder() {
               readOnly
             />
           </div>
-          
-          
         </div>
       </form>
     </div>
@@ -312,4 +305,3 @@ function ViewDetailedOrder() {
 }
 
 export default ViewDetailedOrder;
-
