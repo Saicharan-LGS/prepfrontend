@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-
+import Toast from "../utlis/toast";
 const DimensionsUpdate = () => {
   const [dimensions, setDimensions] = useState({
     length: "",
@@ -69,12 +69,23 @@ const DimensionsUpdate = () => {
         }
       );
       if (response.ok) {
-        navigate("/navbar");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          })});
+        navigate("/dimensionorders");
         console.log("Dimension Updated successfully");
       } else {
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          })});
         console.error("Error creating the order");
       }
     } catch (error) {
+      
       console.error("Error creating the order: ", error);
     }
   };

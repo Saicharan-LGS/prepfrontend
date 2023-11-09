@@ -168,11 +168,12 @@ const CustomerLogin = () => {
             });
             sessionStorage.setItem("token", data.token);
             localStorage.setItem("role", "Customer");
+            sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
 
             // navigate("/customernavbar"); // Navigate to the home page on successful login
             setTimeout(() => {
-              console.log("caled, route")
+              console.log("caled, route");
               navigate("/customernavbar");
             }, 100);
           });

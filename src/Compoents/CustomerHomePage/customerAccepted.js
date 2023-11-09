@@ -79,7 +79,7 @@ function CustomerAccepted() {
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">
-        Accepted Order List
+        Invoice Accepted Order List
       </h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>

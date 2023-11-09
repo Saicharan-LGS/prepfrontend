@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-
+import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
 
 const StaffSignupPage = () => {
@@ -75,10 +75,19 @@ const StaffSignupPage = () => {
         .then((response) => {
           if (response.status === 201) {
             // Registration successful
+            response.json().then((data) => {
+              Toast.fire({
+                icon: "success",
+                title: data.message,
+              })})
             console.log("Staff Registered successfully");
-            navigate("/");
             // Navigate to the signin page
           } else {
+            response.json().then((data) => {
+              Toast.fire({
+                icon: "error",
+                title: data.message,
+              })})
             // Handle other status codes or error messages
             console.error("Registration failed");
           }
@@ -106,16 +115,7 @@ const StaffSignupPage = () => {
               onChange={handleInputChange}
             />
           </div>
-          <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Password:</label>
-            <input
-              type="password"
-              name="password"
-              className="signin-input-text"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-          </div>
+         
           <div className="signup-whole-form-contaner">
             <label className="signup-form-lable-container">Email:</label>
             <input
@@ -123,6 +123,16 @@ const StaffSignupPage = () => {
               name="email"
               className="signin-input-text"
               value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="signup-whole-form-contaner">
+            <label className="signup-form-lable-container">Password:</label>
+            <input
+              type="password"
+              name="password"
+              className="signin-input-text"
+              value={formData.password}
               onChange={handleInputChange}
             />
           </div>

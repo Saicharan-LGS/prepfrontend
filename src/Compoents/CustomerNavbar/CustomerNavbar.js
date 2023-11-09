@@ -11,7 +11,7 @@ import CustomerHomePage from "../CustomerHomePage";
 import CustomerOrder from "../customerOrder";
 export const CustomerNavbarData = [
   {
-    title: "Product",
+    title: "Invoice Pending",
     id: 5,
 
     icon: <AiIcons.AiFillHome />,
@@ -19,14 +19,14 @@ export const CustomerNavbarData = [
     component: <CustomerHomePage />,
   },
   {
-    title: "Accepted",
+    title: "Invoice Accepted",
     id: 6,
     icon: <IoIcons.IoIosPaper />,
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
   {
-    title: "Rejected",
+    title: "Invoice Rejected",
     id: 7,
     icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",

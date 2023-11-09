@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-const LabelPost = ({ id }) => {
+import Toast from "../utlis/toast";
+const LabelPost = ({ id,fetchProducts }) => {
   const [product, setProduct] = useState(false);
 
   const handeSubmit = async (id, product1) => {
@@ -22,8 +22,20 @@ const LabelPost = ({ id }) => {
       );
 
       if (response.ok) {
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          })})
+          fetchProducts()
         console.log("Product updated successfully");
       } else {
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          })})
+          fetchProducts()
         console.error("Failed to updated product");
       }
     } catch (error) {

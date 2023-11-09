@@ -18,30 +18,31 @@ function AccountOrders() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        const response = await fetch(
-          "http://localhost:3009/api/v1/accountantlist",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        ); // Replace with your API endpoint
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setProducts(data.data);
-        } else {
-          console.error("Failed to fetch products");
+  const fetchProducts = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3009/api/v1/accountantlist",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching products:", error);
+      ); // Replace with your API endpoint
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setProducts(data.data);
+      } else {
+        console.error("Failed to fetch products");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+  useEffect(() => {
+    
     fetchProducts();
   }, []);
 
@@ -96,7 +97,7 @@ function AccountOrders() {
                     {eachProduct.unit}
                   </p>
                   <p className="admin-order-accepted-order-tracking-sub-category">
-                    {eachProduct.tacking_url}
+                    {eachProduct.tracking_url}
                   </p>
 
                   {/* <button className="admin-order-accepted-received-button">Received</button>
@@ -107,7 +108,7 @@ function AccountOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                  <AmountPost id={eachProduct.id} />
+                  <AmountPost id={eachProduct.id} fetchProducts={fetchProducts} />
                   <BsFillArrowRightCircleFill
                     id={eachProduct.id}
                     value={eachProduct.id}

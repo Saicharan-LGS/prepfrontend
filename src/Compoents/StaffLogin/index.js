@@ -145,6 +145,7 @@ const StaffSigninPage = () => {
 
             sessionStorage.setItem("token", data.token);
             localStorage.setItem("role", data.role);
+            sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
             console.log("Login successful");
             setTimeout(() => {

@@ -36,10 +36,16 @@ function OrderViewDetail() {
     height: "cm",
     weight: "g",
   });
+  const token = sessionStorage.getItem("token")
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,{
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       if (response.ok) {
         const data = await response.json();
@@ -143,6 +149,9 @@ function OrderViewDetail() {
 
     fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
       method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+      },
       body: formDataToSend,
     })
       .then((response) => response.json())
@@ -300,7 +309,7 @@ console.log(amount, 'amount')
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-            {fnsku_status==="1" && <button
+            {fnsku_status===1 && <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
               disabled={fnskuSend1 === null}
@@ -318,7 +327,7 @@ console.log(amount, 'amount')
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            {label_status==="1" && <button
+            {label_status===1 && <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
               disabled={labelSend1 === null}
