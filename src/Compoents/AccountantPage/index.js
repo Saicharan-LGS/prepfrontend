@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
-import AmountPost from "./AmountPost";
-import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { useAsyncError, useNavigate } from "react-router-dom";
+import Toast from "../utlis/toast";
+import {
+  BsFillArrowRightCircleFill,
+  BsFillArrowLeftCircleFill,
+} from "react-icons/bs";
 import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
+
 function AccountOrders() {
   const [products, setProducts] = useState([]);
-  const [updatePage,setupdatepage]=useState("")
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Number of products to display per page
+  const [productsPerPage] = useState(10);
+  const navigate = useNavigate();
+  const role = sessionStorage.getItem("role");
+  const [ErrorCard,setErrorCard]=useState(false)
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -30,36 +39,114 @@ function AccountOrders() {
             Authorization: `Bearer ${token}`,
           },
         }
-      ); // Replace with your API endpoint
+      );
       if (response.ok) {
         const data = await response.json();
         console.log(data);
         setProducts(data.data);
       } else {
         console.error("Failed to fetch products");
+        setErrorCard(true)
+
       }
     } catch (error) {
+      setErrorCard(true)
       console.error("Error fetching products:", error);
     }
   };
+
   useEffect(() => {
-    
     fetchProducts();
-  }, [updatePage]);
+  }, []);
 
-  const navigate = useNavigate();
-  const role = sessionStorage.getItem("role");
 
-  const openDetailPage = (e, productId) => {
+  const openDetailPage = (productId) => {
     console.log(productId);
     navigate(`/viewDetailedorder/${productId}`);
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
-  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const AmountPost = ({ id }) => {
+    const [amount1, setAmount] = useState("");
+    const onChangeInput = (e) => {
+      setAmount(e.target.value);
+    };
 
+    const handeSubmit = async (id, amount1) => {
+      console.log("called", id, amount1);
+      const role = sessionStorage.getItem("role");
 
-  const onChangeInput = () => {};
+      try {
+        const amount2 = {
+          amount: amount1,
+        };
+        const token = sessionStorage.getItem("token");
+        const response = await fetch(
+          `http://localhost:3009/api/v1/amountUpdate/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(amount2),
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+          setAmount("");
+          fetchProducts();
+        } else {
+          const data = await response.json();
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+          console.error("Failed to update product");
+        }
+      } catch (error) {
+        console.error("Error updating product:", error);
+      }
+    };
+
+    const onSubmitFunction = () => {
+      handeSubmit(id, amount1);
+    };
+
+    return (
+      <>
+        <div className="admin-order-accepted-enter-amount-input-container">
+          <input
+            className="admin-order-accepted-enter-amount-input-box"
+            type="text"
+            id={id}
+            onChange={onChangeInput}
+          />
+        </div>
+
+        <button
+          onClick={onSubmitFunction}
+          id={id}
+          className="admin-order-accepted-received-button"
+        >
+          post
+        </button>
+      </>
+    );
+  };
+
+  const NextButton =
+    indexOfLastProduct >= products.length
+      ? "pagination-arrow-container disable-previous-next-button"
+      : "pagination-arrow-container";
+  const previousButton =
+    currentPage === 1
+      ? "pagination-arrow-container disable-previous-next-button"
+      : "pagination-arrow-container";
+
   return (
     <>
       {role === "Accountant" && <CommonNavbar />}
@@ -83,25 +170,23 @@ function AccountOrders() {
             View In Detail
           </p>
         </div>
-        {products.length > 0 ? (
+        {products.length > 0 && !ErrorCard && (
           <>
-            {currentProducts.map((eachProduct) => {
-              console.log(eachProduct.fnsku_status, eachProduct.label_status);
-              return (
-                <div className="admin-order-accepted-display-of-products-container">
-                  <p className="admin-order-accepted-order-id-sub-category">
-                    {eachProduct.id}
-                  </p>
-                  <p className="admin-order-accepted-name-sub-category">
-                    {eachProduct.name}
-                  </p>
-                  <p className="admin-order-accepted-service-sub-category">
-                    {eachProduct.service}
-                  </p>
-                  <p className="admin-order-accepted-quantity-sub-category">
-                    {eachProduct.unit}
-                  </p>
-                  <p className="admin-order-accepted-order-tracking-sub-category">
+            {currentProducts.map((eachProduct) => (
+              <div className="admin-order-accepted-display-of-products-container">
+                <p className="admin-order-accepted-order-id-sub-category">
+                  {eachProduct.id}
+                </p>
+                <p className="admin-order-accepted-name-sub-category">
+                  {eachProduct.name}
+                </p>
+                <p className="admin-order-accepted-service-sub-category">
+                  {eachProduct.service}
+                </p>
+                <p className="admin-order-accepted-quantity-sub-category">
+                  {eachProduct.unit}
+                </p>
+                <p className="admin-order-accepted-order-tracking-sub-category">
                   <a
                     href={eachProduct.tracking_url}
                     rel="noreferrer"
@@ -112,41 +197,38 @@ function AccountOrders() {
                   </a>
                 </p>
 
-                  {/* <button className="admin-order-accepted-received-button">Received</button>
+                {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
-                  {/* <div className="admin-order-accepted-fnsku-sub-category">
+                {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div>
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                  <AmountPost id={eachProduct.id} fetchProducts={fetchProducts} setupdatepage={setupdatepage} />
-                  <BsFillArrowRightCircleFill
-                    id={eachProduct.id}
-                    value={eachProduct.id}
-                    onClick={(e) => openDetailPage(e, eachProduct.id)}
-                    className="admin-order-accepted-view-in-detail-sub-category"
-                  />
-                </div>
-              );
-            })}
-             <div className="pagination-button-container">
-            <BsFillArrowLeftCircleFill
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={previousButton}
-            />
-
-            <span>Page {currentPage}</span>
-
-            <BsFillArrowRightCircleFill
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-              className={NextButton}
-            />
-          </div>
+                <AmountPost id={eachProduct.id} />
+                <BsFillArrowRightCircleFill
+                  id={eachProduct.id}
+                  value={eachProduct.id}
+                  onClick={() => openDetailPage(eachProduct.id)}
+                  className="admin-order-accepted-view-in-detail-sub-category"
+                />
+              </div>
+            ))}
+            <div className="pagination-button-container">
+              <BsFillArrowLeftCircleFill
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={previousButton}
+              />
+              <span>Page {currentPage}</span>
+              <BsFillArrowRightCircleFill
+                onClick={() => paginate(currentPage + 1)}
+                disabled={indexOfLastProduct >= products.length}
+                className={NextButton}
+              />
+            </div>
           </>
-        ) : (
+        )} {ErrorCard && (
           <EmptyOrder />
         )}
       </div>

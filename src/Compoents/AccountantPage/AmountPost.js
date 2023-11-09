@@ -38,7 +38,7 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
             title: data.message,
           });
         });
-
+        setAmount("")
         console.log("Product updated successfully");
         if (role === "Admin") {
           fetchProducts();
