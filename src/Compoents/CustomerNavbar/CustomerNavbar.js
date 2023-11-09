@@ -2,7 +2,9 @@ import React from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
-
+import {BsXOctagonFill,BsFillBoxSeamFill} from 'react-icons/bs'
+import {ImUpload} from 'react-icons/im'
+import {RiVerifiedBadgeFill} from 'react-icons/ri'
 // import AdminHomePage from '../AdminHomePage';
 // import DimensionOrderList from '../DimensionOrders';
 // import LabelOrders from '../labelOrders';
@@ -14,21 +16,21 @@ export const CustomerNavbarData = [
     title: "Invoice Pending",
     id: 5,
 
-    icon: <AiIcons.AiFillHome />,
+    icon: <BsFillBoxSeamFill />,
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
   {
     title: "Invoice Accepted",
     id: 6,
-    icon: <IoIcons.IoIosPaper />,
+    icon: <RiVerifiedBadgeFill />,
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
   {
     title: "Invoice Rejected",
     id: 7,
-    icon: <FaIcons.FaCartPlus />,
+    icon: <BsXOctagonFill />,
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
@@ -42,7 +44,7 @@ export const CustomerNavbarData = [
   {
     title: "Post Order",
     id: 9,
-    icon: <FaIcons.FaCartPlus />,
+    icon: <ImUpload />,
     cName: "nav-text",
     component: <CustomerOrder />,
   },

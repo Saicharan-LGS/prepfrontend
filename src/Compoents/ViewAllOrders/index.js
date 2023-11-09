@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import {BsFillArrowLeftCircleFill} from "react-icons/bs"
 import EmptyOrder from "../EmptyOrder";
-
+import Spinner from "../Spinner";
 import DisplayAdminButton from "../adminOrders/adminButton";
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
+  const [loading,setLoading] = useState(true)
   const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,11 +43,18 @@ function ViewAllOrders() {
           const data = await response.json();
           console.log(data.results);
           setProducts(data.results);
+          setLoading(false)
         } else {
           console.error("Failed to fetch products");
+          setTimeout(()=>{
+            setLoading(false)
+           },3000)
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        setTimeout(()=>{
+          setLoading(false)
+         },3000)
       }
     };
     fetchProducts();
@@ -86,6 +94,7 @@ function ViewAllOrders() {
   };
 
   return (
+    <>{loading?<Spinner/>:
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">All Orders</h2>
       <input
@@ -199,6 +208,8 @@ function ViewAllOrders() {
         <EmptyOrder />
       )}
     </div>
+    }
+    </>
   );
 }
 

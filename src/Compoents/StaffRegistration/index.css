@@ -9,7 +9,7 @@
     width: 30%;
     margin: 0 auto;
     padding: 10px;
-    border: 2px solid #20b2aa;
+    border: 2px solid #124577;
     border-radius: 5px;
     box-shadow: 0 0 20px #282046(0, 0, 0, 0.1);
     
@@ -49,7 +49,7 @@
   }
   
   .signup-form-button-container {
-    background-color: #4caf50;
+    background-color: #124577;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -60,7 +60,10 @@
   }
   
   .signup-form-button-container:hover {
-    background-color: #45a049;
+    border: 1px solid #124577;
+    color:#124577;
+    background-color: #fff;
+    transition:0.3s ease-in-out;
   }
   .signup-error-messages{
     color:#ff0000;
