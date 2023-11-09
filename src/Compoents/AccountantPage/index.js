@@ -2,11 +2,22 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import AmountPost from "./AmountPost";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from "react-icons/bs";
 import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
 function AccountOrders() {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10); // Number of products to display per page
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -68,7 +79,7 @@ function AccountOrders() {
         </div>
         {products.length > 0 ? (
           <>
-            {products.map((eachProduct) => {
+            {currentProducts.map((eachProduct) => {
               console.log(eachProduct.fnsku_status, eachProduct.label_status);
               return (
                 <div className="admin-order-accepted-display-of-products-container">
@@ -79,7 +90,7 @@ function AccountOrders() {
                     {eachProduct.name}
                   </p>
                   <p className="admin-order-accepted-service-sub-category">
-                    {eachProduct.product}
+                    {eachProduct.service}
                   </p>
                   <p className="admin-order-accepted-quantity-sub-category">
                     {eachProduct.unit}
@@ -88,7 +99,7 @@ function AccountOrders() {
                     {eachProduct.tacking_url}
                   </p>
 
-              {/* <button className="admin-order-accepted-received-button">Received</button>
+                  {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
                   {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
@@ -96,17 +107,36 @@ function AccountOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-            <AmountPost id={eachProduct.id} />
+                  <AmountPost id={eachProduct.id} />
+                  <BsFillArrowRightCircleFill
+                    id={eachProduct.id}
+                    value={eachProduct.id}
+                    onClick={(e) => openDetailPage(e, eachProduct.id)}
+                    className="admin-order-accepted-view-in-detail-sub-category"
+                  />
+                </div>
+              );
+            })}
+             <div className="pagination-button-container">
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-arrow-container"
+            />
+
+            <span>Page {currentPage}</span>
+
             <BsFillArrowRightCircleFill
-              id={eachProduct.id}
-              value={eachProduct.id}
-              onClick={(e) => openDetailPage(e, eachProduct.id)}
-              className="admin-order-accepted-view-in-detail-sub-category"
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className="pagination-arrow-container"
             />
           </div>
-        );
-      })}</>):<EmptyOrder/>}
-    </div>
+          </>
+        ) : (
+          <EmptyOrder />
+        )}
+      </div>
     </>
   );
 }
