@@ -144,7 +144,7 @@ const StaffSigninPage = () => {
             });
 
             sessionStorage.setItem("token", data.token);
-            sessionStorage.setItem("role", data.role);
+            localStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
             console.log("Login successful");
             if (data.role === "Admin") {

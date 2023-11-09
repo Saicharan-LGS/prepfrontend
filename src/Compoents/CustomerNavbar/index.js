@@ -38,7 +38,7 @@ function CustomerNavbar() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("role");
+    localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
     navigate("/");
   };

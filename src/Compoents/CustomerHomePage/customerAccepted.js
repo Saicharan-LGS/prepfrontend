@@ -128,7 +128,7 @@ function CustomerAccepted() {
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
                 <p className="admin-order-accepted-fnsku-sub-category">
-                  eachProduct.amount
+                  {eachProduct.amount}
                 </p>
 
                 <BsFillArrowRightCircleFill
