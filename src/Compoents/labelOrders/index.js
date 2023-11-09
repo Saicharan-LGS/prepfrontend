@@ -3,6 +3,8 @@ import "./index.css";
 import LabelPost from "./labelPost";
 import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+
 import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
 
@@ -121,21 +123,15 @@ function LabelOrders() {
               </div>
             );
           })}
-          <div className="pagination">
-            <button
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-            <span>Page {currentPage}</span>
-            <button
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-            >
-              Next
-            </button>
-          </div>
+          <div className="pagination-button-container">
+           
+           <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
+          
+           <span>Page {currentPage}</span>
+          
+          <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
+       
+         </div>
         </>
       ) : (
         <EmptyOrder />

@@ -3,6 +3,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs"
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
@@ -138,22 +139,13 @@ function CustomerAllProducts() {
             );
           })}
           <div className="pagination-button-container">
-            <button
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={previousButton}
-
-            >
-              Previous
-            </button>
+           
+            <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
+           
             <span>Page {currentPage}</span>
-            <button
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-              className={NextButton}
-            >
-              Next
-            </button>
+           
+           <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
+        
           </div>
         </>
       ) : (

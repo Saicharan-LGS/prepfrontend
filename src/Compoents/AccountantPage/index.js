@@ -88,7 +88,7 @@ function AccountOrders() {
                     {eachProduct.tacking_url}
                   </p>
 
-                  {/* <button className="admin-order-accepted-received-button">Received</button>
+              {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
                   {/* <div className="admin-order-accepted-fnsku-sub-category">
           <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
@@ -96,21 +96,17 @@ function AccountOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                  <AmountPost id={eachProduct.id} />
-                  <BsFillArrowRightCircleFill
-                    id={eachProduct.id}
-                    value={eachProduct.id}
-                    onClick={(e) => openDetailPage(e, eachProduct.id)}
-                    className="admin-order-accepted-view-in-detail-sub-category"
-                  />
-                </div>
-              );
-            })}
-          </>
-        ) : (
-          <EmptyOrder />
-        )}
-      </div>
+            <AmountPost id={eachProduct.id} />
+            <BsFillArrowRightCircleFill
+              id={eachProduct.id}
+              value={eachProduct.id}
+              onClick={(e) => openDetailPage(e, eachProduct.id)}
+              className="admin-order-accepted-view-in-detail-sub-category"
+            />
+          </div>
+        );
+      })}</>:<EmptyOrder/>}
+    </div>
     </>
   );
 }

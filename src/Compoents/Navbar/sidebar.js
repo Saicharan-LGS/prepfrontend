@@ -1,7 +1,8 @@
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import {BsFillPersonFill} from "react-icons/bs"
+import {MdProductionQuantityLimits,MdOutlinePinch,MdLabelImportant} from "react-icons/md"
+import {AiOutlineTeam} from "react-icons/ai"
+import { RiAccountCircleFill } from "react-icons/ri"
 
 import AdminHomePage from '../AdminHomePage';
 import ProductList from '../adminOrders';
@@ -14,21 +15,21 @@ export const SidebarData = [
   {
     title: 'View Order',
     path: '/',
-    icon: <AiIcons.AiFillHome />,
+    icon: <MdProductionQuantityLimits fontSize="25px"/>,
     cName: 'nav-text',
     component:<AdminHomePage/>
   },
   {
     title: 'Add Customer',
     path: '/Customersignup',
-    icon: <IoIcons.IoIosPaper />,
+    icon: <BsFillPersonFill fontSize="25px"/>,
     cName: 'nav-text',
     component:<Customersignup/>
   },
   {
     title: 'Add Staff',
     path: '/staffsignup',
-    icon: <FaIcons.FaCartPlus />,
+    icon: <AiOutlineTeam fontSize="25px" />,
     cName: 'nav-text',
     component:<StaffSignupPage/>
   },
@@ -42,21 +43,21 @@ export const SidebarData = [
   {
     title: 'Dimensions',
     path: '/messages',
-    icon: <FaIcons.FaEnvelopeOpenText />,
+    icon: <MdOutlinePinch fontSize="25px"/>,
     cName: 'nav-text',
     component:<DimensionOrderList/>
   },
   {
     title: 'Label Orders',
     path: '/support',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <MdLabelImportant fontSize="25px"/>,
     cName: 'nav-text',
     component:<LabelOrders/>
   },
   {
     title: 'Accountant',
     path: '/support',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <RiAccountCircleFill fontSize="25px"/>,
     cName: 'nav-text',
     component:<AccountOrders/>
   },

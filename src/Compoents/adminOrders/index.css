@@ -81,6 +81,12 @@
     justify-content: center;
     margin:10px 0px;
 }
+.pagination-arrow-container{
+    border-width: 5px 10px 5px 0;
+    margin: 0 15px;
+    font-size: 25px;
+    color: #4caf50;
+}
 .pagination-button-previous-button{
     cursor:pointer;
     border:none;
@@ -90,7 +96,7 @@
     height:30px;
     padding:0px 8px;
     margin-right:4px;
-    width:100px;
+    width:70px;
 }
 .pagination-button-next-button{
     cursor:pointer;
