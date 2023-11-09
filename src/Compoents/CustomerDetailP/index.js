@@ -315,7 +315,7 @@ function CustomerOrderViewDetail() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Amount</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="tracking_url"
               value={amount}
