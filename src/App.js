@@ -23,9 +23,9 @@ import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 
 import CommonNavbar from "./Compoents/CommonNavbar";
 
-const role = localStorage.getItem("role");
-console.log(role, "app");
 function App() {
+  const role = localStorage.getItem("role");
+  console.log(role, "app");
   return (
     <Routes>
       <Route path="/Customersignup" element={<Customersignup />} />
