@@ -114,9 +114,9 @@ function ViewDetailedOrder() {
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name admin-order-accepted-readonly">Customer Name:</label>
+            <label className="order-customer-label-name ">Customer Name:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="customerName"
               value={customerName}
@@ -190,16 +190,16 @@ function ViewDetailedOrder() {
             </select>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name admin-order-accepted-readonly">Product Name:</label>
+            <label className="order-customer-label-name">Product Name:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="productName"
               value={productName}
               readOnly
             />
           </div>
-          <div className="order-customer-input-feild-fnsku-status">
+          {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
               type="checkbox"
@@ -208,7 +208,7 @@ function ViewDetailedOrder() {
               readOnly
             />
             <label className="order-customer-label-name">FNSKU Status</label>
-          </div>
+          </div> */}
           <div className="order-customer-input-feild">
             {/* <label className="order-customer-label-name">FNSKU Send:</label>
             <input
@@ -217,17 +217,17 @@ function ViewDetailedOrder() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             /> */}
-            <button
+           { fnsku_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(fnskuSend1)}
               disabled={fnskuSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View FNSKU File
-            </button>
+            </button> }
           </div>
 
-          <div className="order-customer-input-feild-fnsku-status">
+          {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
@@ -236,7 +236,7 @@ function ViewDetailedOrder() {
               readOnly
             />
             <label className="order-customer-label-name">Label Status</label>
-          </div>
+          </div> */}
           <div className="order-customer-input-feild">
             {/* <label className="order-customer-label-name">Box Label Send:</label>
             <input
@@ -245,15 +245,15 @@ function ViewDetailedOrder() {
               name="labelSend"
               onChange={handleLabelFileData}
             /> */}
-            <button
+           { label_status==="1" && <button
               type="button"
               onClick={() => openFileInNewTab(labelSend1)}
               disabled={labelSend1 === null}
               className="order-customer-view-file-button-container"
             >
               View Box Label File
-            </button>
-            <div className="order-customer-input-feild-fnsku-status">
+            </button> }
+            {/* <div className="order-customer-input-feild-fnsku-status">
               <input
                 className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
@@ -264,8 +264,8 @@ function ViewDetailedOrder() {
               <label className="order-customer-label-name">
                 Payment Status
               </label>
-            </div>
-            <div className="order-customer-input-feild-fnsku-status">
+            </div> */}
+            {/* <div className="order-customer-input-feild-fnsku-status">
               <input
                 className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
@@ -274,7 +274,7 @@ function ViewDetailedOrder() {
                 readOnly
               />
               <label className="order-customer-label-name">Labelling</label>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="order-customer-field3-container">
