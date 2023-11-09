@@ -54,6 +54,10 @@ function AccountOrders() {
     navigate(`/viewDetailedorder/${productId}`);
   };
 
+  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+
+
   const onChangeInput = () => {};
   return (
     <>
@@ -97,8 +101,15 @@ function AccountOrders() {
                     {eachProduct.unit}
                   </p>
                   <p className="admin-order-accepted-order-tracking-sub-category">
-                    {eachProduct.tracking_url}
-                  </p>
+                  <a
+                    href={eachProduct.tracking_url}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="tracking-url"
+                  >
+                    Order Link
+                  </a>
+                </p>
 
                   {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
@@ -122,7 +133,7 @@ function AccountOrders() {
             <BsFillArrowLeftCircleFill
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
-              className="pagination-arrow-container"
+              className={previousButton}
             />
 
             <span>Page {currentPage}</span>
@@ -130,7 +141,7 @@ function AccountOrders() {
             <BsFillArrowRightCircleFill
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
-              className="pagination-arrow-container"
+              className={NextButton}
             />
           </div>
           </>

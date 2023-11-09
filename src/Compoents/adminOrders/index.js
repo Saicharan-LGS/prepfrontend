@@ -62,8 +62,8 @@ function ProductList() {
     window.location.reload();
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
-  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (
     <div className="admin-order-accepted-product-list">
@@ -140,8 +140,8 @@ function ProductList() {
            <div className="pagination-button-container">
             <BsFillArrowLeftCircleFill
               onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="pagination-arrow-container"
+              disabled={currentPage <= 1}
+              className={previousButton}
             />
 
             <span>Page {currentPage}</span>
@@ -149,7 +149,7 @@ function ProductList() {
             <BsFillArrowRightCircleFill
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
-              className="pagination-arrow-container"
+              className={NextButton}
             />
           </div>
         </>

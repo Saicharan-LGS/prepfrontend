@@ -128,7 +128,7 @@ function LabelOrders() {
             <BsFillArrowLeftCircleFill
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
-              className="pagination-arrow-container"
+              className={previousButton}
             />
 
             <span>Page {currentPage}</span>
@@ -136,7 +136,7 @@ function LabelOrders() {
             <BsFillArrowRightCircleFill
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
-              className="pagination-arrow-container"
+              className={NextButton}
             />
           </div>
         </>
