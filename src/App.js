@@ -23,24 +23,21 @@ import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 
 import CommonNavbar from "./Compoents/CommonNavbar";
 
-// import Login from "./Compoents/Login";
-const role = sessionStorage.getItem("role");
-
-console.log(role, "app");
 function App() {
+  const role = localStorage.getItem("role");
+  console.log(role, "app");
   return (
     <Routes>
       <Route path="/Customersignup" element={<Customersignup />} />
       <Route path="/" element={<StaffSigninPage />} />
       {role === undefined && (
         <Route path="/staffsignup" element={<StaffSignupPage />} />
-      )} (
-        <Route
-          path="/CustomerOrderViewDetail/:id"
-          element={<CustomerOrderViewDetail />}
-        />
+      )}
+      <Route
+        path="/CustomerOrderViewDetail/:id"
+        element={<CustomerOrderViewDetail />}
+      />
       {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
-
       {(role === "Accountant" || role === "Admin") && (
         <Route path="/accountOrders" element={<AccountOrders />} />
       )}
@@ -53,8 +50,7 @@ function App() {
       {role === "Customer" && (
         <Route path="/upload" element={<CustomerOrder />} />
       )}
-        <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} />
-  
+      {role === "Admin" && ( <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} /> )}
       {role === "Admin" && (
         <Route path="/adminOrders" element={<ProductList />} />
       )}
@@ -62,14 +58,12 @@ function App() {
       {role === "Customer" && (
         <Route path="/adminhomepage" element={<AdminHomePage />} />
       )}
-      <Route path="/navbar" element={<Navbar />} />
+      {role === "Admin" && (<Route path="/navbar" element={<Navbar />} /> )}
       {role === "Customer" && (
         <Route path="/customerhomepage" element={<CustomerHomePage />} />
       )}
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
-
-      <Route path="/customernavbar" element={<CustomerNavbar />} />
-
+      {role === "Customer" && ( <Route path="/customernavbar" element={<CustomerNavbar />} /> )}
       <Route path="/commonNavbar" element={<CommonNavbar />} />
       {/* <Route path="/" element={<Login />} /> */}
     </Routes>

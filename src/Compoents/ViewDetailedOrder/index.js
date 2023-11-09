@@ -106,7 +106,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Date:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="date"
               name="date"
               value={date}
@@ -114,7 +114,7 @@ function ViewDetailedOrder() {
             />
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Customer Name:</label>
+            <label className="order-customer-label-name admin-order-accepted-readonly">Customer Name:</label>
             <input
               className="order-customer-lable-container"
               type="text"
@@ -138,7 +138,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Length</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="customerName"
               value={length}
@@ -148,7 +148,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Width</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="customerName"
               value={width}
@@ -158,7 +158,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Height</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="customerName"
               value={height}
@@ -168,7 +168,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Weight</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="customerName"
               value={weight}
@@ -182,7 +182,7 @@ function ViewDetailedOrder() {
               Services Required:
             </label>
             <select
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               value={servicesReq}
               readOnly
             >
@@ -190,7 +190,7 @@ function ViewDetailedOrder() {
             </select>
           </div>
           <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product Name:</label>
+            <label className="order-customer-label-name admin-order-accepted-readonly">Product Name:</label>
             <input
               className="order-customer-lable-container"
               type="text"
@@ -201,7 +201,7 @@ function ViewDetailedOrder() {
           </div>
           <div className="order-customer-input-feild-fnsku-status">
             <input
-              className="order-customer-lable-container-checkbox"
+              className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
               type="checkbox"
               name="trackingURL"
               checked={fnsku_status === 1 ? true : false}
@@ -255,7 +255,7 @@ function ViewDetailedOrder() {
             </button>
             <div className="order-customer-input-feild-fnsku-status">
               <input
-                className="order-customer-lable-container-checkbox"
+                className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
                 name="trackingURL"
                 checked={label_status === 1 ? true : false}
@@ -267,7 +267,7 @@ function ViewDetailedOrder() {
             </div>
             <div className="order-customer-input-feild-fnsku-status">
               <input
-                className="order-customer-lable-container-checkbox"
+                className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
                 name="trackingURL"
                 checked={fnsku_label_printed === 1 ? true : false}
@@ -281,7 +281,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Units:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="number"
               name="units"
               value={units}
@@ -291,7 +291,7 @@ function ViewDetailedOrder() {
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Tracking URL:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="trackingURL"
               value={trackingURL}

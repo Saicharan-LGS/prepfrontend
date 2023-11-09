@@ -167,7 +167,8 @@ const CustomerLogin = () => {
               title: data.message,
             });
             sessionStorage.setItem("token", data.token);
-            sessionStorage.setItem("role", "Customer");
+            localStorage.setItem("role", "Customer");
+            sessionStorage.setItem("sname", data.name);
 
             navigate("/customernavbar"); // Navigate to the home page on successful login
           });
