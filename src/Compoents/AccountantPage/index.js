@@ -7,6 +7,7 @@ import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
 function AccountOrders() {
   const [products, setProducts] = useState([]);
+  const [updatePage,setupdatepage]=useState("")
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -44,7 +45,7 @@ function AccountOrders() {
   useEffect(() => {
     
     fetchProducts();
-  }, []);
+  }, [updatePage]);
 
   const navigate = useNavigate();
   const role = sessionStorage.getItem("role");
@@ -119,7 +120,7 @@ function AccountOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                  <AmountPost id={eachProduct.id} fetchProducts={fetchProducts} />
+                  <AmountPost id={eachProduct.id} fetchProducts={fetchProducts} setupdatepage={setupdatepage} />
                   <BsFillArrowRightCircleFill
                     id={eachProduct.id}
                     value={eachProduct.id}

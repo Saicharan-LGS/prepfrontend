@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
-const AmountPost = ({ id, fetchProducts }) => {
+const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
   const [amount1, setAmount] = useState();
   const navigate = useNavigate();
   const onChangeInput = (e) => {
@@ -42,9 +42,10 @@ const AmountPost = ({ id, fetchProducts }) => {
         console.log("Product updated successfully");
         if (role === "Admin") {
           fetchProducts();
+          setupdatepage("2");
         } else {
           fetchProducts();
-          navigate("/accountOrders");
+          setupdatepage("2");
         }
       } else {
         response.json().then((data) => {
