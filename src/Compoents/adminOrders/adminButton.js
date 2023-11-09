@@ -8,6 +8,7 @@ const DisplayAdminButton = (props) => {
       status: status,
     };
     console.log(requestData);
+    const token=sessionStorage.getItem("token")
     try {
       console.log(requestData);
       const response = await fetch(
@@ -15,6 +16,7 @@ const DisplayAdminButton = (props) => {
         {
           method: "PUT",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(requestData), // Stringify the data
