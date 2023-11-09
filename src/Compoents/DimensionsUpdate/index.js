@@ -73,19 +73,19 @@ const DimensionsUpdate = () => {
           Toast.fire({
             icon: "success",
             title: data.message,
-          })});
-        navigate("/dimensionorders");
+          });
+        });
         console.log("Dimension Updated successfully");
       } else {
         response.json().then((data) => {
           Toast.fire({
             icon: "error",
             title: data.message,
-          })});
+          });
+        });
         console.error("Error creating the order");
       }
     } catch (error) {
-      
       console.error("Error creating the order: ", error);
     }
   };
