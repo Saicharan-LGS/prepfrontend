@@ -267,3 +267,6 @@
     width:10%;
     min-width:max-content;
 }
+.admin-order-accepted-readonly{
+    background-color:#f0f0f5;
+}
