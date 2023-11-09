@@ -36,70 +36,70 @@ function OrderViewDetail() {
     height: "cm",
     weight: "g",
   });
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        // Split the dimensions into value and unit
+        const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
+        const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
+        const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
+        const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
+
+        setFormData({
+          date: data.date,
+          name: data.name,
+          service: data.service,
+          product: data.product,
+          unit: data.unit,
+          tracking_url: data.tracking_url,
+          fnskuSend1: data.fnsku,
+          labelSend1: data.label,
+          fnskuButton: data.fnsku_status,
+          labelButton: data.label_status,
+          fnsku_status: data.fnsku_status,
+          label_status: data.label_status,
+          fnskuSend: null,
+          labelSend: null,
+          length: data.length,
+          width: data.width,
+          height: data.height,
+          weight: data.weight,
+          amount: data.amount,
+          status: data.status,
+
+          // ... other fields you want to update
+        });
+
+        // Set dimensions only if they are not null
+        setDimensions({
+          length: lengthParts ? parseFloat(lengthParts[1]) : null,
+          width: widthParts ? parseFloat(widthParts[1]) : null,
+          height: heightParts ? parseFloat(heightParts[1]) : null,
+          weight: weightParts ? parseFloat(weightParts[1]) : null,
+        });
+
+        // Set selected units
+        setSelectedUnits({
+          length: lengthParts ? lengthParts[2] : "cm",
+          width: widthParts ? widthParts[2] : "cm",
+          height: heightParts ? heightParts[2] : "cm",
+          weight: weightParts ? weightParts[2] : "g",
+        });
+      } else {
+        console.error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
   useEffect(() => {
     // Fetch data using the id passed as a prop
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-
-          // Split the dimensions into value and unit
-          const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
-          const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
-          const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
-          const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
-
-          setFormData({
-            date: data.date,
-            name: data.name,
-            service: data.service,
-            product: data.product,
-            unit: data.unit,
-            tracking_url: data.tracking_url,
-            fnskuSend1: data.fnsku,
-            labelSend1: data.label,
-            fnskuButton: data.fnsku_status,
-            labelButton: data.label_status,
-            fnsku_status: data.fnsku_status,
-            label_status: data.label_status,
-            fnskuSend: null,
-            labelSend: null,
-            length: data.length,
-            width: data.width,
-            height: data.height,
-            weight: data.weight,
-            amount: data.amount,
-            status: data.status,
-
-            // ... other fields you want to update
-          });
-
-          // Set dimensions only if they are not null
-          setDimensions({
-            length: lengthParts ? parseFloat(lengthParts[1]) : null,
-            width: widthParts ? parseFloat(widthParts[1]) : null,
-            height: heightParts ? parseFloat(heightParts[1]) : null,
-            weight: weightParts ? parseFloat(weightParts[1]) : null,
-          });
-
-          // Set selected units
-          setSelectedUnits({
-            length: lengthParts ? lengthParts[2] : "cm",
-            width: widthParts ? widthParts[2] : "cm",
-            height: heightParts ? heightParts[2] : "cm",
-            weight: weightParts ? weightParts[2] : "g",
-          });
-        } else {
-          console.error("Failed to fetch data");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
 
     fetchData();
   }, [id]);
@@ -149,6 +149,7 @@ function OrderViewDetail() {
       .then((data) => {
         console.log("Data submitted successfully: ", data);
         console.log(formDataToSend);
+        fetchData();
       })
       .catch((error) => {
         console.error("Error submitting data: ", error);

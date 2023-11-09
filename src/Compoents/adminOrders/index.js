@@ -23,31 +23,32 @@ function ProductList() {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: ` Bearer ${token}`,
-            },
-          }
-        ); // Replace with your API endpoint
-        if (response.ok) {
-          console.log(response);
-          const data = await response.json();
-          console.log(data.results);
-          setProducts(data.results);
-        } else {
-          console.error("Failed to fetch products");
+  const fetchProducts = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(
+        `http://localhost:3009/api/v1/getOrders/${0}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching products:", error);
+      ); // Replace with your API endpoint
+      if (response.ok) {
+        console.log(response);
+        const data = await response.json();
+        console.log(data.results);
+        setProducts(data.results);
+      } else {
+        console.error("Failed to fetch products");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+  useEffect(() => {
+    
     fetchProducts();
   }, []);
   console.log(products);
@@ -110,7 +111,7 @@ function ProductList() {
                   Order Link
                 </a>
                 </p>
-                <DisplayAdminButton id={eachProduct.id} />
+                <DisplayAdminButton id={eachProduct.id} fetchProducts={fetchProducts} />
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
                 <div className="admin-order-accepted-fnsku-sub-category">
