@@ -219,7 +219,7 @@ console.log(amount, 'amount')
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Date:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="date"
               name="date"
               value={date}
@@ -231,7 +231,7 @@ console.log(amount, 'amount')
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name"> Name:</label>
             <input
-              className="order-customer-lable-container"
+              className="order-customer-lable-container admin-order-accepted-readonly"
               type="text"
               name="Name"
               value={name}
