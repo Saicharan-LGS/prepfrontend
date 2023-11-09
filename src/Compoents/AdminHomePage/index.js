@@ -8,15 +8,15 @@ import './index.css'
 const tabList = [
   {
     id: '0',
-    name: 'ProductList',
+    name: 'Product List',
   },
   {
     id: '1',
-    name: 'Rejected',
+    name: 'Received',
   },
   {
     id: '2',
-    name: 'Accepted',
+    name: 'Declined',
   },
   {
     id:'3',
@@ -60,8 +60,8 @@ class AdminHomePage extends Component {
         </div>
         <div>
           {activeProductTab === '0' && <ProductList  />}
-          {activeProductTab === '1' && <AdminOrdersRejected />}
-          {activeProductTab === '2' && <AdminOrdersAccepted/>}
+          {activeProductTab === '2' && <AdminOrdersRejected />}
+          {activeProductTab === '1' && <AdminOrdersAccepted/>}
           {activeProductTab === '3' && <ViewAllOrders/>}
         </div>
       </>

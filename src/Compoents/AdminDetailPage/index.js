@@ -222,7 +222,7 @@ console.log(amount, 'amount')
   return (
     <div className="order-customer-container">
       <center>
-        <h1 className="order-customer-main-heading">Customer Orders</h1>
+        <h1 className="order-customer-main-heading">Order</h1>
       </center>
       <form className="order-customer-from-container">
         <div className="order-customer-field1-container">

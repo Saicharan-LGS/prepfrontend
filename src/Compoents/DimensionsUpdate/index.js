@@ -106,6 +106,7 @@ const DimensionsUpdate = () => {
                   name={dimension}
                   value={dimensions[dimension]}
                   onChange={handleInputChange}
+                  required
                 />
                 <select
                   className="dimensions-select"
