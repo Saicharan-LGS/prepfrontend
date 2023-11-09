@@ -86,6 +86,7 @@
     margin: 0 15px;
     font-size: 25px;
     color: #4caf50;
+    cursor:pointer;
 }
 .pagination-button-previous-button{
     cursor:pointer;
@@ -110,6 +111,7 @@
     width:100px;
 }
 .disable-previous-next-button{
-    background-color:grey !important;
+    color:grey !important;
     cursor:not-allowed;
+    pointer-events: none;
 }

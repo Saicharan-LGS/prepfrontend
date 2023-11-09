@@ -71,8 +71,8 @@ function ViewAllOrders() {
     return product.id.toString().includes(orderId);
   });
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
-  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   const statusLabels = {
     0: "Pending",
@@ -180,14 +180,20 @@ function ViewAllOrders() {
             );
           })}
            <div className="pagination-button-container">
-           
-           <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
-          
-           <span>Page {currentPage}</span>
-          
-          <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
-       
-         </div>
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={previousButton}
+            />
+
+            <span>Page {currentPage}</span>
+
+            <BsFillArrowRightCircleFill
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className={NextButton}
+            />
+          </div>
         </>
       ) : (
         <EmptyOrder />

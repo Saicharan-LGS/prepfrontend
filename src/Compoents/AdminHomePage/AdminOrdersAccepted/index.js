@@ -64,8 +64,8 @@ function AdminOrdersAccepted() {
     navigate(`/adminViewDetail/${productId}`);
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
-  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
+  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   //   return (
   //     <div>
@@ -193,7 +193,7 @@ function AdminOrdersAccepted() {
             <BsFillArrowLeftCircleFill
               onClick={() => paginate(currentPage - 1)}
               disabled={currentPage === 1}
-              className="pagination-arrow-container"
+              className={previousButton}
             />
 
             <span>Page {currentPage}</span>
@@ -201,7 +201,7 @@ function AdminOrdersAccepted() {
             <BsFillArrowRightCircleFill
               onClick={() => paginate(currentPage + 1)}
               disabled={indexOfLastProduct >= products.length}
-              className="pagination-arrow-container"
+              className={NextButton}
             />
           </div>
         </>
