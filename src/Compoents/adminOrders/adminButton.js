@@ -23,6 +23,7 @@ const DisplayAdminButton = (props) => {
 
       if (response.ok) {
         console.log("Product updated successfully");
+        props.fetchProducts();
       } else {
         console.error("Failed to update product");
       }
@@ -34,14 +35,13 @@ const DisplayAdminButton = (props) => {
   const onClickDecline = (e) => {
     const status = "1"; 
     handleSubmit(e.target.value, status);
-    window.location.reload()
+   
   };
 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
     console.log("Received called");
     handleSubmit(e.target.value, status);
-    window.location.reload()
   };
 
   return (

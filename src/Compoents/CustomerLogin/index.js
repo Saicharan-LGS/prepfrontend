@@ -170,7 +170,11 @@ const CustomerLogin = () => {
             localStorage.setItem("role", "Customer");
             sessionStorage.setItem("sname", data.name);
 
-            navigate("/customernavbar"); // Navigate to the home page on successful login
+            // navigate("/customernavbar"); // Navigate to the home page on successful login
+            setTimeout(() => {
+              console.log("caled, route")
+              navigate("/customernavbar");
+            }, 100);
           });
         } else if (response.status === 401) {
           response.json().then((data) => {

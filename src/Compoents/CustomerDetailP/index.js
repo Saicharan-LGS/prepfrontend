@@ -36,48 +36,46 @@ function CustomerOrderViewDetail() {
     6: "Invoice Accepted",
     7: "Invoice Rejected",
   };
-  useEffect(() => {
-    console.log(id);
-    async function fetchData() {
-      try {
-        const response = await fetch(
-          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setFormData({
-            ...formData,
-            date: data.date,
-            name: data.name,
-            service: data.service,
-            product: data.product,
-            unit: data.unit,
-            tracking_url: data.tracking_url,
-            fnskuSend1: data.fnsku,
-            labelSend1: data.label,
-            fnskuButton: data.fnsku_status,
-            labelButton: data.label_status,
-            fnsku_status: data.fnsku_status,
-            label_status: data.label_status,
-            fnskuSend: null,
-            labelSend: null,
-            length: data.length,
-            width: data.width,
-            height: data.height,
-            weight: data.weight,
-            amount: data.amount,
-            status: data.status,
-            // ... other fields you want to update
-          });
-        } else {
-          console.error("Failed to fetch data");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setFormData({
+          ...formData,
+          date: data.date,
+          name: data.name,
+          service: data.service,
+          product: data.product,
+          unit: data.unit,
+          tracking_url: data.tracking_url,
+          fnskuSend1: data.fnsku,
+          labelSend1: data.label,
+          fnskuButton: data.fnsku_status,
+          labelButton: data.label_status,
+          fnsku_status: data.fnsku_status,
+          label_status: data.label_status,
+          fnskuSend: null,
+          labelSend: null,
+          length: data.length,
+          width: data.width,
+          height: data.height,
+          weight: data.weight,
+          amount: data.amount,
+          status: data.status,
+          // ... other fields you want to update
+        });
+      } else {
+        console.error("Failed to fetch data");
       }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-
+  }
+  useEffect(() => {
     fetchData();
   }, [id]);
 
@@ -127,7 +125,7 @@ function CustomerOrderViewDetail() {
       .catch((error) => {
         console.error("Error submitting data: ", error);
       });
-    window.location.reload();
+    fetchData();
   };
 
   const openFileInNewTab = (fileURL) => {
@@ -261,14 +259,16 @@ function CustomerOrderViewDetail() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-            {fnsku_status==="1" && <button
-              type="button"
-              onClick={() => openFileInNewTab(fnskuSend1)}
-              disabled={fnskuSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View FNSKU File
-            </button>}
+            {fnsku_status === "1" && (
+              <button
+                type="button"
+                onClick={() => openFileInNewTab(fnskuSend1)}
+                disabled={fnskuSend1 === null}
+                className="order-customer-view-file-button-container"
+              >
+                View FNSKU File
+              </button>
+            )}
           </div>
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Box Label Send:</label>
@@ -278,15 +278,16 @@ function CustomerOrderViewDetail() {
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            {label_status ==="1" && <button
-              type="button"
-              onClick={() => openFileInNewTab(labelSend1)}
-              disabled={labelSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View Box Label File
-            </button>
-        }
+            {label_status === "1" && (
+              <button
+                type="button"
+                onClick={() => openFileInNewTab(labelSend1)}
+                disabled={labelSend1 === null}
+                className="order-customer-view-file-button-container"
+              >
+                View Box Label File
+              </button>
+            )}
           </div>
         </div>
         <div className="order-customer-field3-container">

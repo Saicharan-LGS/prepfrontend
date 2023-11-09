@@ -147,15 +147,20 @@ const StaffSigninPage = () => {
             localStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
             console.log("Login successful");
-            if (data.role === "Admin") {
-              navigate("/navbar");
-            } else if (data.role === "Label") {
-              navigate("/labelOrders");
-            } else if (data.role === "Dimension") {
-              navigate("/dimensionorders");
-            } else if (data.role === "Accountant") {
-              navigate("/accountOrders");
-            }
+            setTimeout(() => {
+              console.log("caled, route");
+              navigate("/customernavbar");
+
+              if (data.role === "Admin") {
+                navigate("/navbar");
+              } else if (data.role === "Label") {
+                navigate("/labelOrders");
+              } else if (data.role === "Dimension") {
+                navigate("/dimensionorders");
+              } else if (data.role === "Accountant") {
+                navigate("/accountOrders");
+              }
+            }, 100);
           });
         } else if (response.status === 400) {
           // Password required or incorrect
@@ -189,7 +194,7 @@ const StaffSigninPage = () => {
             Customer Signin
           </button>
         </div>
-        
+
         <center>
           <h2 className="signin-form-heading-container">Staff Login</h2>
         </center>
