@@ -36,10 +36,18 @@ function CustomerOrderViewDetail() {
     6: "Invoice Accepted",
     7: "Invoice Rejected",
   };
+  const token = sessionStorage.getItem("token");
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+        `http://localhost:3009/api/v1/getCustomerDetailOrder/${id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // Set the Content-Type to JSON
+          },
+        }
       );
       if (response.ok) {
         const data = await response.json();
@@ -74,7 +82,7 @@ function CustomerOrderViewDetail() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
   useEffect(() => {
     fetchData();
   }, [id]);
@@ -115,17 +123,21 @@ function CustomerOrderViewDetail() {
 
     fetch(`http://localhost:3009/api/v1/customerOrderDetail/${id}`, {
       method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`, // Set the Content-Type to JSON
+      },
       body: formDataToSend,
     })
       .then((response) => response.json())
       .then((data) => {
         console.log("Data submitted successfully: ", data);
         console.log(formDataToSend);
+        fetchData();
       })
       .catch((error) => {
         console.error("Error submitting data: ", error);
+        fetchData();
       });
-    fetchData();
   };
 
   const openFileInNewTab = (fileURL) => {
@@ -259,7 +271,7 @@ function CustomerOrderViewDetail() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             />
-            {fnsku_status === "1" && (
+            {fnsku_status === 1 && (
               <button
                 type="button"
                 onClick={() => openFileInNewTab(fnskuSend1)}
@@ -278,7 +290,7 @@ function CustomerOrderViewDetail() {
               name="labelSend"
               onChange={handleLabelFileData}
             />
-            {label_status === "1" && (
+            {label_status === 1 && (
               <button
                 type="button"
                 onClick={() => openFileInNewTab(labelSend1)}

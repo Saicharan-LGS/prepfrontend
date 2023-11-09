@@ -79,7 +79,7 @@ function CustomerAllProducts() {
   return (
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">
-        All Order List
+        All Orders
       </h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>

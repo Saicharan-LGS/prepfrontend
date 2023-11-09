@@ -25,14 +25,20 @@ function ViewDetailedOrder() {
     width: "",
     weight: "",
   });
-
+const token=sessionStorage.getItem("token")
   useEffect(() => {
     // Fetch data using the id passed as a prop
     console.log(id);
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`
+          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: ` Bearer ${token}`,
+            },
+          }
         );
         if (response.ok) {
           const data = await response.json();
