@@ -3,7 +3,7 @@ import "./index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs"
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
@@ -72,9 +72,14 @@ function CustomerAllProducts() {
     7: "Invoice Rejected",
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
-  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
-
+  const NextButton =
+    indexOfLastProduct >= products.length
+      ? `pagination-button-next-button disable-previous-next-button`
+      : `pagination-button-next-button`;
+  const previousButton =
+    currentPage === 1
+      ? `pagination-button-previous-button disable-previous-next-button`
+      : `pagination-button-previous-button`;
 
   return (
     <div className="admin-order-accepted-product-list">
@@ -116,9 +121,15 @@ function CustomerAllProducts() {
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
                 </p>
-                <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
-                  Order Link
-                </a>
+                <p className="admin-order-accepted-order-tracking-sub-category">
+                  <a
+                    href={eachProduct.tracking_url}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="tracking-url"
+                  >
+                    Order Link
+                  </a>
                 </p>
                 <p className="admin-order-accepted-quantity-sub-category">
                   {statusLabels[eachProduct.status] || "Unknown Status"}
@@ -139,13 +150,19 @@ function CustomerAllProducts() {
             );
           })}
           <div className="pagination-button-container">
-           
-            <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
-           
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-arrow-container"
+            />
+
             <span>Page {currentPage}</span>
-           
-           <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
-        
+
+            <BsFillArrowRightCircleFill
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className="pagination-arrow-container"
+            />
           </div>
         </>
       ) : (

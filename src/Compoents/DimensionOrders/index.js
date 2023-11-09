@@ -136,15 +136,21 @@ function DimensionOrderList() {
               />
             </div>
           ))}
-         <div className="pagination-button-container">
-           
-           <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
-          
-           <span>Page {currentPage}</span>
-          
-          <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
-       
-         </div>
+          <div className="pagination-button-container">
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-arrow-container"
+            />
+
+            <span>Page {currentPage}</span>
+
+            <BsFillArrowRightCircleFill
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className="pagination-arrow-container"
+            />
+          </div>
         </>
       ) : (
         <EmptyOrder />

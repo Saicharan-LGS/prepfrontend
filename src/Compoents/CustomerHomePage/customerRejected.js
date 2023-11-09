@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
-
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
 function CustomerRejected() {
@@ -70,9 +69,14 @@ function CustomerRejected() {
   //   window.location.reload()
   // }
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-button-next-button disable-previous-next-button`:`pagination-button-next-button`
-  const previousButton = currentPage===1? `pagination-button-previous-button disable-previous-next-button`:`pagination-button-previous-button`
-
+  const NextButton =
+    indexOfLastProduct >= products.length
+      ? `pagination-button-next-button disable-previous-next-button`
+      : `pagination-button-next-button`;
+  const previousButton =
+    currentPage === 1
+      ? `pagination-button-previous-button disable-previous-next-button`
+      : `pagination-button-previous-button`;
 
   return (
     <div className="admin-order-accepted-product-list">
@@ -114,9 +118,15 @@ function CustomerRejected() {
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}
                 </p>
-                <p className="admin-order-accepted-order-tracking-sub-category"><a href={eachProduct.tracking_url} rel="noreferrer" target="_blank" className="tracking-url" >
-                  Order Link
-                </a>
+                <p className="admin-order-accepted-order-tracking-sub-category">
+                  <a
+                    href={eachProduct.tracking_url}
+                    rel="noreferrer"
+                    target="_blank"
+                    className="tracking-url"
+                  >
+                    Order Link
+                  </a>
                 </p>
 
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
@@ -135,14 +145,20 @@ function CustomerRejected() {
             );
           })}
           <div className="pagination-button-container">
-           
-           <BsFillArrowLeftCircleFill className="pagination-arrow-container"/>
-          
-           <span>Page {currentPage}</span>
-          
-          <BsFillArrowRightCircleFill className="pagination-arrow-container"/>
-       
-         </div>
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="pagination-arrow-container"
+            />
+
+            <span>Page {currentPage}</span>
+
+            <BsFillArrowRightCircleFill
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= products.length}
+              className="pagination-arrow-container"
+            />
+          </div>
         </>
       ) : (
         <EmptyOrder />
