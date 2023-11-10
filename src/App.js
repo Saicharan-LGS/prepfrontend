@@ -22,7 +22,6 @@ import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 
 import CommonNavbar from "./Compoents/CommonNavbar";
-
 function App() {
   const role = localStorage.getItem("role");
   console.log(role, "app");

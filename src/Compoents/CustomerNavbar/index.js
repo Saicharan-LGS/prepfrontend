@@ -11,6 +11,7 @@ import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
 import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
+import TransactionSummary from "./Amount.js";
 function CustomerNavbar() {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(5);
@@ -85,6 +86,7 @@ function CustomerNavbar() {
               );
             })}
           </ul>
+          <TransactionSummary />
         </nav>
       </IconContext.Provider>
 
@@ -101,6 +103,7 @@ function CustomerNavbar() {
           <CustomerOrder/>
         )}
       </div>
+    
     </div>
   );
 }

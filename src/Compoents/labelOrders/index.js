@@ -11,7 +11,6 @@ import EmptyOrder from "../EmptyOrder";
 function LabelOrders() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [updatepage,setupdatepage]=useState("1")
   const [productsPerPage] = useState(10); // Number of products to display per page
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -42,15 +41,17 @@ function LabelOrders() {
         setProducts(data.data);
       } else {
         console.error("Failed to fetch products");
+        setProducts("")
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      setProducts("")
     }
   };
   useEffect(() => {
   
     fetchProducts();
-  }, [updatepage]);
+  }, []);
 
   const navigate = useNavigate();
 
@@ -115,7 +116,7 @@ function LabelOrders() {
           <div className="admin-order-accepted-box-label-sub-category">
         <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
           </div> */}
-                <LabelPost id={eachProduct.id} fetchProducts={fetchProducts} setupdatepage={setupdatepage} />
+                <LabelPost id={eachProduct.id} fetchProducts={fetchProducts} />
                 <BsFillArrowRightCircleFill
                   id={eachProduct.id}
                   value={eachProduct.id}
