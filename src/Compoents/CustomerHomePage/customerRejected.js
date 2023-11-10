@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-
+import Spinner from "../Spinner";
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
 function CustomerRejected() {
   const [products, setProducts] = useState([]);
+  const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
@@ -38,15 +39,24 @@ function CustomerRejected() {
           }
         );
         if (response.ok) {
-          console.log(response);
+          
           const data = await response.json();
-          console.log(data.results);
+          setLoading(false)
           setProducts(data.results);
+          
+        
         } else {
           console.error("Failed to fetch products");
+          setTimeout(()=>{
+            setLoading(false)
+           },3000)
+         
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        setTimeout(()=>{
+          setLoading(false)
+         },3000)
       }
     };
     fetchProducts();
@@ -74,6 +84,7 @@ function CustomerRejected() {
 
 
   return (
+    <>{loading?<Spinner/>:
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">
         Invoice Rejected Orders
@@ -159,6 +170,8 @@ function CustomerRejected() {
         <EmptyOrder />
       )}
     </div>
+    }
+    </>
   );
 }
 

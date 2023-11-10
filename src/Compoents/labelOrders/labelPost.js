@@ -66,7 +66,7 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
       <button
         value={id}
         onClick={onClickSubmit}
-        className="label-update-button"
+        className="admin-order-accepted-received-button"
       >
         update
       </button>

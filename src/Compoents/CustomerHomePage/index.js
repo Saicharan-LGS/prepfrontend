@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-
+import Spinner from "../Spinner";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
 function CustomerHomePage() {
   const [products, setProducts] = useState([]);
+  const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
@@ -42,11 +43,19 @@ function CustomerHomePage() {
           const data = await response.json();
           console.log(data.results);
           setProducts(data.results);
+          setLoading(false)
         } else {
           console.error("Failed to fetch products");
+          setTimeout(()=>{
+            console.log("Kapil")
+            setLoading(false)
+           },3000)
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        setTimeout(()=>{
+          setLoading(false)
+         },3000)
       }
     };
     fetchProducts();
@@ -73,6 +82,8 @@ function CustomerHomePage() {
   const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (
+    <>
+    {loading?<Spinner/>:
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">
         Invoice Pending Orders
@@ -157,6 +168,8 @@ function CustomerHomePage() {
         <EmptyOrder />
       )}
     </div>
+    }
+    </>
   );
 }
 

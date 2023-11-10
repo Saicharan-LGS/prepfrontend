@@ -13,24 +13,26 @@
     border:none;
     width:45%;
     padding:8px 0px;
-    border:1px solid grey;
+    border:1px solid #124577;
     border-radius:4px;
     font-size:16px;
     color:#000;
     cursor:pointer;
     font-weight:600;
     background-color: #fff;
+    letter-spacing: 0.5px;
   }
   .customer-customer-button{
     border:none;
     width:45%;
     padding:8px 0px;
-    background-color: #4caf50;
+    background-color: #124577;
     border-radius:4px;
     font-size:16px;
     color:#fff;
     cursor:pointer;
     font-weight:600;
+    letter-spacing: 0.5px;
   }
   .error-message{
     font-size:12px;

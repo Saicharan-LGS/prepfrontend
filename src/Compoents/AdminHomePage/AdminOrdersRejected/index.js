@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-
+import Spinner from "../../Spinner";
 
 import EmptyOrder from "../../EmptyOrder";
 
 function AdminOrdersRejected() {
   const [products, setProducts] = useState([]);
+  const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
@@ -42,11 +43,18 @@ function AdminOrdersRejected() {
           const data = await response.json();
           console.log(data.results);
           setProducts(data.results);
+          setLoading(false)
         } else {
           console.error("Failed to fetch products");
+          setTimeout(()=>{
+            setLoading(false)
+           },3000)
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        setTimeout(()=>{
+          setLoading(false)
+         },3000)
       }
     };
     fetchProducts();
@@ -69,6 +77,10 @@ function AdminOrdersRejected() {
   const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (
+    <>
+    {
+      loading ? <Spinner/> : (
+    
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Rejected List</h2>
       <div className="admin-order-accepted-category-types">
@@ -156,7 +168,10 @@ function AdminOrdersRejected() {
         <EmptyOrder />
       )}
     </div>
-  );
+      )
+    }
+</>
+  )
 }
 
 export default AdminOrdersRejected;

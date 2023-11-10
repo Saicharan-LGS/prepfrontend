@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-
+import Spinner from "../Spinner";
 
 import DisplayAdminButton from "./adminButton";
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [loading,setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const [productsPerPage] = useState(10); // Number of products to display per page
@@ -40,11 +41,18 @@ function ProductList() {
         const data = await response.json();
         console.log(data.results);
         setProducts(data.results);
+        setLoading(false)
       } else {
         console.error("Failed to fetch products");
+       setTimeout(()=>{
+        setLoading(false)
+       },3000)
       }
     } catch (error) {
       console.error("Error fetching products:", error);
+      setTimeout(()=>{
+        setLoading(false)
+       },3000)
     }
   };
   useEffect(() => {
@@ -66,6 +74,7 @@ function ProductList() {
   const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (
+    <>{loading?<Spinner/>:
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
       <div className="admin-order-accepted-category-types">
@@ -157,6 +166,8 @@ function ProductList() {
         <EmptyOrder />
       )}
     </div>
+    }
+    </>
   );
 }
 
