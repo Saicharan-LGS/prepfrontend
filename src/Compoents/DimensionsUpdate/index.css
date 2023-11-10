@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
 }
 
 .dimensions-form-container {
   border-radius: 8px;
-  box-shadow: 2px 2px 2px 2px #d7dade;
   margin-bottom: 20px;
   padding: 20px;
+  width:400px;
+
 }
 
 .dimensions-input-container {

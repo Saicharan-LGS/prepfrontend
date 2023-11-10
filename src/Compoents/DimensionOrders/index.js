@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import "../AdminDetailPage/index.css";
 import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
@@ -7,6 +9,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 import EmptyOrder from "../EmptyOrder";
 import CommonNavbar from "../CommonNavbar";
+import DimensionsUpdate from "../DimensionsUpdate";
 function DimensionOrderList() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -121,12 +124,15 @@ function DimensionOrderList() {
           <div className="admin-order-accepted-box-label-sub-category">
           {eachProduct.label_status==="0"?<input type="checkbox" className="admin-order-accepted-checkbox"/>:<input type="checkbox" checked className="admin-order-accepted-checkbox"/>}
           </div> */}
-              <button
+              {/* <button
                 className="admin-order-accepted-received-button"
                 onClick={() => dimensionUpadate(eachProduct.id)}
               >
                 Update
-              </button>
+              </button> */}
+              <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
+                <DimensionsUpdate />
+              </Popup>
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
                 value={eachProduct.id}
