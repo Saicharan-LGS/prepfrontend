@@ -8,15 +8,14 @@
     width: 30%;
     margin: 70px;
     padding: 10px;
-    border: 2px solid #124577;
+    border: 2px solid #4b4f58;
     border-radius: 5px;
-    box-shadow: 0 0 20px #282046(0, 0, 0, 0.1);
     
   }
   .customer-signin-form-heading-container{
     font-size:32px;
     font-weight:600;
-    color:#000;
+    color:#212d45;
   }
   .customer-singin-form-container{
     width:100%;
@@ -41,23 +40,23 @@
     width: 90%;
     padding: 8px;
     font-size: 16px;
-    border: 2px solid#000080;
+    border: 2px solid#212d45;
     border-radius: 7px;
   }
   
 .customer-signin-form-button-container {
-    background-color: #124577;
-    color: white;
+    background-color: #ffc03d;
+    color: #212d45;
     padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s;
   }
   .customer-signin-form-button-container:hover{
-    border:1px solid #124577;
-    color:#124577;
+    border:1px solid #212d45;
+    color:#212d45;
     background-color: #fff;
     transition:0.3s ease-in-out;
   }

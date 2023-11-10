@@ -19,7 +19,6 @@
   width: 30%;
   margin-right: 10px;
   margin-top: 10px;
-  font-weight: bold;
   text-align: left;
 }
 .order-customer-field2-container{
@@ -53,7 +52,7 @@
   padding: 8px;
   font-size: 16px;
   border-radius: 5px;
-  border: 2px solid #000080; 
+  border: 2px solid #212d45; 
   outline:none;
 }
 .order-customer-submit-button-container{
@@ -65,24 +64,21 @@
 .order-customer-button-container{
   margin: 10px;
   padding: 6px 12px;
-  background-color: #4caf50;
-  color: white;
+  background-color: #ffc03d;
+  color: #212d45;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 16px;
   font-weight:600;
   transition: background-color 0.3s;
   cursor:pointer;
 }
-.order-customer-button-container:hover{
-  background-color: #45a049;
-}
 
 .order-customer-label-file::file-selector-button {
   padding: 2px 8px;
   border-radius: 4px;
-  background-color: #000080;
+  background-color: #212d45;
   transition: 1s;
   color:#fff;
   border:none;

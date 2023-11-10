@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import './index.css'
 const TransactionSummary = () => {
   const [totalAmount, setTotalAmount] = useState(null);
 
@@ -31,7 +31,7 @@ const TransactionSummary = () => {
 
   return (
     
-      <p style={{color:"#FFF", fontSize:"18px"}}>
+      <p className="customer-navbar-nav-item-name">
         Balance: <strong>Rs: {totalAmount}</strong>
       </p>
   );

@@ -206,6 +206,9 @@ const CustomerLogin = () => {
 
   return (
     <div className="customer-signin-div-container">
+      <div className="login-image-container">
+        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+      </div>
       <div className="signin-form-main-container">
         <div className="customer-staff-customer-button-container">
           <button className="customer-staff-button" onClick={onClickStaff}>

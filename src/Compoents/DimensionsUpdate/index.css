@@ -17,9 +17,8 @@
 }
 
 .dimensions-label-text {
-  font-size: 15px;
-  font-weight: bold;
-  color: #000;
+  font-size: 18px;
+  color: #212d45;
   margin-bottom: 5px !important;
 }
 
@@ -30,6 +29,7 @@
   margin-right: 5px;
   border-radius: 5px;
   border-width: 1px;
+  border:2px solid #212d45;
 }
 .dimension-select-container{
   display:flex;
@@ -42,16 +42,19 @@
   font-weight: bold;
   font-size: 15px;
   width: 20%;
+  border:2px solid #212d45;
+  border-radius:4px;
 }
 
 .dimensions-button {
   height: 45px;
   width: 150px;
-  color: white;
+  color: #212d45;
   font-weight: 700;
   font-size: 15px;
-  border-radius: 5px;
+  border-radius: 20px;
   outline: none;
   border-width: 0px;
-  background-color: #4caf50;
+  background-color: #ffc03d;
+  cursor:pointer;
 }

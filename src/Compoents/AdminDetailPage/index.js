@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
 import Toast from "../utlis/toast";
+import CommonNavbar from "../CommonNavbar";
 function OrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -224,6 +225,8 @@ function OrderViewDetail() {
   };
 console.log(amount, 'amount')
   return (
+    <>
+    <CommonNavbar/>
     <div className="order-customer-container">
       <center>
         <h1 className="order-customer-main-heading">Order</h1>
@@ -423,6 +426,7 @@ console.log(amount, 'amount')
         </button>
       </center>
     </div>
+    </>
   );
 }
 

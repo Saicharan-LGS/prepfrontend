@@ -49,16 +49,19 @@ function CustomerNavbar() {
   const role = sessionStorage.getItem("role")
   const name = sessionStorage.getItem("sname")
 
+  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
+
   return (
     <div className="navbar-container">
-      <IconContext.Provider value={{ color: "#fff" }}>
+      <IconContext.Provider value={{ color: "#000" }}>
         <div className={`navbar ${sidebar ? "shifted" : ""}`}>
-          <Link to="#" className="menu-bars">
+          <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="customer-navbar-logout-button-container">
+            <TransactionSummary />
             <p className="customer-navbar-nav-item-name">{name}</p>
-            <p className="customer-navbar-nav-item-name">{role}</p>
+            {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
           
@@ -85,7 +88,7 @@ function CustomerNavbar() {
                 </li>
               );
             })}
-            <TransactionSummary />
+            
           </ul>
           
         </nav>

@@ -241,6 +241,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
+import CommonNavbar from "../CommonNavbar";
 
 const CustomerOrder = ({ history }) => {
   const [date, setDate] = useState("");
@@ -379,6 +380,8 @@ const CustomerOrder = ({ history }) => {
   };
 
   return (
+    <>
+    <CommonNavbar/>
     <div className="order-customer-container">
       <center>
         <h1 className="order-customer-main-heading">Post Order</h1>
@@ -491,6 +494,7 @@ const CustomerOrder = ({ history }) => {
         </div>
       </form>
     </div>
+    </>
   );
 };
 
