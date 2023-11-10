@@ -12,7 +12,7 @@ import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
-function CustomerNavbar() {
+function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(5);
   const [currentComponent, setCurrentComponent] = useState(
@@ -85,7 +85,7 @@ function CustomerNavbar() {
                 </li>
               );
             })}
-            <TransactionSummary />
+            <TransactionSummary  totalAmount={totalAmount}   />
           </ul>
           
         </nav>
@@ -93,7 +93,7 @@ function CustomerNavbar() {
 
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {status === 5 ? (
-          <CustomerHomePage />
+          <CustomerHomePage fetchTotalAmount={fetchTotalAmount} />
         ) : status ===6 ? (
           <CustomerAccepted />
         ) : status === 7 ? (
