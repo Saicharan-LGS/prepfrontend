@@ -30,7 +30,7 @@ function AdminOrdersRejected() {
       try {
         const token = sessionStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${0}`,
+          `http://localhost:3009/api/v1/getOrders/${1}`,
           {
             method: "GET",
             headers: {

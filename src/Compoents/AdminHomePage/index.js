@@ -60,8 +60,8 @@ class AdminHomePage extends Component {
         </div>
         <div>
           {activeProductTab === '0' && <ProductList  />}
-          {activeProductTab === '2' && <AdminOrdersRejected />}
-          {activeProductTab === '1' && <AdminOrdersAccepted/>}
+          {activeProductTab === '1' && <AdminOrdersRejected />}
+          {activeProductTab === '2' && <AdminOrdersAccepted/>}
           {activeProductTab === '3' && <ViewAllOrders/>}
         </div>
       </>
