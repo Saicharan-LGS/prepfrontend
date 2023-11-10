@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import Toast from "../utlis/toast";
 const DisplayAdminButton = (props) => {
 
   const handleSubmit = async (id, status) => {
@@ -24,7 +23,12 @@ const DisplayAdminButton = (props) => {
       );
 
       if (response.ok) {
+        const data = await response.json()
         console.log("Product updated successfully");
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
         props.fetchProducts();
       } else {
         console.error("Failed to update product");

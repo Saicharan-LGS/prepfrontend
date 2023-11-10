@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import './App.css'
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
@@ -12,60 +12,158 @@ import Navbar from "./Compoents/Navbar";
 import AccountOrders from "./Compoents/AccountantPage";
 import StaffSigninPage from "./Compoents/StaffLogin";
 import StaffSignupPage from "./Compoents/StaffRegistration";
-
 import CustomerHomePage from "./Compoents/CustomerHomePage";
-
 import Customersignup from "./Compoents/CustomerSignup";
 import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
-
+import ProtectedRoute from "./Compoents/ProtectedRoute";
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
-
 import CommonNavbar from "./Compoents/CommonNavbar";
+
 function App() {
   const role = localStorage.getItem("role");
-  console.log(role, "app");
+  const [totalAmount, setTotalAmount] = useState(null);
+
+  const fetchTotalAmount = () => {
+   const token = sessionStorage.getItem("token");
+   console.log("called total amount")
+   if (!token) {
+     return;
+   }
+   fetch(`http://localhost:3009/api/v1/getAmount`, {
+     headers: {
+       Authorization: `Bearer ${token}`,
+     },
+   })
+     .then((response) => response.json())
+     .then((data) => {
+       setTotalAmount(data.total_amount);
+       console.log(data.total_amount);
+     })
+     .catch((error) => {
+       console.error("Error fetching data:", error);
+       setTotalAmount(null);
+     });
+ };
+
+ useEffect(() => {
+   fetchTotalAmount();
+ }, []);
+
   return (
     <Routes>
-      <Route path="/Customersignup" element={<Customersignup />} />
+      <Route path="/CustomerLogin" element={<CustomerLogin />} />
       <Route path="/" element={<StaffSigninPage />} />
-      {role === undefined && (
-        <Route path="/staffsignup" element={<StaffSignupPage />} />
-      )}
+      {/* <Route
+        path="/Customersignup"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <Customersignup />
+          </ProtectedRoute>
+        }
+      /> */}
       <Route
         path="/CustomerOrderViewDetail/:id"
-        element={<CustomerOrderViewDetail />}
+        element={
+          <ProtectedRoute allowedRoles={["Customer"]}>
+            <CustomerOrderViewDetail />
+          </ProtectedRoute>
+        }
       />
-      {<Route path="/CustomerLogin" element={<CustomerLogin />} />}
-      {(role === "Accountant" || role === "Admin") && (
-        <Route path="/accountOrders" element={<AccountOrders />} />
-      )}
-      {(role === "Dimension" || role === "Admin") && (
-        <Route path="/dimensionorders" element={<DimensionOrderList />} />
-      )}
-      {(role === "Dimension" || role === "Admin") && (
-        <Route path="/dimensionupdate/:id" element={<DimensionsUpdate />} />
-      )}
-      {role === "Customer" && (
-        <Route path="/upload" element={<CustomerOrder />} />
-      )}
-      {role === "Admin" && ( <Route path="/adminViewDetail/:id" element={<OrderViewDetail />} /> )}
-      {role === "Admin" && (
-        <Route path="/adminOrders" element={<ProductList />} />
-      )}
-      <Route path="/labelOrders" element={<LabelOrders />} />
-      {role === "Customer" && (
-        <Route path="/adminhomepage" element={<AdminHomePage />} />
-      )}
-      {role === "Admin" && (<Route path="/navbar" element={<Navbar />} /> )}
-      {role === "Customer" && (
-        <Route path="/customerhomepage" element={<CustomerHomePage />} />
-      )}
+      <Route
+        path="/accountOrders"
+        element={
+          <ProtectedRoute allowedRoles={["Accountant", "Admin"]}>
+            <AccountOrders />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/dimensionorders"
+        element={
+          <ProtectedRoute allowedRoles={["Dimension", "Admin"]}>
+            <DimensionOrderList />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/dimensionupdate/:id"
+        element={
+          <ProtectedRoute allowedRoles={["Dimension", "Admin"]}>
+            <DimensionsUpdate />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/adminViewDetail/:id"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <OrderViewDetail />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/adminOrders"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <ProductList />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/labelOrders"
+        element={
+          <ProtectedRoute allowedRoles={["Label","Admin"]}>
+            <LabelOrders />
+          </ProtectedRoute>
+        }
+      />
+<Route
+        path="/commonNavbar"
+        element={
+          <ProtectedRoute allowedRoles={["Label","Accountant","Dimension"]}>
+            <CommonNavbar />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/navbar"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <Navbar />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/adminhomepage"
+        element={
+          <ProtectedRoute allowedRoles={["Admin"]}>
+            <AdminHomePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/customerhomepage"
+        element={
+          <ProtectedRoute allowedRoles={["Customer"]}>
+            <CustomerHomePage />
+          </ProtectedRoute>
+        }/>
+
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
-      {role === "Customer" && ( <Route path="/customernavbar" element={<CustomerNavbar />} /> )}
-      <Route path="/commonNavbar" element={<CommonNavbar />} />
-      {/* <Route path="/" element={<Login />} /> */}
+      <Route
+        path="/customernavbar"
+        element={
+          <ProtectedRoute allowedRoles={["Customer"]}>
+            <CustomerNavbar totalAmount={totalAmount} fetchTotalAmount={fetchTotalAmount} />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
