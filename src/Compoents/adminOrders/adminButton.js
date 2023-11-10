@@ -57,7 +57,7 @@ const DisplayAdminButton = (props) => {
         onClick={onClickReceived}
         className="admin-order-accepted-received-button"
       >
-        Received
+        Accept
       </button>
       <button
         value={props.id}

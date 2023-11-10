@@ -412,6 +412,15 @@ const CustomerOrder = ({ history }) => {
                 readOnly
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">FNSKU Send:</label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="fnskuSend"
+                onChange={handleFnskuSendChange}
+              />
+            </div>
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -439,15 +448,7 @@ const CustomerOrder = ({ history }) => {
                 required
               />
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">FNSKU Send:</label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="fnskuSend"
-                onChange={handleFnskuSendChange}
-              />
-            </div>
+            
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Label Send:</label>
               <input
