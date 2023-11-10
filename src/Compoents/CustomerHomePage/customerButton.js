@@ -1,5 +1,6 @@
-const CustomerButton = ({ id, amount }) => {
+const CustomerButton = ({ id, amount, fetchProducts }) => {
   // Set the initial value as a string '1'
+
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
@@ -23,6 +24,7 @@ const CustomerButton = ({ id, amount }) => {
       );
 
       if (response.ok) {
+        fetchProducts();
         console.log("Product updated successfully");
       } else {
         console.error("Failed to update product");
@@ -51,6 +53,7 @@ const CustomerButton = ({ id, amount }) => {
       );
 
       if (response.ok) {
+        fetchProducts()
         console.log("Product updated successfully");
       } else {
         console.error("Failed to updated product");
@@ -75,7 +78,6 @@ const CustomerButton = ({ id, amount }) => {
 
   return (
     <>
-      
       <button
         value={id}
         onClick={onClickReceived}

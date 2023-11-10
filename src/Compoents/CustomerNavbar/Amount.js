@@ -31,8 +31,8 @@ const TransactionSummary = () => {
 
   return (
     
-      <p>
-        Balance: <strong>Rs: {totalAmount}/-</strong>
+      <p style={{color:"#FFF", fontSize:"18px"}}>
+        Balance: <strong>Rs: {totalAmount}</strong>
       </p>
   );
 };

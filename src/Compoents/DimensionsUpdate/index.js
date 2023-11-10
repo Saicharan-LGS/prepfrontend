@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = (props) => {
-  const {productId} = props
+const DimensionsUpdate = ({id,fetchProducts}) => {
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -43,8 +42,6 @@ const DimensionsUpdate = (props) => {
     });
   };
 
-  const { id } = useParams();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,7 +56,7 @@ const DimensionsUpdate = (props) => {
       const token = sessionStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3009/api/v1/dimensionupdate/${productId}`,
+        `http://localhost:3009/api/v1/dimensionupdate/${id}`,
         {
           method: "PUT",
           headers: {
@@ -76,6 +73,21 @@ const DimensionsUpdate = (props) => {
             title: data.message,
           });
         });
+        setDimensions({
+          length: "",
+          width: "",
+          height: "",
+          weight: "",
+        });
+  
+        setSelectedUnits({
+          length: "cm",
+          width: "cm",
+          height: "cm",
+          weight: "g",
+        });
+  
+        fetchProducts()
         console.log("Dimension Updated successfully");
       } else {
         response.json().then((data) => {
@@ -84,6 +96,7 @@ const DimensionsUpdate = (props) => {
             title: data.message,
           });
         });
+        fetchProducts()
         console.error("Error creating the order");
       }
     } catch (error) {
