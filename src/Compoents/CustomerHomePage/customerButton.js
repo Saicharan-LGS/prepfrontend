@@ -1,6 +1,6 @@
+import Toast from "../utlis/toast";
 const CustomerButton = ({ id, amount, fetchProducts }) => {
   // Set the initial value as a string '1'
-
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
@@ -25,6 +25,11 @@ const CustomerButton = ({ id, amount, fetchProducts }) => {
 
       if (response.ok) {
         fetchProducts();
+        const data= await response.json()
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
         console.log("Product updated successfully");
       } else {
         console.error("Failed to update product");
@@ -54,6 +59,11 @@ const CustomerButton = ({ id, amount, fetchProducts }) => {
 
       if (response.ok) {
         fetchProducts()
+        const data = await response.json()
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
         console.log("Product updated successfully");
       } else {
         console.error("Failed to updated product");
