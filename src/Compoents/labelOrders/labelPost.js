@@ -28,7 +28,7 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
             title: data.message,
           })})
           fetchProducts()
-          setupdatepage("2")
+          setProduct(false)
         console.log("Product updated successfully");
       } else {
         response.json().then((data) => {
@@ -37,7 +37,6 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
             title: data.message,
           })})
           fetchProducts()
-          setupdatepage("2")
         console.error("Failed to updated product");
       }
     } catch (error) {
