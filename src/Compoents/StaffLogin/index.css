@@ -4,14 +4,19 @@
   align-items: center;
   width:100%;
   min-height:100vh;
+  /* background-image: url("https://maamus.com/image/loginbg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+   */
 }
 .signin-form-main-container {
     width: 24%;
     margin: 70px;
-    padding: 10px;
+    padding: 50px 30px;
     border: 2px solid #124577;
     border-radius: 5px;
     box-shadow: 0 0 20px #282046(0, 0, 0, 0.1);
+    background-color:#fff;
     
   }
   .signin-form-heading-container{
@@ -119,4 +124,14 @@
       width: 40%;
     }
   } 
-  
+  @media (max-width:1200px) {
+    .signin-form-main-container{
+      width: 30%;
+    }
+  } 
+  .login-image-container{
+    width:50%;
+  }
+  .Login-image{
+    width:100%;
+  }

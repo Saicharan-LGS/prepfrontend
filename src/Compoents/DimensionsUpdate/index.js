@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = () => {
+const DimensionsUpdate = (props) => {
+  const {productId} = props
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -58,7 +59,7 @@ const DimensionsUpdate = () => {
       const token = sessionStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3009/api/v1/dimensionupdate/${id}`,
+        `http://localhost:3009/api/v1/dimensionupdate/${productId}`,
         {
           method: "PUT",
           headers: {

@@ -188,6 +188,9 @@ const StaffSigninPage = () => {
 
   return (
     <div className="signin-div-container">
+      <div className="login-image-container">
+        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+      </div>
       <div className="signin-form-main-container">
         <div className="signin-staff-customer-button-container">
           <button className="signin-staff-button">Staff Signin</button>

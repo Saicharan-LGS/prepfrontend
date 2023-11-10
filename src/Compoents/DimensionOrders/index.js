@@ -131,7 +131,7 @@ function DimensionOrderList() {
                 Update
               </button> */}
               <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
-                <DimensionsUpdate />
+                <DimensionsUpdate productId={eachProduct.id}/>
               </Popup>
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
