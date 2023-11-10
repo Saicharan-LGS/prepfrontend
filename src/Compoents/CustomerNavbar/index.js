@@ -85,8 +85,9 @@ function CustomerNavbar() {
                 </li>
               );
             })}
+            <TransactionSummary />
           </ul>
-          <TransactionSummary />
+          
         </nav>
       </IconContext.Provider>
 

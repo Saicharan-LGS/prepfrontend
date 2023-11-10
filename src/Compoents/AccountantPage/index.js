@@ -181,7 +181,7 @@ function AccountOrders() {
                   {eachProduct.name}
                 </p>
                 <p className="admin-order-accepted-service-sub-category">
-                  {eachProduct.service}
+                  {eachProduct.product}
                 </p>
                 <p className="admin-order-accepted-quantity-sub-category">
                   {eachProduct.unit}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-
+import Toast from "../utlis/toast";
 function OrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -158,6 +158,10 @@ function OrderViewDetail() {
       .then((data) => {
         console.log("Data submitted successfully: ", data);
         console.log(formDataToSend);
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
         fetchData();
       })
       .catch((error) => {

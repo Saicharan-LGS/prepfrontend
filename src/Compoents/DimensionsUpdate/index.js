@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = () => {
+const DimensionsUpdate = ({id,fetchProducts}) => {
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -42,8 +42,6 @@ const DimensionsUpdate = () => {
     });
   };
 
-  const { id } = useParams();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -75,6 +73,21 @@ const DimensionsUpdate = () => {
             title: data.message,
           });
         });
+        setDimensions({
+          length: "",
+          width: "",
+          height: "",
+          weight: "",
+        });
+  
+        setSelectedUnits({
+          length: "cm",
+          width: "cm",
+          height: "cm",
+          weight: "g",
+        });
+  
+        fetchProducts()
         console.log("Dimension Updated successfully");
       } else {
         response.json().then((data) => {
@@ -83,6 +96,7 @@ const DimensionsUpdate = () => {
             title: data.message,
           });
         });
+        fetchProducts()
         console.error("Error creating the order");
       }
     } catch (error) {

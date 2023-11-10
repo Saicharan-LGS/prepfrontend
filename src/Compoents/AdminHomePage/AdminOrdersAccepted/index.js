@@ -164,7 +164,7 @@ function AdminOrdersAccepted() {
               {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
               <div className="admin-order-accepted-fnsku-sub-category">
-                {eachProduct.fnsku_status === "0" ? (
+                {eachProduct.fnsku_status === 0 ? (
                   <input
                     type="checkbox"
                     className="admin-order-accepted-checkbox"
@@ -178,7 +178,7 @@ function AdminOrdersAccepted() {
                 )}
               </div>
               <div className="admin-order-accepted-box-label-sub-category">
-                {eachProduct.label_status === "0" ? (
+                {eachProduct.label_status === 0 ? (
                   <input
                     type="checkbox"
                     className="admin-order-accepted-checkbox"

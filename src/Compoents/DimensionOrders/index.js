@@ -25,32 +25,33 @@ function DimensionOrderList() {
     setCurrentPage(pageNumber);
   };
   const role = sessionStorage.getItem("role");
+  const fetchProducts = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3009/api/v1/dimensionorderlist",
+        {
+          method: "GET",
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        setProducts(data.data);
+      } else {
+        console.error("Failed to fetch products");
+        setProducts([])
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setProducts([])
+    }
+  };
 
   useEffect(() => {
-    
-    const fetchProducts = async () => {
-      try {
-        const token = sessionStorage.getItem("token");
-        const response = await fetch(
-          "http://localhost:3009/api/v1/dimensionorderlist",
-          {
-            method: "GET",
-            headers: {
-              Authorization: ` Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setProducts(data.data);
-        } else {
-          console.error("Failed to fetch products");
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
     fetchProducts();
   }, []);
   const date = new Date();
@@ -131,7 +132,7 @@ function DimensionOrderList() {
                 Update
               </button> */}
               <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
-                <DimensionsUpdate />
+                <DimensionsUpdate id={eachProduct.id} fetchProducts={fetchProducts} />
               </Popup>
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
