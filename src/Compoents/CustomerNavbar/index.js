@@ -59,7 +59,7 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="customer-navbar-logout-button-container">
-            <TransactionSummary />
+          <TransactionSummary  totalAmount={totalAmount}   />
             <p className="customer-navbar-nav-item-name">{name}</p>
             {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
@@ -88,7 +88,7 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
                 </li>
               );
             })}
-            <TransactionSummary  totalAmount={totalAmount}   />
+            
           </ul>
           
         </nav>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
+import CustomerNavbar from "../CustomerNavbar";
 function CustomerOrderViewDetail() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -169,6 +170,8 @@ function CustomerOrderViewDetail() {
   } = formData;
 
   return (
+    <>
+    <CustomerNavbar/>
     <div className="order-customer-container">
       <center>
         <h1 className="order-customer-main-heading">Customer Orders</h1>
@@ -374,6 +377,7 @@ function CustomerOrderViewDetail() {
         </button>
       </center>
     </div>
+    </>
   );
 }
 

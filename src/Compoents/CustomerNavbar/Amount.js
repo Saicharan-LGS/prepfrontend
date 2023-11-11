@@ -4,7 +4,7 @@ const TransactionSummary = ({totalAmount}) => {
  
 
   return (
-    <p style={{ color: "#FFF", fontSize: "18px" }}>
+    <p className="customer-navbar-nav-item-name">
       Balance: <strong>Rs: {totalAmount}</strong>
     </p>
   );

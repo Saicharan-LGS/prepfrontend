@@ -144,7 +144,6 @@ const CustomerOrder = ({ history }) => {
 
   return (
     <>
-    <CommonNavbar/>
     <div className="order-customer-container">
       <center>
         <h1 className="order-customer-main-heading">Post Order</h1>
