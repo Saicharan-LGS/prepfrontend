@@ -95,7 +95,7 @@ function AdminOrdersRejected() {
           <p className="admin-order-accepted-accept-category">Accept</p> */}
         <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">
-          Box Label Status
+          Box Label 
         </p>
         <p className="admin-order-accepted-view-in-detail-category">
           View In Detail

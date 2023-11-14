@@ -75,33 +75,28 @@ function ProductList() {
       : `pagination-arrow-container`;
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div className="admin-order-accepted-product-list">
-          <h2 className="admin-order-accepted-order-list-heading">
-            Order List
-          </h2>
-          <div className="admin-order-accepted-category-types">
-            <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Name</p>
-            <p className="admin-order-accepted-service-category">Product</p>
-            <p className="admin-order-accepted-quantity-category">Quantity</p>
-            <p className="admin-order-accepted-order-tracking-category">
-              Order Tracking Link
-            </p>
-
-            <p className="admin-order-accepted-accept-category">Received</p>
-            <p className="admin-order-accepted-decline-category">Decline</p>
-            <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
-            <p className="admin-order-accepted-box-label-category">
-              Box Label Status
-            </p>
-            <p className="admin-order-accepted-view-in-detail-category">
-              View In Detail
-            </p>
-          </div>
+    <>{loading?<Spinner/>:
+    <div className="admin-order-accepted-product-list">
+      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <div className="admin-order-accepted-category-types">
+        <p className="admin-order-accepted-order-id-category">Order Id</p>
+        <p className="admin-order-accepted-name-category">Name</p>
+        <p className="admin-order-accepted-service-category">Product</p>
+        <p className="admin-order-accepted-quantity-category">Quantity</p>
+        <p className="admin-order-accepted-order-tracking-category">
+          Order Tracking Link
+        </p>
+        
+        <p className="admin-order-accepted-accept-category">Received</p>
+        <p className="admin-order-accepted-decline-category">Decline</p>
+        <p className="admin-order-accepted-fnsku-category">FNSKU</p>
+        <p className="admin-order-accepted-box-label-category">
+          Box Label 
+        </p>
+        <p className="admin-order-accepted-view-in-detail-category">
+          View 
+        </p>
+      </div>
 
           {products.length > 0 ? (
             <>

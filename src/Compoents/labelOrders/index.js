@@ -68,7 +68,7 @@ function LabelOrders() {
     <>
       {role==="Label" && <CommonNavbar /> }
       <div className="admin-order-accepted-product-list">
-        <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+        <h2 className="admin-order-accepted-order-list-heading">Label Orders List</h2>
         <div className="admin-order-accepted-category-types">
           <p className="admin-order-accepted-order-id-category">Order Id</p>
           <p className="admin-order-accepted-name-category">Name</p>
