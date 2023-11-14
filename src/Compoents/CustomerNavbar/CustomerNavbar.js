@@ -1,10 +1,8 @@
 import React from "react";
 import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
-import {BsXOctagonFill,BsFillBoxSeamFill} from 'react-icons/bs'
-import {ImUpload} from 'react-icons/im'
-import {RiVerifiedBadgeFill} from 'react-icons/ri'
+import { BsXOctagonFill, BsFillBoxSeamFill } from "react-icons/bs";
+import { ImUpload } from "react-icons/im";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 // import AdminHomePage from '../AdminHomePage';
 // import DimensionOrderList from '../DimensionOrders';
 // import LabelOrders from '../labelOrders';

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
-import CustomerNavbar from "../CustomerNavbar";
 import CommonNavbar from "../CommonNavbar";
 function CustomerOrderViewDetail() {
   const { id } = useParams();

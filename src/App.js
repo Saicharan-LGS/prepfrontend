@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
-import CustomerOrder from "./Compoents/customerOrder";
+
 import OrderViewDetail from "./Compoents/AdminDetailPage";
 import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
@@ -11,9 +11,9 @@ import AdminHomePage from "./Compoents/AdminHomePage";
 import Navbar from "./Compoents/Navbar";
 import AccountOrders from "./Compoents/AccountantPage";
 import StaffSigninPage from "./Compoents/StaffLogin";
-import StaffSignupPage from "./Compoents/StaffRegistration";
+
 import CustomerHomePage from "./Compoents/CustomerHomePage";
-import Customersignup from "./Compoents/CustomerSignup";
+
 import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 import ProtectedRoute from "./Compoents/ProtectedRoute";

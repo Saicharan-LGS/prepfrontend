@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = ({id,fetchProducts}) => {
+const DimensionsUpdate = ({ id, fetchProducts }) => {
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -32,7 +30,6 @@ const DimensionsUpdate = ({id,fetchProducts}) => {
       [name]: value,
     });
   };
-  const navigate = useNavigate();
 
   const handleUnitChange = (e, dimension) => {
     const selectedUnit = e.target.value;
@@ -79,15 +76,15 @@ const DimensionsUpdate = ({id,fetchProducts}) => {
           height: "",
           weight: "",
         });
-  
+
         setSelectedUnits({
           length: "cm",
           width: "cm",
           height: "cm",
           weight: "g",
         });
-  
-        fetchProducts()
+
+        fetchProducts();
         console.log("Dimension Updated successfully");
       } else {
         response.json().then((data) => {
@@ -96,7 +93,7 @@ const DimensionsUpdate = ({id,fetchProducts}) => {
             title: data.message,
           });
         });
-        fetchProducts()
+        fetchProducts();
         console.error("Error creating the order");
       }
     } catch (error) {

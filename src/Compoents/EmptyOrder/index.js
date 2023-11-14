@@ -1,6 +1,4 @@
-import {Link} from 'react-router-dom'
-
-import './index.css'
+import "./index.css";
 
 const EmptyOrder = () => (
   <div className="cart-empty-view-container">
@@ -10,8 +8,7 @@ const EmptyOrder = () => (
       alt="cart empty"
     />
     <h1 className="cart-empty-heading">No orders</h1>
-
   </div>
-)
+);
 
-export default EmptyOrder
+export default EmptyOrder;

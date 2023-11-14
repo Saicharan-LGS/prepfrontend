@@ -6,7 +6,6 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import Spinner from "../Spinner";
-import DisplayAdminButton from "../adminOrders/adminButton";
 
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
@@ -106,7 +105,9 @@ function ViewAllOrders() {
         <Spinner />
       ) : (
         <div className="admin-order-accepted-product-list">
-          <h2 className="admin-order-accepted-order-list-heading">All Orders</h2>
+          <h2 className="admin-order-accepted-order-list-heading">
+            All Orders
+          </h2>
           <input
             type="number"
             name="orderid"

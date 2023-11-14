@@ -1,9 +1,6 @@
-
-
 import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
-import { useNavigate } from "react-router-dom";
 const Customersignup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,8 +14,6 @@ const Customersignup = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const navigate=useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,8 +36,7 @@ const Customersignup = () => {
       return;
     }
 
-    
-    const token= sessionStorage.getItem("token")
+    const token = sessionStorage.getItem("token");
     // Construct the request object with the POST method and the request body as JSON
     const requestOptions = {
       method: "POST",
@@ -61,13 +55,14 @@ const Customersignup = () => {
             Toast.fire({
               icon: "success",
               title: data.message,
-            })})
+            });
+          });
         } else {
           throw new Error(`Failed with status: ${response.status}`);
         }
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
         setBackendError("An error occurred while processing your request.");
@@ -78,7 +73,11 @@ const Customersignup = () => {
   return (
     <div className="customer-signin-div-container">
       <div className="login-image-container">
-        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+        <img
+          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          className="Login-image"
+          alt=""
+        />
       </div>
       <div className="customer-signin-form-main-container">
         <center>
@@ -86,16 +85,20 @@ const Customersignup = () => {
             Customer Signup
           </h2>
         </center>
-        <form onSubmit={handleSubmit} className="customer-singin-form-container">
+        <form
+          onSubmit={handleSubmit}
+          className="customer-singin-form-container"
+        >
           <div className="customer-signin-form-group-container">
-            <label className="customer-singnin-form-lable-container">Name:</label>
+            <label className="customer-singnin-form-lable-container">
+              Name:
+            </label>
             <input
               type="text"
               name="name"
               className="customer-signin-input-container"
               value={formData.name}
               onChange={handleInputChange}
-              
             />
             {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
@@ -109,7 +112,6 @@ const Customersignup = () => {
               className="customer-signin-input-container"
               value={formData.email}
               onChange={handleInputChange}
-              
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
@@ -123,9 +125,10 @@ const Customersignup = () => {
               className="customer-signin-input-container"
               value={formData.password}
               onChange={handleInputChange}
-              
             />
-            {errors.password && <p className="error-message">{errors.password}</p>}
+            {errors.password && (
+              <p className="error-message">{errors.password}</p>
+            )}
           </div>
           {backendError && <p className="error-message">{backendError}</p>}
           <center>
@@ -143,4 +146,3 @@ const Customersignup = () => {
 };
 
 export default Customersignup;
-

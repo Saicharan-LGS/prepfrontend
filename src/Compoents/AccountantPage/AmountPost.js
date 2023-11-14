@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Toast from "../utlis/toast";
-import { useNavigate } from "react-router-dom";
+
 const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
   const [amount1, setAmount] = useState();
-  const navigate = useNavigate();
+
   const onChangeInput = (e) => {
     setAmount(e.target.value);
   };
@@ -38,7 +38,7 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
             title: data.message,
           });
         });
-        setAmount("")
+        setAmount("");
         console.log("Product updated successfully");
         if (role === "Admin") {
           fetchProducts();

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
-import { useNavigate } from "react-router-dom";
 
 const StaffSignupPage = () => {
   const [formData, setFormData] = useState({
@@ -21,8 +20,6 @@ const StaffSignupPage = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,7 +76,8 @@ const StaffSignupPage = () => {
               Toast.fire({
                 icon: "success",
                 title: data.message,
-              })})
+              });
+            });
             console.log("Staff Registered successfully");
             // Navigate to the signin page
           } else {
@@ -87,7 +85,8 @@ const StaffSignupPage = () => {
               Toast.fire({
                 icon: "error",
                 title: data.message,
-              })})
+              });
+            });
             // Handle other status codes or error messages
             console.error("Registration failed");
           }
@@ -101,7 +100,11 @@ const StaffSignupPage = () => {
   return (
     <div className="signup-div-container">
       <div className="login-image-container">
-        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+        <img
+          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          className="Login-image"
+          alt=""
+        />
       </div>
       <div className="signup-main-form-container">
         <center>
@@ -118,7 +121,7 @@ const StaffSignupPage = () => {
               onChange={handleInputChange}
             />
           </div>
-         
+
           <div className="signup-whole-form-contaner">
             <label className="signup-form-lable-container">Email:</label>
             <input
