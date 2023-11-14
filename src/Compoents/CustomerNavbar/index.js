@@ -29,7 +29,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleSidebarItemClick = (path, component,id) => {
+  const handleSidebarItemClick = ( component,id) => {
     setSidebar(false);
     setCurrentComponent(component);
     setStatus(id)
