@@ -80,7 +80,7 @@ function DimensionOrderList() {
     <>
     {role==="Dimension" && <CommonNavbar /> }
     <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+      <h2 className="admin-order-accepted-order-list-heading">Dimensions Order List</h2>
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -94,7 +94,7 @@ function DimensionOrderList() {
         {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
         <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
         <p className="admin-order-accepted-view-in-detail-category">
-          Update Dim/wt
+          Update 
         </p>
         <p className="admin-order-accepted-accept-category">View Details</p>
       </div>
@@ -115,7 +115,7 @@ function DimensionOrderList() {
                 {eachProduct.unit}
               </p>
               <p className="admin-order-accepted-order-tracking-sub-category">
-                {eachProduct.tacking_url}
+                {eachProduct.tracking_url}
               </p>
               {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}

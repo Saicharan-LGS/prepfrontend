@@ -113,7 +113,7 @@ function CustomerHomePage() {
             <p className="admin-order-accepted-fnsku-category">Amount</p>
 
             <p className="admin-order-accepted-view-in-detail-category">
-              View In Detail
+              View 
             </p>
           </div>
           {products.length > 0 ? (

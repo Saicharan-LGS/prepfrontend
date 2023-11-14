@@ -185,7 +185,7 @@ const token=sessionStorage.getItem("token")
         <div className="order-customer-field2-container">
           <div className="order-customer-input-feild">
             <label className="order-customer-label-name">
-              Services Required:
+              Service Required:
             </label>
             <select
               className="order-customer-lable-container admin-order-accepted-readonly"

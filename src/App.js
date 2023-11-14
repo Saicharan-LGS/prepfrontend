@@ -28,14 +28,14 @@ function App() {
     <Routes>
       <Route path="/CustomerLogin" element={<CustomerLogin />} />
       <Route path="/" element={<StaffSigninPage />} />
-      <Route
+      {/* <Route
         path="/Customersignup"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
             <Customersignup />
           </ProtectedRoute>
         }
-      />
+      /> */}
       <Route
         path="/CustomerOrderViewDetail/:id"
         element={
