@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
+import CommonNavbar from "../CommonNavbar";
 function ViewDetailedOrder() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -103,6 +104,8 @@ const token=sessionStorage.getItem("token")
   } = formData;
 
   return (
+    <>
+    <CommonNavbar/>
     <div className="order-customer-container">
       <center>
         <h1 className="order-customer-main-heading">Customer Orders</h1>
@@ -307,6 +310,7 @@ const token=sessionStorage.getItem("token")
         </div>
       </form>
     </div>
+    </>
   );
 }
 

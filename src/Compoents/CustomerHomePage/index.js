@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
-function CustomerHomePage() {
+function CustomerHomePage({fetchTotalAmount}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -150,6 +150,7 @@ function CustomerHomePage() {
                       id={eachProduct.id}
                       amount={eachProduct.amount}
                       fetchProducts={fetchProducts}
+                      fetchTotalAmount={fetchTotalAmount}
                     />
                     {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}

@@ -20,16 +20,16 @@
 .admin-home-page-product-tab{
     background-color: #e0e0eb;
     padding:6px 14px;
-    border-radius:4px;
-    font-size:18px;
-    color:#000;
+    border-radius:20px;
+    font-size:16px;
+    color:#737373;
     font-weight:600;
     cursor:pointer;
     margin:2px;
 }
 .admin-home-page-active-product-tab-color{
-    background-color: #124577;
-    color:#fff;
+    background-color: #ffc03d;
+    color:#212d45;
 }
 @media (max-width:768px){
     .admin-home-page-product-tabs-container{

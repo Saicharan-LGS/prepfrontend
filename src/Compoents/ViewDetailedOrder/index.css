@@ -1,11 +1,11 @@
 .order-customer-container{
     border-radius: 10px;
-    padding:20px;
+    width:98%;
   }
   .order-customer-main-heading{
     font-size:32px;
     font-weight:600;
-    color:#000;
+    color:#212d45;
   }
   .order-customer-from-container{
     display: flex;  
@@ -17,7 +17,6 @@
     width: 30%;
     margin-right: 10px;
     margin-top: 10px;
-    font-weight: bold;
     text-align: left;
   }
   .order-customer-field2-container{
@@ -44,36 +43,34 @@
   .order-customer-label-name{
     font-size:18px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     font-weight:500;
   }
   .order-customer-lable-container{
     padding: 8px;
     font-size: 16px;
     border-radius: 5px;
-    border: 2px solid #000080; 
+    border: 2px solid #212d45; 
     outline:none;
   }
   .order-customer-button-container{
     margin: 10px;
-    padding: 6px 12px;
-    background-color: #4caf50;
-    color: white;
+    padding: 8px 22px;
+    background-color: #ffc03d;
+    color: #212d45;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     font-weight:600;
     transition: background-color 0.3s;
     cursor:pointer;
   }
-  .order-customer-button-container:hover{
-    background-color: #45a049;
-  }
+  
   .order-customer-label-file::file-selector-button {
     padding: 2px 8px;
     border-radius: 4px;
-    background-color: #000080;
+    background-color: #212d45;
     transition: 1s;
     color:#fff;
     border:none;
@@ -91,10 +88,10 @@
     margin: 10px;
     width:max-content;
     padding: 10px 12px;
-    background-color: #4caf50;
-    color: white;
+    background-color: #ffc03d;
+    color: #212d45;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     font-weight:600;

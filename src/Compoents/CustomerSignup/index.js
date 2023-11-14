@@ -77,6 +77,9 @@ const Customersignup = () => {
 
   return (
     <div className="customer-signin-div-container">
+      <div className="login-image-container">
+        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+      </div>
       <div className="customer-signin-form-main-container">
         <center>
           <h2 className="customer-signin-form-heading-container">

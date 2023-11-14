@@ -1,11 +1,12 @@
 .admin-order-accepted-product-list{
     display:flex;
     flex-direction:column;
-    padding:0% 4% ;
+    padding:0% 4% 0% 4%;
+    min-height:98vh;
 }
 .admin-order-accepted-order-list-heading{
-    font-size:32px;
-    color:#000;
+    font-size:28px;
+    color:#212d45;
     margin:10px 0px 20px 0px;
     font-weight:600;
 }
@@ -19,7 +20,7 @@
     gap:20px;
     padding:2px 4px;
     height:24px;
-    width:1200px;
+    width:100%;
     overflow-x:auto;
     overflow-y:hidden;
 }
@@ -27,7 +28,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     height:100%;
     overflow: hidden;
@@ -38,7 +39,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -49,7 +50,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -60,18 +61,19 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
     display:flex;
     justify-content: center;
+    align-items:center;
 }
 .admin-order-accepted-order-tracking-category{
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:20%;
     overflow: hidden;
     height:100%;
@@ -82,7 +84,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -93,7 +95,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -104,7 +106,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -115,7 +117,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -126,7 +128,7 @@
     font-size:16px;
     font-weight:600;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -145,7 +147,7 @@
     gap:20px;
     padding:2px 4px;
     height:50px;
-    width:1200px;
+    width:100%;
     overflow-x:auto;
     overflow-y:hidden;
 }
@@ -193,6 +195,7 @@
     display:flex;
     align-items:center;
     justify-content: center;
+    text-align:center;
 }
 .admin-order-accepted-order-tracking-sub-category{
     font-size:16px;
@@ -237,7 +240,7 @@
 .admin-order-accepted-view-in-detail-sub-category{
     font-size:24px;
     margin:0px;
-    color:#009900;
+    color:#008000;
     width:10%;
     overflow: hidden;
     cursor:pointer;
@@ -246,10 +249,10 @@
     justify-content: center;
 }
 .admin-order-accepted-received-button{
-    background-color: #00cc00;
-    padding:10px 10px;
+    background-color: #008000;
+    padding:8px 10px;
     color:#fff;
-    border-radius:4px;
+    border-radius:20px;
     border:none;
     cursor:pointer;
     outline:none;
@@ -261,9 +264,9 @@
 }
 .admin-order-accepted-declined-button{
     background-color:#ff3333;
-    padding:10px 2px;
+    padding:8px 2px;
     color:#fff;
-    border-radius:4px;
+    border-radius:20px;
     border:none;
     cursor:pointer;
     outline:none;

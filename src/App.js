@@ -1,5 +1,5 @@
-import React from "react";
-import './App.css'
+import React, { useState, useEffect } from "react";
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
@@ -23,6 +23,35 @@ import CommonNavbar from "./Compoents/CommonNavbar";
 
 function App() {
   const role = localStorage.getItem("role");
+  const [totalAmount, setTotalAmount] = useState(null);
+
+  const fetchTotalAmount = () => {
+    const token = sessionStorage.getItem("token");
+    console.log("called total amount");
+    if (!token) {
+      return;
+    }
+    fetch(`http://localhost:3009/api/v1/getAmount`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalAmount(data.total_amount);
+        console.log(data.total_amount);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setTotalAmount(null);
+      });
+  };
+
+  useEffect(() => {
+    if (role === "Customer") {
+      fetchTotalAmount();
+    }
+  }, [role]);
 
   return (
     <Routes>
@@ -91,15 +120,15 @@ function App() {
       <Route
         path="/labelOrders"
         element={
-          <ProtectedRoute allowedRoles={["Label","Admin"]}>
+          <ProtectedRoute allowedRoles={["Label", "Admin"]}>
             <LabelOrders />
           </ProtectedRoute>
         }
       />
-<Route
+      <Route
         path="/commonNavbar"
         element={
-          <ProtectedRoute allowedRoles={["Label","Accountant","Dimension"]}>
+          <ProtectedRoute allowedRoles={["Label", "Accountant", "Dimension"]}>
             <CommonNavbar />
           </ProtectedRoute>
         }
@@ -126,14 +155,18 @@ function App() {
           <ProtectedRoute allowedRoles={["Customer"]}>
             <CustomerHomePage />
           </ProtectedRoute>
-        }/>
+        }
+      />
 
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route
         path="/customernavbar"
         element={
           <ProtectedRoute allowedRoles={["Customer"]}>
-            <CustomerNavbar />
+            <CustomerNavbar
+              totalAmount={totalAmount}
+              fetchTotalAmount={fetchTotalAmount}
+            />
           </ProtectedRoute>
         }
       />

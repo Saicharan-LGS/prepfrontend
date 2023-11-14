@@ -34,11 +34,15 @@ function Navbar() {
   const role = sessionStorage.getItem("role")
   const name = sessionStorage.getItem("sname")
 
+
+  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
+
   return (
-    <>
-      <IconContext.Provider value={{ color: '#fff' }}>
+    <div className="navbar-container">
+    
+      <IconContext.Provider value={{ color: '#000' }}>
         <div className='navbar'>
-          <Link to='#' className='menu-bars'>
+          <Link to='#' className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="navbar-logout-button-container">
@@ -69,7 +73,7 @@ function Navbar() {
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {currentComponent}
       </div>
-    </>
+    </div>
   );
 }
 

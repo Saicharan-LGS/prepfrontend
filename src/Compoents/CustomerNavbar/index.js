@@ -12,7 +12,7 @@ import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
-function CustomerNavbar() {
+function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(5);
   const [currentComponent, setCurrentComponent] = useState(
@@ -49,16 +49,19 @@ function CustomerNavbar() {
   const role = sessionStorage.getItem("role")
   const name = sessionStorage.getItem("sname")
 
+  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
+
   return (
     <div className="navbar-container">
-      <IconContext.Provider value={{ color: "#fff" }}>
+      <IconContext.Provider value={{ color: "#000" }}>
         <div className={`navbar ${sidebar ? "shifted" : ""}`}>
-          <Link to="#" className="menu-bars">
+          <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="customer-navbar-logout-button-container">
+          <TransactionSummary  totalAmount={totalAmount}   />
             <p className="customer-navbar-nav-item-name">{name}</p>
-            <p className="customer-navbar-nav-item-name">{role}</p>
+            {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
           
@@ -85,7 +88,7 @@ function CustomerNavbar() {
                 </li>
               );
             })}
-            <TransactionSummary />
+            
           </ul>
           
         </nav>
@@ -93,7 +96,7 @@ function CustomerNavbar() {
 
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {status === 5 ? (
-          <CustomerHomePage />
+          <CustomerHomePage fetchTotalAmount={fetchTotalAmount} />
         ) : status ===6 ? (
           <CustomerAccepted />
         ) : status === 7 ? (
