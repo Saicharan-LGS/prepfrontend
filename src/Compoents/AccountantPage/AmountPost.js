@@ -11,7 +11,6 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
     handeSubmit(e.target.id, amount1);
   };
   const handeSubmit = async (id, amount1) => {
-    console.log("called", id, amount1);
     const role = sessionStorage.getItem("role");
     try {
       const amount2 = {
@@ -39,7 +38,6 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
           });
         });
         setAmount("");
-        console.log("Product updated successfully");
         if (role === "Admin") {
           fetchProducts();
           setupdatepage("2");
@@ -55,10 +53,8 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
             title: data.message,
           });
         });
-        console.error("Failed to updated product");
       }
     } catch (error) {
-      console.error("Error updating product:", error);
     }
   };
 

@@ -49,7 +49,6 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
         height: dimensions.height + selectedUnits.height,
         weight: dimensions.weight + selectedUnits.weight,
       };
-      console.log(dimensionsWithUnits);
       const token = sessionStorage.getItem("token");
 
       const response = await fetch(
@@ -85,7 +84,6 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
         });
 
         fetchProducts();
-        console.log("Dimension Updated successfully");
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -94,10 +92,8 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
           });
         });
         fetchProducts();
-        console.error("Error creating the order");
       }
-    } catch (error) {
-      console.error("Error creating the order: ", error);
+    } catch  {
     }
   };
 

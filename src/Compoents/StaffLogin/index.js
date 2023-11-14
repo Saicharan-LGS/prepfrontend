@@ -56,9 +56,7 @@ const StaffSigninPage = () => {
             localStorage.setItem("role", data.role);
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
-            console.log("Login successful");
             setTimeout(() => {
-              console.log("caled, route");
               navigate("/customernavbar");
 
               if (data.role === "Admin") {
@@ -86,7 +84,6 @@ const StaffSigninPage = () => {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
         setError("Error occurred during login");
       });
   };

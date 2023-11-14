@@ -40,7 +40,6 @@ function CustomerOrderViewDetail() {
   const token = sessionStorage.getItem("token");
   const fetchData = async () => {
     try {
-      console.log("bye");
       const response = await fetch(
         `http://localhost:3009/api/v1/getCustomerDetailOrder/${id}`,
         {
@@ -52,7 +51,6 @@ function CustomerOrderViewDetail() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setFormData({
           ...formData,
           date: data.date,
@@ -78,10 +76,8 @@ function CustomerOrderViewDetail() {
           // ... other fields you want to update
         });
       } else {
-        console.error("Failed to fetch data");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
     }
   };
   useEffect(() => {
@@ -95,22 +91,17 @@ function CustomerOrderViewDetail() {
 
   const handleFnskuFileData = (e) => {
     const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("fnsku called", files[0]);
     setFormData({ ...formData, ["fnskuSend"]: files[0] });
   };
 
   const handleLabelFileData = async (e) => {
     const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("label called", files[0]);
     setFormData({ ...formData, ["labelSend"]: files[0] });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
-    console.log(fnskuSend, labelSend);
     formDataToSend.append("date", date);
     formDataToSend.append("name", name);
     formDataToSend.append("service", service);
@@ -130,20 +121,16 @@ function CustomerOrderViewDetail() {
       body: formDataToSend,
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Data submitted successfully: ", data);
-        console.log(formDataToSend);
+      .then(() => {
         fetchData();
       })
       .catch((error) => {
-        console.error("Error submitting data: ", error);
         fetchData();
       });
   };
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      console.log(fileURL);
       window.open(`http://localhost:3009/${fileURL}`, "_blank");
     }
   };

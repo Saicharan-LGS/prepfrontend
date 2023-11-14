@@ -1,6 +1,5 @@
 import Toast from "../utlis/toast";
 const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
-  console.log(fetchProducts)
   // Set the initial value as a string '1'
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
@@ -10,7 +9,6 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
     };
 
     try {
-      console.log(requestData, "reject called");
       const response = await fetch(
         `http://localhost:3009/api/v1/declineOrder/${id}`,
         {
@@ -31,17 +29,13 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
           icon: "success",
           title: data.message,
         });
-        console.log("Product updated successfully");
       } else {
-        console.error("Failed to update product");
       }
     } catch (error) {
-      console.error("Error updating product:", error);
     }
   };
 
   const handleSubmit1 = async () => {
-    console.log("called", id, amount);
     try {
       const amount2 = {
         amount: amount,
@@ -66,12 +60,9 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
           icon: "success",
           title: data.message,
         })
-        console.log("Product updated successfully");
       } else {
-        console.error("Failed to updated product");
       }
     } catch (error) {
-      console.error("Error updating product:", error);
     }
   };
 
@@ -83,7 +74,6 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
-    console.log("Received called");
     handleSubmit1(e.target.value, status);
     // window.location.reload();
   };

@@ -39,14 +39,11 @@ function DimensionOrderList() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProducts(data.data);
       } else {
-        console.error("Failed to fetch products");
         setProducts([])
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       setProducts([])
     }
   };
@@ -62,14 +59,12 @@ function DimensionOrderList() {
   const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`;
-  console.log(formattedDate);
 
   const dimensionUpadate = (id) => {
     navigate(`/dimensionupdate/${id}`);
   };
 
   const openDetailPage = (e, productId) => {
-    console.log(productId);
     navigate(`/viewDetailedorder/${productId}`);
   };
 

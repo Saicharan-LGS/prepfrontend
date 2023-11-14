@@ -78,7 +78,6 @@ const StaffSignupPage = () => {
                 title: data.message,
               });
             });
-            console.log("Staff Registered successfully");
             // Navigate to the signin page
           } else {
             response.json().then((data) => {
@@ -88,11 +87,9 @@ const StaffSignupPage = () => {
               });
             });
             // Handle other status codes or error messages
-            console.error("Registration failed");
           }
         })
-        .catch((error) => {
-          console.error("Error:", error);
+        .catch(() => {
         });
     }
   };

@@ -55,13 +55,11 @@ function ViewAllOrders() {
           setProducts(data.results);
           setLoading(false);
         } else {
-          console.error("Failed to fetch products");
           setTimeout(() => {
             setLoading(false);
           }, 3000);
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
         setTimeout(() => {
           setLoading(false);
         }, 3000);
