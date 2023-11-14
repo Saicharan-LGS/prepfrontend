@@ -1,10 +1,7 @@
-
-
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
-import CommonNavbar from "../CommonNavbar";
 
 const CustomerOrder = ({ history }) => {
   const [date, setDate] = useState("");
@@ -144,118 +141,122 @@ const CustomerOrder = ({ history }) => {
 
   return (
     <>
-    <div className="order-customer-container">
-      <center>
-        <h1 className="order-customer-main-heading">Post Order</h1>
-      </center>
-      <form onSubmit={handleSubmit}>
-        <div className="order-customer-from-container">
-          <div className="order-customer-field1-container">
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Date:</label>
-              <input
-                className="order-customer-lable-container"
-                type="date"
-                name="date"
-                value={date}
-                onChange={handleChange}
-                required
-                readOnly
-              />
+      <div className="order-customer-container">
+        <center>
+          <h1 className="order-customer-main-heading">Post Order</h1>
+        </center>
+        <form onSubmit={handleSubmit}>
+          <div className="order-customer-from-container">
+            <div className="order-customer-field1-container">
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Date:</label>
+                <input
+                  className="order-customer-lable-container"
+                  type="date"
+                  name="date"
+                  value={date}
+                  onChange={handleChange}
+                  required
+                  readOnly
+                />
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">
+                  Customer Name:
+                </label>
+                <input
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="customerName"
+                  value={customerName}
+                  onChange={handleChange}
+                  required
+                  readOnly
+                />
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">FNSKU Send:</label>
+                <input
+                  className="order-customer-lable-container order-customer-label-file"
+                  type="file"
+                  name="fnskuSend"
+                  onChange={handleFnskuSendChange}
+                />
+              </div>
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Customer Name:
-              </label>
-              <input
-                className="order-customer-lable-container"
-                type="text"
-                name="customerName"
-                value={customerName}
-                onChange={handleChange}
-                required
-                readOnly
-              />
+            <div className="order-customer-field2-container">
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">
+                  Service Required:
+                </label>
+                <select
+                  className="order-customer-lable-container"
+                  name="servicesReq"
+                  value={servicesReq}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="Prep Service">Prep Service</option>
+                </select>
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">
+                  Product Name:
+                </label>
+                <input
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="productName"
+                  value={productName}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Label Send:</label>
+                <input
+                  className="order-customer-lable-container order-customer-label-file"
+                  type="file"
+                  name="labelSend"
+                  onChange={handleLabelSendChange}
+                />
+              </div>
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">FNSKU Send:</label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="fnskuSend"
-                onChange={handleFnskuSendChange}
-              />
+            <div className="order-customer-field3-container">
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Units:</label>
+                <input
+                  className="order-customer-lable-container"
+                  type="number"
+                  name="units"
+                  value={units}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">
+                  Tracking URL:
+                </label>
+                <input
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="trackingURL"
+                  value={trackingURL}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
           </div>
-          <div className="order-customer-field2-container">
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Services Required:
-              </label>
-              <select
-                className="order-customer-lable-container"
-                name="servicesReq"
-                value={servicesReq}
-                onChange={handleChange}
-                required
-              >
-                <option value="Prep Service">Prep Service</option>
-              </select>
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Product Name:</label>
-              <input
-                className="order-customer-lable-container"
-                type="text"
-                name="productName"
-                value={productName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Label Send:</label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="labelSend"
-                onChange={handleLabelSendChange}
-              />
-            </div>
+          <div className="order-customer-submit-button-container">
+            <button className="order-customer-button-container" type="submit">
+              Submit
+            </button>
           </div>
-          <div className="order-customer-field3-container">
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Units:</label>
-              <input
-                className="order-customer-lable-container"
-                type="number"
-                name="units"
-                value={units}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Tracking URL:</label>
-              <input
-                className="order-customer-lable-container"
-                type="text"
-                name="trackingURL"
-                value={trackingURL}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-        <div className="order-customer-submit-button-container">
-          <button className="order-customer-button-container" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </>
   );
 };

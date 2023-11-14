@@ -37,11 +37,12 @@ function OrderViewDetail() {
     height: "cm",
     weight: "g",
   });
-  const token = sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,{
+        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,
+        {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,29 +105,26 @@ function OrderViewDetail() {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }
+  };
+
   useEffect(() => {
     // Fetch data using the id passed as a prop
-
     fetchData();
   }, [id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleFnskuFileData = (e) => {
-    const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("fnsku called", files[0]);
-    setFormData({ ...formData, ["fnskuSend"]: files[0] });
+    const { files } = e.target;
+    setFormData({ ...formData, fnskuSend: files[0] });
   };
 
   const handleLabelFileData = async (e) => {
-    const { name, files } = e.target;
-    console.log(e.target.name);
-    console.log("label called", files[0]);
-    setFormData({ ...formData, ["labelSend"]: files[0] });
+    const { files } = e.target;
+    setFormData({ ...formData, labelSend: files[0] });
   };
 
   const handleSubmit = (e) => {
@@ -150,8 +148,8 @@ function OrderViewDetail() {
 
     fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
       method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
       body: formDataToSend,
     })
@@ -223,180 +221,184 @@ function OrderViewDetail() {
       [dimension]: newValue,
     });
   };
-console.log(amount, 'amount')
+  console.log(amount, "amount");
   return (
     <>
-    <CommonNavbar/>
-    <div className="order-customer-container">
-      <center>
-        <h1 className="order-customer-main-heading">Order</h1>
-      </center>
-      <form className="order-customer-from-container">
-        <div className="order-customer-field1-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Date:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="date"
-              name="date"
-              value={date}
-              onChange={handleChange}
-              required
-              readOnly
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name"> Name:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="Name"
-              value={name}
-              onChange={handleChange}
-              required
-              readOnly
-            />
-          </div>
-          {["length", "width", "height", "weight"].map((dimension) => (
-            <div key={dimension} className="dimensions-input-container">
-              <label className="dimensions-label-text">
-                {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
-              </label>
-              <div className="dimension-select-container">
-                <input
-                  className="dimensions-input"
-                  type="text"
-                  name={dimension}
-                  value={dimensions[dimension]}
-                  onChange={(e) => handleDimensionsChange(e, dimension)}
-                />
-                <select
-                  className="dimensions-select"
-                  value={selectedUnits[dimension]}
-                  onChange={(e) => handleUnitChange(e, dimension)}
-                >
-                  {unitOptions[dimension].map((unit) => (
-                    <option key={unit} value={unit}>
-                      {unit}
-                    </option>
-                  ))}
-                </select>
-              </div>
+      <CommonNavbar />
+      <div className="order-customer-container">
+        <center>
+          <h1 className="order-customer-main-heading">Order</h1>
+        </center>
+        <form className="order-customer-from-container">
+          <div className="order-customer-field1-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Date:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="date"
+                name="date"
+                value={date}
+                onChange={handleChange}
+                required
+                readOnly
+              />
             </div>
-          ))}
-        </div>
-        <div className="order-customer-field2-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Service:</label>
-            <select
-              className="order-customer-lable-container"
-              onChange={handleChange}
-              required
-              value={service}
-            >
-              <option value="Prep Service">Prep Service</option>
-            </select>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name"> Name:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="Name"
+                value={name}
+                onChange={handleChange}
+                required
+                readOnly
+              />
+            </div>
+            {["length", "width", "height", "weight"].map((dimension) => (
+              <div key={dimension} className="dimensions-input-container">
+                <label className="dimensions-label-text">
+                  {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
+                </label>
+                <div className="dimension-select-container">
+                  <input
+                    className="dimensions-input"
+                    type="text"
+                    name={dimension}
+                    value={dimensions[dimension]}
+                    onChange={(e) => handleDimensionsChange(e, dimension)}
+                  />
+                  <select
+                    className="dimensions-select"
+                    value={selectedUnits[dimension]}
+                    onChange={(e) => handleUnitChange(e, dimension)}
+                  >
+                    {unitOptions[dimension].map((unit) => (
+                      <option key={unit} value={unit}>
+                        {unit}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product:</label>
-            <input
-              className="order-customer-lable-container"
-              type="text"
-              name="product"
-              value={product}
-              onChange={handleChange}
-              required
-            />
+          <div className="order-customer-field2-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Service:</label>
+              <select
+                className="order-customer-lable-container"
+                onChange={handleChange}
+                required
+                value={service}
+              >
+                <option value="Prep Service">Prep Service</option>
+              </select>
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Product:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="product"
+                value={product}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">FNSKU Send:</label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="fnskuSend"
+                onChange={handleFnskuFileData}
+              />
+              {fnsku_status === 1 && (
+                <button
+                  type="button"
+                  onClick={() => openFileInNewTab(fnskuSend1)}
+                  disabled={fnskuSend1 === null}
+                  className="order-customer-view-file-button-container"
+                >
+                  View FNSKU File
+                </button>
+              )}
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Box Label Send:
+              </label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="labelSend"
+                onChange={handleLabelFileData}
+              />
+              {label_status === 1 && (
+                <button
+                  type="button"
+                  onClick={() => openFileInNewTab(labelSend1)}
+                  disabled={labelSend1 === null}
+                  className="order-customer-view-file-button-container"
+                >
+                  View Box Label File
+                </button>
+              )}
+            </div>
           </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">FNSKU Send:</label>
-            <input
-              className="order-customer-lable-container order-customer-label-file"
-              type="file"
-              name="fnskuSend"
-              onChange={handleFnskuFileData}
-            />
-            {fnsku_status===1 && <button
-              type="button"
-              onClick={() => openFileInNewTab(fnskuSend1)}
-              disabled={fnskuSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View FNSKU File
-            </button>
-          }
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Box Label Send:</label>
-            <input
-              className="order-customer-lable-container order-customer-label-file"
-              type="file"
-              name="labelSend"
-              onChange={handleLabelFileData}
-            />
-            {label_status===1 && <button
-              type="button"
-              onClick={() => openFileInNewTab(labelSend1)}
-              disabled={labelSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View Box Label File
-            </button>
-          }
-          </div>
-        </div>
-        <div className="order-customer-field3-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Unit:</label>
-            <input
-              className="order-customer-lable-container"
-              type="number"
-              name="unit"
-              value={unit}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Tracking_url:</label>
-            <input
-              className="order-customer-lable-container"
-              type="text"
-              name="tracking_url"
-              value={tracking_url}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Amount</label>
-            <input
-              className="order-customer-lable-container"
-              type="text"
-              name="amount"
-              value={amount}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Status</label>
-            <select
-              className="order-customer-lable-container"
-              type="text"
-              name="status"
-              value={status || "Unknown Status"}
-              onChange={handleChange}
-            >
-              <option value="0">Pending</option>
-              <option value="1">Rejected</option>
-              <option value="2">Received</option>
-              <option value="3">Dimension Done</option>
-              <option value="4">Labelling Done</option>
-              <option value="5">Invoice Generated</option>
-              <option value="6">Invoice Accepted</option>
-              <option value="7">Invoice Rejected</option>
-            </select>
-          </div>
-          {/* <div className="order-customer-input-feild-fnsku-status">
+          <div className="order-customer-field3-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Unit:</label>
+              <input
+                className="order-customer-lable-container"
+                type="number"
+                name="unit"
+                value={unit}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Tracking_url:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="tracking_url"
+                value={tracking_url}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Amount</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="amount"
+                value={amount}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Status</label>
+              <select
+                className="order-customer-lable-container"
+                type="text"
+                name="status"
+                value={status || "Unknown Status"}
+                onChange={handleChange}
+              >
+                <option value="0">Pending</option>
+                <option value="1">Rejected</option>
+                <option value="2">Received</option>
+                <option value="3">Dimension Done</option>
+                <option value="4">Labelling Done</option>
+                <option value="5">Invoice Generated</option>
+                <option value="6">Invoice Accepted</option>
+                <option value="7">Invoice Rejected</option>
+              </select>
+            </div>
+            {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
@@ -414,18 +416,18 @@ console.log(amount, 'amount')
             />
             <label className="order-customer-label-name">Label Status</label>
           </div>*/}
-        </div> 
-      </form>
-      <center>
-        <button
-          onClick={handleSubmit}
-          className="order-customer-button-container"
-          type="button"
-        >
-          Submit
-        </button>
-      </center>
-    </div>
+          </div>
+        </form>
+        <center>
+          <button
+            onClick={handleSubmit}
+            className="order-customer-button-container"
+            type="button"
+          >
+            Submit
+          </button>
+        </center>
+      </div>
     </>
   );
 }

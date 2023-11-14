@@ -1,16 +1,19 @@
-import React from 'react';
-import {BsFillPersonFill} from "react-icons/bs"
-import {MdProductionQuantityLimits,MdOutlinePinch,MdLabelImportant} from "react-icons/md"
-import {AiOutlineTeam} from "react-icons/ai"
-import { RiAccountCircleFill } from "react-icons/ri"
+import React from "react";
+import { BsFillPersonFill } from "react-icons/bs";
+import {
+  MdProductionQuantityLimits,
+  MdOutlinePinch,
+  MdLabelImportant,
+} from "react-icons/md";
+import { AiOutlineTeam } from "react-icons/ai";
+import { RiAccountCircleFill } from "react-icons/ri";
 
-import AdminHomePage from '../AdminHomePage';
-import ProductList from '../adminOrders';
-import Customersignup from '../CustomerSignup';
-import StaffSignupPage from '../StaffRegistration';
-import DimensionOrderList from '../DimensionOrders';
-import LabelOrders from '../labelOrders';
-import AccountOrders from '../AccountantPage';
+import AdminHomePage from "../AdminHomePage";
+import Customersignup from "../CustomerSignup";
+import StaffSignupPage from "../StaffRegistration";
+import DimensionOrderList from "../DimensionOrders";
+import LabelOrders from "../labelOrders";
+import AccountOrders from "../AccountantPage";
 export const SidebarData = [
   {
     id:'1',

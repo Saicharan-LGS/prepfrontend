@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import './App.css'
+import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
-import CustomerOrder from "./Compoents/customerOrder";
+
 import OrderViewDetail from "./Compoents/AdminDetailPage";
 import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
@@ -11,9 +11,9 @@ import AdminHomePage from "./Compoents/AdminHomePage";
 import Navbar from "./Compoents/Navbar";
 import AccountOrders from "./Compoents/AccountantPage";
 import StaffSigninPage from "./Compoents/StaffLogin";
-import StaffSignupPage from "./Compoents/StaffRegistration";
+
 import CustomerHomePage from "./Compoents/CustomerHomePage";
-import Customersignup from "./Compoents/CustomerSignup";
+
 import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 import ProtectedRoute from "./Compoents/ProtectedRoute";
@@ -26,30 +26,32 @@ function App() {
   const [totalAmount, setTotalAmount] = useState(null);
 
   const fetchTotalAmount = () => {
-   const token = sessionStorage.getItem("token");
-   console.log("called total amount")
-   if (!token) {
-     return;
-   }
-   fetch(`http://localhost:3009/api/v1/getAmount`, {
-     headers: {
-       Authorization: `Bearer ${token}`,
-     },
-   })
-     .then((response) => response.json())
-     .then((data) => {
-       setTotalAmount(data.total_amount);
-       console.log(data.total_amount);
-     })
-     .catch((error) => {
-       console.error("Error fetching data:", error);
-       setTotalAmount(null);
-     });
- };
+    const token = sessionStorage.getItem("token");
+    console.log("called total amount");
+    if (!token) {
+      return;
+    }
+    fetch(`http://localhost:3009/api/v1/getAmount`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalAmount(data.total_amount);
+        console.log(data.total_amount);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setTotalAmount(null);
+      });
+  };
 
- useEffect(() => {
-   fetchTotalAmount();
- }, []);
+  useEffect(() => {
+    if (role === "Customer") {
+      fetchTotalAmount();
+    }
+  }, [role]);
 
   return (
     <Routes>
@@ -118,15 +120,15 @@ function App() {
       <Route
         path="/labelOrders"
         element={
-          <ProtectedRoute allowedRoles={["Label","Admin"]}>
+          <ProtectedRoute allowedRoles={["Label", "Admin"]}>
             <LabelOrders />
           </ProtectedRoute>
         }
       />
-<Route
+      <Route
         path="/commonNavbar"
         element={
-          <ProtectedRoute allowedRoles={["Label","Accountant","Dimension"]}>
+          <ProtectedRoute allowedRoles={["Label", "Accountant", "Dimension"]}>
             <CommonNavbar />
           </ProtectedRoute>
         }
@@ -153,14 +155,18 @@ function App() {
           <ProtectedRoute allowedRoles={["Customer"]}>
             <CustomerHomePage />
           </ProtectedRoute>
-        }/>
+        }
+      />
 
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route
         path="/customernavbar"
         element={
           <ProtectedRoute allowedRoles={["Customer"]}>
-            <CustomerNavbar totalAmount={totalAmount} fetchTotalAmount={fetchTotalAmount} />
+            <CustomerNavbar
+              totalAmount={totalAmount}
+              fetchTotalAmount={fetchTotalAmount}
+            />
           </ProtectedRoute>
         }
       />

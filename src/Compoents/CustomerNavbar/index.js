@@ -12,10 +12,16 @@ import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
-function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
+
+function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
-  const [status, setStatus] = useState(5);
-  const [currentComponent, setCurrentComponent] = useState(
+  const [status, setStatus] = useState(() => {
+    // Get status from cookie or default to 5
+    const savedStatus = parseInt(localStorage.getItem("status"), 10);
+    return isNaN(savedStatus) ? 5 : savedStatus;
+  });
+
+  const [, setCurrentComponent] = useState(
     <CustomerHomePage key={status} id={status} />
   );
 
@@ -30,12 +36,15 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
   };
 
   useEffect(() => {
+    fetchTotalAmount();
     handleSidebarItemClick(status);
     // Update the currentComponent when status changes
     setCurrentComponent(<CustomerHomePage key={status} id={status} />);
+    // Save status to cookie
+    localStorage.setItem("status", status);
   }, [status]);
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -43,13 +52,10 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
     sessionStorage.removeItem("sname");
     navigate("/");
   };
-  const postOrder=()=>{
-    navigate("/upload")
-  }
-  const role = sessionStorage.getItem("role")
-  const name = sessionStorage.getItem("sname")
 
-  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
+  const name = sessionStorage.getItem("sname");
+
+  const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
 
   return (
     <div className="navbar-container">
@@ -64,7 +70,6 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
             {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
-          
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
@@ -86,26 +91,23 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
               </li>
               );
             })}
-            
           </ul>
-          
         </nav>
       </IconContext.Provider>
 
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {status === 5 ? (
           <CustomerHomePage fetchTotalAmount={fetchTotalAmount} />
-        ) : status ===6 ? (
+        ) : status === 6 ? (
           <CustomerAccepted />
         ) : status === 7 ? (
           <CustomerRejected />
         ) : status === 8 ? (
           <CustomerAllProducts />
         ) : (
-          <CustomerOrder/>
+          <CustomerOrder />
         )}
       </div>
-    
     </div>
   );
 }

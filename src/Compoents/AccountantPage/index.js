@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useAsyncError, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
 import {
   BsFillArrowRightCircleFill,
@@ -15,7 +15,7 @@ function AccountOrders() {
   const [productsPerPage] = useState(10);
   const navigate = useNavigate();
   const role = sessionStorage.getItem("role");
-  const [ErrorCard,setErrorCard]=useState(false)
+  const [ErrorCard, setErrorCard] = useState(false);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -46,11 +46,10 @@ function AccountOrders() {
         setProducts(data.data);
       } else {
         console.error("Failed to fetch products");
-        setErrorCard(true)
-
+        setErrorCard(true);
       }
     } catch (error) {
-      setErrorCard(true)
+      setErrorCard(true);
       console.error("Error fetching products:", error);
     }
   };
@@ -58,7 +57,6 @@ function AccountOrders() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
 
   const openDetailPage = (productId) => {
     console.log(productId);
@@ -73,7 +71,6 @@ function AccountOrders() {
 
     const handeSubmit = async (id, amount1) => {
       console.log("called", id, amount1);
-      const role = sessionStorage.getItem("role");
 
       try {
         const amount2 = {
@@ -151,7 +148,7 @@ function AccountOrders() {
     <>
       {role === "Accountant" && <CommonNavbar />}
       <div className="admin-order-accepted-product-list">
-        <h2 className="admin-order-accepted-order-list-heading">Order List</h2>
+        <h2 className="admin-order-accepted-order-list-heading"> Invoice Pending Orders</h2>
         <div className="admin-order-accepted-category-types">
           <p className="admin-order-accepted-order-id-category">Order Id</p>
           <p className="admin-order-accepted-name-category">Name</p>
@@ -228,9 +225,8 @@ function AccountOrders() {
               />
             </div>
           </>
-        )} {ErrorCard && (
-          <EmptyOrder />
-        )}
+        )}{" "}
+        {ErrorCard && <EmptyOrder />}
       </div>
     </>
   );

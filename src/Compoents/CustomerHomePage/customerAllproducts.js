@@ -5,11 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
-import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
 function CustomerAllProducts() {
   const [products, setProducts] = useState([]);
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
@@ -41,18 +40,18 @@ function CustomerAllProducts() {
           const data = await response.json();
           console.log(data.results);
           setProducts(data.results);
-          setLoading(false)
+          setLoading(false);
         } else {
           console.error("Failed to fetch products");
-          setTimeout(()=>{
-            setLoading(false)
-           },3000)
+          setTimeout(() => {
+            setLoading(false);
+          }, 3000);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
-        setTimeout(()=>{
-          setLoading(false)
-         },3000)
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       }
     };
     fetchProducts();
@@ -66,9 +65,6 @@ function CustomerAllProducts() {
     }
   };
 
-  const refreshpage = () => {
-    window.location.reload();
-  };
   const statusLabels = {
     0: "Pending",
     1: "Rejected",
@@ -80,100 +76,108 @@ function CustomerAllProducts() {
     7: "Invoice Rejected",
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
-  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
-
+  const NextButton =
+    indexOfLastProduct >= products.length
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
+  const previousButton =
+    currentPage === 1
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
 
   return (
-    <>{loading?<Spinner/>:
-    <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">
-        All Orders
-      </h2>
-      <div className="admin-order-accepted-category-types">
-        <p className="admin-order-accepted-order-id-category">Order Id</p>
-        <p className="admin-order-accepted-name-category">Name</p>
-        <p className="admin-order-accepted-service-category">Product</p>
-        <p className="admin-order-accepted-quantity-category">Quantity</p>
-        <p className="admin-order-accepted-order-tracking-category">
-          Order Tracking Link
-        </p>
-        <p className="admin-order-accepted-fnsku-category">Status</p>
-        <p className="admin-order-accepted-fnsku-category">Amount</p>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="admin-order-accepted-product-list">
+          <h2 className="admin-order-accepted-order-list-heading">
+            All Orders
+          </h2>
+          <div className="admin-order-accepted-category-types">
+            <p className="admin-order-accepted-order-id-category">Order Id</p>
+            <p className="admin-order-accepted-name-category">Name</p>
+            <p className="admin-order-accepted-service-category">Product</p>
+            <p className="admin-order-accepted-quantity-category">Quantity</p>
+            <p className="admin-order-accepted-order-tracking-category">
+              Order Tracking Link
+            </p>
+            <p className="admin-order-accepted-fnsku-category">Status</p>
+            <p className="admin-order-accepted-fnsku-category">Amount</p>
 
-        <p className="admin-order-accepted-view-in-detail-category">
-          View In Detail
-        </p>
-      </div>
-      {products.length > 0 ? (
-        <>
-          {currentProducts.map((eachProduct) => {
-            console.log("called");
-            console.log(eachProduct.id);
-            console.log(eachProduct.fnsku_status, eachProduct.label_status);
-            return (
-              <div className="admin-order-accepted-display-of-products-container">
-                <p className="admin-order-accepted-order-id-sub-category">
-                  {eachProduct.id}
-                </p>
-                <p className="admin-order-accepted-name-sub-category">
-                  {eachProduct.name}
-                </p>
-                <p className="admin-order-accepted-service-sub-category">
-                  {eachProduct.product}
-                </p>
-                <p className="admin-order-accepted-quantity-sub-category">
-                  {eachProduct.unit}
-                </p>
-                <p className="admin-order-accepted-order-tracking-sub-category">
-                  <a
-                    href={eachProduct.tracking_url}
-                    rel="noreferrer"
-                    target="_blank"
-                    className="tracking-url"
-                  >
-                    Order Link
-                  </a>
-                </p>
-                <p className="admin-order-accepted-quantity-sub-category">
-                  {statusLabels[eachProduct.status] || "Unknown Status"}
-                </p>
-                <p className="admin-order-accepted-quantity-sub-category">
-                  {eachProduct.amount}
-                </p>
+            <p className="admin-order-accepted-view-in-detail-category">
+              View In Detail
+            </p>
+          </div>
+          {products.length > 0 ? (
+            <>
+              {currentProducts.map((eachProduct) => {
+                console.log("called");
+                console.log(eachProduct.id);
+                console.log(eachProduct.fnsku_status, eachProduct.label_status);
+                return (
+                  <div className="admin-order-accepted-display-of-products-container">
+                    <p className="admin-order-accepted-order-id-sub-category">
+                      {eachProduct.id}
+                    </p>
+                    <p className="admin-order-accepted-name-sub-category">
+                      {eachProduct.name}
+                    </p>
+                    <p className="admin-order-accepted-service-sub-category">
+                      {eachProduct.product}
+                    </p>
+                    <p className="admin-order-accepted-quantity-sub-category">
+                      {eachProduct.unit}
+                    </p>
+                    <p className="admin-order-accepted-order-tracking-sub-category">
+                      <a
+                        href={eachProduct.tracking_url}
+                        rel="noreferrer"
+                        target="_blank"
+                        className="tracking-url"
+                      >
+                        Order Link
+                      </a>
+                    </p>
+                    <p className="admin-order-accepted-quantity-sub-category">
+                      {statusLabels[eachProduct.status] || "Unknown Status"}
+                    </p>
+                    <p className="admin-order-accepted-quantity-sub-category">
+                      {eachProduct.amount}
+                    </p>
 
-                {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+                    {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
+                    <BsFillArrowRightCircleFill
+                      id={eachProduct.id}
+                      value={eachProduct.id}
+                      onClick={() => openDetailPage(eachProduct.id)}
+                      className="admin-order-accepted-view-in-detail-sub-category"
+                    />
+                  </div>
+                );
+              })}
+              <div className="pagination-button-container">
+                <BsFillArrowLeftCircleFill
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={previousButton}
+                />
+
+                <span>Page {currentPage}</span>
+
                 <BsFillArrowRightCircleFill
-                  id={eachProduct.id}
-                  value={eachProduct.id}
-                  onClick={() => openDetailPage(eachProduct.id)}
-                  className="admin-order-accepted-view-in-detail-sub-category"
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={indexOfLastProduct >= products.length}
+                  className={NextButton}
                 />
               </div>
-            );
-          })}
-          <div className="pagination-button-container">
-            <BsFillArrowLeftCircleFill
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={previousButton}
-            />
-
-            <span>Page {currentPage}</span>
-
-            <BsFillArrowRightCircleFill
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-              className={NextButton}
-            />
-          </div>
-        </>
-      ) : (
-        <EmptyOrder />
+            </>
+          ) : (
+            <EmptyOrder />
+          )}
+        </div>
       )}
-    </div>
-    }
     </>
   );
 }

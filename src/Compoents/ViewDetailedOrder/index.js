@@ -26,7 +26,7 @@ function ViewDetailedOrder() {
     width: "",
     weight: "",
   });
-const token=sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
   useEffect(() => {
     // Fetch data using the id passed as a prop
     console.log(id);
@@ -96,7 +96,6 @@ const token=sessionStorage.getItem("token")
     labelSend1,
     fnsku_status,
     label_status,
-    fnsku_label_printed,
     length,
     width,
     weight,
@@ -105,34 +104,36 @@ const token=sessionStorage.getItem("token")
 
   return (
     <>
-    <CommonNavbar/>
-    <div className="order-customer-container">
-      <center>
-        <h1 className="order-customer-main-heading">Customer Orders</h1>
-      </center>
-      <form className="order-customer-from-container">
-        <div className="order-customer-field1-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Date:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="date"
-              name="date"
-              value={date}
-              readOnly
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name ">Customer Name:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="customerName"
-              value={customerName}
-              readOnly
-            />
-          </div>
-          {/* <div className="order-customer-input-feild">
+      <CommonNavbar />
+      <div className="order-customer-container">
+        <center>
+          <h1 className="order-customer-main-heading">Customer Orders</h1>
+        </center>
+        <form className="order-customer-from-container">
+          <div className="order-customer-field1-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Date:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="date"
+                name="date"
+                value={date}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name ">
+                Customer Name:
+              </label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="customerName"
+                value={customerName}
+                readOnly
+              />
+            </div>
+            {/* <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Amount</label>
             <input
               className="order-customer-lable-container"
@@ -144,71 +145,71 @@ const token=sessionStorage.getItem("token")
               readOnly
             />
           </div> */}
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Length</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="customerName"
-              value={length}
-              readOnly
-            />
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Length</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="customerName"
+                value={length}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Width</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="customerName"
+                value={width}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Height</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="customerName"
+                value={height}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Weight</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="customerName"
+                value={weight}
+                readOnly
+              />
+            </div>
           </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Width</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="customerName"
-              value={width}
-              readOnly
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Height</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="customerName"
-              value={height}
-              readOnly
-            />
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Weight</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="customerName"
-              value={weight}
-              readOnly
-            />
-          </div>
-        </div>
-        <div className="order-customer-field2-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">
-              Services Required:
-            </label>
-            <select
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              value={servicesReq}
-              readOnly
-            >
-              <option value="Prep Service">Prep Service</option>
-            </select>
-          </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Product Name:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="productName"
-              value={productName}
-              readOnly
-            />
-          </div>
-          {/* <div className="order-customer-input-feild-fnsku-status">
+          <div className="order-customer-field2-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Services Required:
+              </label>
+              <select
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                value={servicesReq}
+                readOnly
+              >
+                <option value="Prep Service">Prep Service</option>
+              </select>
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Product Name:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="productName"
+                value={productName}
+                readOnly
+              />
+            </div>
+            {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
               type="checkbox"
@@ -218,25 +219,27 @@ const token=sessionStorage.getItem("token")
             />
             <label className="order-customer-label-name">FNSKU Status</label>
           </div> */}
-          <div className="order-customer-input-feild">
-            {/* <label className="order-customer-label-name">FNSKU Send:</label>
+            <div className="order-customer-input-feild">
+              {/* <label className="order-customer-label-name">FNSKU Send:</label>
             <input
               className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="fnskuSend"
               onChange={handleFnskuFileData}
             /> */}
-           { fnsku_status==="1" && <button
-              type="button"
-              onClick={() => openFileInNewTab(fnskuSend1)}
-              disabled={fnskuSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View FNSKU File
-            </button> }
-          </div>
+              {fnsku_status === "1" && (
+                <button
+                  type="button"
+                  onClick={() => openFileInNewTab(fnskuSend1)}
+                  disabled={fnskuSend1 === null}
+                  className="order-customer-view-file-button-container"
+                >
+                  View FNSKU File
+                </button>
+              )}
+            </div>
 
-          {/* <div className="order-customer-input-feild-fnsku-status">
+            {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
               type="checkbox"
@@ -246,23 +249,25 @@ const token=sessionStorage.getItem("token")
             />
             <label className="order-customer-label-name">Label Status</label>
           </div> */}
-          <div className="order-customer-input-feild">
-            {/* <label className="order-customer-label-name">Box Label Send:</label>
+            <div className="order-customer-input-feild">
+              {/* <label className="order-customer-label-name">Box Label Send:</label>
             <input
               className="order-customer-lable-container order-customer-label-file"
               type="file"
               name="labelSend"
               onChange={handleLabelFileData}
             /> */}
-           { label_status==="1" && <button
-              type="button"
-              onClick={() => openFileInNewTab(labelSend1)}
-              disabled={labelSend1 === null}
-              className="order-customer-view-file-button-container"
-            >
-              View Box Label File
-            </button> }
-            {/* <div className="order-customer-input-feild-fnsku-status">
+              {label_status === "1" && (
+                <button
+                  type="button"
+                  onClick={() => openFileInNewTab(labelSend1)}
+                  disabled={labelSend1 === null}
+                  className="order-customer-view-file-button-container"
+                >
+                  View Box Label File
+                </button>
+              )}
+              {/* <div className="order-customer-input-feild-fnsku-status">
               <input
                 className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
@@ -274,7 +279,7 @@ const token=sessionStorage.getItem("token")
                 Payment Status
               </label>
             </div> */}
-            {/* <div className="order-customer-input-feild-fnsku-status">
+              {/* <div className="order-customer-input-feild-fnsku-status">
               <input
                 className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
                 type="checkbox"
@@ -284,32 +289,32 @@ const token=sessionStorage.getItem("token")
               />
               <label className="order-customer-label-name">Labelling</label>
             </div> */}
+            </div>
           </div>
-        </div>
-        <div className="order-customer-field3-container">
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Units:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="number"
-              name="units"
-              value={units}
-              readOnly
-            />
+          <div className="order-customer-field3-container">
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Units:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="number"
+                name="units"
+                value={units}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Tracking URL:</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="trackingURL"
+                value={trackingURL}
+                readOnly
+              />
+            </div>
           </div>
-          <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Tracking URL:</label>
-            <input
-              className="order-customer-lable-container admin-order-accepted-readonly"
-              type="text"
-              name="trackingURL"
-              value={trackingURL}
-              readOnly
-            />
-          </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </>
   );
 }
