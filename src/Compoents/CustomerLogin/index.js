@@ -95,25 +95,60 @@ const CustomerLogin = () => {
       });
   };
 
-  const onClickStaff = () => {
-    navigate("/");
-  };
-
+ 
   return (
-    <div className="customer-signin-div-container">
-      <div className="login-image-container">
-        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
-      </div>
-      <div className="signin-form-main-container">
-        <div className="customer-staff-customer-button-container">
-          <button className="customer-staff-button" onClick={onClickStaff}>
-            Staff Signin
-          </button>
-          <button className="customer-customer-button">Customer Signin</button>
-        </div>
-        <center>
-          <h2 className="signin-form-heading-container">Customer Login</h2>
-        </center>
+    // <div className="customer-signin-div-container">
+    //    <div className="login-image-container">
+    //     <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+    //   </div>
+    //   <div className="signin-form-main-container">
+    //      <div className="customer-staff-customer-button-container">
+    //       <button className="customer-staff-button" onClick={onClickStaff}>
+    //         Staff Signin
+    //       </button>
+    //       <button className="customer-customer-button">Customer Signin</button>
+    //     </div>
+    //     <center>
+    //       <h2 className="signin-form-heading-container">Customer Login</h2>
+    //     </center>
+    //     <form onSubmit={handleSubmit} className="signin-form-container">
+    //       <div className="signin-form-group-container">
+    //         <label className="signin-form-label-container">Email:</label>
+    //         <input
+    //           type="email"
+    //           name="email"
+    //           value={formData.email}
+    //           onChange={handleInputChange}
+    //           className="signin-input-text"
+    //         />
+    //         {errors.email && <p className="error-message">{errors.email}</p>}
+    //       </div>
+    //       <div className="signin-form-group-container">
+    //         <label className="signin-form-label-container">Password:</label>
+    //         <input
+    //           type="password"
+    //           name="password"
+    //           value={formData.password}
+    //           onChange={handleInputChange}
+    //           className="signin-input-text"
+    //         />
+    //         {errors.password && (
+    //           <p className="error-message">{errors.password}</p>
+    //         )}
+    //       </div>
+    //       {loginError && <p className="error-message">{loginError}</p>}
+    //       <center>
+    //         <button className="signin-form-button-container" type="submit">
+    //           Sign In
+    //         </button>
+    //       </center>
+    //     </form>
+    //   </div>
+    // </div>
+    <>
+    <center>
+      <h2 className="signin-form-heading-container">Customer Login</h2>
+    </center>
         <form onSubmit={handleSubmit} className="signin-form-container">
           <div className="signin-form-group-container">
             <label className="signin-form-label-container">Email:</label>
@@ -146,8 +181,7 @@ const CustomerLogin = () => {
             </button>
           </center>
         </form>
-      </div>
-    </div>
+        </>
   );
 };
 

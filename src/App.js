@@ -21,6 +21,8 @@ import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 import CommonNavbar from "./Compoents/CommonNavbar";
 
+import NotFound from "./Compoents/NotFound";
+
 function App() {
   const role = localStorage.getItem("role");
   const [totalAmount, setTotalAmount] = useState(null);
