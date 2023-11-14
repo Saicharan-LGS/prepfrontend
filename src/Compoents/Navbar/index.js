@@ -10,12 +10,14 @@ import AdminHomePage from "../AdminHomePage";
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [currentComponent, setCurrentComponent] = useState(<AdminHomePage />);
+  const [currentId, setCurrentId] = useState('1');
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleSidebarItemClick = (path, component) => {
+  const handleSidebarItemClick = (path, component,id) => {
     setSidebar(false);
     setCurrentComponent(component);
+    setCurrentId(id)
   };
 
   const navigate = useNavigate();
@@ -30,7 +32,8 @@ function Navbar() {
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
 
-  const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
+  
+  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
 
   return (
     <div className="navbar-container">
@@ -54,19 +57,20 @@ function Navbar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {SidebarData.map((item, index) => (
-              <li key={index} className={item.cName}>
-                <Link
-                  to=""
-                  onClick={() =>
-                    handleSidebarItemClick(item.path, item.component)
-                  }
-                >
+            {SidebarData.map((item, index) => {
+              const activeClassName = currentId===item.id?`active-nav-item nav-text a`:`nav-text`
+        
+              return(
+               
+              <li key={index} className={activeClassName} onClick={() => handleSidebarItemClick(item.path, item.component,item.id)}>
+                
                   {item.icon}
                   <span>{item.title}</span>
-                </Link>
+                  
               </li>
-            ))}
+              
+              
+            )})}
           </ul>
         </nav>
       </IconContext.Provider>

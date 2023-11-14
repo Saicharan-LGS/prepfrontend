@@ -4,7 +4,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: transparent;
     opacity: 0.8;
   }
   
@@ -24,7 +23,6 @@
     top: 0;
     left: -100%;
     transition: 850ms;
-    background-color: transparent;
     opacity: 0.8;
   }
   
@@ -40,23 +38,25 @@
     list-style: none;
     height: 60px;
     width:max-content;
+    
   }
   
-  .nav-text a {
+  .nav-text{
     text-decoration: none;
     color: #000;
     font-size: 18px;
-    width: 95%;
-    height: 100%;
+    font-weight:600;
     display: flex;
     gap:5px;
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
+    cursor:pointer;
   }
   
-  .nav-text a:hover {
+  .nav-text:hover {
     background-color: #212d45;
+    color:#fff;
   }
   
   .nav-menu-items {
@@ -70,7 +70,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    opacity: 0.8;
+    opacity: 0.7;
   }
   
   .span {
@@ -108,10 +108,11 @@
   
   .content-container.shifted {
     width: calc(100% - 250px); /* Adjust for the width of the opened sidebar */
-    margin-left: 200px; /* Margin when the sidebar is opened */
+    margin-left: 250px; /* Margin when the sidebar is opened */
   }
   .active-nav-item{
     background-color: #212d45;
+    color:#fff !important;
   }
   .navbar-container{
     background-image: url('https://www.goldmansachs.com/intelligence/pages/the-long-and-short-of-it/paper-and-packaging-industry/800x450.png');
