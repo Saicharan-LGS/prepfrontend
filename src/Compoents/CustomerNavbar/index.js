@@ -3,7 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { CustomerNavbarData } from "./CustomerNavbar.js";
-import "./index.css";
+import './index.css';
 import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
@@ -23,10 +23,10 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleSidebarItemClick = async (id) => {
-    await setSidebar(false);
-    console.log(id, "called");
-    await setStatus(id);
+  const handleSidebarItemClick = (path, component,id) => {
+    setSidebar(false);
+    setCurrentComponent(component);
+    setStatus(id)
   };
 
   useEffect(() => {
@@ -58,9 +58,9 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
           <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <div className="customer-navbar-logout-button-container">
+          <div className="navbar-logout-button-container">
           <TransactionSummary  totalAmount={totalAmount}   />
-            <p className="customer-navbar-nav-item-name">{name}</p>
+            <p className="navbar-nav-item-name">{name}</p>
             {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
             <button className="navbar-logout-button" onClick={handleLogout}>Logout</button>
           </div>
@@ -72,20 +72,18 @@ function CustomerNavbar({ totalAmount,fetchTotalAmount}) {
               <Link to="#" className="menu-bars">
                 <AiIcons.AiOutlineClose />
               </Link>
-            </li>
+              </li>
             {CustomerNavbarData.map((item, index) => {
-              console.log(item.id);
-              return (
-                <li
-                  key={index}
-                  className={item.cName}
-                  onClick={() => handleSidebarItemClick(item.id)}
-                >
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span className=".span">{item.title}</span>
-                  </Link>
-                </li>
+              const activeClassName = status===item.id?`active-nav-item nav-text`:`nav-text`
+              
+              return(
+               
+              <li key={index} className={activeClassName} onClick={() => handleSidebarItemClick(item.path, item.component)}>
+                
+                  {item.icon}
+                  <span>{item.title}</span>
+                  
+              </li>
               );
             })}
             

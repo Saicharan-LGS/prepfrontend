@@ -13,24 +13,27 @@ import LabelOrders from '../labelOrders';
 import AccountOrders from '../AccountantPage';
 export const SidebarData = [
   {
+    id:'1',
     title: 'View Order',
     path: '/',
     icon: <MdProductionQuantityLimits fontSize="25px"/>,
-    cName: 'nav-text',
+    cName: 'active-nav-item',
     component:<AdminHomePage/>
   },
   {
+    id:'2',
     title: 'Add Customer',
     path: '/Customersignup',
     icon: <BsFillPersonFill fontSize="25px"/>,
-    cName: 'nav-text',
+    cName: '',
     component:<Customersignup/>
   },
   {
+    id:'3',
     title: 'Add Staff',
     path: '/staffsignup',
     icon: <AiOutlineTeam fontSize="25px" />,
-    cName: 'nav-text',
+    cName: '',
     component:<StaffSignupPage/>
   },
   // {
@@ -41,24 +44,27 @@ export const SidebarData = [
   //   component:<ProductList/>
   // },
   {
+    id:'4',
     title: 'Dimensions',
     path: '/messages',
     icon: <MdOutlinePinch fontSize="25px"/>,
-    cName: 'nav-text',
+    cName: '',
     component:<DimensionOrderList/>
   },
   {
+    id:'5',
     title: 'Label Orders',
     path: '/support',
     icon: <MdLabelImportant fontSize="25px"/>,
-    cName: 'nav-text',
+    cName: '',
     component:<LabelOrders/>
   },
   {
+    id:'6',
     title: 'Accountant',
     path: '/support',
     icon: <RiAccountCircleFill fontSize="25px"/>,
-    cName: 'nav-text',
+    cName: '',
     component:<AccountOrders/>
   },
 ];
