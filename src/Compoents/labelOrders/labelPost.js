@@ -29,7 +29,6 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
           })})
           fetchProducts()
           setProduct(false)
-        console.log("Product updated successfully");
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -37,10 +36,8 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
             title: data.message,
           })})
           fetchProducts()
-        console.error("Failed to updated product");
       }
-    } catch (error) {
-      console.error("Error updating product:", error);
+    } catch  {
     }
   };
   const onChangeCheckBox = () => {

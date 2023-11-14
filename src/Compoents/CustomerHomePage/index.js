@@ -25,7 +25,6 @@ function CustomerHomePage({fetchTotalAmount}) {
   };
 
   const fetchProducts = async () => {
-    console.log("fetch called");
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
@@ -39,21 +38,16 @@ function CustomerHomePage({fetchTotalAmount}) {
         }
       );
       if (response.ok) {
-        console.log(response);
         const data = await response.json();
-        console.log(data.results);
         setProducts(data.results);
         setLoading(false);
       } else {
-        console.error("Failed to fetch products");
         setTimeout(() => {
-          console.log("Kapil");
           setLoading(false);
           setProducts("")
         }, 3000);
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       setTimeout(() => {
         setLoading(false);
         setProducts("")
@@ -63,17 +57,12 @@ function CustomerHomePage({fetchTotalAmount}) {
   useEffect(() => {
     fetchProducts();
   }, []);
-  console.log(products);
 
   const openDetailPage = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
 
     if (id) {
       navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
-      console.error("Invalid id:", id);
     }
   };
 
@@ -119,10 +108,7 @@ function CustomerHomePage({fetchTotalAmount}) {
           {products.length > 0 ? (
             <>
               {currentProducts.map((eachProduct) => {
-                console.log("called");
-                console.log(eachProduct.id);
-                console.log(eachProduct.fnsku_status, eachProduct.label_status);
-                return (
+           return (
                   <div className="admin-order-accepted-display-of-products-container">
                     <p className="admin-order-accepted-order-id-sub-category">
                       {eachProduct.id}

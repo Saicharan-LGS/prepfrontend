@@ -27,7 +27,7 @@ function App() {
 
   const fetchTotalAmount = () => {
     const token = sessionStorage.getItem("token");
-    console.log("called total amount");
+  
     if (!token) {
       return;
     }
@@ -39,10 +39,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setTotalAmount(data.total_amount);
-        console.log(data.total_amount);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
         setTotalAmount(null);
       });
   };

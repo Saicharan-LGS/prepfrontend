@@ -43,13 +43,11 @@ function CustomerRejected() {
           setLoading(false);
           setProducts(data.results);
         } else {
-          console.error("Failed to fetch products");
           setTimeout(() => {
             setLoading(false);
           }, 3000);
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
         setTimeout(() => {
           setLoading(false);
         }, 3000);
@@ -57,17 +55,12 @@ function CustomerRejected() {
     };
     fetchProducts();
   }, []);
-  console.log(products);
 
   const openDetailPage = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
 
     if (id) {
       navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
-      console.error("Invalid id:", id);
     }
   };
 
@@ -111,9 +104,6 @@ function CustomerRejected() {
           {products.length > 0 ? (
             <>
               {currentProducts.map((eachProduct) => {
-                console.log("called");
-                console.log(eachProduct.id);
-                console.log(eachProduct.fnsku_status, eachProduct.label_status);
                 return (
                   <div className="admin-order-accepted-display-of-products-container">
                     <p className="admin-order-accepted-order-id-sub-category">

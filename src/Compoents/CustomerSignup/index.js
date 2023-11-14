@@ -62,11 +62,9 @@ const Customersignup = () => {
         }
       })
       .then((data) => {
-        console.log(data);
       })
-      .catch((error) => {
+      .catch(() => {
         setBackendError("An error occurred while processing your request.");
-        console.error(error);
       });
   };
 

@@ -29,7 +29,6 @@ function ViewDetailedOrder() {
   const token = sessionStorage.getItem("token");
   useEffect(() => {
     // Fetch data using the id passed as a prop
-    console.log(id);
     async function fetchData() {
       try {
         const response = await fetch(
@@ -43,7 +42,6 @@ function ViewDetailedOrder() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setFormData({
             ...formData,
             date: data.date,
@@ -68,10 +66,8 @@ function ViewDetailedOrder() {
             // ... other fields you want to update
           });
         } else {
-          console.error("Failed to fetch data");
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
       }
     }
 
@@ -80,7 +76,6 @@ function ViewDetailedOrder() {
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      console.log(fileURL);
       window.open(`http://localhost:3009/${fileURL}`, "_blank");
     }
   };

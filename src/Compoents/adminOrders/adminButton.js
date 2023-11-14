@@ -6,10 +6,8 @@ const DisplayAdminButton = (props) => {
     const requestData = {
       status: status,
     };
-    console.log(requestData);
     const token=sessionStorage.getItem("token")
     try {
-      console.log(requestData);
       const response = await fetch(
         `http://localhost:3009/api/v1/adminUpdateOrderStatus/${id}`,
         {
@@ -24,17 +22,14 @@ const DisplayAdminButton = (props) => {
 
       if (response.ok) {
         const data = await response.json()
-        console.log("Product updated successfully");
         Toast.fire({
           icon: "success",
           title: data.message,
         });
         props.fetchProducts();
       } else {
-        console.error("Failed to update product");
       }
     } catch (error) {
-      console.error("Error updating product:", error);
     }
   };
 
@@ -46,7 +41,6 @@ const DisplayAdminButton = (props) => {
 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
-    console.log("Received called");
     handleSubmit(e.target.value, status);
   };
 
