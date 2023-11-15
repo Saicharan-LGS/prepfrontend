@@ -25,11 +25,9 @@ import NotFound from "./Compoents/NotFound";
 
 function App() {
   const role = localStorage.getItem("role");
-  const [totalAmount, setTotalAmount] = useState(null);
-
+  const [totalAmount, setTotalAmount] = useState(0);
+  const token = sessionStorage.getItem("token");
   const fetchTotalAmount = () => {
-    const token = sessionStorage.getItem("token");
-  
     if (!token) {
       return;
     }
@@ -43,7 +41,7 @@ function App() {
         setTotalAmount(data.total_amount);
       })
       .catch((error) => {
-        setTotalAmount(null);
+        setTotalAmount(0);
       });
   };
 
