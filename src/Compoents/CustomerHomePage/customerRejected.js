@@ -7,7 +7,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 
 import EmptyOrder from "../EmptyOrder";
-function CustomerRejected() {
+function CustomerRejected({ openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -58,18 +58,6 @@ function CustomerRejected() {
     fetchProducts();
   }, []);
   console.log(products);
-
-  const openDetailPage = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
-
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-      console.error("Invalid id:", id);
-    }
-  };
 
   // const refreshpage=()=>{
   //   window.location.reload()

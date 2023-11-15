@@ -12,36 +12,39 @@ import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
+import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 
 function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
+  const [orderId, setOrderId] = useState("");
   const [status, setStatus] = useState(() => {
     // Get status from cookie or default to 5
     const savedStatus = parseInt(localStorage.getItem("status"), 10);
+    console.log(savedStatus, "updated");
     return isNaN(savedStatus) ? 5 : savedStatus;
   });
 
-  const [, setCurrentComponent] = useState(
-    <CustomerHomePage key={status} id={status} />
-  );
+  const [prevStatus, setPrevStatus] = useState(null);
 
   console.log(status);
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const handleSidebarItemClick = async (id) => {
+    // Save the current status to the previous status
+    setPrevStatus(status);
     await setSidebar(false);
     console.log(id, "called");
     await setStatus(id);
   };
-
   useEffect(() => {
     fetchTotalAmount();
     handleSidebarItemClick(status);
     // Update the currentComponent when status changes
-    setCurrentComponent(<CustomerHomePage key={status} id={status} />);
+    console.log(status, "called staus");
     // Save status to cookie
     localStorage.setItem("status", status);
+    localStorage.setItem("prevStatus", prevStatus);
   }, [status]);
 
   const navigate = useNavigate();
@@ -50,6 +53,8 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
     sessionStorage.removeItem("token");
     localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
+    localStorage.removeItem("prevStatus");
+    localStorage.removeItem("status");
     navigate("/");
   };
 
@@ -57,6 +62,23 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
 
+  const openDetailPage = (id) => {
+    console.log("called");
+    console.log("Clicked on item with id:", id);
+    // console.log(`/adminViewDetail/${e.target.id}`)
+
+    if (id) {
+      setPrevStatus(status);
+      localStorage.setItem("prevStatus", status);
+      localStorage.setItem("status", 10);
+      setStatus(10);
+      setOrderId(id);
+      // navigate(`/CustomerOrderViewDetail/${id}`);
+    } else {
+      console.error("Invalid id:", id);
+    }
+  };
+  console.log(status, "sai");
   return (
     <div className="navbar-container">
       <IconContext.Provider value={{ color: "#000" }}>
@@ -75,6 +97,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
+              <div className=""></div>
               <Link to="#" className="menu-bars">
                 <AiIcons.AiOutlineClose />
               </Link>
@@ -99,14 +122,23 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
       </IconContext.Provider>
 
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
-        {status === 5 ? (
-          <CustomerHomePage fetchTotalAmount={fetchTotalAmount} />
-        ) : status === 6 ? (
-          <CustomerAccepted />
-        ) : status === 7 ? (
-          <CustomerRejected />
-        ) : status === 8 ? (
-          <CustomerAllProducts />
+        {parseInt(status) === 5 ? (
+          <CustomerHomePage
+            fetchTotalAmount={fetchTotalAmount}
+            openDetailPage={openDetailPage}
+          />
+        ) : parseInt(status) === 6 ? (
+          <CustomerAccepted openDetailPage={openDetailPage} />
+        ) : parseInt(status) === 7 ? (
+          <CustomerRejected openDetailPage={openDetailPage} />
+        ) : parseInt(status) === 8 ? (
+          <CustomerAllProducts openDetailPage={openDetailPage} />
+        ) : parseInt(status) === 10 ? (
+          <CustomerOrderViewDetail
+            prevStatus={prevStatus}
+            orderId={orderId}
+            setStatus={setStatus}
+          />
         ) : (
           <CustomerOrder />
         )}

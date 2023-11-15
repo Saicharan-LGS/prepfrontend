@@ -6,7 +6,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import EmptyOrder from "../EmptyOrder";
-function CustomerAllProducts() {
+function CustomerAllProducts({ openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -56,14 +56,6 @@ function CustomerAllProducts() {
     };
     fetchProducts();
   }, []);
-
-  const openDetailPage = (id) => {
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-      console.error("Invalid id:", id);
-    }
-  };
 
   const statusLabels = {
     0: "Pending",

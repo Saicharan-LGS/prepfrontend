@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
-function CustomerHomePage({fetchTotalAmount}) {
+function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -49,14 +49,14 @@ function CustomerHomePage({fetchTotalAmount}) {
         setTimeout(() => {
           console.log("Kapil");
           setLoading(false);
-          setProducts("")
+          setProducts("");
         }, 3000);
       }
     } catch (error) {
       console.error("Error fetching products:", error);
       setTimeout(() => {
         setLoading(false);
-        setProducts("")
+        setProducts("");
       }, 3000);
     }
   };
@@ -64,18 +64,6 @@ function CustomerHomePage({fetchTotalAmount}) {
     fetchProducts();
   }, []);
   console.log(products);
-
-  const openDetailPage = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
-
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-      console.error("Invalid id:", id);
-    }
-  };
 
   // const refreshpage=()=>{
   //   window.location.reload()
@@ -112,9 +100,7 @@ function CustomerHomePage({fetchTotalAmount}) {
             <p className="admin-order-accepted-decline-category">Decline</p>
             <p className="admin-order-accepted-fnsku-category">Amount</p>
 
-            <p className="admin-order-accepted-view-in-detail-category">
-              View 
-            </p>
+            <p className="admin-order-accepted-view-in-detail-category">View</p>
           </div>
           {products.length > 0 ? (
             <>
