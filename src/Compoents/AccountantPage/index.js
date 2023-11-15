@@ -42,15 +42,12 @@ function AccountOrders() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProducts(data.data);
       } else {
-        console.error("Failed to fetch products");
         setErrorCard(true);
       }
     } catch (error) {
       setErrorCard(true);
-      console.error("Error fetching products:", error);
     }
   };
 
@@ -59,7 +56,6 @@ function AccountOrders() {
   }, []);
 
   const openDetailPage = (productId) => {
-    console.log(productId);
     navigate(`/viewDetailedorder/${productId}`);
   };
 
@@ -70,7 +66,6 @@ function AccountOrders() {
     };
 
     const handeSubmit = async (id, amount1) => {
-      console.log("called", id, amount1);
 
       try {
         const amount2 = {
@@ -102,11 +97,9 @@ function AccountOrders() {
             icon: "error",
             title: data.message,
           });
-          console.error("Failed to update product");
         }
       } catch (error) {
-        console.error("Error updating product:", error);
-      }
+     }
     };
 
     const onSubmitFunction = () => {

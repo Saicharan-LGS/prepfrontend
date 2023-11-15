@@ -43,13 +43,11 @@ function CustomerRejected({ openDetailPage }) {
           setLoading(false);
           setProducts(data.results);
         } else {
-          console.error("Failed to fetch products");
           setTimeout(() => {
             setLoading(false);
           }, 3000);
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
         setTimeout(() => {
           setLoading(false);
         }, 3000);
@@ -99,9 +97,6 @@ function CustomerRejected({ openDetailPage }) {
           {products.length > 0 ? (
             <>
               {currentProducts.map((eachProduct) => {
-                console.log("called");
-                console.log(eachProduct.id);
-                console.log(eachProduct.fnsku_status, eachProduct.label_status);
                 return (
                   <div className="admin-order-accepted-display-of-products-container">
                     <p className="admin-order-accepted-order-id-sub-category">

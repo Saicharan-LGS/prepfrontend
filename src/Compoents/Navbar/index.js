@@ -10,12 +10,14 @@ import AdminHomePage from "../AdminHomePage";
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [currentComponent, setCurrentComponent] = useState(<AdminHomePage />);
+  const [currentId, setCurrentId] = useState('1');
 
   const showSidebar = () => setSidebar(!sidebar);
 
-  const handleSidebarItemClick = (path, component) => {
+  const handleSidebarItemClick = (path, component,id) => {
     setSidebar(false);
     setCurrentComponent(component);
+    setCurrentId(id)
   };
 
   const navigate = useNavigate();
@@ -30,11 +32,12 @@ function Navbar() {
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
 
-  const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
+  
+  const activeToggle=sidebar?"menu-bars toggle":`menu-bars`
 
   return (
     <div className="navbar-container">
-      <IconContext.Provider value={{ color: "#000" }}>
+      {/* <IconContext.Provider value={{ color: "#000" }}> */}
         <div className="navbar">
           <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
@@ -51,25 +54,26 @@ function Navbar() {
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
-                <AiIcons.AiOutlineClose />
+                <AiIcons.AiOutlineClose className="toggle-icon"/>
               </Link>
             </li>
-            {SidebarData.map((item, index) => (
-              <li key={index} className={item.cName}>
-                <Link
-                  to=""
-                  onClick={() =>
-                    handleSidebarItemClick(item.path, item.component)
-                  }
-                >
-                  {item.icon}
+            {SidebarData.map((item, index) => {
+              const activeClassName = currentId===item.id?`active-nav-item nav-text a`:`nav-text`
+              const activeTabIcon = currentId===item.id?`sidebar-icon-active`:`sidebar-icon`
+              return(
+               
+              <li key={index} className={activeClassName} onClick={() => handleSidebarItemClick(item.path, item.component,item.id)}>
+                
+                  <span className={activeTabIcon}>{item.icon}</span>
                   <span>{item.title}</span>
-                </Link>
+                  
               </li>
-            ))}
+              
+              
+            )})}
           </ul>
         </nav>
-      </IconContext.Provider>
+      {/* </IconContext.Provider> */}
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {currentComponent}
       </div>

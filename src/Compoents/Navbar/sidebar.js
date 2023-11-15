@@ -16,25 +16,28 @@ import LabelOrders from "../labelOrders";
 import AccountOrders from "../AccountantPage";
 export const SidebarData = [
   {
-    title: "View Order",
-    path: "/",
-    icon: <MdProductionQuantityLimits fontSize="25px" />,
-    cName: "nav-text",
-    component: <AdminHomePage />,
+    id:'1',
+    title: 'View Order',
+    path: '/',
+    icon: <MdProductionQuantityLimits fontSize="25px"/>,
+    cName: 'active-nav-item',
+    component:<AdminHomePage/>
   },
   {
-    title: "Add Customer",
-    path: "/Customersignup",
-    icon: <BsFillPersonFill fontSize="25px" />,
-    cName: "nav-text",
-    component: <Customersignup />,
+    id:'2',
+    title: 'Add Customer',
+    path: '/Customersignup',
+    icon: <BsFillPersonFill fontSize="25px"/>,
+    cName: '',
+    component:<Customersignup/>
   },
   {
-    title: "Add Staff",
-    path: "/staffsignup",
+    id:'3',
+    title: 'Add Staff',
+    path: '/staffsignup',
     icon: <AiOutlineTeam fontSize="25px" />,
-    cName: "nav-text",
-    component: <StaffSignupPage />,
+    cName: '',
+    component:<StaffSignupPage/>
   },
   // {
   //   title: 'Admin',
@@ -44,24 +47,27 @@ export const SidebarData = [
   //   component:<ProductList/>
   // },
   {
-    title: "Dimensions",
-    path: "/messages",
-    icon: <MdOutlinePinch fontSize="25px" />,
-    cName: "nav-text",
-    component: <DimensionOrderList />,
+    id:'4',
+    title: 'Dimensions',
+    path: '/messages',
+    icon: <MdOutlinePinch fontSize="25px"/>,
+    cName: '',
+    component:<DimensionOrderList/>
   },
   {
-    title: "Label Orders",
-    path: "/support",
-    icon: <MdLabelImportant fontSize="25px" />,
-    cName: "nav-text",
-    component: <LabelOrders />,
+    id:'5',
+    title: 'Label Orders',
+    path: '/support',
+    icon: <MdLabelImportant fontSize="25px"/>,
+    cName: '',
+    component:<LabelOrders/>
   },
   {
-    title: "Accountant",
-    path: "/support",
-    icon: <RiAccountCircleFill fontSize="25px" />,
-    cName: "nav-text",
-    component: <AccountOrders />,
+    id:'6',
+    title: 'Accountant',
+    path: '/support',
+    icon: <RiAccountCircleFill fontSize="25px"/>,
+    cName: '',
+    component:<AccountOrders/>
   },
 ];

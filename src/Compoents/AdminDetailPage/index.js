@@ -51,7 +51,6 @@ function OrderViewDetail() {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
 
         // Split the dimensions into value and unit
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -100,10 +99,8 @@ function OrderViewDetail() {
           weight: weightParts ? weightParts[2] : "g",
         });
       } else {
-        console.error("Failed to fetch data");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
     }
   };
 
@@ -155,8 +152,6 @@ function OrderViewDetail() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Data submitted successfully: ", data);
-        console.log(formDataToSend);
         Toast.fire({
           icon: "success",
           title: data.message,
@@ -164,13 +159,11 @@ function OrderViewDetail() {
         fetchData();
       })
       .catch((error) => {
-        console.error("Error submitting data: ", error);
       });
   };
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      console.log(fileURL);
       window.open(`http://localhost:3009/${fileURL}`, "_blank");
     }
   };
@@ -221,7 +214,6 @@ function OrderViewDetail() {
       [dimension]: newValue,
     });
   };
-  console.log(amount, "amount");
   return (
     <>
       <CommonNavbar />

@@ -21,13 +21,15 @@ import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 import CommonNavbar from "./Compoents/CommonNavbar";
 
+import NotFound from "./Compoents/NotFound";
+
 function App() {
   const role = localStorage.getItem("role");
-  const [totalAmount, setTotalAmount] = useState(null);
-
+  const [totalAmount, setTotalAmount] = useState(0);
+ 
   const fetchTotalAmount = () => {
     const token = sessionStorage.getItem("token");
-    console.log("called total amount");
+ 
     if (!token) {
       return;
     }
@@ -39,11 +41,9 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setTotalAmount(data.total_amount);
-        console.log(data.total_amount);
       })
       .catch((error) => {
-        console.error("Error fetching data:", error);
-        setTotalAmount(null);
+        setTotalAmount(0);
       });
   };
 
@@ -55,16 +55,9 @@ function App() {
 
   return (
     <Routes>
+      <Route path="*" element={<NotFound />} />
       <Route path="/CustomerLogin" element={<CustomerLogin />} />
       <Route path="/" element={<StaffSigninPage />} />
-      {/* <Route
-        path="/Customersignup"
-        element={
-          <ProtectedRoute allowedRoles={["Admin"]}>
-            <Customersignup />
-          </ProtectedRoute>
-        }
-      /> */}
       <Route
         path="/CustomerOrderViewDetail/:id"
         element={
@@ -81,7 +74,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/dimensionorders"
         element={
@@ -90,7 +82,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/dimensionupdate/:id"
         element={
@@ -99,7 +90,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/adminViewDetail/:id"
         element={
@@ -108,7 +98,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route
         path="/adminOrders"
         element={
@@ -157,7 +146,6 @@ function App() {
           </ProtectedRoute>
         }
       />
-
       <Route path="/viewDetailedorder/:id" element={<ViewDetailedOrder />} />
       <Route
         path="/customernavbar"

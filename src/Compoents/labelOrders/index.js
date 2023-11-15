@@ -23,7 +23,6 @@ function LabelOrders() {
   };
   const role = sessionStorage.getItem("role");
   const fetchProducts = async () => {
-    console.log("called fetch")
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(
@@ -37,14 +36,11 @@ function LabelOrders() {
       ); // Replace with your API endpoint
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         setProducts(data.data);
       } else {
-        console.error("Failed to fetch products");
         setProducts("")
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       setProducts("")
     }
   };
@@ -56,7 +52,6 @@ function LabelOrders() {
   const navigate = useNavigate();
 
   const openDetailPage = (e, productId) => {
-    console.log(productId);
     navigate(`/viewDetailedorder/${productId}`);
   };
 
@@ -90,7 +85,6 @@ function LabelOrders() {
         {products.length > 0 ? (
           <>
             {currentProducts.map((eachProduct) => {
-              console.log(eachProduct.fnsku_status, eachProduct.label_status);
               return (
                 <div className="admin-order-accepted-display-of-products-container">
                   <p className="admin-order-accepted-order-id-sub-category">

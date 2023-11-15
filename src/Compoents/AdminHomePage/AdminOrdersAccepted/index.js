@@ -22,9 +22,7 @@ function AdminOrdersAccepted() {
     setCurrentPage(pageNumber);
   };
 
-  console.log("Component rendered");
   useEffect(() => {
-    console.log("reject called");
     const token = sessionStorage.getItem("token");
     const fetchProducts = async () => {
       try {
@@ -38,19 +36,15 @@ function AdminOrdersAccepted() {
           }
         );
         if (response.ok) {
-          console.log(response);
           const data = await response.json();
-          console.log(data.results);
           setProducts(data.results);
           setLoading(false)
         } else {
-          console.error("Failed to fetch products");
           setTimeout(()=>{
             setLoading(false)
            },3000)
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
         setTimeout(()=>{
           setLoading(false)
          },3000)
@@ -62,13 +56,10 @@ function AdminOrdersAccepted() {
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Month is zero-based, so add 1
   const day = date.getDate();
-  console.log(products);
   const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
     .toString()
     .padStart(2, "0")}`;
-  console.log(formattedDate);
   const openDetailPage = (e, productId) => {
-    console.log(productId);
     navigate(`/adminViewDetail/${productId}`);
   };
 

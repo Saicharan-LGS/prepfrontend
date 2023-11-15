@@ -18,7 +18,7 @@ const CustomerOrder = ({ history }) => {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
-    console.log(token);
+
     fetch("http://localhost:3009/api/v1/customerdata", {
       method: "GET",
       headers: {
@@ -34,13 +34,10 @@ const CustomerOrder = ({ history }) => {
       })
       .then((data) => {
         // Set the customerName in the state based on the response data
-        console.log(data);
         setCustomerName(data.name);
         setCustomerId(data.id);
       })
-      .catch((error) => {
-        console.error("Error fetching customer data: ", error);
-      });
+      .catch(() => {});
 
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -102,7 +99,6 @@ const CustomerOrder = ({ history }) => {
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       formData.append("customer_id", customerId);
-      console.log(formData);
       const response = await fetch(
         "http://localhost:3009/api/v1/customerorder",
         {
@@ -134,9 +130,7 @@ const CustomerOrder = ({ history }) => {
           });
         });
       }
-    } catch (error) {
-      console.error("Error creating the order: ", error);
-    }
+    } catch {}
   };
 
   return (

@@ -25,7 +25,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   };
 
   const fetchProducts = async () => {
-    console.log("fetch called");
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
@@ -39,21 +38,16 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
         }
       );
       if (response.ok) {
-        console.log(response);
         const data = await response.json();
-        console.log(data.results);
         setProducts(data.results);
         setLoading(false);
       } else {
-        console.error("Failed to fetch products");
         setTimeout(() => {
-          console.log("Kapil");
           setLoading(false);
           setProducts("");
         }, 3000);
       }
     } catch (error) {
-      console.error("Error fetching products:", error);
       setTimeout(() => {
         setLoading(false);
         setProducts("");
@@ -105,9 +99,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           {products.length > 0 ? (
             <>
               {currentProducts.map((eachProduct) => {
-                console.log("called");
-                console.log(eachProduct.id);
-                console.log(eachProduct.fnsku_status, eachProduct.label_status);
                 return (
                   <div className="admin-order-accepted-display-of-products-container">
                     <p className="admin-order-accepted-order-id-sub-category">
