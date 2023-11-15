@@ -244,7 +244,6 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { CustomerNavbarData } from "./CustomerNavbar.js";
 import "./index.css";
-import { IconContext } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
