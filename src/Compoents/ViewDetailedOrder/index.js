@@ -222,7 +222,7 @@ function ViewDetailedOrder() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             /> */}
-              {fnsku_status === "1" && (
+              {fnsku_status === 1 && (
                 <button
                   type="button"
                   onClick={() => openFileInNewTab(fnskuSend1)}
@@ -252,7 +252,7 @@ function ViewDetailedOrder() {
               name="labelSend"
               onChange={handleLabelFileData}
             /> */}
-              {label_status === "1" && (
+              {label_status === 1 && (
                 <button
                   type="button"
                   onClick={() => openFileInNewTab(labelSend1)}
