@@ -17,10 +17,10 @@ const ProtectedRoute = ({ allowedRoles, children }) => {
   }, [allowedRoles, navigate]);
 
   // Check if the route is not found and redirect to "/notfound"
-  useEffect(() => {
-    const unblock = navigate("/notfound", { replace: true });
-    return () => unblock();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const unblock = navigate("/notfound", { replace: true });
+  //   return () => unblock();
+  // }, [navigate]);
 
   return children;
 };
