@@ -37,7 +37,7 @@ function Navbar() {
 
   return (
     <div className="navbar-container">
-      <IconContext.Provider value={{ color: "#000" }}>
+      {/* <IconContext.Provider value={{ color: "#000" }}> */}
         <div className="navbar">
           <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
@@ -54,17 +54,17 @@ function Navbar() {
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
-                <AiIcons.AiOutlineClose />
+                <AiIcons.AiOutlineClose className="toggle-icon"/>
               </Link>
             </li>
             {SidebarData.map((item, index) => {
               const activeClassName = currentId===item.id?`active-nav-item nav-text a`:`nav-text`
-        
+              const activeTabIcon = currentId===item.id?`sidebar-icon-active`:`sidebar-icon`
               return(
                
               <li key={index} className={activeClassName} onClick={() => handleSidebarItemClick(item.path, item.component,item.id)}>
                 
-                  {item.icon}
+                  <span className={activeTabIcon}>{item.icon}</span>
                   <span>{item.title}</span>
                   
               </li>
@@ -73,7 +73,7 @@ function Navbar() {
             )})}
           </ul>
         </nav>
-      </IconContext.Provider>
+      {/* </IconContext.Provider> */}
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {currentComponent}
       </div>

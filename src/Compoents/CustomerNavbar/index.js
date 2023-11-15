@@ -285,7 +285,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-container">
-      <IconContext.Provider value={{ color: "#000" }}>
+      {/* <IconContext.Provider value={{ color: "#000" }}> */}
         <div className={`navbar ${sidebar ? "shifted" : ""}`}>
           <Link to="#" className={activeToggle}>
             <FaIcons.FaBars onClick={showSidebar} />
@@ -307,22 +307,25 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
               </Link>
             </li>
             {CustomerNavbarData.map((item, index) => {
-              const activeClassName =
-                status === item.id ? `active-nav-item nav-text a` : `nav-text`;
+            
+              const activeClassName = status===item.id?`active-nav-item nav-text a`:`nav-text`
+              const activeTabIcon = status===item.id?`sidebar-icon-active`:`sidebar-icon`
               return (
                 <li
                   key={index}
                   className={activeClassName}
                   onClick={() => handleSidebarItemClick(item.id)}
                 >
-                  {item.icon}
-                  <span className=".span">{item.title}</span>
+                  
+                    <span className={activeTabIcon}>{item.icon}</span>
+                    <span className=".span">{item.title}</span>
                 </li>
               );
             })}
           </ul>
         </nav>
-      </IconContext.Provider>
+      {/* </IconContext.Provider> */}
+
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {status === 5 ? (
           <CustomerHomePage fetchTotalAmount={fetchTotalAmount} />
