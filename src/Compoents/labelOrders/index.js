@@ -45,7 +45,6 @@ function LabelOrders() {
     }
   };
   useEffect(() => {
-  
     fetchProducts();
   }, []);
 
@@ -143,5 +142,4 @@ function LabelOrders() {
     </>
   );
 }
-
 export default LabelOrders;

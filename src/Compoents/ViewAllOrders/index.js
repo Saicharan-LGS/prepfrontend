@@ -10,22 +10,40 @@ import Spinner from "../Spinner";
 function ViewAllOrders() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [orderId, setOrderId] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
 
-  // Filter and paginate data when orderId or currentPage changes
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [orderId, setOrderId] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   useEffect(() => {
-    // Filter products based on orderId
+    const statusLabels = {
+      0: "Pending",
+      1: "Rejected",
+      2: "Received",
+      3: "Dimension",
+      4: "Label",
+      5: "Invoice",
+      6: "Invoice Accepted",
+      7: "Invoice Rejected",
+    };
+  
+    // Filter products based on orderId and selected filter
     const filtered = products.filter((product) => {
-      return product.id.toString().includes(orderId);
+      const matchesOrderId = product.id.toString().includes(orderId);
+      const matchesFilter =
+        selectedFilter === "" ||
+        statusLabels[product.status] === selectedFilter;
+  
+      return matchesOrderId && matchesFilter;
     });
-
+  
     setFilteredProducts(filtered);
-  }, [products, orderId, currentPage]);
+  }, [products, orderId, currentPage, selectedFilter]);
 
+  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -33,6 +51,17 @@ function ViewAllOrders() {
     indexOfLastProduct
   );
 
+  const handleSearch = (e) => {
+    const { name, value } = e.target;
+  
+    if (name === "orderid") {
+      setOrderId(value);
+    } else if (name === "filter") {
+      setSelectedFilter(value);
+    }
+  
+    setCurrentPage(1); // Reset pagination when changing search filter
+  };
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -72,10 +101,6 @@ function ViewAllOrders() {
     navigate(`/adminViewDetail/${productId}`);
   };
 
-  const handleSearch = (e) => {
-    setOrderId(e.target.value);
-    setCurrentPage(1); // Reset pagination when changing search filter
-  };
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
@@ -106,6 +131,7 @@ function ViewAllOrders() {
           <h2 className="admin-order-accepted-order-list-heading">
             All Orders
           </h2>
+          <div className="admin-order-accepted-search-filter-input-container">
           <input
             type="number"
             name="orderid"
@@ -115,6 +141,23 @@ function ViewAllOrders() {
             required
             className="admin-order-accepted-search-filter-input"
           />
+          <select
+            name="filter"
+            value={selectedFilter}
+            onChange={handleSearch}
+            className="admin-order-accepted-search-filter-input"
+          >
+            <option value="">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Received">Received</option>
+            <option value="Dimension">Dimension</option>
+            <option value="Label">Label</option>
+            <option value="Invoice">Invoice</option>
+            <option value="Invoice Accepted">Invoice Accepted</option>
+            <option value="Invoice Rejected">Invoice Rejected</option>
+          </select>
+          </div>
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
             <p className="admin-order-accepted-name-category">Name</p>

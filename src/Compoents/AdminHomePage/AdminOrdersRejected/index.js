@@ -13,16 +13,35 @@ function AdminOrdersRejected() {
   const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Number of products to display per page
+  const [productsPerPage] = useState(10);
+  const [orderId, setOrderId] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    // Filter products based on orderId
+    const filtered = products.filter((product) => {
+      return product.id.toString().includes(orderId);
+    });
+
+    setFilteredProducts(filtered);
+  }, [products, orderId, currentPage]);
+
+  const handleSearch = (e) => {
+    setOrderId(e.target.value);
+    setCurrentPage(1); // Reset pagination when changing search filter
+  };
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -65,7 +84,7 @@ function AdminOrdersRejected() {
     navigate(`/adminViewDetail/${productId}`);
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const NextButton = indexOfLastProduct >= filteredProducts.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
   const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (
@@ -75,6 +94,15 @@ function AdminOrdersRejected() {
     
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Rejected List</h2>
+      <input
+            type="number"
+            name="orderid"
+            value={orderId}
+            onChange={handleSearch}
+            placeholder="Search by Order ID"
+            required
+            className="admin-order-accepted-search-filter-input"
+          />
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -93,7 +121,7 @@ function AdminOrdersRejected() {
           View In Detail
         </p>
       </div>
-      {products.length > 0 ? (
+      {filteredProducts.length > 0 ? (
         <>
           {currentProducts.map((eachProduct) => {
             return (
