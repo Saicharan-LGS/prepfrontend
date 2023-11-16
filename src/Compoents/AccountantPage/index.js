@@ -27,12 +27,14 @@ function AccountOrders({openDetailPageComponent}) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
 
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:3009/api/v1/accountantlist",
+        `${FETCH_URL}accountantlist`,
         {
           method: "GET",
           headers: {
@@ -69,6 +71,8 @@ function AccountOrders({openDetailPageComponent}) {
       setAmount(e.target.value);
     };
 
+    
+
     const handeSubmit = async (id, amount1) => {
 
       try {
@@ -77,7 +81,7 @@ function AccountOrders({openDetailPageComponent}) {
         };
         const token = sessionStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3009/api/v1/amountUpdate/${id}`,
+          `${FETCH_URL}amountUpdate/${id}`,
           {
             method: "PUT",
             headers: {

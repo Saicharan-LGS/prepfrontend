@@ -22,11 +22,14 @@ function LabelOrders({openDetailPageComponent}) {
     setCurrentPage(pageNumber);
   };
   const role = sessionStorage.getItem("role");
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:3009/api/v1/labelorderlist",
+        `${FETCH_URL}labelorderlist`,
         {
           method: "GET",
           headers: {

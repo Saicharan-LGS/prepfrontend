@@ -40,10 +40,14 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     7: "Invoice Rejected",
   };
   const token = sessionStorage.getItem("token");
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const PDF_URL = process.env.REACT_APP_PDF_URL
+
+
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getCustomerDetailOrder/${orderId}`,
+        `${FETCH_URL}getCustomerDetailOrder/${orderId}`,
         {
           method: "GET",
           headers: {
@@ -124,7 +128,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("orderId",orderId)
     // Add any other fields you want to update
 
-    fetch(`http://localhost:3009/api/v1/customerOrderDetail/${id}`, {
+    fetch(`${FETCH_URL}customerOrderDetail/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`, // Set the Content-Type to JSON
@@ -142,7 +146,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      window.open(`http://localhost:3009/${fileURL}`, "_blank");
+      window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
 
@@ -171,8 +175,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   return (
     <>
       <div className="order-customer-container">
-        <button onClick={handleBackClick}>
-          <IoArrowBackCircle fontSize="44" />
+        <button className="order-customer-backward-button" onClick={handleBackClick}>
+          <IoArrowBackCircle className="order-customer-backward-icon" />
         </button>
         <center>
           <h1 className="order-customer-main-heading">Customer Orders</h1>

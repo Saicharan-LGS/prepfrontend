@@ -39,12 +39,14 @@ function AdminOrdersAccepted({openDetailPageComponent}) {
     setCurrentPage(pageNumber);
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${2}`, // Replace with your API endpoint
+          `${FETCH_URL}getOrders/${2}`, // Replace with your API endpoint
           {
             method: "GET",
             headers: {

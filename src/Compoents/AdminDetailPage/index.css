@@ -98,6 +98,16 @@
     transition: background-color 0.3s;
     cursor:pointer;
   }
+  .order-customer-backward-button{
+    border:none;
+    background-color: transparent;
+    cursor:pointer;
+}
+.order-customer-backward-icon{
+    color:#ffc03d;
+    font-size:40px;
+}
+
   @media (max-width: 767px) {
     .order-customer-from-container {
         flex-direction: column;

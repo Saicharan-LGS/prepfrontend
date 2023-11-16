@@ -40,12 +40,15 @@ function CustomerAccepted({ openDetailPage }) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   useEffect(() => {
     const fetchProducts = async () => {
       const token = sessionStorage.getItem("token");
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/customerorderlist/${6}`,
+          `${FETCH_URL}customerorderlist/${6}`,
           // Replace with your API endpoint
           {
             method: "GET",

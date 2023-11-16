@@ -22,12 +22,14 @@ const StaffSigninPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(""); // Clear any previous error messages
 
     // Define the URL of your server's login endpoint
-    const url = "http://localhost:3009/api/v1/stafflogin";
+    const url = `${FETCH_URL}stafflogin`;
 
     // Create a JSON object with the form data
     const jsonData = {

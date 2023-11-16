@@ -87,6 +87,8 @@ const CustomerOrder = ({ history }) => {
     setLabelSend(file);
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -103,7 +105,7 @@ const CustomerOrder = ({ history }) => {
       formData.append("customer_id", customerId);
       formData.append("instructions",instructions)
       const response = await fetch(
-        "http://localhost:3009/api/v1/customerorder",
+        `${FETCH_URL }customerorder`,
         {
           method: "POST",
           headers: {

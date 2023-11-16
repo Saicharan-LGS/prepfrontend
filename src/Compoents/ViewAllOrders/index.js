@@ -66,12 +66,14 @@ function ViewAllOrders() {
     setCurrentPage(pageNumber);
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const token = sessionStorage.getItem("token");
         const response = await fetch(
-          `http://localhost:3009/api/v1/getOrders/${8}`,
+          `${FETCH_URL}getOrders/${8}`,
           {
             method: "GET",
             headers: {

@@ -28,12 +28,16 @@ function ViewDetailedOrder() {
     instructions:""
   });
   const token = sessionStorage.getItem("token");
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const PDF_URL = process.env.REACT_APP_PDF_URL
+
   useEffect(() => {
     // Fetch data using the id passed as a prop
     async function fetchData() {
       try {
         const response = await fetch(
-          `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,
+          `${FETCH_URL}getAdminOrderDetails/${id}`,
           {
             method: "GET",
             headers: {
@@ -77,7 +81,7 @@ function ViewDetailedOrder() {
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      window.open(`http://localhost:3009/${fileURL}`, "_blank");
+      window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
 

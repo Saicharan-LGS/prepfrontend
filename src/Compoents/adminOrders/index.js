@@ -7,6 +7,8 @@ import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 
+
+
 import DisplayAdminButton from "./adminButton";
 function ProductList({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
@@ -36,12 +38,15 @@ function ProductList({openDetailPageComponent}) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
 
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3009/api/v1/getOrders/${0}`,
+        `${FETCH_URL}getOrders/${0}`,
         {
           method: "GET",
           headers: {

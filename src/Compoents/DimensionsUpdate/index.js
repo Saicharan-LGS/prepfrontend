@@ -39,6 +39,9 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
     });
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,7 +55,7 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
       const token = sessionStorage.getItem("token");
 
       const response = await fetch(
-        `http://localhost:3009/api/v1/dimensionupdate/${id}`,
+        `${FETCH_URL}dimensionupdate/${id}`,
         {
           method: "PUT",
           headers: {
