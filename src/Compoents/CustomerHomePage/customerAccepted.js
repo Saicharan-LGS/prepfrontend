@@ -189,7 +189,7 @@ function CustomerAccepted({ openDetailPage }) {
             <EmptyOrder />
           )}
         </div>
-      )}
+      }
     </>
   );
 }
