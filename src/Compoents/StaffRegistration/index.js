@@ -86,7 +86,7 @@ const StaffSignupPage = () => {
                 title: data.message,
               });
             });
-            // Handle other status codes or error messages
+    
           }
         })
         .catch(() => {

@@ -22,6 +22,7 @@ function OrderViewDetail() {
     fnskuButton: "",
     labelButton: "",
     amount: null,
+    instructions:""
   });
 
   // Define separate state for dimensions and selected units
@@ -79,6 +80,7 @@ function OrderViewDetail() {
           weight: data.weight,
           amount: data.amount,
           status: data.status,
+          instructions:data.instructions
 
           // ... other fields you want to update
         });
@@ -140,7 +142,7 @@ function OrderViewDetail() {
     formDataToSend.append("height", height);
     formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
-
+    formDataToSend.append("instructions",instructions);
     // Add any other fields you want to update
 
     fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
@@ -183,6 +185,7 @@ function OrderViewDetail() {
     label_status,
     status,
     amount,
+    instructions
   } = formData;
 
   const { length, width, height, weight } = dimensions;
@@ -368,6 +371,16 @@ function OrderViewDetail() {
                 type="text"
                 name="amount"
                 value={amount}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Instructions</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="instructions"
+                value={instructions}
                 onChange={handleChange}
               />
             </div>
