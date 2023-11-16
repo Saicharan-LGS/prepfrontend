@@ -84,7 +84,7 @@ function AdminOrdersRejected() {
     navigate(`/adminViewDetail/${productId}`);
   };
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
+  const NextButton = indexOfLastProduct >= filteredProducts.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
   const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
 
   return (

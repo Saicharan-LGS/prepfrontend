@@ -89,7 +89,7 @@ function CustomerAccepted({ openDetailPage }) {
   // }
 
   const NextButton =
-    indexOfLastProduct >= products.length
+    indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
   const previousButton =
