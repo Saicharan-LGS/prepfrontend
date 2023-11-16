@@ -119,7 +119,7 @@ function App() {
         }
       />
       <Route
-        path="/navbar"
+        path="/admin"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
             <Navbar />

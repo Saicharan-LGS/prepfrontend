@@ -44,7 +44,7 @@ function OrderViewDetail(props) {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `${FETCH_URL}etAdminOrderDetails/${id}`,
+        `${FETCH_URL}getAdminOrderDetails/${id}`,
         {
           method: "GET",
           headers: {

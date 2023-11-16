@@ -16,10 +16,13 @@ const CustomerOrder = ({ history }) => {
   const [instructions, setInstructions] = useState("");
   const navigate = useNavigate();
 
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
 
-    fetch("http://localhost:3009/api/v1/customerdata", {
+    fetch(`${FETCH_URL}customerdata`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`, // You should include your authorization token here
@@ -72,6 +75,7 @@ const CustomerOrder = ({ history }) => {
         break;
       case "instructions":
         setInstructions(value);
+        break
       default:
         break;
     }
@@ -87,7 +91,7 @@ const CustomerOrder = ({ history }) => {
     setLabelSend(file);
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
