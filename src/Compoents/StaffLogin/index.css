@@ -20,7 +20,7 @@
     
   }
   .signin-form-heading-container{
-    font-size:32px;
+    font-size:28px;
     font-weight:600;
     color:#212d45;
   }
@@ -74,6 +74,8 @@
   .signin-staff-customer-button-container{
     display:flex;
     justify-content: space-between;
+    flex-wrap:wrap;
+    gap:4px;
     width:100%;
   }
   .signin-staff-button{
@@ -92,7 +94,7 @@
   .signin-customer-button{
     border:none;
     width:45%;
-    padding:8px 0px;
+    padding:8px 10px;
     border:1px solid #4b4f58;
     border-radius:4px;
     font-size:16px;
@@ -103,27 +105,15 @@
     min-width: max-content;
     letter-spacing: 0.5px;
   }
-  @media  (min-width: 512px) and ( max-width: 768px) {
-    .signin-form-main-container {
-        width: 60%;
-      
-      }
+  .login-image-container{
+    width:50%;
   }
-  @media (max-width:512px){
-    .signin-form-main-container {
-        width: 100%;
-      
-      }
+  .Login-image{
+    width:100%;
   }
-@media (max-width: 768px) {
-    .signin-form-heading-container {
-      font-size: 24px;
-    }
-  }
-  
   @media (min-width: 769px) and (max-width: 1024px) {
     .signin-form-main-container{
-      width: 40%;
+      width: 50%;
     }
   } 
   @media (max-width:1200px) {
@@ -131,9 +121,39 @@
       width: 30%;
     }
   } 
-  .login-image-container{
-    width:50%;
+  @media  (min-width: 512px) and ( max-width: 768px) {
+    .signin-form-main-container {
+        width: 60%;
+      
+      }
+      .login-image-container{
+        display:none;
+      }
+      .signin-staff-button{
+        width:100%;
+      }
+      .signin-customer-button{
+        width:100%;
+      }
+      .signin-form-heading-container {
+        font-size: 24px;
+      }
   }
-  .Login-image{
-    width:100%;
+  @media (max-width:512px){
+    .signin-form-main-container {
+        width: 100%;
+      
+      }
+      .login-image-container{
+        display:none;
+      }
+      .signin-staff-button{
+        width:100%;
+      }
+      .signin-customer-button{
+        width:100%;
+      }
   }
+  
+  
+  

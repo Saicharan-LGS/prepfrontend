@@ -278,3 +278,7 @@
 .admin-order-accepted-readonly{
     background-color:#f0f0f5;
 }
+.admin-order-accepted-search-filter-input-container{
+    display:flex;
+    gap:20px;
+}
