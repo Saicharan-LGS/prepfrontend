@@ -25,6 +25,7 @@ function ViewDetailedOrder() {
     height: "",
     width: "",
     weight: "",
+    instructions:""
   });
   const token = sessionStorage.getItem("token");
 
@@ -67,7 +68,7 @@ function ViewDetailedOrder() {
             width: data.width,
             height: data.height,
             weight: data.weight,
-            // ... other fields you want to update
+            instructions:data.instructions
           });
         } else {
         }
@@ -99,6 +100,7 @@ function ViewDetailedOrder() {
     width,
     weight,
     height,
+    instructions
   } = formData;
 
   return (
@@ -308,6 +310,16 @@ function ViewDetailedOrder() {
                 type="text"
                 name="trackingURL"
                 value={trackingURL}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Instructions</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                name="instructions"
+                value={instructions}
                 readOnly
               />
             </div>

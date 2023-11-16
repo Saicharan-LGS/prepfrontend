@@ -3,7 +3,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
-
 import OrderViewDetail from "./Compoents/AdminDetailPage";
 import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
@@ -11,16 +10,13 @@ import AdminHomePage from "./Compoents/AdminHomePage";
 import Navbar from "./Compoents/Navbar";
 import AccountOrders from "./Compoents/AccountantPage";
 import StaffSigninPage from "./Compoents/StaffLogin";
-
 import CustomerHomePage from "./Compoents/CustomerHomePage";
-
 import CustomerLogin from "./Compoents/CustomerLogin";
 import ViewDetailedOrder from "./Compoents/ViewDetailedOrder";
 import ProtectedRoute from "./Compoents/ProtectedRoute";
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 import CommonNavbar from "./Compoents/CommonNavbar";
-
 import NotFound from "./Compoents/NotFound";
 
 function App() {

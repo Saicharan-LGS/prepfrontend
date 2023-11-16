@@ -13,7 +13,7 @@ const CustomerOrder = ({ history }) => {
   const [fnskuSend, setFnskuSend] = useState(null);
   const [labelSend, setLabelSend] = useState(null);
   const [customerId, setCustomerId] = useState("");
-
+  const [instructions, setInstructions] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,6 +70,8 @@ const CustomerOrder = ({ history }) => {
       case "trackingURL":
         setTrackingURL(value);
         break;
+      case "instructions":
+        setInstructions(value);
       default:
         break;
     }
@@ -101,6 +103,7 @@ const CustomerOrder = ({ history }) => {
       formData.append("fnskuSend", fnskuSend);
       formData.append("labelSend", labelSend);
       formData.append("customer_id", customerId);
+      formData.append("instructions",instructions)
       const response = await fetch(
         `${FETCH_URL }customerorder`,
         {
@@ -123,6 +126,7 @@ const CustomerOrder = ({ history }) => {
         setTrackingURL("");
         setFnskuSend(null);
         setLabelSend(null);
+        setInstructions("")
         navigate("/customernavbar");
       } else {
         response.json().then((data) => {
@@ -240,6 +244,17 @@ const CustomerOrder = ({ history }) => {
                   type="text"
                   name="trackingURL"
                   value={trackingURL}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Instructions:</label>
+                <input
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="instructions"
+                  value={instructions}
                   onChange={handleChange}
                   required
                 />

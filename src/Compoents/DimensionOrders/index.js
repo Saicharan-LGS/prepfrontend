@@ -10,7 +10,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import CommonNavbar from "../CommonNavbar";
 import DimensionsUpdate from "../DimensionsUpdate";
-function DimensionOrderList() {
+function DimensionOrderList({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,8 +69,13 @@ function DimensionOrderList() {
     navigate(`/dimensionupdate/${id}`);
   };
 
-  const openDetailPage = (e, productId) => {
+  const openDetailPage = (productId) => {
+    if (role==="Admin"){
+      console.log("called");
+      openDetailPageComponent(productId)
+    }else{
     navigate(`/viewDetailedorder/${productId}`);
+    }
   };
 
   const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
@@ -137,7 +142,7 @@ function DimensionOrderList() {
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
                 value={eachProduct.id}
-                onClick={(e) => openDetailPage(e, eachProduct.id)}
+                onClick={(e) => openDetailPage(eachProduct.id)}
                 className="admin-order-accepted-view-in-detail-sub-category"
               />
             </div>

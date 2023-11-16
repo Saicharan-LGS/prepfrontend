@@ -26,6 +26,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     width: "",
     weight: "",
     amount: "",
+    instructions:""
   });
 
   const statusLabels = {
@@ -78,6 +79,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           weight: data.weight,
           amount: data.amount,
           status: data.status,
+          instructions:data.instructions,
           // ... other fields you want to update
         });
       } else {
@@ -122,7 +124,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("tracking_url", tracking_url);
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
-
+    formDataToSend.append("instructions",instructions)
+    formDataToSend.append("orderId",orderId)
     // Add any other fields you want to update
 
     fetch(`${FETCH_URL}customerOrderDetail/${id}`, {
@@ -166,6 +169,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     height,
     amount,
     status,
+    instructions
   } = formData;
 
   return (
@@ -338,6 +342,16 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="tracking_url"
                 value={amount}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Instructions</label>
+              <input
+                className="order-customer-lable-container "
+                type="text"
+                name="instructions"
+                value={instructions}
                 onChange={handleChange}
               />
             </div>

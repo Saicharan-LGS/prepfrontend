@@ -6,7 +6,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../../Spinner";
-function AdminOrdersAccepted() {
+function AdminOrdersAccepted({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
@@ -213,7 +213,7 @@ function AdminOrdersAccepted() {
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
                 value={eachProduct.id}
-                onClick={(e) => openDetailPage(e, eachProduct.id)}
+                onClick={() => openDetailPageComponent(eachProduct.id)}
                 className="admin-order-accepted-view-in-detail-sub-category"
               />
             </div>
@@ -224,7 +224,6 @@ function AdminOrdersAccepted() {
               disabled={currentPage === 1}
               className={previousButton}
             />
-
             <span>Page {currentPage}</span>
 
             <BsFillArrowRightCircleFill
