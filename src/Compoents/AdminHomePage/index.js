@@ -61,10 +61,10 @@ class AdminHomePage extends Component {
           </ul>
         </div>
         <div>
-          {activeProductTab === "0" && <ProductList />}
-          {activeProductTab === "1" && <AdminOrdersRejected />}
-          {activeProductTab === "2" && <AdminOrdersAccepted />}
-          {activeProductTab === "3" && <ViewAllOrders />}
+          {activeProductTab === "0" && <ProductList openDetailPageComponent={this.props.openDetailPageComponent} />}
+          {activeProductTab === "1" && <AdminOrdersRejected openDetailPageComponent={this.props.openDetailPageComponent} />}
+          {activeProductTab === "2" && <AdminOrdersAccepted openDetailPageComponent={this.props.openDetailPageComponent} />}
+          {activeProductTab === "3" && <ViewAllOrders openDetailPageComponent={this.props.openDetailPageComponent} />}
         </div>
       </>
     );

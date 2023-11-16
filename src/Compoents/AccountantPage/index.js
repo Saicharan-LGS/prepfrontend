@@ -9,7 +9,7 @@ import {
 import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
 
-function AccountOrders() {
+function AccountOrders({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
@@ -54,9 +54,13 @@ function AccountOrders() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
   const openDetailPage = (productId) => {
+    if (role==="Admin"){
+      console.log("called");
+      openDetailPageComponent(productId)
+    }else{
     navigate(`/viewDetailedorder/${productId}`);
+    }
   };
 
   const AmountPost = ({ id }) => {

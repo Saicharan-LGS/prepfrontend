@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { useParams } from "react-router-dom";
 import Toast from "../utlis/toast";
 import CommonNavbar from "../CommonNavbar";
-function OrderViewDetail() {
-  const { id } = useParams();
+function OrderViewDetail(props) {
+  const id= props.orderId
   const [formData, setFormData] = useState({
     date: "",
     name: "",
@@ -52,7 +51,7 @@ function OrderViewDetail() {
       );
       if (response.ok) {
         const data = await response.json();
-
+        console.log(data)
         // Split the dimensions into value and unit
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -107,7 +106,6 @@ function OrderViewDetail() {
   };
 
   useEffect(() => {
-    // Fetch data using the id passed as a prop
     fetchData();
   }, [id]);
 
@@ -127,7 +125,12 @@ function OrderViewDetail() {
   };
 
   const handleSubmit = (e) => {
+    const length1= dimensions.length + selectedUnits.length;
+    const width1= dimensions.width + selectedUnits.width;
+    const height1= dimensions.height + selectedUnits.height;
+    const weight1= dimensions.weight + selectedUnits.weight;
     const formDataToSend = new FormData();
+    
     formDataToSend.append("date", date || "");
     formDataToSend.append("name", name || "");
     formDataToSend.append("service", service);
@@ -136,10 +139,10 @@ function OrderViewDetail() {
     formDataToSend.append("tracking_url", tracking_url || "");
     formDataToSend.append("fnskuSend", fnskuSend);
     formDataToSend.append("labelSend", labelSend);
-    formDataToSend.append("length", length);
-    formDataToSend.append("width", width);
-    formDataToSend.append("weight", weight);
-    formDataToSend.append("height", height);
+    formDataToSend.append("length", length1);
+    formDataToSend.append("width", width1);
+    formDataToSend.append("weight", weight1);
+    formDataToSend.append("height", height1);
     formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
     formDataToSend.append("instructions",instructions);
@@ -219,7 +222,6 @@ function OrderViewDetail() {
   };
   return (
     <>
-      <CommonNavbar />
       <div className="order-customer-container">
         <center>
           <h1 className="order-customer-main-heading">Order</h1>

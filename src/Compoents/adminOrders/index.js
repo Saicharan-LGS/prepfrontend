@@ -8,7 +8,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 
 import DisplayAdminButton from "./adminButton";
-function ProductList() {
+function ProductList({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,10 +45,10 @@ function ProductList() {
         {
           method: "GET",
           headers: {
-            Authorization: ` Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
-      ); // Replace with your API endpoint
+      ); 
       if (response.ok) {
         const data = await response.json();
         setProducts(data.results);
@@ -68,9 +68,7 @@ function ProductList() {
     fetchProducts();
   }, []);
 
-  const openDetailPage = (e, productId) => {
-    navigate(`/adminViewDetail/${productId}`);
-  };
+
 
   const handleSearch = (e) => {
     setOrderId(e.target.value);
@@ -170,7 +168,7 @@ function ProductList() {
                     <BsFillArrowRightCircleFill
                       id={eachProduct.id}
                       value={eachProduct.id}
-                      onClick={(e) => openDetailPage(e, eachProduct.id)}
+                      onClick={() => openDetailPageComponent(eachProduct.id)}
                       className="admin-order-accepted-view-in-detail-sub-category"
                     />
                   </div>
@@ -182,9 +180,7 @@ function ProductList() {
                   disabled={currentPage <= 1}
                   className={previousButton}
                 />
-
                 <span>Page {currentPage}</span>
-
                 <BsFillArrowRightCircleFill
                   onClick={() => paginate(currentPage + 1)}
                   disabled={indexOfLastProduct >= products.length}

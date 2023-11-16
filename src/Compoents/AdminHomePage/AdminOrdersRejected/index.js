@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../../Spinner";
 
 import EmptyOrder from "../../EmptyOrder";
 
-function AdminOrdersRejected() {
+function AdminOrdersRejected({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [loading,setLoading] = useState(true)
   const navigate = useNavigate();
@@ -161,7 +160,7 @@ function AdminOrdersRejected() {
                 <BsFillArrowRightCircleFill
                   id={eachProduct.id}
                   value={eachProduct.id}
-                  onClick={(e) => openDetailPage(e, eachProduct.id)}
+                  onClick={() => openDetailPageComponent(eachProduct.id)}
                   className="admin-order-accepted-view-in-detail-sub-category"
                 />
               </div>
