@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
@@ -95,7 +93,6 @@ const CustomerLogin = () => {
       });
   };
 
- 
   return (
     // <div className="customer-signin-div-container">
     //    <div className="login-image-container">
@@ -146,42 +143,42 @@ const CustomerLogin = () => {
     //   </div>
     // </div>
     <>
-    <center>
-      <h2 className="signin-form-heading-container">Customer Login</h2>
-    </center>
-        <form onSubmit={handleSubmit} className="signin-form-container">
-          <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              className="signin-input-text"
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
-          </div>
-          <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="signin-input-text"
-            />
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
-            )}
-          </div>
-          {loginError && <p className="error-message">{loginError}</p>}
-          <center>
-            <button className="signin-form-button-container" type="submit">
-              Sign In
-            </button>
-          </center>
-        </form>
-        </>
+      <center>
+        <h2 className="signin-form-heading-container">Customer Login</h2>
+      </center>
+      <form onSubmit={handleSubmit} className="signin-form-container">
+        <div className="signin-form-group-container">
+          <label className="signin-form-label-container">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="signin-input-text"
+          />
+          {errors.email && <p className="error-message">{errors.email}</p>}
+        </div>
+        <div className="signin-form-group-container">
+          <label className="signin-form-label-container">Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            className="signin-input-text"
+          />
+          {errors.password && (
+            <p className="error-message">{errors.password}</p>
+          )}
+        </div>
+        {loginError && <p className="error-message">{loginError}</p>}
+        <center>
+          <button className="signin-form-button-container" type="submit">
+            Sign In
+          </button>
+        </center>
+      </form>
+    </>
   );
 };
 

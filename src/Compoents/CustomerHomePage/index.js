@@ -8,7 +8,7 @@ import Spinner from "../Spinner";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
-function CustomerHomePage({fetchTotalAmount}) {
+function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -62,27 +62,20 @@ function CustomerHomePage({fetchTotalAmount}) {
       } else {
         setTimeout(() => {
           setLoading(false);
-          setProducts("")
+          setProducts("");
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
-        setProducts("")
+        setProducts("");
       }, 3000);
     }
   };
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  const openDetailPage = (id) => {
-
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-    }
-  };
+  console.log(products);
 
   // const refreshpage=()=>{
   //   window.location.reload()
@@ -128,14 +121,12 @@ function CustomerHomePage({fetchTotalAmount}) {
             <p className="admin-order-accepted-decline-category">Decline</p>
             <p className="admin-order-accepted-fnsku-category">Amount</p>
 
-            <p className="admin-order-accepted-view-in-detail-category">
-              View 
-            </p>
+            <p className="admin-order-accepted-view-in-detail-category">View</p>
           </div>
           {filteredProducts.length > 0 ? (
             <>
               {currentProducts.map((eachProduct) => {
-           return (
+                return (
                   <div className="admin-order-accepted-display-of-products-container">
                     <p className="admin-order-accepted-order-id-sub-category">
                       {eachProduct.id}

@@ -12,7 +12,7 @@ function Spinner(){
         data-testid="loader"
         margin={2}
         color="#124577"
-        font-weight={900}
+        fontWeight={900}
 
       />
         </div>

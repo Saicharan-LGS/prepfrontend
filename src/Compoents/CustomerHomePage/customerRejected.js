@@ -7,7 +7,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 
 import EmptyOrder from "../EmptyOrder";
-function CustomerRejected() {
+function CustomerRejected({ openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -74,14 +74,7 @@ function CustomerRejected() {
     };
     fetchProducts();
   }, []);
-
-  const openDetailPage = (id) => {
-
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-    }
-  };
+  console.log(products);
 
   // const refreshpage=()=>{
   //   window.location.reload()

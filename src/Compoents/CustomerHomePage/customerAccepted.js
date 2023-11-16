@@ -6,9 +6,9 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import EmptyOrder from "../EmptyOrder";
-function CustomerAccepted() {
+function CustomerAccepted({ openDetailPage }) {
   const [products, setProducts] = useState([]);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
@@ -57,37 +57,45 @@ function CustomerAccepted() {
         if (response.ok) {
           const data = await response.json();
           setProducts(data.results);
-          setLoading(false)
+          setLoading(false);
         } else {
-          setTimeout(()=>{
-            setLoading(false)
-           },3000)
+          setTimeout(() => {
+            setLoading(false);
+          }, 3000);
         }
       } catch (error) {
-        setTimeout(()=>{
-          setLoading(false)
-         },3000)
-        
+        setTimeout(() => {
+          setLoading(false);
+        }, 3000);
       }
     };
     fetchProducts();
   }, []);
 
-  const openDetailPage = (id) => {
+  // const openDetailPage = (id) => {
+  //   console.log("called");
+  //   console.log("Clicked on item with id:", id);
+  //   // console.log(`/adminViewDetail/${e.target.id}`)
 
-    if (id) {
-      navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-    }
-  };
+  //   if (id) {
+  //     navigate(`/CustomerOrderViewDetail/${id}`);
+  //   } else {
+  //     console.error("Invalid id:", id);
+  //   }
+  // };
 
   // const refreshpage=()=>{
   //   window.location.reload()
   // }
 
-  const NextButton = indexOfLastProduct >= products.length? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
-  const previousButton = currentPage===1? `pagination-arrow-container disable-previous-next-button`:`pagination-arrow-container`
-
+  const NextButton =
+    indexOfLastProduct >= products.length
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
+  const previousButton =
+    currentPage === 1
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
 
   return (
     <>
@@ -148,40 +156,40 @@ function CustomerAccepted() {
                 </p>
                 {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                <p className="admin-order-accepted-fnsku-sub-category">
-                  {eachProduct.amount}
-                </p>
+                    <p className="admin-order-accepted-fnsku-sub-category">
+                      {eachProduct.amount}
+                    </p>
+
+                    <BsFillArrowRightCircleFill
+                      id={eachProduct.id}
+                      value={eachProduct.id}
+                      onClick={() => openDetailPage(eachProduct.id)}
+                      className="admin-order-accepted-view-in-detail-sub-category"
+                    />
+                  </div>
+                );
+              })}
+              <div className="pagination-button-container">
+                <BsFillArrowLeftCircleFill
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className={previousButton}
+                />
+
+                <span>Page {currentPage}</span>
 
                 <BsFillArrowRightCircleFill
-                  id={eachProduct.id}
-                  value={eachProduct.id}
-                  onClick={() => openDetailPage(eachProduct.id)}
-                  className="admin-order-accepted-view-in-detail-sub-category"
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={indexOfLastProduct >= products.length}
+                  className={NextButton}
                 />
               </div>
-            );
-          })}
-          <div className="pagination-button-container">
-            <BsFillArrowLeftCircleFill
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={previousButton}
-            />
-
-            <span>Page {currentPage}</span>
-
-            <BsFillArrowRightCircleFill
-              onClick={() => paginate(currentPage + 1)}
-              disabled={indexOfLastProduct >= products.length}
-              className={NextButton}
-            />
-          </div>
-        </>
-      ) : (
-        <EmptyOrder />
+            </>
+          ) : (
+            <EmptyOrder />
+          )}
+        </div>
       )}
-    </div>
-    }
     </>
   );
 }

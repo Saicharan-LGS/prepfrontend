@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { IoArrowBackCircle } from "react-icons/io5";
 import CommonNavbar from "../CommonNavbar";
-function CustomerOrderViewDetail() {
+function CustomerOrderViewDetail({ orderId, setStatus }) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
@@ -41,7 +42,7 @@ function CustomerOrderViewDetail() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getCustomerDetailOrder/${id}`,
+        `http://localhost:3009/api/v1/getCustomerDetailOrder/${orderId}`,
         {
           method: "GET",
           headers: {
@@ -83,6 +84,13 @@ function CustomerOrderViewDetail() {
   useEffect(() => {
     fetchData();
   }, [id]);
+
+  const handleBackClick = () => {
+    const prevStatus = localStorage.getItem("prevStatus");
+    console.log(prevStatus, "bye");
+    setStatus(prevStatus);
+    localStorage.setItem("status", prevStatus);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -158,8 +166,11 @@ function CustomerOrderViewDetail() {
 
   return (
     <>
-      <CommonNavbar />
+      {/* <CommonNavbar /> */}
       <div className="order-customer-container">
+        <button onClick={handleBackClick}>
+          <IoArrowBackCircle fontSize="44" />
+        </button>
         <center>
           <h1 className="order-customer-main-heading">Customer Orders</h1>
         </center>
