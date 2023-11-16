@@ -38,10 +38,13 @@ function OrderViewDetail() {
     weight: "g",
   });
   const token = sessionStorage.getItem("token");
+  
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/getAdminOrderDetails/${id}`,
+        `${FETCH_URL}etAdminOrderDetails/${id}`,
         {
           method: "GET",
           headers: {
@@ -143,7 +146,7 @@ function OrderViewDetail() {
 
     // Add any other fields you want to update
 
-    fetch(`http://localhost:3009/api/v1/updateOrderDetails/${id}`, {
+    fetch(`${FETCH_URL}updateOrderDetails/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -162,9 +165,11 @@ function OrderViewDetail() {
       });
   };
 
+  const PDF_URL = process.env.REACT_APP_PDF_URL
+
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
-      window.open(`http://localhost:3009/${fileURL}`, "_blank");
+      window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
 

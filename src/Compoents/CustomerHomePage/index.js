@@ -41,11 +41,13 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
     setCurrentPage(pageNumber);
   };
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
   const fetchProducts = async () => {
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/customerorderlist/${5}`,
+        `${FETCH_URL}customerorderlist/${5}`,
         // Replace with your API endpoint
         {
           method: "GET",
