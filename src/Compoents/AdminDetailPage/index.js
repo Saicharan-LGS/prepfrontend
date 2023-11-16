@@ -125,10 +125,11 @@ function OrderViewDetail(props) {
   };
 
   const handleSubmit = (e) => {
-    const length1= dimensions.length + selectedUnits.length;
-    const width1= dimensions.width + selectedUnits.width;
-    const height1= dimensions.height + selectedUnits.height;
-    const weight1= dimensions.weight + selectedUnits.weight;
+
+    const length1= length!=="" ? dimensions.length + selectedUnits.length : "";
+    const width1= width!=="" ? dimensions.width + selectedUnits.width: "";
+    const height1= height!=="" ? dimensions.height + selectedUnits.height: "";
+    const weight1= weight!=="" ? dimensions.weight + selectedUnits.weight:"";
     const formDataToSend = new FormData();
     
     formDataToSend.append("date", date || "");

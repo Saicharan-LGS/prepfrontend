@@ -53,6 +53,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log(data)
         setFormData({
           ...formData,
           date: data.date,
@@ -76,7 +77,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           amount: data.amount,
           status: data.status,
           instructions:data.instructions,
-          // ... other fields you want to update
         });
       } else {
       }
@@ -170,7 +170,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
   return (
     <>
-      {/* <CommonNavbar /> */}
       <div className="order-customer-container">
         <button onClick={handleBackClick}>
           <IoArrowBackCircle fontSize="44" />
