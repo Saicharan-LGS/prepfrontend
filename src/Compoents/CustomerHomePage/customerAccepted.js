@@ -16,7 +16,6 @@ function CustomerAccepted({ openDetailPage }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    // Filter products based on orderId
     const filtered = products.filter((product) => {
       return product.id.toString().includes(orderId);
     });
@@ -65,31 +64,17 @@ function CustomerAccepted({ openDetailPage }) {
           setTimeout(() => {
             setLoading(false);
           }, 3000);
+          
         }
       } catch (error) {
         setTimeout(() => {
           setLoading(false);
-        }, 3000);
+        }, 1000);
       }
     };
     fetchProducts();
   }, []);
 
-  // const openDetailPage = (id) => {
-  //   console.log("called");
-  //   console.log("Clicked on item with id:", id);
-  //   // console.log(`/adminViewDetail/${e.target.id}`)
-
-  //   if (id) {
-  //     navigate(`/CustomerOrderViewDetail/${id}`);
-  //   } else {
-  //     console.error("Invalid id:", id);
-  //   }
-  // };
-
-  // const refreshpage=()=>{
-  //   window.location.reload()
-  // }
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length

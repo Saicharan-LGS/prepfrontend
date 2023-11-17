@@ -63,24 +63,20 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       } else {
         setTimeout(() => {
           setLoading(false);
-          setProducts("");
+          setProducts([]);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
-        setProducts("");
+        setProducts([]);
       }, 3000);
     }
   };
   useEffect(() => {
     fetchProducts();
   }, []);
-  console.log(products);
 
-  // const refreshpage=()=>{
-  //   window.location.reload()
-  // }
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length

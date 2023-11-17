@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
+import { IoArrowBackCircle } from "react-icons/io5";
 import Toast from "../utlis/toast";
-import CommonNavbar from "../CommonNavbar";
-function OrderViewDetail(props) {
-  const id= props.orderId
+function OrderViewDetail({orderId,setStatus}) {
+  const id = orderId;
   const [formData, setFormData] = useState({
     date: "",
     name: "",
@@ -21,15 +21,15 @@ function OrderViewDetail(props) {
     fnskuButton: "",
     labelButton: "",
     amount: null,
-    instructions:""
+    instructions: "",
   });
 
   // Define separate state for dimensions and selected units
   const [dimensions, setDimensions] = useState({
-    length: null,
-    width: null,
-    height: null,
-    weight: null,
+    length: "",
+    width: "",
+    height: "",
+    weight: "",
   });
   const [selectedUnits, setSelectedUnits] = useState({
     length: "cm",
@@ -38,23 +38,20 @@ function OrderViewDetail(props) {
     weight: "g",
   });
   const token = sessionStorage.getItem("token");
-  
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        `${FETCH_URL}etAdminOrderDetails/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
+
         // Split the dimensions into value and unit
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -76,25 +73,36 @@ function OrderViewDetail(props) {
           label_status: data.label_status,
           fnskuSend: null,
           labelSend: null,
-          length: data.length,
-          width: data.width,
-          height: data.height,
-          weight: data.weight,
           amount: data.amount,
           status: data.status,
-          instructions:data.instructions
-
-          // ... other fields you want to update
+          instructions: data.instructions,
         });
 
         // Set dimensions only if they are not null
-        setDimensions({
-          length: lengthParts ? parseFloat(lengthParts[1]) : null,
-          width: widthParts ? parseFloat(widthParts[1]) : null,
-          height: heightParts ? parseFloat(heightParts[1]) : null,
-          weight: weightParts ? parseFloat(weightParts[1]) : null,
-        });
+        // setDimensions({
+        //   length: lengthParts ? parseFloat(lengthParts[1]) : null,
+        //   width: widthParts ? parseFloat(widthParts[1]) : null,
+        //   height: heightParts ? parseFloat(heightParts[1]) : null,
+        //   weight: weightParts ? parseFloat(weightParts[1]) : null,
+        // });
+        const newDimensions = {};
 
+        if (lengthParts && lengthParts[1] !== null) {
+          newDimensions.length = parseFloat(lengthParts[1]);
+        }
+
+        if (widthParts && widthParts[1] !== null) {
+          newDimensions.width = parseFloat(widthParts[1]);
+        }
+
+        if (heightParts && heightParts[1] !== null) {
+          newDimensions.height = parseFloat(heightParts[1]);
+        }
+
+        if (weightParts && weightParts[1] !== null) {
+          newDimensions.weight = parseFloat(weightParts[1]);
+        }
+        setDimensions(newDimensions);
         // Set selected units
         setSelectedUnits({
           length: lengthParts ? lengthParts[2] : "cm",
@@ -104,8 +112,7 @@ function OrderViewDetail(props) {
         });
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -128,13 +135,15 @@ function OrderViewDetail(props) {
   };
 
   const handleSubmit = (e) => {
-
-    const length1= length!=="" ? dimensions.length + selectedUnits.length : "";
-    const width1= width!=="" ? dimensions.width + selectedUnits.width: "";
-    const height1= height!=="" ? dimensions.height + selectedUnits.height: "";
-    const weight1= weight!=="" ? dimensions.weight + selectedUnits.weight:"";
+    const length1 =
+      length !== undefined ? dimensions.length + selectedUnits.length : "";
+    const width1 =
+      width !== undefined ? dimensions.width + selectedUnits.width : "";
+    const height1 =
+      height !== undefined ? dimensions.height + selectedUnits.height : "";
+    const weight1 =
+      weight !== undefined ? dimensions.weight + selectedUnits.weight : "";
     const formDataToSend = new FormData();
-    
     formDataToSend.append("date", date || "");
     formDataToSend.append("name", name || "");
     formDataToSend.append("service", service);
@@ -149,9 +158,7 @@ function OrderViewDetail(props) {
     formDataToSend.append("height", height1);
     formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
-    formDataToSend.append("instructions",instructions);
-    // Add any other fields you want to update
-
+    formDataToSend.append("instructions", instructions);
     fetch(`${FETCH_URL}updateOrderDetails/${id}`, {
       method: "PUT",
       headers: {
@@ -167,11 +174,10 @@ function OrderViewDetail(props) {
         });
         fetchData();
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   };
 
-  const PDF_URL = process.env.REACT_APP_PDF_URL
+  const PDF_URL = process.env.REACT_APP_PDF_URL;
 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
@@ -194,7 +200,7 @@ function OrderViewDetail(props) {
     label_status,
     status,
     amount,
-    instructions
+    instructions,
   } = formData;
 
   const { length, width, height, weight } = dimensions;
@@ -226,9 +232,21 @@ function OrderViewDetail(props) {
       [dimension]: newValue,
     });
   };
+
+  const handleBackClick = () => {
+    const prevStatus = localStorage.getItem("prevStatus");
+    setStatus(prevStatus);
+    localStorage.setItem("status", prevStatus);
+  };
   return (
     <>
       <div className="order-customer-container">
+        <button
+          className="order-customer-backward-button"
+          onClick={handleBackClick}
+        >
+          <IoArrowBackCircle className="order-customer-backward-icon" />
+        </button>
         <center>
           <h1 className="order-customer-main-heading">Order</h1>
         </center>

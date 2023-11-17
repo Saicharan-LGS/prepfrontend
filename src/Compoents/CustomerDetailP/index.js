@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
-import CommonNavbar from "../CommonNavbar";
 function CustomerOrderViewDetail({ orderId, setStatus }) {
-  const { id } = useParams();
+ 
   const [formData, setFormData] = useState({
     date: "",
     name: "",
@@ -57,7 +56,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
         setFormData({
           ...formData,
           date: data.date,
@@ -89,11 +87,10 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   };
   useEffect(() => {
     fetchData();
-  }, [id]);
+  }, [orderId]);
 
   const handleBackClick = () => {
     const prevStatus = localStorage.getItem("prevStatus");
-    console.log(prevStatus, "bye");
     setStatus(prevStatus);
     localStorage.setItem("status", prevStatus);
   };
@@ -128,7 +125,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("orderId",orderId)
     // Add any other fields you want to update
 
-    fetch(`${FETCH_URL}customerOrderDetail/${id}`, {
+    fetch(`${FETCH_URL}customerOrderDetail/${orderId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`, // Set the Content-Type to JSON

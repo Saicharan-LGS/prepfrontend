@@ -76,7 +76,6 @@ function CustomerRejected({ openDetailPage }) {
     };
     fetchProducts();
   }, []);
-  console.log(products);
 
   // const refreshpage=()=>{
   //   window.location.reload()

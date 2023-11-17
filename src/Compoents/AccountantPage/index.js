@@ -58,7 +58,6 @@ function AccountOrders({openDetailPageComponent}) {
   }, []);
   const openDetailPage = (productId) => {
     if (role==="Admin"){
-      console.log("called");
       openDetailPageComponent(productId)
     }else{
     navigate(`/viewDetailedorder/${productId}`);

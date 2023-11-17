@@ -22,14 +22,12 @@ function Navbar() {
   const showSidebar = () => setSidebar(!sidebar);
   const [prevStatus, setPrevStatus] = useState(null);
 
-  console.log(status, "admin");
   const handleSidebarItemClick = async (id) => {
     setPrevStatus(status);
     await setSidebar(false);
     await setStatus(id);
   };
   useEffect(() => {
-    console.log(status, "Admin staus");
     handleSidebarItemClick(status);
     localStorage.setItem("status", status);
     localStorage.setItem("prevStatus", prevStatus);
@@ -46,9 +44,6 @@ function Navbar() {
     navigate("/");
   };
   const openDetailPageComponent = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
     if (id) {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
@@ -57,14 +52,12 @@ function Navbar() {
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
-      console.error("Invalid id:", id);
     }
   };
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
 
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
-console.log(status,"lll")
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -123,7 +116,7 @@ console.log(status,"lll")
          ): parseInt(status) === 6 ? (
           <AccountOrders openDetailPageComponent={openDetailPageComponent} />
         ) : (
-          <OrderViewDetail orderId={orderId}/>
+          <OrderViewDetail orderId={orderId} setStatus={setStatus}/>
           )}
       </div>
     </div>

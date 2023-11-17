@@ -18,16 +18,12 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [orderId, setOrderId] = useState("");
   // const [status, setStatus] = useState(() => {
   //   const savedStatus = parseInt(localStorage.getItem("status"), 10);
-  //   console.log(savedStatus, "updated");
   //   return isNaN(savedStatus) ? 5 : savedStatus;
   // });
 
 const [status, setStatus]=useState(5)
 
   const [prevStatus, setPrevStatus] = useState(null);
-
-  console.log(status);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   const handleSidebarItemClick = async (id) => {
@@ -39,8 +35,6 @@ const [status, setStatus]=useState(5)
   useEffect(() => {
     fetchTotalAmount();
     handleSidebarItemClick(status);
-    // Update the currentComponent when status changes
-    console.log(status, "called staus");
     // Save status to cookie
     localStorage.setItem("status", status);
     localStorage.setItem("prevStatus", prevStatus);
@@ -61,10 +55,7 @@ const [status, setStatus]=useState(5)
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
 
   const openDetailPage = (id) => {
-    console.log("called");
-    console.log("Clicked on item with id:", id);
-    // console.log(`/adminViewDetail/${e.target.id}`)
-
+ 
     if (id) {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
@@ -72,11 +63,8 @@ const [status, setStatus]=useState(5)
       setStatus(10);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
-    } else {
-      console.error("Invalid id:", id);
-    }
+    } 
   };
-  console.log(status, "sai");
   return (
     <div className="navbar-container">
       {/* <IconContext.Provider value={{ color: "#000" }}> */}
