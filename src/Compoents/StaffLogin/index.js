@@ -62,7 +62,7 @@ const StaffSigninPage = () => {
               navigate("/customernavbar");
 
               if (data.role === "Admin") {
-                navigate("/navbar");
+                navigate("/admin");
               } else if (data.role === "Label") {
                 navigate("/labelOrders");
               } else if (data.role === "Dimension") {
