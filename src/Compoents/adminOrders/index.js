@@ -159,6 +159,7 @@ function ProductList({openDetailPageComponent}) {
                     </p>
                     <DisplayAdminButton
                       id={eachProduct.id}
+                      unit={eachProduct.unit}
                       fetchProducts={fetchProducts}
                     />
                     {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
