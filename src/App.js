@@ -17,6 +17,7 @@ import ProtectedRoute from "./Compoents/ProtectedRoute";
 import CustomerNavbar from "./Compoents/CustomerNavbar";
 import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 import CommonNavbar from "./Compoents/CommonNavbar";
+import DimensionUpdatePage from "./Compoents/DimensionUpdatePage";
 import NotFound from "./Compoents/NotFound";
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
         path="/dimensionupdate/:id"
         element={
           <ProtectedRoute allowedRoles={["Dimension", "Admin"]}>
-            <DimensionsUpdate />
+            <DimensionUpdatePage />
           </ProtectedRoute>
         }
       />

@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import EmptyOrder from "../EmptyOrder";
 import CommonNavbar from "../CommonNavbar";
 import DimensionsUpdate from "../DimensionsUpdate";
+import DimensionUpdatePage from "../DimensionUpdatePage";
 function DimensionOrderList({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -21,6 +23,8 @@ function DimensionOrderList({openDetailPageComponent}) {
     indexOfFirstProduct,
     indexOfLastProduct
   );
+  const [isModalOpen, setModalOpen] = React.useState(false);
+  const [updateId,setUpdateId] = useState('')
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -28,7 +32,9 @@ function DimensionOrderList({openDetailPageComponent}) {
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL
   
-
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const fetchProducts = async () => {
     try {
@@ -66,7 +72,8 @@ function DimensionOrderList({openDetailPageComponent}) {
     .padStart(2, "0")}`;
 
   const dimensionUpadate = (id) => {
-    navigate(`/dimensionupdate/${id}`);
+    setModalOpen(true)
+    setUpdateId(id)
   };
 
   const openDetailPage = (productId) => {
@@ -142,9 +149,10 @@ function DimensionOrderList({openDetailPageComponent}) {
               >
                 Update
               </button> */}
-              <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
+              {/* <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
                 <DimensionsUpdate id={eachProduct.id} fetchProducts={fetchProducts} />
-              </Popup>
+              </Popup> */}
+              <button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>
               <BsFillArrowRightCircleFill
                 id={eachProduct.id}
                 value={eachProduct.id}
@@ -172,6 +180,31 @@ function DimensionOrderList({openDetailPageComponent}) {
       ) : (
         <EmptyOrder />
       )}
+       <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "70%",
+            top: "50%",
+            left: "50%",
+            height: "500px",
+            overflow: "scroll",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <DimensionUpdatePage
+             updateId = {updateId}
+            onClose={handleCloseModal}
+          />
+        </Box>
+      </Modal>
     </div>
     </>
   );

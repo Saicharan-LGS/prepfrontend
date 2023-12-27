@@ -7,6 +7,8 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
     width: "",
     height: "",
     weight: "",
+    itemNo:"",
+    boxBy:"prep"
   });
 
   const [unitOptions] = useState({
@@ -66,14 +68,14 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
       const token = sessionStorage.getItem("token");
 
       const response = await fetch(
-        `${FETCH_URL}dimensionupdate/${id}`,
+        `${FETCH_URL}CreateDimension/${id}`,
         {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dimensionsWithUnits),
+          method: "POST",
+          // headers: {
+          //   Authorization: `Bearer ${token}`,
+          //   "Content-Type": "application/json",
+          // },
+          body: JSON.stringify(dimensionsWithUnits,dimensions.itemNo,dimensions.boxBy),
         }
       );
       if (response.ok) {
@@ -143,6 +145,17 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="dimension-input-container-1">
+           <label className="dimensions-label-text">Quantity</label>
+           <input type="number" placeholder="Enter the quantity" className="dimensions-input"/>
+        </div>
+        <div className="dimension-input-container-1">
+           <label className="dimensions-label-text">boxBy</label>
+           <select className="dimensions-input">
+            <option value="prep">Prep</option>
+            <option value="customer">Customer</option>
+           </select>
         </div>
         <center>
           <button className="dimensions-button" type="submit">
