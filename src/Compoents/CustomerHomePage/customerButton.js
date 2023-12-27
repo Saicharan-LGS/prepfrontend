@@ -1,5 +1,5 @@
 import Toast from "../utlis/toast";
-const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
+const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
   // Set the initial value as a string '1'
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
@@ -10,7 +10,7 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3009/api/v1/declineOrder/${id}`,
+        `${process.env.REACT_APP_FETCH_URL}declineOrder/${id}`,
         {
           method: "PUT",
           headers: {
@@ -24,15 +24,14 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
 
       if (response.ok) {
         fetchProducts();
-        const data= await response.json()
+        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
         });
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleSubmit1 = async () => {
@@ -41,7 +40,7 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
         amount: amount,
       };
       const response = await fetch(
-        `http://localhost:3009/api/v1/acceptOrder/${id}`,
+        `${process.env.REACT_APP_FETCH_URL}acceptOrder/${id}`,
         {
           method: "POST",
           headers: {
@@ -53,17 +52,16 @@ const CustomerButton = ({ id, amount, fetchProducts,fetchTotalAmount }) => {
       );
 
       if (response.ok) {
-        fetchProducts()
-        fetchTotalAmount()
-        const data = await response.json()
+        fetchProducts();
+        fetchTotalAmount();
+        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
-        })
+        });
       } else {
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const onClickDecline = (e) => {

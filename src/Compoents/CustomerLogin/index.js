@@ -37,7 +37,7 @@ const CustomerLogin = () => {
     }
 
     // Define the URL of your server's login endpoint
-    const url = "http://localhost:3009/api/v1/login";
+    const url = `${process.env.REACT_APP_FETCH_URL}login`;
 
     // Create a JSON object with the form data
     const jsonData = {

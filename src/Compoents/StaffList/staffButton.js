@@ -1,5 +1,5 @@
 import Toast from "../utlis/toast";
-const DisplayAdminButton = (props) => {
+const DisplayStaffButton = (props) => {
   const handleSubmit = async (id, status) => {
     // Create an object with the data you want to send
     const requestData = {
@@ -61,4 +61,4 @@ const DisplayAdminButton = (props) => {
   );
 };
 
-export default DisplayAdminButton;
+export default DisplayStaffButton;

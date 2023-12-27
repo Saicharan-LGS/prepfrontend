@@ -22,8 +22,11 @@ function ProductList({openDetailPageComponent}) {
   useEffect(() => {
     // Filter products based on orderId
     const filtered = products.filter((product) => {
-      return product.id.toString().includes(orderId);
-    });
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      return productIdMatch || productNameMatch;
+  });
+
 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
@@ -99,11 +102,11 @@ function ProductList({openDetailPageComponent}) {
             Order List
           </h2>
           <input
-            type="number"
+            type="text"
             name="orderid"
             value={orderId}
             onChange={handleSearch}
-            placeholder="Search by Order ID"
+            placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
           />
@@ -141,14 +144,18 @@ function ProductList({openDetailPageComponent}) {
                       {eachProduct.unit}
                     </p>
                     <p className="admin-order-accepted-order-tracking-sub-category">
-                      <a
-                        href={eachProduct.tracking_url}
-                        rel="noreferrer"
-                        target="_blank"
-                        className="tracking-url"
-                      >
-                        Order Link
-                      </a>
+                      {eachProduct.tracking_url ? (
+                        <a
+                          href={eachProduct.tracking_url}
+                          rel="noreferrer"
+                          target="_blank"
+                          className="tracking-url"
+                        >
+                          Order Link
+                        </a>
+                      ) : (
+                        <p className="tracking_url"> </p>
+                      )}
                     </p>
                     <DisplayAdminButton
                       id={eachProduct.id}

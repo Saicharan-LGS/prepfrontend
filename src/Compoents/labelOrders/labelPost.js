@@ -10,7 +10,7 @@ const LabelPost = ({ id,fetchProducts,setupdatepage }) => {
       };
       const token = sessionStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3009/api/v1/updatelabelorder/${id}`,
+        `${process.env.REACT_APP_FETCH_URL}updatelabelorder/${id}`,
         {
           method: "PUT",
           headers: {

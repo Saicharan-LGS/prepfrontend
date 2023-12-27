@@ -18,7 +18,7 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
       };
       const token = sessionStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3009/api/v1/amountUpdate/${id}`,
+        `${process.env.REACT_APP_FETCH_URL}amountUpdate/${id}`,
         {
           method: "PUT",
           headers: {

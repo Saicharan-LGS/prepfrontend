@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
-import { useNavigate } from "react-router-dom";
 
 const CustomerOrder = ({ history }) => {
   const [date, setDate] = useState("");
@@ -10,14 +9,14 @@ const CustomerOrder = ({ history }) => {
   const [productName, setProductName] = useState("");
   const [units, setUnits] = useState("");
   const [trackingURL, setTrackingURL] = useState("");
-  const [fnskuSend, setFnskuSend] = useState(null);
-  const [labelSend, setLabelSend] = useState(null);
+  const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
+  const [labelSendFiles, setLabelSendFiles] = useState([]);
+
   const [customerId, setCustomerId] = useState("");
   const [instructions, setInstructions] = useState("");
-  const navigate = useNavigate();
+  
 
-
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -41,7 +40,6 @@ const CustomerOrder = ({ history }) => {
         setCustomerId(data.id);
       })
       .catch(() => {});
-
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
@@ -50,7 +48,7 @@ const CustomerOrder = ({ history }) => {
       .toString()
       .padStart(2, "0")}`;
     setDate(formattedDate);
-  }, []);
+  }, [FETCH_URL]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,25 +73,24 @@ const CustomerOrder = ({ history }) => {
         break;
       case "instructions":
         setInstructions(value);
-        break
+        break;
       default:
         break;
     }
   };
 
   const handleFnskuSendChange = (e) => {
-    const file = e.target.files[0];
-    setFnskuSend(file);
+    const files = e.target.files;
+    setFnskuSendFiles([...fnskuSendFiles, ...files]);
   };
 
   const handleLabelSendChange = (e) => {
-    const file = e.target.files[0];
-    setLabelSend(file);
+    const files = e.target.files;
+    setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
-  
-
   const handleSubmit = async (e) => {
+    console.log("submit called");
     e.preventDefault();
     try {
       const token = sessionStorage.getItem("token");
@@ -104,20 +101,29 @@ const CustomerOrder = ({ history }) => {
       formData.append("product", productName);
       formData.append("units", units);
       formData.append("tracking_url", trackingURL);
-      formData.append("fnskuSend", fnskuSend);
-      formData.append("labelSend", labelSend);
+
+      // Append multiple files for fnskuSend
+      fnskuSendFiles.forEach((file, index) => {
+        formData.append(`fnskuSendFiles`, file);
+      });
+
+      labelSendFiles.forEach((file, index) => {
+        formData.append(`labelSendFiles`, file);
+      });
+
       formData.append("customer_id", customerId);
-      formData.append("instructions",instructions)
-      const response = await fetch(
-        `${FETCH_URL }customerorder`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        }
-      );
+      formData.append("instructions", instructions);
+
+      const response = await fetch(`${FETCH_URL}customerorder`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      console.log(response);
+
       if (response.ok) {
         response.json().then((data) => {
           Toast.fire({
@@ -128,10 +134,9 @@ const CustomerOrder = ({ history }) => {
         setProductName("");
         setUnits("");
         setTrackingURL("");
-        setFnskuSend(null);
-        setLabelSend(null);
-        setInstructions("")
-        navigate("/customernavbar");
+        setFnskuSendFiles([]);
+        setLabelSendFiles([]);
+        setInstructions("");
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -140,7 +145,9 @@ const CustomerOrder = ({ history }) => {
           });
         });
       }
-    } catch {}
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -175,16 +182,18 @@ const CustomerOrder = ({ history }) => {
                   value={customerName}
                   onChange={handleChange}
                   required
-                  readOnly
                 />
               </div>
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">FNSKU Send:</label>
+                <label className="order-customer-label-name">
+                  FNSKU ({fnskuSendFiles.length} files selected):
+                </label>
                 <input
                   className="order-customer-lable-container order-customer-label-file"
                   type="file"
                   name="fnskuSend"
                   onChange={handleFnskuSendChange}
+                  multiple
                 />
               </div>
             </div>
@@ -218,12 +227,15 @@ const CustomerOrder = ({ history }) => {
               </div>
 
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">Label Send:</label>
+                <label className="order-customer-label-name">
+                  Label ({labelSendFiles.length} files selected):
+                </label>
                 <input
                   className="order-customer-lable-container order-customer-label-file"
                   type="file"
                   name="labelSend"
                   onChange={handleLabelSendChange}
+                  multiple
                 />
               </div>
             </div>
@@ -249,18 +261,18 @@ const CustomerOrder = ({ history }) => {
                   name="trackingURL"
                   value={trackingURL}
                   onChange={handleChange}
-                  required
                 />
               </div>
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">Instructions:</label>
+                <label className="order-customer-label-name">
+                  Instructions:
+                </label>
                 <input
                   className="order-customer-lable-container"
                   type="text"
                   name="instructions"
                   value={instructions}
                   onChange={handleChange}
-                  required
                 />
               </div>
             </div>

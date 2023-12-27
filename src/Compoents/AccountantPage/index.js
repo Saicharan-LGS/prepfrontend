@@ -184,15 +184,15 @@ function AccountOrders({openDetailPageComponent}) {
                   {eachProduct.unit}
                 </p>
                 <p className="admin-order-accepted-order-tracking-sub-category">
-                  <a
-                    href={eachProduct.tracking_url}
-                    rel="noreferrer"
-                    target="_blank"
-                    className="tracking-url"
-                  >
-                    Order Link
-                  </a>
-                </p>
+                      {eachProduct.tracking_url ? <a
+                        href={eachProduct.tracking_url}
+                        rel="noreferrer"
+                        target="_blank"
+                        className="tracking-url"
+                      >
+                        Order Link
+                      </a> : <p className=""tracking_url> </p> }
+                    </p>
 
                 {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}

@@ -28,9 +28,10 @@ function CustomerAllProducts({ openDetailPage }) {
       7: "Invoice Rejected",
     };
   
-    // Filter products based on orderId and selected filter
     const filtered = products.filter((product) => {
-      const matchesOrderId = product.id.toString().includes(orderId);
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      const matchesOrderId = productIdMatch || productNameMatch;
       const matchesFilter =
         selectedFilter === "" ||
         statusLabels[product.status] === selectedFilter;
@@ -129,11 +130,11 @@ function CustomerAllProducts({ openDetailPage }) {
           </h2>
           <div className="admin-order-accepted-search-filter-input-container">
           <input
-            type="number"
+            type="text"
             name="orderid"
             value={orderId}
             onChange={handleSearch}
-            placeholder="Search by Order ID"
+            placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
           />
@@ -187,14 +188,18 @@ function CustomerAllProducts({ openDetailPage }) {
                       {eachProduct.unit}
                     </p>
                     <p className="admin-order-accepted-order-tracking-sub-category">
-                      <a
-                        href={eachProduct.tracking_url}
-                        rel="noreferrer"
-                        target="_blank"
-                        className="tracking-url"
-                      >
-                        Order Link
-                      </a>
+                      {eachProduct.tracking_url ? (
+                        <a
+                          href={eachProduct.tracking_url}
+                          rel="noreferrer"
+                          target="_blank"
+                          className="tracking-url"
+                        >
+                          Order Link
+                        </a>
+                      ) : (
+                        <p className="tracking_url"> </p>
+                      )}
                     </p>
                     <p className="admin-order-accepted-quantity-sub-category">
                       {statusLabels[eachProduct.status] || "Unknown Status"}

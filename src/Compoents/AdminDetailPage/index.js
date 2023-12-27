@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { IoArrowBackCircle } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
+
+import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
-function OrderViewDetail({orderId,setStatus}) {
+function OrderViewDetail({ orderId, setStatus }) {
   const id = orderId;
   const [formData, setFormData] = useState({
     date: "",
@@ -23,6 +26,8 @@ function OrderViewDetail({orderId,setStatus}) {
     amount: null,
     instructions: "",
   });
+  const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
+  const [labelSendFiles, setLabelSendFiles] = useState([]);
 
   // Define separate state for dimensions and selected units
   const [dimensions, setDimensions] = useState({
@@ -32,16 +37,17 @@ function OrderViewDetail({orderId,setStatus}) {
     weight: "",
   });
   const [selectedUnits, setSelectedUnits] = useState({
-    length: "cm",
-    width: "cm",
-    height: "cm",
-    weight: "g",
+    length: "inches",
+    width: "inches",
+    height: "inches",
+    weight: "lb",
   });
   const token = sessionStorage.getItem("token");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchData = async () => {
+    console.log("called admin fetxh");
     try {
       const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
         method: "GET",
@@ -50,13 +56,24 @@ function OrderViewDetail({orderId,setStatus}) {
         },
       });
       if (response.ok) {
-        const data = await response.json();
-
-        // Split the dimensions into value and unit
+        const data1 = await response.json();
+        console.log(data1, "data saicharan");
+        const data = data1.order;
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
         const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
         const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
+        console.log(data1.files, "called files");
+
+        const fnskuFiles =
+          data1.files.filter((file) => file.type === "fnskuSend") || [];
+
+        const labelFiles =
+          data1.files.filter((file) => file.type === "labelSend") || [];
+
+        console.log(labelFiles, "labelFiles");
+
+        console.log("called sai2 ", data.amount);
 
         setFormData({
           date: data.date,
@@ -65,26 +82,18 @@ function OrderViewDetail({orderId,setStatus}) {
           product: data.product,
           unit: data.unit,
           tracking_url: data.tracking_url,
-          fnskuSend1: data.fnsku,
-          labelSend1: data.label,
           fnskuButton: data.fnsku_status,
           labelButton: data.label_status,
+          fnskuSend1: fnskuFiles,
+          labelSend1: labelFiles,
           fnsku_status: data.fnsku_status,
           label_status: data.label_status,
           fnskuSend: null,
           labelSend: null,
-          amount: data.amount,
+          amount: data.amount === null ? 0 : data.amount,
           status: data.status,
           instructions: data.instructions,
         });
-
-        // Set dimensions only if they are not null
-        // setDimensions({
-        //   length: lengthParts ? parseFloat(lengthParts[1]) : null,
-        //   width: widthParts ? parseFloat(widthParts[1]) : null,
-        //   height: heightParts ? parseFloat(heightParts[1]) : null,
-        //   weight: weightParts ? parseFloat(weightParts[1]) : null,
-        // });
         const newDimensions = {};
 
         if (lengthParts && lengthParts[1] !== null) {
@@ -105,10 +114,10 @@ function OrderViewDetail({orderId,setStatus}) {
         setDimensions(newDimensions);
         // Set selected units
         setSelectedUnits({
-          length: lengthParts ? lengthParts[2] : "cm",
-          width: widthParts ? widthParts[2] : "cm",
-          height: heightParts ? heightParts[2] : "cm",
-          weight: weightParts ? weightParts[2] : "g",
+          length: lengthParts ? lengthParts[2] : "inches",
+          width: widthParts ? widthParts[2] : "inches",
+          height: heightParts ? heightParts[2] : "inches",
+          weight: weightParts ? weightParts[2] : "lb",
         });
       } else {
       }
@@ -117,21 +126,11 @@ function OrderViewDetail({orderId,setStatus}) {
 
   useEffect(() => {
     fetchData();
-  }, [id]);
+  },[]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFnskuFileData = (e) => {
-    const { files } = e.target;
-    setFormData({ ...formData, fnskuSend: files[0] });
-  };
-
-  const handleLabelFileData = async (e) => {
-    const { files } = e.target;
-    setFormData({ ...formData, labelSend: files[0] });
   };
 
   const handleSubmit = (e) => {
@@ -143,15 +142,28 @@ function OrderViewDetail({orderId,setStatus}) {
       height !== undefined ? dimensions.height + selectedUnits.height : "";
     const weight1 =
       weight !== undefined ? dimensions.weight + selectedUnits.weight : "";
+    if (dimensions.length > 25) {
+      alert("Length is greater than 25. Enter a value below 25");
+      return;
+    }
+    if (dimensions.width > 25) {
+      alert("Width is greater than 25. Enter a value below 25");
+      return;
+    }
+    if (dimensions.height > 25) {
+      alert("Height is greater than 25. Enter a value below 25");
+      return;
+    }
     const formDataToSend = new FormData();
+    formDataToSend.append("orderId", orderId);
     formDataToSend.append("date", date || "");
     formDataToSend.append("name", name || "");
     formDataToSend.append("service", service);
     formDataToSend.append("product", product || "");
     formDataToSend.append("unit", unit || "");
     formDataToSend.append("tracking_url", tracking_url || "");
-    formDataToSend.append("fnskuSend", fnskuSend);
-    formDataToSend.append("labelSend", labelSend);
+    // formDataToSend.append("fnskuSend", fnskuSend);
+    // formDataToSend.append("labelSend", labelSend);
     formDataToSend.append("length", length1);
     formDataToSend.append("width", width1);
     formDataToSend.append("weight", weight1);
@@ -159,6 +171,15 @@ function OrderViewDetail({orderId,setStatus}) {
     formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
+
+    fnskuSendFiles.forEach((file, index) => {
+      formDataToSend.append(`fnskuSendFiles`, file);
+    });
+
+    labelSendFiles.forEach((file, index) => {
+      formDataToSend.append(`labelSendFiles`, file);
+    });
+
     fetch(`${FETCH_URL}updateOrderDetails/${id}`, {
       method: "PUT",
       headers: {
@@ -173,6 +194,8 @@ function OrderViewDetail({orderId,setStatus}) {
           title: data.message,
         });
         fetchData();
+        setFnskuSendFiles([]);
+        setLabelSendFiles([]);
       })
       .catch((error) => {});
   };
@@ -185,6 +208,16 @@ function OrderViewDetail({orderId,setStatus}) {
     }
   };
 
+  const handleFnskuSendChange = (e) => {
+    const files = e.target.files;
+    setFnskuSendFiles([...fnskuSendFiles, ...files]);
+  };
+
+  const handleLabelSendChange = (e) => {
+    const files = e.target.files;
+    setLabelSendFiles([...labelSendFiles, ...files]);
+  };
+
   const {
     date,
     name,
@@ -192,17 +225,13 @@ function OrderViewDetail({orderId,setStatus}) {
     product,
     unit,
     tracking_url,
-    fnskuSend,
-    labelSend,
     fnskuSend1,
     labelSend1,
-    fnsku_status,
-    label_status,
     status,
     amount,
     instructions,
   } = formData;
-
+  console.log(formData);
   const { length, width, height, weight } = dimensions;
 
   const unitOptions = {
@@ -233,11 +262,46 @@ function OrderViewDetail({orderId,setStatus}) {
     });
   };
 
+  const onClickDeleteFile = async (e, fileId) => {
+    e.preventDefault();
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this file?"
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
+    console.log(fileId);
+    try {
+      const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body:{
+          orderId:id
+        }
+      });
+
+      if (response.ok) {
+        // File deleted successfully
+        fetchData(); // Update your component state or UI as needed
+      } else {
+        const errorData = await response.json();
+        console.error("Error deleting file:", errorData);
+      }
+    } catch (error) {
+      console.error("Error deleting file:", error);
+    }
+  };
+
   const handleBackClick = () => {
     const prevStatus = localStorage.getItem("prevStatus");
     setStatus(prevStatus);
     localStorage.setItem("status", prevStatus);
   };
+
+  console.log(formData.labelSend1);
   return (
     <>
       <div className="order-customer-container">
@@ -267,13 +331,11 @@ function OrderViewDetail({orderId,setStatus}) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name"> Name:</label>
               <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
+                className="order-customer-lable-container"
                 type="text"
                 name="Name"
                 value={name}
                 onChange={handleChange}
-                required
-                readOnly
               />
             </div>
             {["length", "width", "height", "weight"].map((dimension) => (
@@ -328,44 +390,28 @@ function OrderViewDetail({orderId,setStatus}) {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">FNSKU Send:</label>
+              <label className="order-customer-label-name">
+                FNSKU ({fnskuSendFiles.length} files selected):
+              </label>
               <input
                 className="order-customer-lable-container order-customer-label-file"
                 type="file"
                 name="fnskuSend"
-                onChange={handleFnskuFileData}
+                onChange={handleFnskuSendChange}
+                multiple
               />
-              {fnsku_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(fnskuSend1)}
-                  disabled={fnskuSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View FNSKU File
-                </button>
-              )}
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-                Box Label Send:
+                Label ({labelSendFiles.length} files selected) :
               </label>
               <input
                 className="order-customer-lable-container order-customer-label-file"
                 type="file"
                 name="labelSend"
-                onChange={handleLabelFileData}
+                onChange={handleLabelSendChange}
+                multiple
               />
-              {label_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(labelSend1)}
-                  disabled={labelSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View Box Label File
-                </button>
-              )}
             </div>
           </div>
           <div className="order-customer-field3-container">
@@ -449,6 +495,46 @@ function OrderViewDetail({orderId,setStatus}) {
           </div>*/}
           </div>
         </form>
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Fnsku Files
+        </p>
+        {fnskuSend1 && (
+          <div style={{ display: "flex",flexWrap:"wrap", marginLeft: "30px" }}>
+            {fnskuSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <AiOutlineFilePdf
+                  key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+                <MdDeleteOutline
+                  key={each}
+                  onClick={(e) => onClickDeleteFile(e, each.id)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Label Files
+        </p>
+        {labelSend1 && (
+          <div style={{ display: "flex",flexWrap:"wrap", marginLeft: "30px" }}>
+            {labelSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <AiOutlineFilePdf
+                  key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+                <MdDeleteOutline
+                  key={each}
+                  onClick={(e) => onClickDeleteFile(e, each.id)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
         <center>
           <button
             onClick={handleSubmit}

@@ -7,7 +7,7 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import Spinner from "../Spinner";
 
-function ViewAllOrders() {
+function ViewAllOrders({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -32,7 +32,10 @@ function ViewAllOrders() {
   
     // Filter products based on orderId and selected filter
     const filtered = products.filter((product) => {
-      const matchesOrderId = product.id.toString().includes(orderId);
+        const productIdMatch = product.id.toString().includes(orderId);
+        const productNameMatch = product.name.toLowerCase().includes(orderId);
+        const matchesOrderId= productIdMatch || productNameMatch;
+   
       const matchesFilter =
         selectedFilter === "" ||
         statusLabels[product.status] === selectedFilter;
@@ -135,11 +138,11 @@ function ViewAllOrders() {
           </h2>
           <div className="admin-order-accepted-search-filter-input-container">
           <input
-            type="number"
+            type="text"
             name="orderid"
             value={orderId}
             onChange={handleSearch}
-            placeholder="Search by Order ID"
+            placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
           />
@@ -193,14 +196,14 @@ function ViewAllOrders() {
                       {eachProduct.unit}
                     </p>
                     <p className="admin-order-accepted-order-tracking-sub-category">
-                      <a
+                      {eachProduct.tracking_url ? <a
                         href={eachProduct.tracking_url}
                         rel="noreferrer"
                         target="_blank"
                         className="tracking-url"
                       >
                         Order Link
-                      </a>
+                      </a> : <p className=""tracking_url> </p> }
                     </p>
                     <p className="admin-order-accepted-quantity-sub-category">
                       {statusLabels[eachProduct.status] || "Unknown Status"}
@@ -211,7 +214,7 @@ function ViewAllOrders() {
                     <BsFillArrowRightCircleFill
                       id={eachProduct.id}
                       value={eachProduct.id}
-                      onClick={(e) => openDetailPage(e, eachProduct.id)}
+                      onClick={() => openDetailPageComponent( eachProduct.id)}
                       className="admin-order-accepted-view-in-detail-sub-category"
                     />
                   </div>

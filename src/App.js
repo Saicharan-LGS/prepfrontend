@@ -29,7 +29,7 @@ function App() {
     if (!token) {
       return;
     }
-    fetch(`http://localhost:3009/api/v1/getAmount`, {
+    fetch(`${process.env.REACT_APP_FETCH_URL}getAmount`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

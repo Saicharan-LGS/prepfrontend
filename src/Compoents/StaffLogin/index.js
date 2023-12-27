@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import React Router
 import "./index.css";
@@ -12,7 +10,7 @@ const StaffSigninPage = () => {
     password: "",
   });
 
-  const [staff,setStaff] = useState(true)
+  const [staff, setStaff] = useState(true);
 
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history
@@ -22,7 +20,7 @@ const StaffSigninPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,8 +79,12 @@ const StaffSigninPage = () => {
             });
           });
         } else {
-          // Handle other status codes or error messages
-          setError("Login failed");
+          response.json().then((data) => {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+          });
         }
       })
       .catch((error) => {
@@ -91,69 +93,86 @@ const StaffSigninPage = () => {
   };
 
   const onClickCustomer = () => {
-    setStaff(false)
+    setStaff(false);
   };
-  const onClickStaff=()=>{
-    setStaff(true)
-  }
+  const onClickStaff = () => {
+    setStaff(true);
+  };
 
-  const activeStaffButton = staff ? `signin-staff-button`:`signin-customer-button`
-  const activeCustomerButton = staff?`signin-customer-button`:`signin-staff-button`
+  const activeStaffButton = staff
+    ? `signin-staff-button`
+    : `signin-customer-button`;
+  const activeCustomerButton = staff
+    ? `signin-customer-button`
+    : `signin-staff-button`;
 
   return (
     <>
-    <div className="signin-div-container">
-      <div className="login-image-container">
-        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
-      </div>
-      <div className="signin-form-main-container">
-        <div className="signin-staff-customer-button-container">
-          <button className={activeStaffButton} onClick={onClickStaff}>Staff Signin</button>
-          <button className={activeCustomerButton} onClick={onClickCustomer}>
-            Customer Signin
-          </button>
+      <div className="signin-div-container">
+        <div className="login-image-container">
+          <img
+            src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+            className="Login-image"
+            alt=""
+          />
         </div>
-      {staff ?(    
-        <>
-          <center>
-          <h2 className="signin-form-heading-container">Staff Login</h2>
-        </center>
-
-        <form onSubmit={handleSubmit} className="signin-form-container">
-          <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Email:</label>
-            <input
-              type="email"
-              name="email"
-              className="signin-input-text"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Password:</label>
-            <input
-              type="password"
-              name="password"
-              className="signin-input-text"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <center>
-            <button className="signin-form-button-container" type="submit">
-              Sign In
+        <div className="signin-form-main-container">
+          <div className="signin-staff-customer-button-container">
+            <button className={activeStaffButton} onClick={onClickStaff}>
+              Staff Signin
             </button>
-            {error && <p className="error-message">{error}</p>}{" "}
-            {/* Display error message */}
-          </center>
-        </form>
-        </>
-      ): <CustomerLogin />}
+            <button className={activeCustomerButton} onClick={onClickCustomer}>
+              Customer Signin
+            </button>
+          </div>
+          {staff ? (
+            <>
+              <center>
+                <h2 className="signin-form-heading-container">Staff Login</h2>
+              </center>
+
+              <form onSubmit={handleSubmit} className="signin-form-container">
+                <div className="signin-form-group-container">
+                  <label className="signin-form-label-container">Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    className="signin-input-text"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <div className="signin-form-group-container">
+                  <label className="signin-form-label-container">
+                    Password:
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    className="signin-input-text"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+                <center>
+                  <button
+                    className="signin-form-button-container"
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                  {error && <p className="error-message">{error}</p>}{" "}
+                  {/* Display error message */}
+                </center>
+              </form>
+            </>
+          ) : (
+            <CustomerLogin />
+          )}
+        </div>
       </div>
-    </div>
     </>
   );
 };

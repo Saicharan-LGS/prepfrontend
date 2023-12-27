@@ -48,7 +48,7 @@ const Customersignup = () => {
     };
 
     // Send the POST request using the fetch API
-    fetch("http://localhost:3009/api/v1/registration", requestOptions)
+    fetch(`${process.env.REACT_APP_FETCH_URL}registration`, requestOptions)
       .then((response) => {
         if (response.status === 201) {
           response.json().then((data) => {
@@ -56,13 +56,27 @@ const Customersignup = () => {
               icon: "success",
               title: data.message,
             });
+            setFormData({
+              name: "",
+              email: "",
+              password: "",
+            });
           });
         } else {
-          throw new Error(`Failed with status: ${response.status}`);
+          response.json().then((data) => {
+            Toast.fire({
+              icon: "error",
+              title: data.message,
+            });
+            setFormData({
+              name: "",
+              email: "",
+              password: "",
+            });
+          });
         }
       })
-      .then((data) => {
-      })
+      .then((data) => {})
       .catch(() => {
         setBackendError("An error occurred while processing your request.");
       });

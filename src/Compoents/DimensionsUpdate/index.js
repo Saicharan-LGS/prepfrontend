@@ -17,10 +17,10 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
   });
 
   const [selectedUnits, setSelectedUnits] = useState({
-    length: "cm",
-    width: "cm",
-    height: "cm",
-    weight: "g",
+    length: "inches",
+    width: "inches",
+    height: "inches",
+    weight: "lb",
   });
 
   const handleInputChange = (e) => {
@@ -44,7 +44,18 @@ const DimensionsUpdate = ({ id, fetchProducts }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (dimensions.length > 25) {
+      alert("Length is greater than 25. Enter a value below 25");
+      return;
+    }
+    if (dimensions.width > 25) {
+      alert("Width is greater than 25. Enter a value below 25");
+      return;
+    }
+    if (dimensions.height > 25) {
+      alert("Height is greater than 25. Enter a value below 25");
+      return;
+    }
     try {
       const dimensionsWithUnits = {
         length: dimensions.length + selectedUnits.length,

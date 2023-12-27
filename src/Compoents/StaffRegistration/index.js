@@ -50,7 +50,7 @@ const StaffSignupPage = () => {
 
     if (isValid) {
       // Define the URL of your server's registration endpoint
-      const url = "http://localhost:3009/api/v1/staffregistration";
+      const url = `${process.env.REACT_APP_FETCH_URL}staffregistration`;
 
       // Create a JSON object with the form data
       const jsonData = {
@@ -77,6 +77,12 @@ const StaffSignupPage = () => {
                 icon: "success",
                 title: data.message,
               });
+              setFormData({
+                name: "",
+                email: "",
+                password: "",
+                role: "Admin",
+              });
             });
             // Navigate to the signin page
           } else {
@@ -85,11 +91,22 @@ const StaffSignupPage = () => {
                 icon: "error",
                 title: data.message,
               });
+              setFormData({
+                name: "",
+                email: "",
+                password: "",
+                role: "Admin",
+              });
             });
-    
           }
         })
         .catch(() => {
+          setFormData({
+            name: "",
+            email: "",
+            password: "",
+            role: "Admin",
+          });
         });
     }
   };

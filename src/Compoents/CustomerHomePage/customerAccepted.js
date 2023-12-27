@@ -17,8 +17,11 @@ function CustomerAccepted({ openDetailPage }) {
 
   useEffect(() => {
     const filtered = products.filter((product) => {
-      return product.id.toString().includes(orderId);
-    });
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      return productIdMatch || productNameMatch;
+  });
+
 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
@@ -93,11 +96,11 @@ function CustomerAccepted({ openDetailPage }) {
         Invoice Accepted Order List
       </h2>
       <input
-            type="number"
+            type="text"
             name="orderid"
             value={orderId}
             onChange={handleSearch}
-            placeholder="Search by Order ID"
+            placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
           />
@@ -133,18 +136,19 @@ function CustomerAccepted({ openDetailPage }) {
                   {eachProduct.unit}
                 </p>
                 <p className="admin-order-accepted-order-tracking-sub-category">
-                  <a
-                    href={eachProduct.tracking_url}
-                    rel="noreferrer"
-                    target="_blank"
-                    className="tracking-url"
-                  >
-                    Order Link
-                  </a>
-                </p>
-                {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                    <p className="admin-order-accepted-fnsku-sub-category">
+                      {eachProduct.tracking_url ? (
+                        <a
+                          href={eachProduct.tracking_url}
+                          rel="noreferrer"
+                          target="_blank"
+                          className="tracking-url"
+                        >
+                          Order Link
+                        </a>
+                      ) : (
+                        <p className="tracking_url"> </p>
+                      )}
+                    </p> <p className="admin-order-accepted-fnsku-sub-category">
                       {eachProduct.amount}
                     </p>
 

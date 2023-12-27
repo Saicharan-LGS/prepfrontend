@@ -1,7 +1,7 @@
 .order-customer-container{
   border-radius: 10px;
   padding:20px;
-  width:100%;
+  width:90%;
   height:90vh;
   background-color: #fff;
 }
@@ -115,4 +115,8 @@
   .order-customer-field3-container{
     width:80%;
   }
+}
+
+#file-input{
+  display: none;
 }

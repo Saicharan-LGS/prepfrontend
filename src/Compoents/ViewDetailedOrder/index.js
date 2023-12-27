@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import { useParams } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
+import { AiOutlineFilePdf } from "react-icons/ai";
 function ViewDetailedOrder() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -25,28 +26,38 @@ function ViewDetailedOrder() {
     height: "",
     width: "",
     weight: "",
-    instructions:""
+    instructions: "",
   });
   const token = sessionStorage.getItem("token");
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
-  const PDF_URL = process.env.REACT_APP_PDF_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const PDF_URL = process.env.REACT_APP_PDF_URL;
 
   useEffect(() => {
     // Fetch data using the id passed as a prop
     async function fetchData() {
       try {
-        const response = await fetch(
-          `${FETCH_URL}getAdminOrderDetails/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: ` Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: ` Bearer ${token}`,
+          },
+        });
         if (response.ok) {
-          const data = await response.json();
+          const data1 = await response.json();
+          console.log(data1, "data saicharan");
+          const data = data1.order;
+
+          const fnskuFiles =
+            data1.files.filter((file) => file.type === "fnskuSend") || [];
+
+          const labelFiles =
+            data1.files.filter((file) => file.type === "labelSend") || [];
+
+          console.log(labelFiles, "labelFiles");
+
+          console.log("called sai2");
+
           setFormData({
             ...formData,
             date: data.date,
@@ -55,8 +66,9 @@ function ViewDetailedOrder() {
             productName: data.product,
             units: data.unit,
             trackingURL: data.tracking_url,
-            fnskuSend1: data.fnsku,
-            labelSend1: data.label,
+            fnskuSend1: fnskuFiles,
+            labelSend1: labelFiles,
+
             fnskuButton: data.fnsku_status,
             labelButton: data.label_status,
             fnsku_status: data.fnsku_status,
@@ -68,12 +80,11 @@ function ViewDetailedOrder() {
             width: data.width,
             height: data.height,
             weight: data.weight,
-            instructions:data.instructions
+            instructions: data.instructions,
           });
         } else {
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
 
     fetchData();
@@ -100,7 +111,7 @@ function ViewDetailedOrder() {
     width,
     weight,
     height,
-    instructions
+    instructions,
   } = formData;
 
   return (
@@ -108,7 +119,7 @@ function ViewDetailedOrder() {
       <CommonNavbar />
       <div className="order-customer-container">
         <center>
-          <h1 className="order-customer-main-heading">Customer Orders</h1>
+          <h1 className="order-customer-main-heading"> Order Details</h1>
         </center>
         <form className="order-customer-from-container">
           <div className="order-customer-field1-container">
@@ -228,7 +239,7 @@ function ViewDetailedOrder() {
               name="fnskuSend"
               onChange={handleFnskuFileData}
             /> */}
-              {fnsku_status === 1 && (
+              {/* {fnsku_status === 1 && (
                 <button
                   type="button"
                   onClick={() => openFileInNewTab(fnskuSend1)}
@@ -237,7 +248,7 @@ function ViewDetailedOrder() {
                 >
                   View FNSKU File
                 </button>
-              )}
+              )} */}
             </div>
 
             {/* <div className="order-customer-input-feild-fnsku-status">
@@ -258,7 +269,7 @@ function ViewDetailedOrder() {
               name="labelSend"
               onChange={handleLabelFileData}
             /> */}
-              {label_status === 1 && (
+              {/* {label_status === 1 && (
                 <button
                   type="button"
                   onClick={() => openFileInNewTab(labelSend1)}
@@ -267,7 +278,7 @@ function ViewDetailedOrder() {
                 >
                   View Box Label File
                 </button>
-              )}
+              )} */}
               {/* <div className="order-customer-input-feild-fnsku-status">
               <input
                 className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
@@ -325,6 +336,42 @@ function ViewDetailedOrder() {
             </div>
           </div>
         </form>
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Fnsku Files
+        </p>
+        {fnskuSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {fnskuSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <AiOutlineFilePdf
+                  key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Label Files
+        </p>
+        {labelSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {labelSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <AiOutlineFilePdf
+                  key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

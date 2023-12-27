@@ -12,6 +12,8 @@ import LabelOrders from "../labelOrders";
 import StaffSignupPage from "../StaffRegistration";
 import DimensionOrderList from "../DimensionOrders";
 import OrderViewDetail from "../AdminDetailPage";
+import StaffList from "../StaffList";
+import CustomerList from "../CustomerList";
 
 
 
@@ -115,6 +117,10 @@ function Navbar() {
           <LabelOrders openDetailPageComponent={openDetailPageComponent} />
          ): parseInt(status) === 6 ? (
           <AccountOrders openDetailPageComponent={openDetailPageComponent} />
+        ): parseInt(status) === 7 ? (
+          <StaffList openDetailPageComponent={openDetailPageComponent} />
+        ): parseInt(status) === 8 ? (
+          <CustomerList openDetailPageComponent={openDetailPageComponent} />
         ) : (
           <OrderViewDetail orderId={orderId} setStatus={setStatus}/>
           )}
