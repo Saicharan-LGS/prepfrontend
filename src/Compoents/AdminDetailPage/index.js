@@ -5,6 +5,9 @@ import { MdDeleteOutline } from "react-icons/md";
 
 import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/material";
+import DimensionUpdatePage from "../DimensionUpdatePage";
 function OrderViewDetail({ orderId, setStatus }) {
   const id = orderId;
   const [formData, setFormData] = useState({
@@ -28,6 +31,7 @@ function OrderViewDetail({ orderId, setStatus }) {
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
+  const [isModalOpen, setModalOpen] = React.useState(false);
 
   // Define separate state for dimensions and selected units
   const [dimensions, setDimensions] = useState({
@@ -254,6 +258,11 @@ function OrderViewDetail({ orderId, setStatus }) {
     });
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+
   const handleDimensionsChange = (e, dimension) => {
     const newValue = e.target.value;
     setDimensions({
@@ -301,6 +310,10 @@ function OrderViewDetail({ orderId, setStatus }) {
     localStorage.setItem("status", prevStatus);
   };
 
+  const handleDimensionUpdate=()=>{
+    setModalOpen(true)
+  }
+
   console.log(formData.labelSend1);
   return (
     <>
@@ -338,7 +351,8 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            {["length", "width", "height", "weight"].map((dimension) => (
+            <p className="order-customer-dimension-update-button-container" onClick={handleDimensionUpdate}>Update Dimensions</p>
+            {/* {["length", "width", "height", "weight"].map((dimension) => (
               <div key={dimension} className="dimensions-input-container">
                 <label className="dimensions-label-text">
                   {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
@@ -364,7 +378,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                   </select>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -545,6 +559,31 @@ function OrderViewDetail({ orderId, setStatus }) {
           </button>
         </center>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "70%",
+            top: "50%",
+            left: "50%",
+            height: "500px",
+            overflow: "scroll",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <DimensionUpdatePage
+             updateId = {orderId}
+            onClose={handleCloseModal}
+          />
+        </Box>
+      </Modal>
     </>
   );
 }

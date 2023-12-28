@@ -1,15 +1,20 @@
-import React, { useState,useEffect } from "react";
-import "./index.css";
+import { useState,useEffect } from "react";
+
 import Toast from "../utlis/toast";
-const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
+
+function DimensionDetailPage({dimensionData,fetchData1}) {
+    const id = dimensionData.id
+    console.log(dimensionData, "llllllllllllllllllllllll")
+    
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
     height: "",
     weight: "",
-    itemNo:"",
-    boxBy:"prep"
+    itemNo: "",
+    boxBy: "prep",
   });
+
 
   const [unitOptions] = useState({
     length: ["cm", "inches", "feet", "meters"],
@@ -25,24 +30,47 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
     weight: "lb",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setDimensions({
-      ...dimensions,
-      [name]: value,
-    });
-  };
-
-  const handleUnitChange = (e, dimension) => {
-    const selectedUnit = e.target.value;
-    setSelectedUnits({
-      ...selectedUnits,
-      [dimension]: selectedUnit,
-    });
-  };
-
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const token = sessionStorage.getItem("token");
+
+  const data =dimensionData
+  console.log(data, "kpilraj reddy")
+  useEffect(() => {
+    const lengthParts = (dimensionData.length || "").match(/([\d.]+)([a-zA-Z]+)/);
+    const widthParts = (dimensionData.width || "").match(/([\d.]+)([a-zA-Z]+)/);
+    const heightParts = (dimensionData.height || "").match(/([\d.]+)([a-zA-Z]+)/);
+    const weightParts = (dimensionData.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
+
+    const newDimensions = {};
+
+    if (lengthParts && lengthParts[1] !== null) {
+      newDimensions.length = parseFloat(lengthParts[1]);
+    }
+
+    if (widthParts && widthParts[1] !== null) {
+      newDimensions.width = parseFloat(widthParts[1]);
+    }
+
+    if (heightParts && heightParts[1] !== null) {
+      newDimensions.height = parseFloat(heightParts[1]);
+    }
+
+    if (weightParts && weightParts[1] !== null) {
+      newDimensions.weight = parseFloat(weightParts[1]);
+    }
+    newDimensions.itemNo=dimensionData.itemNo
+    newDimensions.boxBy=dimensionData.boxBy
+
+    setDimensions(newDimensions);
+
+    setSelectedUnits({
+      length: lengthParts ? lengthParts[2] : "inches",
+      width: widthParts ? widthParts[2] : "inches",
+      height: heightParts ? heightParts[2] : "inches",
+      weight: weightParts ? weightParts[2] : "lb",
+    });
+  }, [dimensionData]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,22 +92,20 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
         width: dimensions.width + selectedUnits.width,
         height: dimensions.height + selectedUnits.height,
         weight: dimensions.weight + selectedUnits.weight,
-        itemNo:dimensions.itemNo,
-        boxBy: dimensions.boxBy
       };
-      const token = sessionStorage.getItem("token");
- 
-      const response = await fetch(
-        `${FETCH_URL}CreateDimension/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dimensionsWithUnits),
-        }
-      );
+
+      const response = await fetch(`${FETCH_URL}updateddimensionbyid/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(
+          dimensionsWithUnits,
+          dimensions.itemNo,
+          dimensions.boxBy
+        ),
+      });
       if (response.ok) {
         response.json().then((data) => {
           Toast.fire({
@@ -92,19 +118,16 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
           width: "",
           height: "",
           weight: "",
-          itemNo:"",
-          boxBy:"prep"
         });
- 
+
         setSelectedUnits({
-          length: "inches",
-          width: "inches",
-          height: "inches",
-          weight: "lb",
+          length: "cm",
+          width: "cm",
+          height: "cm",
+          weight: "g",
         });
- 
-        fetchProducts();
         fetchData1()
+
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -112,16 +135,26 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
             title: data.message,
           });
         });
-        fetchProducts();
       }
-    } catch  {
-    }
+    } catch {}
   };
-  const handleBoxBy=(e)=>{
-    setDimensions({...dimensions, boxBy:e.target.value})
-  }
 
- 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setDimensions({
+      ...dimensions,
+      [name]: value,
+    });
+  };
+
+  const handleUnitChange = (e, dimension) => {
+    const selectedUnit = e.target.value;
+    setSelectedUnits({
+      ...selectedUnits,
+      [dimension]: selectedUnit,
+    });
+  };
+
   return (
     <div className="dimensions-main-container">
       <form className="dimensions-form-container" onSubmit={handleSubmit}>
@@ -156,15 +189,20 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
           ))}
         </div>
         <div className="dimension-input-container-1">
-           <label className="dimensions-label-text">Quantity</label>
-           <input type="number" value={dimensions.itemNo} name="itemNo" onChange={handleInputChange} placeholder="Enter the quantity" className="dimensions-input"/>
+          <label className="dimensions-label-text">Quantity</label>
+          <input
+            type="number"
+            placeholder="Enter the quantity"
+            className="dimensions-input"
+            value={dimensions.itemNo}
+          />
         </div>
         <div className="dimension-input-container-1">
-           <label className="dimensions-label-text">boxBy</label>
-           <select className="dimensions-input" value={dimensions.boxBy}  onChange={handleBoxBy} >
+          <label className="dimensions-label-text" >boxBy</label>
+          <select className="dimensions-input" value={dimensions.boxBy}>
             <option value="prep">Prep</option>
             <option value="customer">Customer</option>
-           </select>
+          </select>
         </div>
         <center>
           <button className="dimensions-button" type="submit">
@@ -174,6 +212,5 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
       </form>
     </div>
   );
-};
-
-export default DimensionsUpdate;
+}
+export default DimensionDetailPage;

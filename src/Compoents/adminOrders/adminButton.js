@@ -1,5 +1,11 @@
 import Toast from "../utlis/toast";
+import React from 'react'
+import ReceivedQuantity from "../ReceivedQuantity";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+
 const DisplayAdminButton = (props) => {
+  const [isModalOpen, setModalOpen] = React.useState(false);
   const handleSubmit = async (id, status, unit) => {
     // Create an object with the data you want to send
     const requestData = {
@@ -33,13 +39,19 @@ const DisplayAdminButton = (props) => {
 
   const onClickDecline = (e) => {
     const status = "1";
+    
     handleSubmit(e.target.value, status);
   };
 
   const onClickReceived = (e) => {
+    setModalOpen(true);
     const status = "2"; // Set the status here
-    handleSubmit(e.target.value, status);
   };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
 
   return (
     <>
@@ -57,6 +69,31 @@ const DisplayAdminButton = (props) => {
       >
         Decline
       </button>
+      <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "20%",
+            top: "50%",
+            left: "50%",
+            height: "150px",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <ReceivedQuantity
+            onClose={handleCloseModal}
+            orderId={props.id}
+            unit = {props.unit}
+          />
+        </Box>
+      </Modal>
     </>
   );
 };
@@ -66,52 +103,3 @@ export default DisplayAdminButton;
 
 
 
-// import React, { useState } from 'react';
-
-// const OrderUpdateForm = ({ orderId }) => {
-//   const [status, setStatus] = useState('');
-//   const [quantityReceived, setQuantityReceived] = useState('');
-
-//   const handleUpdate = async () => {
-//     try {
-//       const response = await fetch(`/api/updateOrderQuantity/${orderId}`, {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           status,
-//           quantity_received: quantityReceived,
-//           unit: // provide the unit value here,
-//         }),
-//       });
-
-//       if (response.ok) {
-//         console.log('Order status and quantity_received updated successfully');
-//         // Add any additional logic you want to perform after a successful update
-//       } else {
-//         console.error('Failed to update order status and quantity_received');
-//       }
-//     } catch (error) {
-//       console.error('Error updating order status and quantity_received:', error);
-//     }
-//   };
-
-//   return (
-//     <div>
-//       <label>
-//         Status:
-//         <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} />
-//       </label>
-//       <br />
-//       <label>
-//         Quantity Received:
-//         <input type="text" value={quantityReceived} onChange={(e) => setQuantityReceived(e.target.value)} />
-//       </label>
-//       <br />
-//       <button onClick={handleUpdate}>Update Order</button>
-//     </div>
-//   );
-// };
-
-// export default OrderUpdateForm;
