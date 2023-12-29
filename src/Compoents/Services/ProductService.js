@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Toast from "../utlis/toast";
- 
+import './index.css'
 const ProductService = ({ fetchProductServices }) => {
   const [formData, setFormData] = useState({
     category: "Product",
@@ -56,41 +56,45 @@ const ProductService = ({ fetchProductServices }) => {
   };
  
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="category">Product and Services:</label>
+    <div className="product-service-main-container">
+      <form onSubmit={handleSubmit} className="product-service-form-container">
+        <div className="product-service-input-container">
+          <label htmlFor="category" className="product-service-label-name">Product and Services:</label>
           <select
             id="category"
             name="category"
             value={formData.category}
             onChange={handleChange}
+            className="product-service-input-field"
           >
             <option value="Product">Product</option>
             <option value="Service">Service</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="name">Name:</label>
+        <div className="product-service-input-container">
+          <label htmlFor="name" className="product-service-label-name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
+            className="product-service-input-field"
+            placeholder="Enter Name"
           />
         </div>
-        <div>
-          <label htmlFor="price">Price:</label>
+        <div className="product-service-input-container">
+          <label htmlFor="price" className="product-service-label-name">Price:</label>
           <input
             type="number"
             id="price"
             name="price"
             value={formData.price}
             onChange={handleChange}
+            className="product-service-input-field"
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="service-add-button">Submit</button>
       </form>
     </div>
   );

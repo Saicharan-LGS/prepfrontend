@@ -146,7 +146,7 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
         </div>
         
       </div>
-      <div className="admin-order-accepted-table-container">
+      <div className="admin-order-accepted-table-container-1">
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>

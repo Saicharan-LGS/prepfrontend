@@ -2,7 +2,7 @@
     display:flex;
     flex-direction:column;
     padding:0% 4% 0% 4%;
-    min-height:98vh;
+    min-height:60vh;
 }
 .admin-order-accepted-order-list-heading{
     font-size:28px;
@@ -361,7 +361,17 @@
 .admin-order-accepted-table-container{
     width:100%;
     overflow-x:auto;
-    height:90vh;
+    min-height:80vh;
+}
+.admin-order-accepted-table-container::-webkit-scrollbar{
+    height:1px;
+}
+.admin-order-accepted-table-container-1{
+    width:100%;
+    overflow:auto;
+}
+.admin-order-accepted-table-container-1::-webkit-scrollbar{
+    height:1px;
 }
 @media (max-width:512px){
     .admin-order-accepted-search-filter-input-container{
