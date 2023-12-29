@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
- 
+
 import Modal from "react-modal";
 import ProductService from "./ProductService";
+import Toast from "../utlis/toast";
 const customStyles = {
   content: {
     top: "50%",
@@ -14,18 +15,18 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
   },
 };
- 
+
 Modal.setAppElement("#root");
- 
+
 export const ProductServiceList = () => {
   const subtitleRef = useRef(null);
   const [productServices, setProductServices] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
- 
+
   function openModal() {
     setIsOpen(true);
   }
- 
+
   function afterOpenModal() {
     if (subtitleRef.current) {
       subtitleRef.current.style.color = "#f00";
@@ -34,10 +35,11 @@ export const ProductServiceList = () => {
   function closeModal() {
     setIsOpen(false);
   }
- 
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
- 
+
   const fetchProductServices = async () => {
+    console.log("called");
     try {
       const response = await fetch(`${FETCH_URL}productservicelist`);
       if (!response.ok) {
@@ -50,11 +52,49 @@ export const ProductServiceList = () => {
       // Handle error or display a message to the user
     }
   };
- 
+
   useEffect(() => {
     fetchProductServices();
   }, []);
- 
+
+  const handleToggle = async (id, currentStatus) => {
+    console.log(currentStatus);
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${FETCH_URL}updateServiceStatus/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: !currentStatus }),
+      });
+
+      if (response.ok) {
+        // Handle success, maybe update the local state
+        console.log("User status updated successfully");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+        });
+        fetchProductServices();
+        // You may want to update the local state here if needed
+      } else {
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+        });
+        console.error("Failed to update user status");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div>
       <h2>Product/Service List</h2>
@@ -88,10 +128,13 @@ export const ProductServiceList = () => {
               <td>{service.price}</td>
               <td>{new Date(service.data_time).toLocaleString()}</td>
               <td>
+                {console.log(service.status)}
                 <input
                   type="checkbox"
-                  checked={service.status === 1} // Assuming status value of 1 means checked
-                  disabled={true} // To disable editing, change this as needed
+                  checked={service.status === 1 ? true : false}
+                  onChange={() =>
+                    handleToggle(service.id, service.status === 1)
+                  }
                 />
               </td>
             </tr>

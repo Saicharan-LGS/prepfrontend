@@ -370,9 +370,37 @@ function AccountOrders({ openDetailPageComponent }) {
       ? "pagination-arrow-container disable-previous-next-button"
       : "pagination-arrow-container";
 
-      const generateInvoice=()=>{
-        console.log(selectedIds)
+  const generateInvoice = async () => {
+    console.log(selectedIds);
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${FETCH_URL}generateInvoices`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({selectedIds: selectedIds}),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+        // fetchProducts();
+        console.log(data.orders, "ordersdssssssssssssssssss")
+      } else {
+        const data = await response.json();
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
       }
+    } catch (error) {
+      // Handle error
+    }
+  };
   return (
     <>
       {role === "Accountant" && <CommonNavbar />}
