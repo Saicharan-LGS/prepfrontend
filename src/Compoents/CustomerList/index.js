@@ -5,6 +5,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
+import Toast from "../utlis/toast";
 
 function CustomerList() {
   const [products, setProducts] = useState([]);
@@ -32,10 +33,22 @@ function CustomerList() {
       if (response.ok) {
         // Handle success, maybe update the local state
         console.log("User status updated successfully");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+        });
         fetchProducts();
+
         // You may want to update the local state here if needed
       } else {
-        console.error("Failed to update user status");
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -147,16 +160,15 @@ function CustomerList() {
                       {eachProduct.email}
                     </p>
                     <div className="customer-list-table-row">
-                    <input
-                      type="checkbox"
-                      className="customer-list-table-row-input"
-                      checked={eachProduct.status === 1 ? true : false}
-                      onChange={() =>
-                        handleToggle(eachProduct.id, eachProduct.status === 1)
-                      }
-                    />
+                      <input
+                        type="checkbox"
+                        className="customer-list-table-row-input"
+                        checked={eachProduct.status === 1 ? true : false}
+                        onChange={() =>
+                          handleToggle(eachProduct.id, eachProduct.status === 1)
+                        }
+                      />
                     </div>
-                   
                   </div>
                 );
               })}

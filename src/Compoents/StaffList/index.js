@@ -5,6 +5,7 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
+import Toast from "../utlis/toast";
 
 function StaffList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
@@ -14,31 +15,39 @@ function StaffList({ openDetailPageComponent }) {
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
-  const handleToggle = async (id, currentStatus) => {
-
-    console.log(currentStatus)
+  const handleToggle = async (id, currentStatus, role1) => {
+    console.log(currentStatus);
     try {
       const token = sessionStorage.getItem("token");
-      const response = await fetch(
-        `${FETCH_URL}update-staff-status/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ status: !currentStatus }),
-        }
-      );
+      const response = await fetch(`${FETCH_URL}update-staff-status/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ status: !currentStatus, role: role1 }),
+      });
 
       if (response.ok) {
         // Handle success, maybe update the local state
         console.log("User status updated successfully");
-        fetchProducts()
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.message,
+          });
+        });
+        fetchProducts();
         // You may want to update the local state here if needed
       } else {
+        response.json().then((data) => {
+          Toast.fire({
+            icon: "error",
+            title: data.message,
+          });
+        });
         console.error("Failed to update user status");
       }
     } catch (error) {
@@ -48,9 +57,9 @@ function StaffList({ openDetailPageComponent }) {
 
   useEffect(() => {
     const filtered = products.filter((product) => {
-        const productIdMatch = product.id.toString().includes(orderId);
-        const productNameMatch = product.name.toLowerCase().includes(orderId);
-        return productIdMatch || productNameMatch;
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      return productIdMatch || productNameMatch;
     });
 
     setFilteredProducts(filtered);
@@ -66,7 +75,7 @@ function StaffList({ openDetailPageComponent }) {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  
+
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -129,7 +138,7 @@ function StaffList({ openDetailPageComponent }) {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-category-types">
-            <p className="customer-list-table-row">Customer Id</p>
+            <p className="customer-list-table-row">Staff Id</p>
             <p className="customer-list-table-row">Name</p>
             <p className="customer-list-table-row">Email</p>
             <p className="customer-list-table-row">Status</p>
@@ -151,16 +160,19 @@ function StaffList({ openDetailPageComponent }) {
                       {eachProduct.email}
                     </p>
                     <div className="customer-list-table-row">
-                    <input
-                      type="checkbox"
-                      className="customer-list-table-row-input"
-                      checked={eachProduct.status === 1 ? true : false}
-                      onChange={() =>
-                        handleToggle(eachProduct.id, eachProduct.status === 1)
-                      }
-                    />
+                      <input
+                        type="checkbox"
+                        className="customer-list-table-row-input"
+                        checked={eachProduct.status === 1 ? true : false}
+                        onChange={() =>
+                          handleToggle(
+                            eachProduct.id,
+                            eachProduct.status === 1,
+                            eachProduct.role
+                          )
+                        }
+                      />
                     </div>
-                   
                   </div>
                 );
               })}

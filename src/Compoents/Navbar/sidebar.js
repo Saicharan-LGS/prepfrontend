@@ -17,6 +17,7 @@ import LabelOrders from "../labelOrders";
 import AccountOrders from "../AccountantPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
+import { ProductServiceList } from "../Services";
 export const SidebarData = [
   {
     id: 1,
@@ -81,5 +82,13 @@ export const SidebarData = [
     icon: <RiAccountCircleFill fontSize="25px" />,
     cName: "",
     component: <AccountOrders />,
+  },
+  {
+    id: 9,
+    title: "Product & Services ",
+    path: "/support",
+    icon: <RiAccountCircleFill fontSize="25px" />,
+    cName: "",
+    component: <ProductServiceList />,
   },
 ];

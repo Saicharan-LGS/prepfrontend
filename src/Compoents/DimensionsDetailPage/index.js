@@ -1,11 +1,11 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import Toast from "../utlis/toast";
 
-function DimensionDetailPage({dimensionData,fetchData1}) {
-    const id = dimensionData.id
-    console.log(dimensionData, "llllllllllllllllllllllll")
-    
+function DimensionDetailPage({ dimensionData, fetchData1 }) {
+  const id = dimensionData.id;
+  console.log(dimensionData, "llllllllllllllllllllllll");
+
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -14,7 +14,6 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
     itemNo: "",
     boxBy: "prep",
   });
-
 
   const [unitOptions] = useState({
     length: ["cm", "inches", "feet", "meters"],
@@ -33,13 +32,19 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const token = sessionStorage.getItem("token");
 
-  const data =dimensionData
-  console.log(data, "kpilraj reddy")
+  const data = dimensionData;
+  console.log(data, "kpilraj reddy");
   useEffect(() => {
-    const lengthParts = (dimensionData.length || "").match(/([\d.]+)([a-zA-Z]+)/);
+    const lengthParts = (dimensionData.length || "").match(
+      /([\d.]+)([a-zA-Z]+)/
+    );
     const widthParts = (dimensionData.width || "").match(/([\d.]+)([a-zA-Z]+)/);
-    const heightParts = (dimensionData.height || "").match(/([\d.]+)([a-zA-Z]+)/);
-    const weightParts = (dimensionData.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
+    const heightParts = (dimensionData.height || "").match(
+      /([\d.]+)([a-zA-Z]+)/
+    );
+    const weightParts = (dimensionData.weight || "").match(
+      /([\d.]+)([a-zA-Z]+)/
+    );
 
     const newDimensions = {};
 
@@ -58,8 +63,8 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
     if (weightParts && weightParts[1] !== null) {
       newDimensions.weight = parseFloat(weightParts[1]);
     }
-    newDimensions.itemNo=dimensionData.itemNo
-    newDimensions.boxBy=dimensionData.boxBy
+    newDimensions.itemNo = dimensionData.itemNo;
+    newDimensions.boxBy = dimensionData.boxBy;
 
     setDimensions(newDimensions);
 
@@ -70,7 +75,6 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
       weight: weightParts ? weightParts[2] : "lb",
     });
   }, [dimensionData]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -92,9 +96,11 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
         width: dimensions.width + selectedUnits.width,
         height: dimensions.height + selectedUnits.height,
         weight: dimensions.weight + selectedUnits.weight,
+        itemNo: dimensions.itemNo,
+        boxBy: dimensions.boxBy,
       };
 
-      const response = await fetch(`${FETCH_URL}updateddimensionbyid/${id}`, {
+      const response = await fetch(`${FETCH_URL}updatedimensionbyid/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -102,8 +108,6 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
         },
         body: JSON.stringify(
           dimensionsWithUnits,
-          dimensions.itemNo,
-          dimensions.boxBy
         ),
       });
       if (response.ok) {
@@ -121,13 +125,12 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
         });
 
         setSelectedUnits({
-          length: "cm",
-          width: "cm",
-          height: "cm",
-          weight: "g",
+          length: "inches",
+          width: "inches",
+          height: "inches",
+          weight: "lb",
         });
-        fetchData1()
-
+        fetchData1();
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -198,7 +201,7 @@ function DimensionDetailPage({dimensionData,fetchData1}) {
           />
         </div>
         <div className="dimension-input-container-1">
-          <label className="dimensions-label-text" >boxBy</label>
+          <label className="dimensions-label-text">boxBy</label>
           <select className="dimensions-input" value={dimensions.boxBy}>
             <option value="prep">Prep</option>
             <option value="customer">Customer</option>

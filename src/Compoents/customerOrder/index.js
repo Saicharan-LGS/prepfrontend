@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 
-const CustomerOrder = ({ history }) => {
+const CustomerOrder = () => {
   const [date, setDate] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [servicesReq, setServicesReq] = useState("Prep Service");
@@ -11,10 +11,31 @@ const CustomerOrder = ({ history }) => {
   const [trackingURL, setTrackingURL] = useState("");
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
-
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
   const [customerId, setCustomerId] = useState("");
   const [instructions, setInstructions] = useState("");
-  
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [productQuantities, setProductQuantities] = useState({});
+
+  const getQuantityById = (productId) => {
+    return productQuantities[productId] || "";
+  };
+  const handleQuantityChange = (productId, quantity) => {
+    const updatedQuantities = { ...productQuantities };
+    updatedQuantities[productId] = quantity;
+    setProductQuantities(updatedQuantities);
+  };
+
+  const handleServiceSelection = (e, serviceId) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setSelectedServices([...selectedServices, serviceId]);
+    } else {
+      const updatedServices = selectedServices.filter((id) => id !== serviceId);
+      setSelectedServices(updatedServices);
+    }
+  };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -24,22 +45,64 @@ const CustomerOrder = ({ history }) => {
     fetch(`${FETCH_URL}customerdata`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`, // You should include your authorization token here
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
         if (response.ok) {
-          return response.json(); // Assuming the response is in JSON format
+          return response.json();
         } else {
           throw new Error("Failed to fetch customer data");
         }
       })
       .then((data) => {
-        // Set the customerName in the state based on the response data
         setCustomerName(data.name);
         setCustomerId(data.id);
       })
       .catch(() => {});
+
+    // Fetch products
+    fetch(`${FETCH_URL}getprep-productlist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((productsResponse) => {
+        if (productsResponse.ok) {
+          return productsResponse.json();
+        } else {
+          throw new Error("Failed to fetch products");
+        }
+      })
+      .then((productsData) => {
+        setProducts(productsData.products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+
+    // Fetch services
+    fetch(`${FETCH_URL}getprep-servicelist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((servicesResponse) => {
+        if (servicesResponse.ok) {
+          return servicesResponse.json();
+        } else {
+          throw new Error("Failed to fetch services");
+        }
+      })
+      .then((servicesData) => {
+        setServices(servicesData.services);
+      })
+      .catch((error) => {
+        console.error("Error fetching services:", error);
+      });
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
@@ -89,10 +152,28 @@ const CustomerOrder = ({ history }) => {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
+  
+  const selectedServiceWithQunatity = selectedServices.map(
+    (productId) => ({
+      id: productId,
+      quantity: 1,
+    })
+  );
+  console.log(selectedServices,selectedServiceWithQunatity, "selected services");
+
   const handleSubmit = async (e) => {
-    console.log("submit called");
     e.preventDefault();
+    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
+      (productId) => ({
+        id: productId,
+        quantity: productQuantities[productId],
+      })
+    );
+
+    
     try {
+      console.log(selectedServiceWithQunatity);
+      console.log(selectedProductsWithQuantity);
       const token = sessionStorage.getItem("token");
       const formData = new FormData();
       formData.append("date", date);
@@ -113,7 +194,14 @@ const CustomerOrder = ({ history }) => {
 
       formData.append("customer_id", customerId);
       formData.append("instructions", instructions);
-
+      formData.append(
+        "selectedServices",
+        JSON.stringify(selectedServiceWithQunatity)
+      );
+      formData.append(
+        "selectedProducts",
+        JSON.stringify(selectedProductsWithQuantity)
+      );
       const response = await fetch(`${FETCH_URL}customerorder`, {
         method: "POST",
         headers: {
@@ -274,6 +362,41 @@ const CustomerOrder = ({ history }) => {
                   value={instructions}
                   onChange={handleChange}
                 />
+              </div>
+              <div>
+                <p>Services</p>
+                {services.map((service) => (
+                  <div key={service.id}>
+                    <input
+                      type="checkbox"
+                      id={service.id}
+                      name="selectedServices"
+                      value={service.id}
+                      checked={selectedServices.includes(service.id)}
+                      onChange={(e) => handleServiceSelection(e, service.id)}
+                    />
+                    <label htmlFor={service.id}>{service.name}</label>
+                  </div>
+                ))}
+              </div>
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Products:</label>
+                {products.map((product) => (
+                  <div key={product.id}>
+                    <label htmlFor={`product-${product.id}`}>
+                      {product.name}
+                    </label>
+                    <input
+                      type="number"
+                      id={`product-${product.id}`}
+                      name={`product-${product.id}`}
+                      value={getQuantityById(product.id)}
+                      onChange={(e) =>
+                        handleQuantityChange(product.id, e.target.value)
+                      }
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>

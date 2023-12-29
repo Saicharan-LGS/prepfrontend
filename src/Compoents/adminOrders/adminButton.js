@@ -39,7 +39,6 @@ const DisplayAdminButton = (props) => {
 
   const onClickDecline = (e) => {
     const status = "1";
-    
     handleSubmit(e.target.value, status);
   };
 
@@ -88,6 +87,7 @@ const DisplayAdminButton = (props) => {
           }}
         >
           <ReceivedQuantity
+          fetchProducts={props.fetchProducts}
             onClose={handleCloseModal}
             orderId={props.id}
             unit = {props.unit}

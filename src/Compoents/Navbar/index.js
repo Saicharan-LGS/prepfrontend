@@ -14,16 +14,15 @@ import DimensionOrderList from "../DimensionOrders";
 import OrderViewDetail from "../AdminDetailPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
-
-
-
+import { ProductServiceList } from "../Services";
+ 
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
   const [status, setStatus] = useState(1);
   const [orderId, setOrderId] = useState("");
   const showSidebar = () => setSidebar(!sidebar);
   const [prevStatus, setPrevStatus] = useState(null);
-
+ 
   const handleSidebarItemClick = async (id) => {
     setPrevStatus(status);
     await setSidebar(false);
@@ -34,9 +33,9 @@ function Navbar() {
     localStorage.setItem("status", status);
     localStorage.setItem("prevStatus", prevStatus);
   }, [status]);
-
+ 
   const navigate = useNavigate();
-
+ 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -58,7 +57,7 @@ function Navbar() {
   };
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
-
+ 
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
   return (
     <div className="navbar-container">
@@ -90,9 +89,7 @@ function Navbar() {
               <li
                 key={index}
                 className={activeClassName}
-                onClick={() =>
-                  handleSidebarItemClick(item.id)
-                }
+                onClick={() => handleSidebarItemClick(item.id)}
               >
                 <span className={activeTabIcon}>{item.icon}</span>
                 <span>{item.title}</span>
@@ -104,7 +101,7 @@ function Navbar() {
       {/* <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {currentComponent}
       </div> */}
-       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
+      <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {parseInt(status) === 1 ? (
           <AdminHomePage openDetailPageComponent={openDetailPageComponent} />
         ) : parseInt(status) === 2 ? (
@@ -112,21 +109,25 @@ function Navbar() {
         ) : parseInt(status) === 3 ? (
           <StaffSignupPage openDetailPageComponent={openDetailPageComponent} />
         ) : parseInt(status) === 4 ? (
-          <DimensionOrderList openDetailPageComponent={openDetailPageComponent} />
+          <DimensionOrderList
+            openDetailPageComponent={openDetailPageComponent}
+          />
         ) : parseInt(status) === 5 ? (
           <LabelOrders openDetailPageComponent={openDetailPageComponent} />
-         ): parseInt(status) === 6 ? (
+        ) : parseInt(status) === 6 ? (
           <AccountOrders openDetailPageComponent={openDetailPageComponent} />
-        ): parseInt(status) === 7 ? (
+        ) : parseInt(status) === 7 ? (
           <StaffList openDetailPageComponent={openDetailPageComponent} />
-        ): parseInt(status) === 8 ? (
+        ) : parseInt(status) === 8 ? (
           <CustomerList openDetailPageComponent={openDetailPageComponent} />
+        ) : parseInt(status) === 9 ? (
+          <ProductServiceList />
         ) : (
-          <OrderViewDetail orderId={orderId} setStatus={setStatus}/>
-          )}
+          <OrderViewDetail orderId={orderId} setStatus={setStatus} />
+        )}
       </div>
     </div>
   );
 }
-
+ 
 export default Navbar;
