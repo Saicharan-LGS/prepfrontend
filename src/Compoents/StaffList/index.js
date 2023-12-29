@@ -192,7 +192,7 @@ function StaffList({ openDetailPageComponent }) {
               </div>
             </>
           ) : (
-            <EmptyOrder />
+            <h4>No staff</h4>
           )}
         </div>
         </div>

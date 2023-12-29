@@ -70,6 +70,7 @@ function LabelOrders({openDetailPageComponent}) {
       {role==="Label" && <CommonNavbar /> }
       <div className="admin-order-accepted-product-list">
         <h2 className="admin-order-accepted-order-list-heading">Label Orders List</h2>
+        <div className="admin-order-accepted-table-container">
         <div className="admin-order-accepted-category-types">
           <p className="admin-order-accepted-order-id-category">Order Id</p>
           <p className="admin-order-accepted-name-category">Name</p>
@@ -145,6 +146,7 @@ function LabelOrders({openDetailPageComponent}) {
       ) : (
         <EmptyOrder />
       )}
+      </div>
     </div>
     </>
   );

@@ -3,11 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import ProductService from "./ProductService";
 import Toast from "../utlis/toast";
+import { ImCancelCircle } from "react-icons/im";
+import './index.css'
+
 const customStyles = {
   content: {
     top: "50%",
-    height: "200px",
-    width: "400px",
+    height: "320px",
+    width: "250px",
     left: "50%",
     right: "auto",
     bottom: "auto",
@@ -97,18 +100,67 @@ export const ProductServiceList = () => {
 
   return (
     <div>
-      <h2>Product/Service List</h2>
-      <button onClick={openModal}>Add</button>
+      <div className="service-add-button-container">
+          <h2 className="product-service-list-heading">Product/Service List</h2>
+          <button className="service-add-button" onClick={openModal}>Add</button>
+      </div>
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
+  
       >
-        <button onClick={closeModal}>close</button>
+        <ImCancelCircle onClick={closeModal} className="model-close-icon"/>
         <ProductService fetchProductServices={fetchProductServices} />
       </Modal>
-      <table>
+      <div className="admin-order-accepted-table-container">
+          <div className="admin-order-accepted-category-types">
+            <p className="customer-list-table-row">ID</p>
+            <p className="customer-list-table-row">Name</p>
+            <p className="customer-list-table-row">Category</p>
+            <p className="customer-list-table-row">Price</p>
+            <p className="customer-list-table-row">Date & Time</p>
+            <p className="customer-list-table-row">Status</p>
+          </div>
+
+  
+              {productServices.map((eachProduct) => {
+                return (
+                  <div
+                    className="admin-order-accepted-display-of-products-container"
+                    key={eachProduct.id}
+                  >
+                    <p className="customer-list-table-row">{eachProduct.id}</p>
+                    <p className="customer-list-table-row">
+                      {eachProduct.name}
+                    </p>
+                    <p className="customer-list-table-row">
+                      {eachProduct.category}
+                    </p>
+                    <p className="customer-list-table-row">
+                      {eachProduct.price}
+                    </p>
+                    <p className="customer-list-table-row">
+                      {new Date(eachProduct.data_time).toLocaleString()}
+                    </p>
+                    <div className="customer-list-table-row">
+                      <input
+
+                        className="customer-list-table-row-input"
+                        type="checkbox"
+                        checked={eachProduct.status === 1} // Assuming status value of 1 means checked
+                        
+                      />
+                    </div>
+                  </div>
+                );
+              }
+              )}
+
+            </div>
+          
+      {/* <table>
         <thead>
           <tr>
             <th>ID</th>
@@ -116,7 +168,7 @@ export const ProductServiceList = () => {
             <th>Category</th>
             <th>Price</th>
             <th>Date & Time</th>
-            <th>Status</th> {/* Adding a new column for status */}
+            <th>Status</th> 
           </tr>
         </thead>
         <tbody>
@@ -140,7 +192,7 @@ export const ProductServiceList = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

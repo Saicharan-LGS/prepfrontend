@@ -53,6 +53,7 @@ function App() {
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
+      
       <Route path="/CustomerLogin" element={<CustomerLogin />} />
       <Route path="/" element={<StaffSigninPage />} />
       <Route

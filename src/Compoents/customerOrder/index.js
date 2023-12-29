@@ -284,6 +284,24 @@ const CustomerOrder = () => {
                   multiple
                 />
               </div>
+              <div className="order-customer-service-container">
+                <p className="order-customer-service-name">Services :</p>
+                {services.map((service) => (
+                  <div key={service.id} className="order-customer-service-input-container">
+                    <input
+                      type="checkbox"
+                      id={service.id}
+                      name="selectedServices"
+                      value={service.id}
+                      checked={selectedServices.includes(service.id)}
+                      onChange={(e) => handleServiceSelection(e, service.id)}
+                      className="order-customer-input-checkbox"
+
+                    />
+                    <label htmlFor={service.id} className="order-customer-label-name">{service.name}</label>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="order-customer-field2-container">
               <div className="order-customer-input-feild">
@@ -326,6 +344,28 @@ const CustomerOrder = () => {
                   multiple
                 />
               </div>
+              <div className="order-customer-service-container">
+                <label className="order-customer-service-name">Products :</label>
+                {products.map((product) => (
+                  <div key={product.id} className="order-customer-service-input-container">
+                    <label htmlFor={`product-${product.id}`} className="order-customer-label-name">
+                      {product.name} :
+                      
+                    </label>
+                    <input
+                      type="number"
+                      id={`product-${product.id}`}
+                      name={`product-${product.id}`}
+                      value={getQuantityById(product.id)}
+                      onChange={(e) =>
+                        handleQuantityChange(product.id, e.target.value)
+                      }
+                      placeholder="Enter Quantity"
+                      className="order-customer-service-input"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="order-customer-field3-container">
               <div className="order-customer-input-feild">
@@ -363,41 +403,8 @@ const CustomerOrder = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div>
-                <p>Services</p>
-                {services.map((service) => (
-                  <div key={service.id}>
-                    <input
-                      type="checkbox"
-                      id={service.id}
-                      name="selectedServices"
-                      value={service.id}
-                      checked={selectedServices.includes(service.id)}
-                      onChange={(e) => handleServiceSelection(e, service.id)}
-                    />
-                    <label htmlFor={service.id}>{service.name}</label>
-                  </div>
-                ))}
-              </div>
-              <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">Products:</label>
-                {products.map((product) => (
-                  <div key={product.id}>
-                    <label htmlFor={`product-${product.id}`}>
-                      {product.name}
-                    </label>
-                    <input
-                      type="number"
-                      id={`product-${product.id}`}
-                      name={`product-${product.id}`}
-                      value={getQuantityById(product.id)}
-                      onChange={(e) =>
-                        handleQuantityChange(product.id, e.target.value)
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
+              
+             
             </div>
           </div>
           <div className="order-customer-submit-button-container">

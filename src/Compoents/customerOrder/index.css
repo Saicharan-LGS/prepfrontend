@@ -85,7 +85,34 @@
   color:#fff;
   border:none;
 }
-
+.order-customer-service-container{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.order-customer-service-name{
+  font-size:18px;
+  margin:0px;
+  font-weight:600;
+  margin-top:10px;
+}
+.order-customer-service-input-container{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.order-customer-input-checkbox{
+  width:18px;
+  height:18px;
+}
+.order-customer-service-input{
+  padding:6px 10px;
+  border-radius:4px;
+  border:1px solid #212d45;
+  width:60px;
+  text-align: center;
+  outline:none;
+}
 @media (max-width: 767px) {
   .order-customer-from-container {
       flex-direction: column;
