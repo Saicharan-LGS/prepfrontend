@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import DimensionsUpdate from "../DimensionsUpdate";
 import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
-import './index.css'
 import CustomerDimension from "../CustomerDimension";
 
-function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,onClose }) {
+function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts,onClose }) {
   const [dimensionList, setDimensionList] = useState([]);
   const [addDimesions,setAddDimensions] = useState(false)
   const [formData, setFormData] = useState({
@@ -140,14 +139,13 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
           Dimensions Order List
         </h2>
         
-        <div className="dimension-update-page-button-container">
+        {/* <div className="dimension-update-page-button-container">
           <button className="dimension-update-page-button" onClick={handleDimensions}>Add Dimensions</button>
           <button className="dimension-update-page-button" onClick={handleDispatch}>Dispatch</button>
-        </div>
+        </div> */}
         
       </div>
-      <div className="admin-order-accepted-table-container">
-      <div className="admin-order-accepted-category-types">
+      {/* <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
         <p className="admin-order-accepted-service-category">Product</p>
@@ -184,14 +182,12 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
             </p>
           )}
         </p>
-      </div>
-      </div>
-      {addDimesions && <DimensionsUpdate id={updateId} fetchData1={fetchData1} handleDimensions={handleDimensions} />}
-      {dimensionList.length > 0 &&
+      </div> */}
+        {role==="Customer" && dimensionList.length > 0 &&
         dimensionList.map((each) => (
-          <DimensionDetailPage dimensionData={each} key={each.id} fetchData1 ={fetchData1} />
+          <CustomerDimension dimensionData={each} key={each.id} fetchData1 ={fetchData1} />
         ))}
     </div>
   );
 }
-export default DimensionUpdatePage;
+export default CustomerDimensionView;

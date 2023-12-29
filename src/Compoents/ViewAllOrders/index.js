@@ -163,6 +163,7 @@ function ViewAllOrders({openDetailPageComponent}) {
             <option value="Invoice Rejected">Invoice Rejected</option>
           </select>
           </div>
+          <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
             <p className="admin-order-accepted-name-category">Name</p>
@@ -237,6 +238,7 @@ function ViewAllOrders({openDetailPageComponent}) {
           ) : (
             <EmptyOrder />
           )}
+        </div>
         </div>
       )}
     </>

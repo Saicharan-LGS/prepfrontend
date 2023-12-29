@@ -12,6 +12,7 @@ import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
+import { IoMdLogOut } from "react-icons/io";
 
 function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
@@ -79,6 +80,7 @@ const [status, setStatus]=useState(5)
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
+          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

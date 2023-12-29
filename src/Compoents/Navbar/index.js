@@ -14,6 +14,7 @@ import DimensionOrderList from "../DimensionOrders";
 import OrderViewDetail from "../AdminDetailPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
+import { IoMdLogOut } from "react-icons/io";
 
 
 
@@ -72,6 +73,7 @@ function Navbar() {
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
+          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>

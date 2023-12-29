@@ -153,6 +153,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
             required
             className="admin-order-accepted-search-filter-input"
           />
+          <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
             <p className="admin-order-accepted-name-category">Name</p>
@@ -253,6 +254,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
           ) : (
             <EmptyOrder />
           )}
+          </div>
         </div>
       )}
     </>

@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
+const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => {
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -102,9 +102,12 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1 }) => {
           height: "inches",
           weight: "lb",
         });
- 
-        fetchProducts();
+        console.log(`fetch kapil`)
         fetchData1()
+
+        handleDimensions()
+        fetchProducts();
+        
       } else {
         response.json().then((data) => {
           Toast.fire({

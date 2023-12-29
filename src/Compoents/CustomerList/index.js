@@ -124,6 +124,7 @@ function CustomerList() {
             required
             className="admin-order-accepted-search-filter-input"
           />
+          <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="customer-list-table-row">Customer Id</p>
             <p className="customer-list-table-row">Name</p>
@@ -177,6 +178,7 @@ function CustomerList() {
           ) : (
             <h5> No Customers</h5>
           )}
+        </div>
         </div>
       )}
     </>

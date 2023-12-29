@@ -92,6 +92,7 @@ function DimensionOrderList({openDetailPageComponent}) {
     {role==="Dimension" && <CommonNavbar /> }
     <div className="admin-order-accepted-product-list">
       <h2 className="admin-order-accepted-order-list-heading">Dimensions Order List</h2>
+      <div className="admin-order-accepted-table-container">
       <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
         <p className="admin-order-accepted-name-category">Name</p>
@@ -202,9 +203,11 @@ function DimensionOrderList({openDetailPageComponent}) {
           <DimensionUpdatePage
              updateId = {updateId}
             onClose={handleCloseModal}
+            fetchProducts={fetchProducts}
           />
         </Box>
       </Modal>
+      </div>
     </div>
     </>
   );
