@@ -1,0 +1,21 @@
+.dimension-update-page-heading-flex{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dimension-update-page-button-container{
+    display:flex;
+    gap:10px;
+}
+.dimension-update-page-button{
+    padding:8px 20px;
+    color: #212d45;
+    font-weight: 500;
+    font-size: 15px;
+    border-radius: 20px;
+    outline: none;
+    border-width: 0px;
+    background-color: #ffc03d;
+    cursor:pointer;
+    margin-top:10px;
+}

@@ -141,3 +141,21 @@
   .sidebar-icon-active{
     color:#fff;
   }
+  .navbar-logout-button-icon{
+    display:none;
+    color:#212d45;
+    font-size:20px;
+    margin-right:20px;
+    cursor:pointer;
+  }
+  @media (max-width:512px){
+    .navbar-nav-item-name{
+      font-size:14px;
+    }
+    .navbar-logout-button-icon{
+      display:block;
+    }
+    .navbar-logout-button{
+      display:none;
+    }
+  }

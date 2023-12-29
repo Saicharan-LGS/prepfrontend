@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-
+import { useState,useEffect } from "react";
+import './index.css'
 import Toast from "../utlis/toast";
 
 function DimensionDetailPage({ dimensionData, fetchData1 }) {
@@ -130,7 +130,10 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
           height: "inches",
           weight: "lb",
         });
-        fetchData1();
+        console.log('fetchData1 callings ....')
+       fetchData1()
+        
+
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -160,16 +163,16 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
 
   return (
     <div className="dimensions-main-container">
-      <form className="dimensions-form-container" onSubmit={handleSubmit}>
-        <div>
+      <form className="dimensions-details-form-container" onSubmit={handleSubmit}>
+        <div className="dimension-flex">
           {["length", "width", "height", "weight"].map((dimension) => (
-            <div key={dimension} className="dimensions-input-container">
+            <div key={dimension} className="dimensions-details-input-container">
               <label className="dimensions-label-text">
                 {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
               </label>
-              <div className="dimension-select-container">
+              <div className="dimension-detail-select-container">
                 <input
-                  className="dimensions-input"
+                  className="dimensions-details-input"
                   type="text"
                   name={dimension}
                   value={dimensions[dimension]}
@@ -177,7 +180,7 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
                   required
                 />
                 <select
-                  className="dimensions-select"
+                  className="dimensions-details-select"
                   value={selectedUnits[dimension]}
                   onChange={(e) => handleUnitChange(e, dimension)}
                 >
@@ -188,27 +191,29 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
                   ))}
                 </select>
               </div>
+              
             </div>
           ))}
-        </div>
-        <div className="dimension-input-container-1">
+          <div className="dimension-details-input-container-1">
           <label className="dimensions-label-text">Quantity</label>
           <input
             type="number"
             placeholder="Enter the quantity"
-            className="dimensions-input"
+            className="dimensions-details-input-1"
             value={dimensions.itemNo}
           />
         </div>
-        <div className="dimension-input-container-1">
-          <label className="dimensions-label-text">boxBy</label>
-          <select className="dimensions-input" value={dimensions.boxBy}>
+        <div className="dimension-details-input-container-1">
+          <label className="dimensions-label-text" >boxBy</label>
+          <select className="dimensions-details-input-1" value={dimensions.boxBy}>
             <option value="prep">Prep</option>
             <option value="customer">Customer</option>
           </select>
         </div>
+        </div>
+        
         <center>
-          <button className="dimensions-button" type="submit">
+          <button className="dimensions-details-button" type="submit">
             Update
           </button>
         </center>

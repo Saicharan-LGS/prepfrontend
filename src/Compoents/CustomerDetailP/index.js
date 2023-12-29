@@ -4,6 +4,9 @@ import Toast from "../utlis/toast";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { IoArrowBackCircle } from "react-icons/io5";
+import DimensionUpdatePage from "../DimensionUpdatePage";
+import { Box, Modal } from "@mui/material";
+import CustomerDimensionView from "../CustomerDimensionView";
 function CustomerOrderViewDetail({ orderId, setStatus }) {
   const [formData, setFormData] = useState({
     date: "",
@@ -30,6 +33,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
+  const [isModalOpen, setModalOpen] = React.useState(false);
 
   const statusLabels = {
     0: "Pending",
@@ -221,6 +225,15 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     instructions,
   } = formData;
   console.log(fnskuSend1, "saicharan");
+
+  const handleDimensionUpdate=()=>{
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <div className="order-customer-container">
@@ -258,7 +271,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
-            <div className="order-customer-input-feild">
+            <p className="order-customer-dimension-update-button-container" onClick={handleDimensionUpdate}>See Dimensions</p>
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Length</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -296,7 +310,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 value={weight}
                 readOnly
               />
-            </div>
+            </div> */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -486,6 +500,31 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           </button>
         </center>
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "70%",
+            top: "50%",
+            left: "50%",
+            height: "500px",
+            overflow: "scroll",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <CustomerDimensionView
+             updateId = {orderId}
+            onClose={handleCloseModal}
+          />
+        </Box>
+      </Modal>
     </>
   );
 }
