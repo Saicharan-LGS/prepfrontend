@@ -5,6 +5,8 @@ import ProductService from "./ProductService";
 import Toast from "../utlis/toast";
 import { ImCancelCircle } from "react-icons/im";
 import './index.css'
+import { RiEditBoxLine } from "react-icons/ri";
+import ProductServiceEdit from "./productserviceedit";
 
 const customStyles = {
   content: {
@@ -26,6 +28,9 @@ export const ProductServiceList = () => {
   const [productServices, setProductServices] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
+  const [editModalOpen,setEditModalOpen] = useState(false)
+  const [editId,setEditId] = useState()
+
   function openModal() {
     setIsOpen(true);
   }
@@ -37,6 +42,7 @@ export const ProductServiceList = () => {
   }
   function closeModal() {
     setIsOpen(false);
+    setEditModalOpen(false)
   }
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -98,6 +104,11 @@ export const ProductServiceList = () => {
     }
   };
 
+  const handleView=(id)=>{
+    setEditModalOpen(true)
+    setEditId(id)
+  }
+
   return (
     <div>
       <div className="service-add-button-container">
@@ -114,6 +125,16 @@ export const ProductServiceList = () => {
         <ImCancelCircle onClick={closeModal} className="model-close-icon"/>
         <ProductService fetchProductServices={fetchProductServices} />
       </Modal>
+      <Modal
+        isOpen={editModalOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+  
+      >
+        <ImCancelCircle onClick={closeModal} className="model-close-icon"/>
+        <ProductServiceEdit id={editId} fetchProductServices={fetchProductServices} onClose={closeModal} />
+      </Modal>
       <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="customer-list-table-row">ID</p>
@@ -122,6 +143,7 @@ export const ProductServiceList = () => {
             <p className="customer-list-table-row">Price</p>
             <p className="customer-list-table-row">Date & Time</p>
             <p className="customer-list-table-row">Status</p>
+            <p className="customer-list-table-row">Edit</p>
           </div>
 
   
@@ -149,10 +171,22 @@ export const ProductServiceList = () => {
 
                         className="customer-list-table-row-input"
                         type="checkbox"
-                        checked={eachProduct.status === 1} // Assuming status value of 1 means checked
+                        checked={eachProduct.status === 1 ? true : false}
+                        onChange={() =>
+                          handleToggle(
+                            eachProduct.id,
+                            eachProduct.status === 1,
+                          )}// Assuming status value of 1 means checked
                         
                       />
                     </div>
+                    <RiEditBoxLine
+                        id={eachProduct.id}
+                        value={eachProduct.id}
+                        className="customer-list-view-icon"
+                        onClick={()=>handleView(eachProduct.id)}
+                      />
+                
                   </div>
                 );
               }

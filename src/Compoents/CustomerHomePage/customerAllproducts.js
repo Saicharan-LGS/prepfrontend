@@ -165,7 +165,7 @@ function CustomerAllProducts({ openDetailPage }) {
               Order Tracking Link
             </p>
             <p className="admin-order-accepted-fnsku-category">Status</p>
-            <p className="admin-order-accepted-fnsku-category">Amount</p>
+            {/* <p className="admin-order-accepted-fnsku-category">Amount</p> */}
 
             <p className="admin-order-accepted-view-in-detail-category">
               View In Detail
@@ -205,9 +205,9 @@ function CustomerAllProducts({ openDetailPage }) {
                     <p className="admin-order-accepted-quantity-sub-category">
                       {statusLabels[eachProduct.status] || "Unknown Status"}
                     </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
+                    {/* <p className="admin-order-accepted-quantity-sub-category">
                       {eachProduct.amount}
-                    </p>
+                    </p> */}
 
                     {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}

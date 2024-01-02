@@ -156,7 +156,7 @@ function AccountOrders({ openDetailPageComponent }) {
       : "pagination-arrow-container";
 
   const generateInvoice = async () => {
-    console.log(selectedIds);
+    console.log(selectedIds,"kapikl");
     if (selectedIds < 1) {
       alert("Please Select atleast one order");
     } else {

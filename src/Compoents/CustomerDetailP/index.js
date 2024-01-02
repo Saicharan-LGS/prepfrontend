@@ -400,7 +400,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            <div className="order-customer-input-feild">
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Amount</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -409,7 +409,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 value={amount}
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Instructions</label>
               <input

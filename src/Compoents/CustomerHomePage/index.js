@@ -8,6 +8,8 @@ import Spinner from "../Spinner";
 
 import CustomerButton from "./customerButton";
 import EmptyOrder from "../EmptyOrder";
+import { Box, Modal } from "@mui/material";
+import CustomerInvoicePage from "../CustomerInvoicePage";
 function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,12 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [productsPerPage] = useState(10); // Number of products to display per page
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isModalOpen,setModalOpen] = useState(false)
+  const [selectedOrders,setSelectedOrders] = useState()
 
+  const [totalAmount,setTotalAmount] = useState("")
+  const [discount,setDiscount] = useState("")
+  const [discountedAmount,setDiscountedAmount] = useState("")
 
   console.log(products,"products.....")
 
@@ -91,6 +98,20 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
+  const handleView=(each)=>{
+    setSelectedOrders(each.orders)
+    console.log(each.orders,each.discount,each.discounted_amount,"ram")
+    setDiscount(each.discount)
+    setDiscountedAmount(each.discounted_amount)
+    setTotalAmount(each.totalamount)
+    setModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+
   return (
     <>
       {loading ? (
@@ -111,21 +132,23 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           />
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
-              <p className="admin-order-accepted-order-id-category">Order Id</p>
-              <p className="admin-order-accepted-name-category">Name</p>
-              <p className="admin-order-accepted-service-category">Product</p>
-              <p className="admin-order-accepted-quantity-category">Quantity</p>
-              <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
-              </p>
-
+              <p className="admin-order-accepted-order-id-category">Order Id's</p>
+              <p className="admin-order-accepted-name-category">Total Amount</p>
+              <p className="admin-order-accepted-service-category">Discount(%)</p>
+              <p className="admin-order-accepted-quantity-category">Final Amount</p>
               <p className="admin-order-accepted-accept-category">Received</p>
               <p className="admin-order-accepted-decline-category">Decline</p>
-              <p className="admin-order-accepted-fnsku-category">Amount</p>
-
               <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
+              {/* <p className="admin-order-accepted-order-tracking-category">
+                Order Tracking Link
+              </p>
+
+              
+              <p className="admin-order-accepted-fnsku-category">Amount</p>
+
+              */}
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -133,49 +156,37 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                   return (
                     <div className="admin-order-accepted-display-of-products-container">
                       <p className="admin-order-accepted-order-id-sub-category">
-                        {eachProduct.id}
+                        {JSON.parse(eachProduct.orders).join(", ")}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.name}
+                        {eachProduct.totalamount}
                       </p>
                       <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.product}
+                        {eachProduct.discount}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.unit}
-                      </p>
-                      <p className="admin-order-accepted-order-tracking-sub-category">
-                        {eachProduct.tracking_url ? (
-                          <a
-                            href={eachProduct.tracking_url}
-                            rel="noreferrer"
-                            target="_blank"
-                            className="tracking-url"
-                          >
-                            Order Link
-                          </a>
-                        ) : (
-                          <p className="tracking_url"> </p>
-                        )}
+                        {eachProduct.discounted_amount}
                       </p>
                       <CustomerButton
+                        orderIds={eachProduct.orderIds}
                         id={eachProduct.id}
                         amount={eachProduct.amount}
                         fetchProducts={fetchProducts}
                         fetchTotalAmount={fetchTotalAmount}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      <p className="admin-order-accepted-fnsku-sub-category">
-                        {eachProduct.amount}
-                      </p>
-
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
-                        onClick={() => openDetailPage(eachProduct.id)}
                         className="admin-order-accepted-view-in-detail-sub-category"
+                        onClick={()=>handleView(eachProduct)}
                       />
+                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
+                      {/* <p className="admin-order-accepted-fnsku-sub-category">
+                        {eachProduct.amount}
+                      </p>
+
+                       */}
                     </div>
                   );
                 })}
@@ -201,6 +212,35 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           </div>
         </div>
       )}
+       <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "70%",
+            top: "50%",
+            left: "50%",
+            height: "500px",
+            overflow: "scroll",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <CustomerInvoicePage
+            selectedOrders = {selectedOrders}
+            onClose={handleCloseModal}
+            fetchProducts={fetchProducts}
+            totalAmount={totalAmount}
+            discount ={discount}
+            discountedAmount={discountedAmount}
+          />
+        </Box>
+      </Modal>
     </>
   );
 }

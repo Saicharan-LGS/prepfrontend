@@ -1,13 +1,21 @@
 import Toast from "../utlis/toast";
-const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
+const CustomerButton = ({
+  id,
+  discounted_amount,
+  fetchProducts,
+  fetchTotalAmount,
+  orderIds,
+}) => {
   // Set the initial value as a string '1'
+  console.log(orderIds, "orderIds");
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
     const requestData = {
       status: 7,
+      orderIds: orderIds,
     };
-
+ 
     try {
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}declineOrder/${id}`,
@@ -15,13 +23,13 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-
+ 
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData), // Stringify the data
         }
       );
-
+ 
       if (response.ok) {
         fetchProducts();
         const data = await response.json();
@@ -33,11 +41,13 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
       }
     } catch (error) {}
   };
-
+ 
   const handleSubmit1 = async () => {
     try {
       const amount2 = {
-        amount: amount,
+        amount: discounted_amount,
+        orderIds: orderIds,
+        status: 6,
       };
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}acceptOrder/${id}`,
@@ -50,7 +60,7 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
           body: JSON.stringify(amount2),
         }
       );
-
+ 
       if (response.ok) {
         fetchProducts();
         fetchTotalAmount();
@@ -63,19 +73,19 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
       }
     } catch (error) {}
   };
-
+ 
   const onClickDecline = (e) => {
     const status = "1"; // Set the status here
     handleSubmit(e.target.value, status);
     // window.location.reload();
   };
-
+ 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
     handleSubmit1(e.target.value, status);
     // window.location.reload();
   };
-
+ 
   return (
     <>
       <button
@@ -95,5 +105,6 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount }) => {
     </>
   );
 };
-
+ 
 export default CustomerButton;
+ 
