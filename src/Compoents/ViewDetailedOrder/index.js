@@ -157,7 +157,7 @@ function ViewDetailedOrder() {
               readOnly
             />
           </div> */}
-            <div className="order-customer-input-feild">
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Length</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -166,8 +166,8 @@ function ViewDetailedOrder() {
                 value={length}
                 readOnly
               />
-            </div>
-            <div className="order-customer-input-feild">
+            </div> */}
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Width</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -176,8 +176,8 @@ function ViewDetailedOrder() {
                 value={width}
                 readOnly
               />
-            </div>
-            <div className="order-customer-input-feild">
+            </div> */}
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Height</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -186,8 +186,8 @@ function ViewDetailedOrder() {
                 value={height}
                 readOnly
               />
-            </div>
-            <div className="order-customer-input-feild">
+            </div> */}
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Weight</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -196,7 +196,7 @@ function ViewDetailedOrder() {
                 value={weight}
                 readOnly
               />
-            </div>
+            </div> */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
