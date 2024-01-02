@@ -1,0 +1,17 @@
+.generate-invoice-discount-container{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:6px;
+}
+.genearte-invoice-heading{
+    font-size:24px;
+    font-weight:600;
+    margin:0px;
+}
+.generate-invoice-total-amount{
+    font-size:18px;
+    margin:0px;
+    color:#212d95;
+    margin-top:8px;
+}

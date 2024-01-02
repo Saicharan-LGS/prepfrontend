@@ -62,7 +62,7 @@ function Invoice({data}) {
           );
         })}
     </div>
-    <p>Grand Total : {total}</p>
+    <p className="generate-invoice-total-amount">Grand Total : {total}</p>
     </div>
     </>
   )
