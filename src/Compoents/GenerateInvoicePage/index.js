@@ -84,7 +84,7 @@ function GenerateInvoicePage({ data,onClose }) {
         <Invoice key={each.id} data={each} />
       ))}
       <p className="generate-invoice-total-amount">
-        Total Amount: {totalAmount}
+        Total Amount : {totalAmount}
       </p>
       <div className="generate-invoice-discount-container">
         <label className="generate-invoice-total-amount">Discount(%) :</label>

@@ -15,7 +15,7 @@ const CustomerButton = ({
       status: 7,
       orderIds: orderIds,
     };
-
+ 
     try {
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}declineOrder/${id}`,
@@ -23,13 +23,13 @@ const CustomerButton = ({
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-
+ 
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData), // Stringify the data
         }
       );
-
+ 
       if (response.ok) {
         fetchProducts();
         const data = await response.json();
@@ -41,7 +41,7 @@ const CustomerButton = ({
       }
     } catch (error) {}
   };
-
+ 
   const handleSubmit1 = async () => {
     try {
       const amount2 = {
@@ -60,7 +60,7 @@ const CustomerButton = ({
           body: JSON.stringify(amount2),
         }
       );
-
+ 
       if (response.ok) {
         fetchProducts();
         fetchTotalAmount();
@@ -73,19 +73,19 @@ const CustomerButton = ({
       }
     } catch (error) {}
   };
-
+ 
   const onClickDecline = (e) => {
     const status = "1"; // Set the status here
     handleSubmit(e.target.value, status);
     // window.location.reload();
   };
-
+ 
   const onClickReceived = (e) => {
     const status = "2"; // Set the status here
     handleSubmit1(e.target.value, status);
     // window.location.reload();
   };
-
+ 
   return (
     <>
       <button
@@ -105,5 +105,6 @@ const CustomerButton = ({
     </>
   );
 };
-
+ 
 export default CustomerButton;
+ 
