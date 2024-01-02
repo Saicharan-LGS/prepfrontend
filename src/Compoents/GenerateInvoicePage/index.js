@@ -7,12 +7,15 @@ import "./index.css";
 function GenerateInvoicePage({ data,onClose }) {
   const [totalAmount, setTotalAmount] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const [discountAmount, setDiscountAmount] = useState("-");
+  const [discountAmount, setDiscountAmount] = useState();
 
   const handleDiscount = (e) => {
     console.log(e.target.value);
     setDiscount(e.target.value);
   };
+  useEffect(()=>{
+    setDiscountAmount(totalAmount)
+  },[])
 
   const handleAdd = () => {
     const finalAmount = totalAmount - (totalAmount * discount) / 100;
@@ -95,8 +98,7 @@ function GenerateInvoicePage({ data,onClose }) {
         <button onClick={handleAdd} className="service-add-button">
           Add
         </button>
-        <input type="number" value ={discount} className="generate-invoice-discount-input" placeholder="Enter discount in Percentage" onChange={handleDiscount}/>
-        <button onClick={handleAdd} className="service-add-button">Add</button>
+        
       </div>
       <p  className="generate-invoice-total-amount">Discounted Price : {discountAmount}</p>
       <button onClick={generateInvoice}>Generate Invoice</button>
