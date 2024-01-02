@@ -156,6 +156,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                         )}
                       </p>
                       <CustomerButton
+                        orderIds={eachProduct.orderIds}
                         id={eachProduct.id}
                         amount={eachProduct.amount}
                         fetchProducts={fetchProducts}
