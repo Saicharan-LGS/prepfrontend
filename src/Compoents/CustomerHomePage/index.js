@@ -22,12 +22,11 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       const productIdMatch = product.id.toString().includes(orderId);
       const productNameMatch = product.name.toLowerCase().includes(orderId);
       return productIdMatch || productNameMatch;
-  });
+    });
 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
 
-  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -43,13 +42,13 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
     setCurrentPage(pageNumber);
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchProducts = async () => {
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
-        `${FETCH_URL}customerorderlist/${5}`,
+        `${FETCH_URL}invoicepending/${5}`,
         // Replace with your API endpoint
         {
           method: "GET",
@@ -60,6 +59,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log(data,"saiiiiiiiiiiiiiiiiii")
         setProducts(data.results);
         setLoading(false);
       } else {
@@ -78,7 +78,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   useEffect(() => {
     fetchProducts();
   }, []);
-
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
@@ -108,93 +107,95 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-          <div className="admin-order-accepted-category-types">
-            <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Name</p>
-            <p className="admin-order-accepted-service-category">Product</p>
-            <p className="admin-order-accepted-quantity-category">Quantity</p>
-            <p className="admin-order-accepted-order-tracking-category">
-              Order Tracking Link
-            </p>
+            <div className="admin-order-accepted-category-types">
+              <p className="admin-order-accepted-order-id-category">Order Id</p>
+              <p className="admin-order-accepted-name-category">Name</p>
+              <p className="admin-order-accepted-service-category">Product</p>
+              <p className="admin-order-accepted-quantity-category">Quantity</p>
+              <p className="admin-order-accepted-order-tracking-category">
+                Order Tracking Link
+              </p>
 
-            <p className="admin-order-accepted-accept-category">Received</p>
-            <p className="admin-order-accepted-decline-category">Decline</p>
-            <p className="admin-order-accepted-fnsku-category">Amount</p>
+              <p className="admin-order-accepted-accept-category">Received</p>
+              <p className="admin-order-accepted-decline-category">Decline</p>
+              <p className="admin-order-accepted-fnsku-category">Amount</p>
 
-            <p className="admin-order-accepted-view-in-detail-category">View</p>
-          </div>
-          {filteredProducts.length > 0 ? (
-            <>
-              {currentProducts.map((eachProduct) => {
-                return (
-                  <div className="admin-order-accepted-display-of-products-container">
-                    <p className="admin-order-accepted-order-id-sub-category">
-                      {eachProduct.id}
-                    </p>
-                    <p className="admin-order-accepted-name-sub-category">
-                      {eachProduct.name}
-                    </p>
-                    <p className="admin-order-accepted-service-sub-category">
-                      {eachProduct.product}
-                    </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
-                      {eachProduct.unit}
-                    </p>
-                    <p className="admin-order-accepted-order-tracking-sub-category">
-                      {eachProduct.tracking_url ? (
-                        <a
-                          href={eachProduct.tracking_url}
-                          rel="noreferrer"
-                          target="_blank"
-                          className="tracking-url"
-                        >
-                          Order Link
-                        </a>
-                      ) : (
-                        <p className="tracking_url"> </p>
-                      )}
-                    </p>
-                    <CustomerButton
-                      id={eachProduct.id}
-                      amount={eachProduct.amount}
-                      fetchProducts={fetchProducts}
-                      fetchTotalAmount={fetchTotalAmount}
-                    />
-                    {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
+              <p className="admin-order-accepted-view-in-detail-category">
+                View
+              </p>
+            </div>
+            {filteredProducts.length > 0 ? (
+              <>
+                {currentProducts.map((eachProduct) => {
+                  return (
+                    <div className="admin-order-accepted-display-of-products-container">
+                      <p className="admin-order-accepted-order-id-sub-category">
+                        {eachProduct.id}
+                      </p>
+                      <p className="admin-order-accepted-name-sub-category">
+                        {eachProduct.name}
+                      </p>
+                      <p className="admin-order-accepted-service-sub-category">
+                        {eachProduct.product}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {eachProduct.unit}
+                      </p>
+                      <p className="admin-order-accepted-order-tracking-sub-category">
+                        {eachProduct.tracking_url ? (
+                          <a
+                            href={eachProduct.tracking_url}
+                            rel="noreferrer"
+                            target="_blank"
+                            className="tracking-url"
+                          >
+                            Order Link
+                          </a>
+                        ) : (
+                          <p className="tracking_url"> </p>
+                        )}
+                      </p>
+                      <CustomerButton
+                        id={eachProduct.id}
+                        amount={eachProduct.amount}
+                        fetchProducts={fetchProducts}
+                        fetchTotalAmount={fetchTotalAmount}
+                      />
+                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
           <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                    <p className="admin-order-accepted-fnsku-sub-category">
-                      {eachProduct.amount}
-                    </p>
+                      <p className="admin-order-accepted-fnsku-sub-category">
+                        {eachProduct.amount}
+                      </p>
 
-                    <BsFillArrowRightCircleFill
-                      id={eachProduct.id}
-                      value={eachProduct.id}
-                      onClick={() => openDetailPage(eachProduct.id)}
-                      className="admin-order-accepted-view-in-detail-sub-category"
-                    />
-                  </div>
-                );
-              })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={previousButton}
-                />
+                      <BsFillArrowRightCircleFill
+                        id={eachProduct.id}
+                        value={eachProduct.id}
+                        onClick={() => openDetailPage(eachProduct.id)}
+                        className="admin-order-accepted-view-in-detail-sub-category"
+                      />
+                    </div>
+                  );
+                })}
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={previousButton}
+                  />
 
-                <span>Page {currentPage}</span>
+                  <span>Page {currentPage}</span>
 
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= products.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyOrder />
-          )}
-        </div>
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= products.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyOrder />
+            )}
+          </div>
         </div>
       )}
     </>
