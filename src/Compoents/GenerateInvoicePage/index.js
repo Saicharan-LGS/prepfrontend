@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Invoice from "./invoice";
+import './index.css'
+import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
 
-function GenerateInvoicePage({ data }) {
+function GenerateInvoicePage({ data,onClose }) {
   const [totalAmount, setTotalAmount] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [discountAmount, setDiscountAmount] = useState("-");
@@ -65,8 +67,15 @@ function GenerateInvoicePage({ data }) {
   }, [data]);
 
   console.log(totalAmount, "totalamount");
+  console.log(totalAmount, "totalamount")
+
+  const handleModel=()=>{
+    onClose()
+  }
+
   return (
     <>
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
       <h1 className="genearte-invoice-heading">Invoice Generation</h1>
       {data.map((each) => (
         <Invoice key={each.id} data={each} />
@@ -86,8 +95,10 @@ function GenerateInvoicePage({ data }) {
         <button onClick={handleAdd} className="service-add-button">
           Add
         </button>
+        <input type="number" value ={discount} className="generate-invoice-discount-input" placeholder="Enter discount in Percentage" onChange={handleDiscount}/>
+        <button onClick={handleAdd} className="service-add-button">Add</button>
       </div>
-      <p>Discount Price : {discountAmount}</p>
+      <p  className="generate-invoice-total-amount">Discounted Price : {discountAmount}</p>
       <button onClick={generateInvoice}>Generate Invoice</button>
     </>
   );

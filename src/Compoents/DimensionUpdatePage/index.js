@@ -6,6 +6,7 @@ import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
 import './index.css'
 import CustomerDimension from "../CustomerDimension";
+import { ImCancelCircle } from "react-icons/im";
 
 function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,onClose }) {
   const [dimensionList, setDimensionList] = useState([]);
@@ -132,9 +133,13 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
       } catch (error) {}
     };
 
+    const handleModel=()=>{
+      onClose()
+    }
 
   return (
     <div className="admin-order-accepted-product-list">
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
       <div className="dimension-update-page-heading-flex">
         <h2 className="admin-order-accepted-order-list-heading">
           Dimensions Order List

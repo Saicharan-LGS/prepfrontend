@@ -137,7 +137,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
               <div className="dimension-select-container">
                 <input
                   className="dimensions-input"
-                  type="text"
+                  type="number"
                   name={dimension}
                   value={dimensions[dimension]}
                   onChange={handleInputChange}

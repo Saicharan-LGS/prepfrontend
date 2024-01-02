@@ -15,3 +15,9 @@
     color:#212d95;
     margin-top:8px;
 }
+.generate-invoice-discount-input{
+    padding:6px 10px;
+    border-radius:4px;
+    border:1px solid #212d95;
+    outline:none;
+}

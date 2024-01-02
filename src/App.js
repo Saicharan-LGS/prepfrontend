@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
 import OrderViewDetail from "./Compoents/AdminDetailPage";
@@ -23,9 +23,10 @@ import NotFound from "./Compoents/NotFound";
 function App() {
   const role = localStorage.getItem("role");
   const [totalAmount, setTotalAmount] = useState(0);
+  const token = sessionStorage.getItem("token");
  
   const fetchTotalAmount = () => {
-    const token = sessionStorage.getItem("token");
+    
  
     if (!token) {
       return;
@@ -49,6 +50,8 @@ function App() {
       fetchTotalAmount();
     }
   }, [role]);
+
+  
 
   return (
     <Routes>
