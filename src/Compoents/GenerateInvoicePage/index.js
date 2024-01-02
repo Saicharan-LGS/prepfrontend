@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Invoice from "./invoice";
 import './index.css'
+import { ImCancelCircle } from "react-icons/im";
 
-function GenerateInvoicePage({ data }) {
+function GenerateInvoicePage({ data,onClose }) {
   const [totalAmount, setTotalAmount] = useState(0);
-  const [discount,setDiscount] = useState(0)
+  const [discount,setDiscount] = useState("")
   const [discountAmount,setDiscountAmount] = useState("-")
 
   const handleDiscount=(e)=>{
@@ -35,8 +36,14 @@ function GenerateInvoicePage({ data }) {
   }, [data]);
 
   console.log(totalAmount, "totalamount")
+
+  const handleModel=()=>{
+    onClose()
+  }
+
   return (
     <>
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
       <h1 className="genearte-invoice-heading">Invoice Generation</h1>
       {data.map((each) => (
         <Invoice key={each.id} data={each} />
@@ -44,10 +51,10 @@ function GenerateInvoicePage({ data }) {
       <p className="generate-invoice-total-amount">Total Amount: {totalAmount}</p>
       <div className="generate-invoice-discount-container">
         <label className="generate-invoice-total-amount">Discount(%) :</label>
-        <input type="number" value ={discount} className="" placeholder="Enter discount in Percentage" onChange={handleDiscount}/>
+        <input type="number" value ={discount} className="generate-invoice-discount-input" placeholder="Enter discount in Percentage" onChange={handleDiscount}/>
         <button onClick={handleAdd} className="service-add-button">Add</button>
       </div>
-      <p>Discount Price : {discountAmount}</p>
+      <p  className="generate-invoice-total-amount">Discounted Price : {discountAmount}</p>
     </>
   );
 }
