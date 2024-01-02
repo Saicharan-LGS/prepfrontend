@@ -94,7 +94,7 @@ const Customersignup = () => {
       <div className="customer-signin-form-main-container">
         <center>
           <h2 className="customer-signin-form-heading-container">
-            Customer Signup
+            Add Customer
           </h2>
         </center>
         <form

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
-
+ 
 import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import DimensionUpdatePage from "../DimensionUpdatePage";
+ 
 function OrderViewDetail({ orderId, setStatus }) {
   const id = orderId;
   const [formData, setFormData] = useState({
@@ -26,13 +27,16 @@ function OrderViewDetail({ orderId, setStatus }) {
     label_status: "",
     fnskuButton: "",
     labelButton: "",
-    amount: null,
     instructions: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
-
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [productQuantities, setProductQuantities] = useState({});
+ 
   // Define separate state for dimensions and selected units
   const [dimensions, setDimensions] = useState({
     length: "",
@@ -47,11 +51,10 @@ function OrderViewDetail({ orderId, setStatus }) {
     weight: "lb",
   });
   const token = sessionStorage.getItem("token");
-
+ 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-
+ 
   const fetchData = async () => {
-    console.log("called admin fetxh");
     try {
       const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
         method: "GET",
@@ -67,18 +70,23 @@ function OrderViewDetail({ orderId, setStatus }) {
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
         const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
         const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
-        console.log(data1.files, "called files");
-
+ 
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
-
+ 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-
-        console.log(labelFiles, "labelFiles");
-
-        console.log("called sai2 ", data.amount);
-
+ 
+        const productServicesIds = data1.services.Services.map(
+          (productService) => productService.services
+        );
+        setSelectedServices(productServicesIds);
+ 
+        data1.services.Products.forEach((item) => {
+          console.log(item);
+          productQuantities[item.services] = item.quantity;
+        });
+ 
         setFormData({
           date: data.date,
           name: data.name,
@@ -94,24 +102,24 @@ function OrderViewDetail({ orderId, setStatus }) {
           label_status: data.label_status,
           fnskuSend: null,
           labelSend: null,
-          amount: data.amount === null ? 0 : data.amount,
           status: data.status,
           instructions: data.instructions,
         });
+ 
         const newDimensions = {};
-
+ 
         if (lengthParts && lengthParts[1] !== null) {
           newDimensions.length = parseFloat(lengthParts[1]);
         }
-
+ 
         if (widthParts && widthParts[1] !== null) {
           newDimensions.width = parseFloat(widthParts[1]);
         }
-
+ 
         if (heightParts && heightParts[1] !== null) {
           newDimensions.height = parseFloat(heightParts[1]);
         }
-
+ 
         if (weightParts && weightParts[1] !== null) {
           newDimensions.weight = parseFloat(weightParts[1]);
         }
@@ -127,16 +135,56 @@ function OrderViewDetail({ orderId, setStatus }) {
       }
     } catch (error) {}
   };
-
+ 
   useEffect(() => {
+    fetch(`${FETCH_URL}getprep-productlist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((productsResponse) => {
+        if (productsResponse.ok) {
+          return productsResponse.json();
+        } else {
+          throw new Error("Failed to fetch products");
+        }
+      })
+      .then((productsData) => {
+        setProducts(productsData.products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+ 
+    // Fetch services
+    fetch(`${FETCH_URL}getprep-servicelist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((servicesResponse) => {
+        if (servicesResponse.ok) {
+          return servicesResponse.json();
+        } else {
+          throw new Error("Failed to fetch services");
+        }
+      })
+      .then((servicesData) => {
+        setServices(servicesData.services);
+      })
+      .catch((error) => {
+        console.error("Error fetching services:", error);
+      });
     fetchData();
-  },[]);
-
+  }, []);
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   const handleSubmit = (e) => {
     const length1 =
       length !== undefined ? dimensions.length + selectedUnits.length : "";
@@ -158,6 +206,18 @@ function OrderViewDetail({ orderId, setStatus }) {
       alert("Height is greater than 25. Enter a value below 25");
       return;
     }
+ 
+    const selectedServiceWithQunatity = selectedServices.map((productId) => ({
+      id: productId,
+      quantity: 1,
+    }));
+    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
+      (productId) => ({
+        id: productId,
+        quantity: productQuantities[productId],
+      })
+    );
+ 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
     formDataToSend.append("date", date || "");
@@ -172,18 +232,26 @@ function OrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("width", width1);
     formDataToSend.append("weight", weight1);
     formDataToSend.append("height", height1);
-    formDataToSend.append("amount", amount);
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
-
+ 
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
-
+ 
+    formDataToSend.append(
+      "selectedServices",
+      JSON.stringify(selectedServiceWithQunatity)
+    );
+    formDataToSend.append(
+      "selectedProducts",
+      JSON.stringify(selectedProductsWithQuantity)
+    );
+ 
     labelSendFiles.forEach((file, index) => {
       formDataToSend.append(`labelSendFiles`, file);
     });
-
+ 
     fetch(`${FETCH_URL}updateOrderDetails/${id}`, {
       method: "PUT",
       headers: {
@@ -203,25 +271,25 @@ function OrderViewDetail({ orderId, setStatus }) {
       })
       .catch((error) => {});
   };
-
+ 
   const PDF_URL = process.env.REACT_APP_PDF_URL;
-
+ 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
       window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
-
+ 
   const handleFnskuSendChange = (e) => {
     const files = e.target.files;
     setFnskuSendFiles([...fnskuSendFiles, ...files]);
   };
-
+ 
   const handleLabelSendChange = (e) => {
     const files = e.target.files;
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
-
+ 
   const {
     date,
     name,
@@ -232,51 +300,39 @@ function OrderViewDetail({ orderId, setStatus }) {
     fnskuSend1,
     labelSend1,
     status,
-    amount,
     instructions,
   } = formData;
-  console.log(formData);
   const { length, width, height, weight } = dimensions;
-
-  const unitOptions = {
-    length: ["cm", "inches", "feet", "meters"],
-    width: ["cm", "inches", "feet", "meters"],
-    height: ["cm", "inches", "feet", "meters"],
-    weight: ["g", "kg", "lb"],
+ 
+  const getQuantityById = (productId) => {
+    return productQuantities[productId] || "";
   };
-
-  const handleUnitChange = (e, dimension) => {
-    const selectedUnit = e.target.value;
-    setSelectedUnits({
-      ...selectedUnits,
-      [dimension]: selectedUnit,
-    });
-
-    setDimensions({
-      ...dimensions,
-      [dimension]: dimensions[dimension],
-    });
+  const handleQuantityChange = (productId, quantity) => {
+    const updatedQuantities = { ...productQuantities };
+    updatedQuantities[productId] = quantity;
+    setProductQuantities(updatedQuantities);
   };
-
+ 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
-
-  const handleDimensionsChange = (e, dimension) => {
-    const newValue = e.target.value;
-    setDimensions({
-      ...dimensions,
-      [dimension]: newValue,
-    });
+ 
+  const handleServiceSelection = (e, serviceId) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setSelectedServices([...selectedServices, serviceId]);
+    } else {
+      const updatedServices = selectedServices.filter((id) => id !== serviceId);
+      setSelectedServices(updatedServices);
+    }
   };
-
+ 
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this file?"
     );
-
+ 
     if (!isConfirmed) {
       return;
     }
@@ -287,11 +343,11 @@ function OrderViewDetail({ orderId, setStatus }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body:{
-          orderId:id
-        }
+        body: {
+          orderId: id,
+        },
       });
-
+ 
       if (response.ok) {
         // File deleted successfully
         fetchData(); // Update your component state or UI as needed
@@ -303,18 +359,16 @@ function OrderViewDetail({ orderId, setStatus }) {
       console.error("Error deleting file:", error);
     }
   };
-
+ 
   const handleBackClick = () => {
     const prevStatus = localStorage.getItem("prevStatus");
     setStatus(prevStatus);
     localStorage.setItem("status", prevStatus);
   };
-
-  const handleDimensionUpdate=()=>{
-    setModalOpen(true)
-  }
-
-  console.log(formData.labelSend1);
+ 
+  const handleDimensionUpdate = () => {
+    setModalOpen(true);
+  };
   return (
     <>
       <div className="order-customer-container">
@@ -351,7 +405,12 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            <p className="order-customer-dimension-update-button-container" onClick={handleDimensionUpdate}>Update Dimensions</p>
+            <p
+              className="order-customer-dimension-update-button-container"
+              onClick={handleDimensionUpdate}
+            >
+              Update Dimensions
+            </p>
             {/* {["length", "width", "height", "weight"].map((dimension) => (
               <div key={dimension} className="dimensions-input-container">
                 <label className="dimensions-label-text">
@@ -450,7 +509,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            <div className="order-customer-input-feild">
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Amount</label>
               <input
                 className="order-customer-lable-container"
@@ -459,7 +518,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 value={amount}
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Instructions</label>
               <input
@@ -489,6 +548,58 @@ function OrderViewDetail({ orderId, setStatus }) {
                 <option value="7">Invoice Rejected</option>
               </select>
             </div>
+            <div className="order-customer-service-container">
+              <p className="order-customer-service-name">Services :</p>
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="order-customer-service-input-container"
+                >
+                  <input
+                    type="checkbox"
+                    id={service.id}
+                    name="selectedServices"
+                    value={service.id}
+                    checked={selectedServices.includes(service.id)}
+                    onChange={(e) => handleServiceSelection(e, service.id)}
+                    className="order-customer-input-checkbox"
+                  />
+                  <label
+                    htmlFor={service.id}
+                    className="order-customer-label-name"
+                  >
+                    {service.name}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <div className="order-customer-service-container">
+              <label className="order-customer-service-name">Products :</label>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="order-customer-service-input-container"
+                >
+                  <label
+                    htmlFor={`product-${product.id}`}
+                    className="order-customer-label-name"
+                  >
+                    {product.name} :
+                  </label>
+                  <input
+                    type="number"
+                    id={`product-${product.id}`}
+                    name={`product-${product.id}`}
+                    value={getQuantityById(product.id)}
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
+                    placeholder="Enter Quantity"
+                    className="order-customer-service-input"
+                  />
+                </div>
+              ))}
+            </div>
             {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -513,7 +624,9 @@ function OrderViewDetail({ orderId, setStatus }) {
           Fnsku Files
         </p>
         {fnskuSend1 && (
-          <div style={{ display: "flex",flexWrap:"wrap", marginLeft: "30px" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
             {fnskuSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
@@ -533,7 +646,9 @@ function OrderViewDetail({ orderId, setStatus }) {
           Label Files
         </p>
         {labelSend1 && (
-          <div style={{ display: "flex",flexWrap:"wrap", marginLeft: "30px" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
             {labelSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
@@ -578,14 +693,12 @@ function OrderViewDetail({ orderId, setStatus }) {
             p: 3,
           }}
         >
-          <DimensionUpdatePage
-             updateId = {orderId}
-            onClose={handleCloseModal}
-          />
+          <DimensionUpdatePage updateId={orderId} onClose={handleCloseModal} />
         </Box>
       </Modal>
     </>
   );
 }
-
+ 
 export default OrderViewDetail;
+ 

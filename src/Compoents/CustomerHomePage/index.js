@@ -16,15 +16,14 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-
-  console.log(products,"products.....")
+  console.log(products, "products.....");
 
   useEffect(() => {
     // Filter products based on orderId
     const filtered = products.filter((product) => {
       const productIdMatch = product.id.toString().includes(orderId);
-    
-      return productIdMatch
+
+      return productIdMatch;
     });
 
     setFilteredProducts(filtered);
@@ -62,7 +61,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data,"saiiiiiiiiiiiiiiiiii")
+        console.log(data, "saiiiiiiiiiiiiiiiiii");
         setProducts(data);
         setLoading(false);
       } else {
@@ -159,9 +158,9 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                         )}
                       </p>
                       <CustomerButton
-                        orderIds={eachProduct.orderIds}
+                        discounted_amount={eachProduct.discounted_amount}
+                        orderIds={eachProduct.orders}
                         id={eachProduct.id}
-                        amount={eachProduct.amount}
                         fetchProducts={fetchProducts}
                         fetchTotalAmount={fetchTotalAmount}
                       />

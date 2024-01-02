@@ -122,7 +122,7 @@ const StaffSignupPage = () => {
       </div>
       <div className="signup-main-form-container">
         <center>
-          <h2 className="signup-form-heading-container">Signup</h2>
+          <h2 className="signup-form-heading-container">Add Staff</h2>
         </center>
         <form onSubmit={handleSubmit} className="signup-form-container">
           <div className="signup-whole-form-contaner">

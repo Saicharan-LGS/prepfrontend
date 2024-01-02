@@ -34,7 +34,11 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
-
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [productQuantities, setProductQuantities] = useState({});
+ 
   const statusLabels = {
     0: "Pending",
     1: "Rejected",
@@ -48,7 +52,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
-
+ 
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -64,15 +68,22 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         const data1 = await response.json();
         console.log(data1, "data saicharan");
         const data = data1.order;
-
+ 
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
-
+ 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-
-        console.log(labelFiles, "labelFiles");
-
+ 
+        const productServicesIds = data1.services.Services.map(
+          (productService) => productService.services
+        );
+        setSelectedServices(productServicesIds);
+ 
+        data1.services.Products.forEach((item) => {
+          productQuantities[item.services] = item.quantity;
+        });
+ 
         setFormData({
           ...formData,
           date: data.date,
@@ -102,20 +113,60 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     } catch (error) {}
   };
   useEffect(() => {
+    fetch(`${FETCH_URL}getprep-productlist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((productsResponse) => {
+        if (productsResponse.ok) {
+          return productsResponse.json();
+        } else {
+          throw new Error("Failed to fetch products");
+        }
+      })
+      .then((productsData) => {
+        setProducts(productsData.products);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+ 
+    // Fetch services
+    fetch(`${FETCH_URL}getprep-servicelist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((servicesResponse) => {
+        if (servicesResponse.ok) {
+          return servicesResponse.json();
+        } else {
+          throw new Error("Failed to fetch services");
+        }
+      })
+      .then((servicesData) => {
+        setServices(servicesData.services);
+      })
+      .catch((error) => {
+        console.error("Error fetching services:", error);
+      });
     fetchData();
   }, [orderId]);
-
+ 
   const handleBackClick = () => {
     const prevStatus = localStorage.getItem("prevStatus");
     setStatus(prevStatus);
     localStorage.setItem("status", prevStatus);
   };
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   const handleFnskuSendChange = (e) => {
     const files = e.target.files;
     setFnskuSendFiles([...fnskuSendFiles, ...files]);
@@ -124,13 +175,32 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     const files = e.target.files;
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
-
+ 
+  const getQuantityById = (productId) => {
+    return productQuantities[productId] || "";
+  };
+  const handleQuantityChange = (productId, quantity) => {
+    const updatedQuantities = { ...productQuantities };
+    updatedQuantities[productId] = quantity;
+    setProductQuantities(updatedQuantities);
+  };
+ 
+  const handleServiceSelection = (e, serviceId) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setSelectedServices([...selectedServices, serviceId]);
+    } else {
+      const updatedServices = selectedServices.filter((id) => id !== serviceId);
+      setSelectedServices(updatedServices);
+    }
+  };
+ 
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this file?"
     );
-
+ 
     if (!isConfirmed) {
       return; // User canceled the deletion
     }
@@ -144,7 +214,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           orderId: orderId,
         },
       });
-
+ 
       if (response.ok) {
         // File deleted successfully
         fetchData(); // Update your component state or UI as needed
@@ -156,9 +226,19 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       console.error("Error deleting file:", error);
     }
   };
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const selectedServiceWithQunatity = selectedServices.map((productId) => ({
+      id: productId,
+      quantity: 1,
+    }));
+    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
+      (productId) => ({
+        id: productId,
+        quantity: productQuantities[productId],
+      })
+    );
     const formDataToSend = new FormData();
     formDataToSend.append("date", date);
     formDataToSend.append("name", name);
@@ -174,12 +254,20 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
-
+ 
+    formDataToSend.append(
+      "selectedServices",
+      JSON.stringify(selectedServiceWithQunatity)
+    );
+    formDataToSend.append(
+      "selectedProducts",
+      JSON.stringify(selectedProductsWithQuantity)
+    );
+ 
     labelSendFiles.forEach((file, index) => {
       formDataToSend.append(`labelSendFiles`, file);
     });
-    console.log(formDataToSend, "sai");
-
+ 
     fetch(`${FETCH_URL}customerOrderDetail/${orderId}`, {
       method: "PUT",
       headers: {
@@ -199,13 +287,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         fetchData();
       });
   };
-
+ 
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
       window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
-
+ 
   const {
     date,
     name,
@@ -213,7 +301,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     product,
     unit,
     tracking_url,
-
+ 
     fnskuSend1,
     labelSend1,
     length,
@@ -225,15 +313,15 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     instructions,
   } = formData;
   console.log(fnskuSend1, "saicharan");
-
-  const handleDimensionUpdate=()=>{
-    setModalOpen(true)
-  }
-
+ 
+  const handleDimensionUpdate = () => {
+    setModalOpen(true);
+  };
+ 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
+ 
   return (
     <>
       <div className="order-customer-container">
@@ -271,7 +359,12 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
-            <p className="order-customer-dimension-update-button-container" onClick={handleDimensionUpdate}>See Dimensions</p>
+            <p
+              className="order-customer-dimension-update-button-container"
+              onClick={handleDimensionUpdate}
+            >
+              See Dimensions
+            </p>
             {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Length</label>
               <input
@@ -430,6 +523,58 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
+            <div className="order-customer-service-container">
+              <p className="order-customer-service-name">Services :</p>
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="order-customer-service-input-container"
+                >
+                  <input
+                    type="checkbox"
+                    id={service.id}
+                    name="selectedServices"
+                    value={service.id}
+                    checked={selectedServices.includes(service.id)}
+                    onChange={(e) => handleServiceSelection(e, service.id)}
+                    className="order-customer-input-checkbox"
+                  />
+                  <label
+                    htmlFor={service.id}
+                    className="order-customer-label-name"
+                  >
+                    {service.name}
+                  </label>
+                </div>
+              ))}
+            </div>
+            <div className="order-customer-service-container">
+              <label className="order-customer-service-name">Products :</label>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="order-customer-service-input-container"
+                >
+                  <label
+                    htmlFor={`product-${product.id}`}
+                    className="order-customer-label-name"
+                  >
+                    {product.name} :
+                  </label>
+                  <input
+                    type="number"
+                    id={`product-${product.id}`}
+                    name={`product-${product.id}`}
+                    value={getQuantityById(product.id)}
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
+                    placeholder="Enter Quantity"
+                    className="order-customer-service-input"
+                  />
+                </div>
+              ))}
+            </div>
             {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -454,7 +599,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           Fnsku Files
         </p>
         {fnskuSend1 && (
-          <div style={{ display: "flex",flexWrap:"wrap", marginLeft: "30px" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
             {fnskuSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
@@ -474,7 +621,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           Label Files
         </p>
         {labelSend1 && (
-          <div style={{ display: "flex", flexWrap:"wrap", marginLeft: "30px" }}>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
             {labelSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
@@ -520,7 +669,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           }}
         >
           <CustomerDimensionView
-             updateId = {orderId}
+            updateId={orderId}
             onClose={handleCloseModal}
           />
         </Box>
@@ -528,5 +677,5 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     </>
   );
 }
-
+ 
 export default CustomerOrderViewDetail;

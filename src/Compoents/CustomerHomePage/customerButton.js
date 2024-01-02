@@ -1,12 +1,19 @@
 import Toast from "../utlis/toast";
-const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount,orderIds }) => {
+const CustomerButton = ({
+  id,
+  discounted_amount,
+  fetchProducts,
+  fetchTotalAmount,
+  orderIds,
+}) => {
   // Set the initial value as a string '1'
-  console.log(orderIds, "orderIds")
+  console.log(orderIds, "orderIds");
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
     const requestData = {
       status: 7,
+      orderIds: orderIds,
     };
 
     try {
@@ -38,7 +45,9 @@ const CustomerButton = ({ id, amount, fetchProducts, fetchTotalAmount,orderIds }
   const handleSubmit1 = async () => {
     try {
       const amount2 = {
-        amount: amount,
+        amount: discounted_amount,
+        orderIds: orderIds,
+        status: 6,
       };
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}acceptOrder/${id}`,

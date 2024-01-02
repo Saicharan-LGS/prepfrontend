@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import './index.css'
+import { useState, useEffect } from "react";
+import "./index.css";
 import Toast from "../utlis/toast";
 
 function DimensionDetailPage({ dimensionData, fetchData1 }) {
@@ -106,9 +106,7 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(
-          dimensionsWithUnits,
-        ),
+        body: JSON.stringify(dimensionsWithUnits),
       });
       if (response.ok) {
         response.json().then((data) => {
@@ -130,10 +128,8 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
           height: "inches",
           weight: "lb",
         });
-        console.log('fetchData1 callings ....')
-       fetchData1()
-        
-
+        console.log("fetchData1 callings ....");
+        fetchData1();
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -145,6 +141,28 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
     } catch {}
   };
 
+  const deletedimension = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this Dimension?"
+    );
+    if (!isConfirmed) {
+      return;
+    }
+    const response = await fetch(`${FETCH_URL}deleteDimension/${id}`, {
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.ok) {
+      response.json().then((data) => {
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+      });
+    }
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDimensions({
@@ -163,7 +181,10 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
 
   return (
     <div className="dimensions-main-container">
-      <form className="dimensions-details-form-container" onSubmit={handleSubmit}>
+      <form
+        className="dimensions-details-form-container"
+        onSubmit={handleSubmit}
+      >
         <div className="dimension-flex">
           {["length", "width", "height", "weight"].map((dimension) => (
             <div key={dimension} className="dimensions-details-input-container">
@@ -191,30 +212,40 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
                   ))}
                 </select>
               </div>
-              
             </div>
           ))}
           <div className="dimension-details-input-container-1">
-          <label className="dimensions-label-text">Quantity</label>
-          <input
-            type="number"
-            placeholder="Enter the quantity"
-            className="dimensions-details-input-1"
-            value={dimensions.itemNo}
-          />
+            <label className="dimensions-label-text">Quantity</label>
+            <input
+              type="number"
+              onChange={handleInputChange}
+              placeholder="Enter the quantity"
+              className="dimensions-details-input-1"
+              value={dimensions.itemNo}
+            />
+          </div>
+          <div className="dimension-details-input-container-1">
+            <label className="dimensions-label-text">boxBy</label>
+            <select
+              className="dimensions-details-input-1"
+              value={dimensions.boxBy}
+            >
+              <option value="prep">Prep</option>
+              <option value="customer">Customer</option>
+            </select>
+          </div>
         </div>
-        <div className="dimension-details-input-container-1">
-          <label className="dimensions-label-text" >boxBy</label>
-          <select className="dimensions-details-input-1" value={dimensions.boxBy}>
-            <option value="prep">Prep</option>
-            <option value="customer">Customer</option>
-          </select>
-        </div>
-        </div>
-        
+
         <center>
           <button className="dimensions-details-button" type="submit">
             Update
+          </button>
+          <button
+            onClick={deletedimension}
+            value={dimensions.id}
+            className="dimensions-details-button"
+          >
+            Delete
           </button>
         </center>
       </form>
