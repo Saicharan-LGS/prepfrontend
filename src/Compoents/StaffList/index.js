@@ -138,6 +138,7 @@ function StaffList({ openDetailPageComponent }) {
           <div className="admin-order-accepted-category-types">
             <p className="customer-list-table-row">Staff Id</p>
             <p className="customer-list-table-row">Name</p>
+            <p className="customer-list-table-row">Role</p>
             <p className="customer-list-table-row">Email</p>
             <p className="customer-list-table-row">Status</p>
           </div>
@@ -153,6 +154,9 @@ function StaffList({ openDetailPageComponent }) {
                     <p className="customer-list-table-row">{eachProduct.id}</p>
                     <p className="customer-list-table-row">
                       {eachProduct.name}
+                    </p>
+                    <p className="customer-list-table-row">
+                      {eachProduct.role}
                     </p>
                     <p className="customer-list-table-row">
                       {eachProduct.email}

@@ -29,7 +29,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   useEffect(() => {
     // Filter products based on orderId
     const filtered = products.filter((product) => {
-      const productIdMatch = product.id.toString().includes(orderId);
+      const productIdMatch = product.orders.toString().includes(orderId);
 
       return productIdMatch;
     });

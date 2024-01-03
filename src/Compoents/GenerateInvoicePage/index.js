@@ -1,29 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Invoice from "./invoice";
 import './index.css'
 import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
+import { useReactToPrint } from 'react-to-print';
 
-function GenerateInvoicePage({ data,onClose }) {
+function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   const [totalAmount, setTotalAmount] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [discountAmount, setDiscountAmount] = useState();
 
   const handleDiscount = (e) => {
     console.log(e.target.value);
+    if(e.target.value>100){
+      alert("Value must be 2 digits only...")
+      return
+    }
+    let discountValue = e.target.value
+    let finalAmount = totalAmount - (totalAmount * discountValue) / 100;
+    finalAmount = parseFloat(finalAmount.toFixed(3));
     setDiscount(e.target.value);
+    setDiscountAmount(finalAmount);
   };
   useEffect(()=>{
     setDiscountAmount(totalAmount)
   },[])
 
   const handleAdd = () => {
-    const finalAmount = totalAmount - (totalAmount * discount) / 100;
+    let finalAmount = totalAmount - (totalAmount * discount) / 100;
     setDiscountAmount(finalAmount);
   };
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const generateInvoice = async () => {
+    alert("Are you sure.....")
     console.log("generate invoice called");
     const orderIds = data.map((each) => each.id);
     console.log(orderIds);
@@ -46,7 +56,8 @@ function GenerateInvoicePage({ data,onClose }) {
       if (!response.ok) {
         throw new Error("Error generating invoice");
       }
-
+      onClose()
+      fetchProducts()
       console.log("Invoice generated successfully");
     } catch (error) {
       console.error("Error generating invoice:", error.message);
@@ -67,6 +78,7 @@ function GenerateInvoicePage({ data,onClose }) {
     }, 0);
 
     setTotalAmount(total);
+    setDiscountAmount(total)
   }, [data]);
 
   console.log(totalAmount, "totalamount");
@@ -76,34 +88,65 @@ function GenerateInvoicePage({ data,onClose }) {
     onClose()
   }
 
+
+
+
   return (
-    <>
+    <div>
       <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
       <h1 className="genearte-invoice-heading">Invoice Generation</h1>
       {data.map((each) => (
         <Invoice key={each.id} data={each} />
       ))}
-      <p className="generate-invoice-total-amount">
-        Total Amount : {totalAmount}
-      </p>
+       <div className="generate-invoice-billing-container">
+        <div className="generate-invoice-discount-container">
+        <p className="generate-invoice-total-amount">
+          Total Amount
+        </p>
+        <p className="generate-invoice-total-amount-text">{totalAmount}</p>
+      </div>
       <div className="generate-invoice-discount-container">
-        <label className="generate-invoice-total-amount">Discount(%) :</label>
+        <p className="generate-invoice-total-amount">Discount(%)</p>
         <input
           type="number"
           value={discount}
-          className=""
+          className="generate-invoice-discount-input"
           placeholder="Enter discount in Percentage"
           onChange={handleDiscount}
+          required
+          min="0" max="99"
         />
-        <button onClick={handleAdd} className="service-add-button">
-          Add
-        </button>
         
       </div>
-      <p  className="generate-invoice-total-amount">Discounted Price : {discountAmount}</p>
-      <button onClick={generateInvoice}>Generate Invoice</button>
-    </>
+      <div className="generate-invoice-discount-container">
+      <p  className="generate-invoice-total-amount" style={{fontWeight:700,color:"#212d45",fontSize:"20px"}}>Final Price</p>
+      <p className="generate-invoice-total-amount-text" style={{fontWeight:700,color:"#212d45",fontSize:"20px"}}>{discountAmount}</p>
+      </div>
+     
+      
+      </div>
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <button onClick={generateInvoice} className="service-add-button">Generate Invoice</button>
+      </div>
+      
+      
+    </div>
   );
+  
 }
+// const GenerateInvoicePage = ({data,onClose,fetchProducts}) => {
+//   const contentRef = useRef();
+
+//   const handlePrint = useReactToPrint({
+//     content: () => contentRef.current,
+//   });
+
+//   return (
+//     <div>
+//       <Download contentRef={contentRef} data={data} onClose={onClose} fetchProducts={fetchProducts} />
+//       <button onClick={handlePrint}>Download PDF</button>
+//     </div>
+//   );
+// };
 
 export default GenerateInvoicePage;

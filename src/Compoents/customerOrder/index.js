@@ -225,6 +225,8 @@ const CustomerOrder = () => {
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
         setInstructions("");
+        setSelectedServices([])
+        setProductQuantities({})
       } else {
         response.json().then((data) => {
           Toast.fire({
