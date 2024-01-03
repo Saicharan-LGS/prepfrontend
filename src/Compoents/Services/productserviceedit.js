@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Toast from "../utlis/toast";
-import './index.css'
-const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
+import "./index.css";
+const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
   const [formData, setFormData] = useState({
     category: "Product",
     name: "",
     price: 0,
   });
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -16,15 +16,15 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
     });
   };
 
-  console.log(formData,"ramesh")
- 
+  console.log(formData, "ramesh");
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     const token = sessionStorage.getItem("token"); // Assuming token is stored in sessionStorage
- 
+
     try {
       const response = await fetch(`${FETCH_URL}product-service/${id}`, {
         method: "PUT",
@@ -34,11 +34,11 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
         },
         body: JSON.stringify(formData),
       });
- 
+
       if (!response.ok) {
         throw new Error("Failed to add product/service");
       }
- 
+
       const data = await response.json();
       Toast.fire({
         icon: "success",
@@ -50,7 +50,7 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
         price: 0,
       });
       fetchProductServices();
-      onClose()
+      onClose();
       console.log("Product/Service added successfully:", data);
     } catch (error) {
       console.error("Error adding product/service:", error.message);
@@ -60,7 +60,7 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-        const token = sessionStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       const options = {
         method: "GET",
         headers: {
@@ -76,12 +76,12 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
         }
 
         const data = await response.json();
-        console.log(data,"kapilraj")
+        console.log(data, "kapilraj");
         setFormData({
-            category: data.data.category,
-            name: data.data.name,
-            price: data.data.price,
-          });
+          category: data.data.category,
+          name: data.data.name,
+          price: data.data.price,
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -89,12 +89,14 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
 
     fetchData();
   }, []);
- 
+
   return (
     <div className="product-service-main-container">
       <form onSubmit={handleSubmit} className="product-service-form-container">
         <div className="product-service-input-container">
-          <label htmlFor="category" className="product-service-label-name">Product and Services:</label>
+          <label htmlFor="category" className="product-service-label-name">
+            Product and Services:
+          </label>
           <select
             id="category"
             name="category"
@@ -107,7 +109,9 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
           </select>
         </div>
         <div className="product-service-input-container">
-          <label htmlFor="name" className="product-service-label-name">Name:</label>
+          <label htmlFor="name" className="product-service-label-name">
+            Name:
+          </label>
           <input
             type="text"
             id="name"
@@ -119,7 +123,9 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
           />
         </div>
         <div className="product-service-input-container">
-          <label htmlFor="price" className="product-service-label-name">Price:</label>
+          <label htmlFor="price" className="product-service-label-name">
+            Price:
+          </label>
           <input
             type="number"
             id="price"
@@ -129,7 +135,9 @@ const ProductServiceEdit = ({ fetchProductServices,id,onClose }) => {
             className="product-service-input-field"
           />
         </div>
-        <button type="submit" className="service-add-button">Update</button>
+        <button type="submit" className="service-add-button">
+          Update
+        </button>
       </form>
     </div>
   );

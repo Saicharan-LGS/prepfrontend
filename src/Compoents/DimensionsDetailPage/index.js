@@ -163,14 +163,16 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
       });
     }
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value, "name");
     setDimensions({
       ...dimensions,
       [name]: value,
     });
   };
-
+  const handleQuantityChange = (e) => {};
   const handleUnitChange = (e, dimension) => {
     const selectedUnit = e.target.value;
     setSelectedUnits({
@@ -218,6 +220,7 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
             <label className="dimensions-label-text">Quantity</label>
             <input
               type="number"
+              name="itemNo"
               onChange={handleInputChange}
               placeholder="Enter the quantity"
               className="dimensions-details-input-1"

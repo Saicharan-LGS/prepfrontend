@@ -185,7 +185,6 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
             </a>
           ) : (
             <p className="" tracking_url>
-              {" "}
             </p>
           )}
         </p>
