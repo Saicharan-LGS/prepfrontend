@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import EmptyOrder from "../EmptyOrder";
+
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
@@ -11,7 +10,6 @@ function StaffList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);

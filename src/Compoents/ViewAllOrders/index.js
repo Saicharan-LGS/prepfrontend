@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../adminOrders/index.css";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
@@ -10,9 +9,8 @@ import Spinner from "../Spinner";
 function ViewAllOrders({openDetailPageComponent}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // Number of products to display per page
+  const [productsPerPage] = useState(10); 
 
   const [selectedFilter, setSelectedFilter] = useState("");
   const [orderId, setOrderId] = useState("");
@@ -83,7 +81,7 @@ function ViewAllOrders({openDetailPageComponent}) {
               Authorization: `Bearer ${token}`,
             },
           }
-        ); // Replace with your API endpoint
+        );
         if (response.ok) {
           const data = await response.json();
           setProducts(data.results);
@@ -102,9 +100,9 @@ function ViewAllOrders({openDetailPageComponent}) {
     fetchProducts();
   }, []);
 
-  const openDetailPage = (e, productId) => {
-    navigate(`/adminViewDetail/${productId}`);
-  };
+  // const openDetailPage = (e, productId) => {
+  //   navigate(`/adminViewDetail/${productId}`);
+  // };
 
 
   const NextButton =

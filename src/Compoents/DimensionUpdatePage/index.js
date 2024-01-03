@@ -5,7 +5,7 @@ import DimensionsUpdate from "../DimensionsUpdate";
 import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
 import './index.css'
-import CustomerDimension from "../CustomerDimension";
+
 import { ImCancelCircle } from "react-icons/im";
 
 function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,onClose }) {
@@ -27,13 +27,13 @@ function DimensionUpdatePage({ openDetailPageComponent, updateId,fetchProducts,o
   const role = sessionStorage.getItem("role");
   console.log(role,"ram")
 
-  const openDetailPage = (productId) => {
-    if (role === "Admin") {
-      openDetailPageComponent(productId);
-    } else {
-      navigate(`/viewDetailedorder/${productId}`);
-    }
-  };
+  // const openDetailPage = (productId) => {
+  //   if (role === "Admin") {
+  //     openDetailPageComponent(productId);
+  //   } else {
+  //     navigate(`/viewDetailedorder/${productId}`);
+  //   }
+  // };
 
   const id = updateId;
   const token = sessionStorage.getItem("token");

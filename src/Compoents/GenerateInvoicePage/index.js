@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Invoice from "./invoice";
 import './index.css'
 import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
-import { useReactToPrint } from 'react-to-print';
+
 
 function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -26,10 +26,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
     setDiscountAmount(totalAmount)
   },[])
 
-  const handleAdd = () => {
-    let finalAmount = totalAmount - (totalAmount * discount) / 100;
-    setDiscountAmount(finalAmount);
-  };
+  
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const generateInvoice = async () => {

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => {
@@ -42,7 +42,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
   };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL
-  const token = sessionStorage.getItem("token");
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

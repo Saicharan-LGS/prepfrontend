@@ -108,12 +108,6 @@ function ViewDetailedOrder() {
     trackingURL,
     fnskuSend1,
     labelSend1,
-    fnsku_status,
-    label_status,
-    length,
-    width,
-    weight,
-    height,
     instructions,
   } = formData;
 
