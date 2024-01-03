@@ -73,7 +73,7 @@ function Customerinvoicedata({data}) {
           <p className="generate-invoice-table-header">Category</p>
           <p className="generate-invoice-table-header">Quantity</p>
           <p className="generate-invoice-table-header">Rate</p>
-          <p className="generate-invoice-table-header">Total</p>
+          <p className="generate-invoice-table-header-1">Total</p>
         </div>
         {service.map((eachProduct) => {
             total = total+parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)
@@ -86,12 +86,12 @@ function Customerinvoicedata({data}) {
               <p className="generate-invoice-table-header">{eachProduct.productCategory}</p>
               <p className="generate-invoice-table-header">{eachProduct.serviceQuantity}</p>
               <p className="generate-invoice-table-header">{eachProduct.productPrice}</p>
-              <p className="generate-invoice-table-header">{parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)}</p>
+              <p className="generate-invoice-table-header-1">{parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)}</p>
             </div>
           );
         })}
     </div>
-    <div style={{display:"flex",justifyContent:"flex-end"}}>
+    <div style={{display:"flex",justifyContent:"flex-end",marginRight:"12px"}}>
     <p className="generate-invoice-total-amount">Grand Total : {total}</p>
     </div>
     </div>

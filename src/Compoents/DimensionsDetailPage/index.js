@@ -236,7 +236,7 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
           </div>
         </div>
 
-        <center>
+        <center style={{display:"flex",justifyContent:"center",gap:"20px"}}>
           <button className="dimensions-details-button" type="submit">
             Update
           </button>

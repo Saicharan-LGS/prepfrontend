@@ -12,8 +12,13 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
 
   const handleDiscount = (e) => {
     console.log(e.target.value);
+    if(e.target.value>100){
+      alert("Value must be 2 digits only...")
+      return
+    }
     let discountValue = e.target.value
     let finalAmount = totalAmount - (totalAmount * discountValue) / 100;
+    finalAmount = parseFloat(finalAmount.toFixed(3));
     setDiscount(e.target.value);
     setDiscountAmount(finalAmount);
   };
@@ -93,26 +98,38 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
       {data.map((each) => (
         <Invoice key={each.id} data={each} />
       ))}
-      <p className="generate-invoice-total-amount">
-        Total Amount : {totalAmount}
-      </p>
+       <div className="generate-invoice-billing-container">
+        <div className="generate-invoice-discount-container">
+        <p className="generate-invoice-total-amount">
+          Total Amount
+        </p>
+        <p className="generate-invoice-total-amount-text">{totalAmount}</p>
+      </div>
       <div className="generate-invoice-discount-container">
-        <label className="generate-invoice-total-amount">Discount(%) :</label>
+        <p className="generate-invoice-total-amount">Discount(%)</p>
         <input
           type="number"
           value={discount}
-          className=""
+          className="generate-invoice-discount-input"
           placeholder="Enter discount in Percentage"
           onChange={handleDiscount}
           required
+          min="0" max="99"
         />
-        <button onClick={handleAdd} className="service-add-button">
-          Add
-        </button>
         
       </div>
-      <p  className="generate-invoice-total-amount">Discounted Price : {discountAmount}</p>
-      <button onClick={generateInvoice} className="service-add-button">Generate Invoice</button>
+      <div className="generate-invoice-discount-container">
+      <p  className="generate-invoice-total-amount" style={{fontWeight:700,color:"#212d45",fontSize:"20px"}}>Final Price</p>
+      <p className="generate-invoice-total-amount-text" style={{fontWeight:700,color:"#212d45",fontSize:"20px"}}>{discountAmount}</p>
+      </div>
+     
+      
+      </div>
+      <div style={{display:"flex",justifyContent:"center"}}>
+        <button onClick={generateInvoice} className="service-add-button">Generate Invoice</button>
+      </div>
+      
+      
     </div>
   );
   

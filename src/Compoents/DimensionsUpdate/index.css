@@ -7,12 +7,17 @@
   border-radius: 8px;
   margin-bottom: 20px;
   padding: 20px;
-  width:400px;
+  width:100%;
 
+}
+.dimension-flex-container{
+  display:flex;
+  flex-wrap:wrap;
 }
 
 .dimensions-input-container {
   margin-bottom: 10px;
+  width:350px;
 }
 
 .dimensions-label-text {
@@ -62,4 +67,5 @@
   flex-direction:column;
   gap:4px;
   margin-bottom:10px;
+  width:350px;
 }

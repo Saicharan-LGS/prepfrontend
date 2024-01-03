@@ -17,52 +17,54 @@ function Invoice({data}) {
     <>
     <div style={{marginBottom:"20px"}}>
       <h4>Each Product Invoice :</h4>
-      <div className="admin-order-accepted-table-container-1">
-        <div className="admin-order-accepted-category-types">
-          <p className="customer-list-table-row">Order ID</p>
-          <p className="customer-list-table-row">Name</p>
-          <p className="customer-list-table-row">Product</p>
-          <p className="customer-list-table-row">Quantity</p>
+      <div className="generate-invoice-table-container-1">
+        <div className="generate-invoice-header-table-container">
+          <p className="generate-invoice-table-header">Order ID</p>
+          <p className="generate-invoice-table-header">Name</p>
+          <p className="generate-invoice-table-header">Product</p>
+          <p className="generate-invoice-table-header">Quantity</p>
         </div>
 
     
             <div
-              className="admin-order-accepted-display-of-products-container"
+              className="generate-invoice-table-display-container"
               key={eachProduct.id}
             >
-              <p className="customer-list-table-row">{eachProduct.id}</p>
-              <p className="customer-list-table-row">{eachProduct.name}</p>
-              <p className="customer-list-table-row">{eachProduct.product}</p>
-              <p className="customer-list-table-row">{eachProduct.unit}</p>
+              <p className="generate-invoice-table-header">{eachProduct.id}</p>
+              <p className="generate-invoice-table-header">{eachProduct.name}</p>
+              <p className="generate-invoice-table-header">{eachProduct.product}</p>
+              <p className="generate-invoice-table-header">{eachProduct.unit}</p>
             </div>
     
       </div>
       <h5>Calculations</h5>
-      <div className="admin-order-accepted-table-container-1">
-      <div className="admin-order-accepted-category-types">
-          <p className="customer-list-table-row">Name</p>
-          <p className="customer-list-table-row">Category</p>
-          <p className="customer-list-table-row">Quantity</p>
-          <p className="customer-list-table-row">Price</p>
-          <p className="customer-list-table-row">Total</p>
+      <div className="generate-invoice-table-container-1">
+      <div className="generate-invoice-header-table-container">
+          <p className="generate-invoice-table-header">Name</p>
+          <p className="generate-invoice-table-header">Category</p>
+          <p className="generate-invoice-table-header">Quantity</p>
+          <p className="generate-invoice-table-header">Price</p>
+          <p className="generate-invoice-table-header-1">Total</p>
         </div>
         {service.map((eachProduct) => {
             total = total+parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)
           return (
             <div
-              className="admin-order-accepted-display-of-products-container"
+            className="generate-invoice-table-display-container"
               key={eachProduct.serviceId}
             >
-              <p className="customer-list-table-row">{eachProduct.productName}</p>
-              <p className="customer-list-table-row">{eachProduct.productCategory}</p>
-              <p className="customer-list-table-row">{eachProduct.serviceQuantity}</p>
-              <p className="customer-list-table-row">{eachProduct.productPrice}</p>
-              <p className="customer-list-table-row">{parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)}</p>
+              <p className="generate-invoice-table-header">{eachProduct.productName}</p>
+              <p className="generate-invoice-table-header">{eachProduct.productCategory}</p>
+              <p className="generate-invoice-table-header">{eachProduct.serviceQuantity}</p>
+              <p className="generate-invoice-table-header">{eachProduct.productPrice}</p>
+              <p className="generate-invoice-table-header-1">{parseInt(eachProduct.serviceQuantity)*parseInt(eachProduct.productPrice)}</p>
             </div>
           );
         })}
     </div>
+    <div style={{display:"flex",justifyContent:"flex-end",marginRight:"10px"}}>
     <p className="generate-invoice-total-amount">Grand Total : {total}</p>
+    </div>
     </div>
     </>
   )

@@ -19,7 +19,9 @@
     min-width:1000px;
     gap:20px;
     padding:2px 4px;
-    height:24px;
+    min-height:24px;
+    min-width:1000px;
+    max-height:max-content;
     width:100%;
 }
 .admin-order-accepted-order-id-category{
@@ -153,7 +155,7 @@
     min-width:1000px;
     gap:20px;
     padding:2px 4px;
-    height:50px;
+    height:40px;
     width:100%;
     overflow-x:auto;
     overflow-y:hidden;

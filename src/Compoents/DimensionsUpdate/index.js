@@ -128,7 +128,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
   return (
     <div className="dimensions-main-container">
       <form className="dimensions-form-container" onSubmit={handleSubmit}>
-        <div>
+        <div className="dimension-flex-container">
           {["length", "width", "height", "weight"].map((dimension) => (
             <div key={dimension} className="dimensions-input-container">
               <label className="dimensions-label-text">
@@ -158,6 +158,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
             </div>
           ))}
         </div>
+        <div className="dimension-flex-container">
         <div className="dimension-input-container-1">
            <label className="dimensions-label-text">Quantity</label>
            <input type="number" value={dimensions.itemNo} name="itemNo" onChange={handleInputChange} placeholder="Enter the quantity" className="dimensions-input"/>
@@ -168,6 +169,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
             <option value="prep">Prep</option>
             <option value="customer">Customer</option>
            </select>
+        </div>
         </div>
         <center>
           <button className="dimensions-button" type="submit">
