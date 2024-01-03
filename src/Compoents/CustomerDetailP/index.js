@@ -30,6 +30,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     weight: "",
     amount: "",
     instructions: "",
+    quantity_received:""
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
@@ -107,6 +108,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           amount: data.amount,
           status: data.status,
           instructions: data.instructions,
+          quantity_received:data.quantity_received
         });
       } else {
       }
@@ -304,6 +306,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
  
     fnskuSend1,
     labelSend1,
+    quantity_received,
     length,
     width,
     weight,
@@ -355,6 +358,17 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="name"
                 value={name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name"> Received Quantity:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="receivedQuantity"
+                value={quantity_received}
                 onChange={handleChange}
                 required
               />

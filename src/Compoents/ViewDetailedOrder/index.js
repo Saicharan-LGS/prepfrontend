@@ -3,6 +3,8 @@ import "./index.css";
 import { useParams } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
 import { AiOutlineFilePdf } from "react-icons/ai";
+import CustomerDimensionView from "../CustomerDimensionView";
+import { Box, Modal } from "@mui/material";
 function ViewDetailedOrder() {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -28,6 +30,7 @@ function ViewDetailedOrder() {
     weight: "",
     instructions: "",
   });
+  const [isModalOpen, setModalOpen] = React.useState(false);
   const token = sessionStorage.getItem("token");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -114,6 +117,16 @@ function ViewDetailedOrder() {
     instructions,
   } = formData;
 
+  const handleDimensionUpdate = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+ 
+ 
+
   return (
     <>
       <CommonNavbar />
@@ -145,6 +158,12 @@ function ViewDetailedOrder() {
                 readOnly
               />
             </div>
+            <p
+              className="order-customer-dimension-update-button-container"
+              onClick={handleDimensionUpdate}
+            >
+              See Dimensions
+            </p>
             {/* <div className="order-customer-input-feild">
             <label className="order-customer-label-name">Amount</label>
             <input
@@ -373,6 +392,31 @@ function ViewDetailedOrder() {
           </div>
         )}
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "70%",
+            top: "50%",
+            left: "50%",
+            height: "500px",
+            overflow: "scroll",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          <CustomerDimensionView
+            updateId={id}
+            onClose={handleCloseModal}
+          />
+        </Box>
+      </Modal>
     </>
   );
 }

@@ -411,6 +411,31 @@ function OrderViewDetail({ orderId, setStatus }) {
             >
               Update Dimensions
             </p>
+            <div className="order-customer-service-container">
+              <p className="order-customer-service-name">Services :</p>
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="order-customer-service-input-container"
+                >
+                  <input
+                    type="checkbox"
+                    id={service.id}
+                    name="selectedServices"
+                    value={service.id}
+                    checked={selectedServices.includes(service.id)}
+                    onChange={(e) => handleServiceSelection(e, service.id)}
+                    className="order-customer-input-checkbox"
+                  />
+                  <label
+                    htmlFor={service.id}
+                    className="order-customer-label-name"
+                  >
+                    {service.name}
+                  </label>
+                </div>
+              ))}
+            </div>
             {/* {["length", "width", "height", "weight"].map((dimension) => (
               <div key={dimension} className="dimensions-input-container">
                 <label className="dimensions-label-text">
@@ -548,31 +573,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 <option value="7">Invoice Rejected</option>
               </select>
             </div>
-            <div className="order-customer-service-container">
-              <p className="order-customer-service-name">Services :</p>
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="order-customer-service-input-container"
-                >
-                  <input
-                    type="checkbox"
-                    id={service.id}
-                    name="selectedServices"
-                    value={service.id}
-                    checked={selectedServices.includes(service.id)}
-                    onChange={(e) => handleServiceSelection(e, service.id)}
-                    className="order-customer-input-checkbox"
-                  />
-                  <label
-                    htmlFor={service.id}
-                    className="order-customer-label-name"
-                  >
-                    {service.name}
-                  </label>
-                </div>
-              ))}
-            </div>
+            
             <div className="order-customer-service-container">
               <label className="order-customer-service-name">Products :</label>
               {products.map((product) => (
