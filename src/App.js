@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route,Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProductList from "./Compoents/adminOrders";
 import LabelOrders from "./Compoents/labelOrders";
 import OrderViewDetail from "./Compoents/AdminDetailPage";
-import DimensionsUpdate from "./Compoents/DimensionsUpdate";
 import DimensionOrderList from "./Compoents/DimensionOrders";
 import AdminHomePage from "./Compoents/AdminHomePage";
 import Navbar from "./Compoents/Navbar";

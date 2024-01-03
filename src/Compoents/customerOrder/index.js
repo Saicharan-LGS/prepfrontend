@@ -355,6 +355,7 @@ const CustomerOrder = () => {
                       
                     </label>
                     <input
+                    required
                       type="number"
                       id={`product-${product.id}`}
                       name={`product-${product.id}`}
