@@ -41,6 +41,7 @@ function App() {
         setTotalAmount(data.total_amount);
       })
       .catch((error) => {
+        console.log(error)
         setTotalAmount(0);
       });
   };
