@@ -22,7 +22,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   //   return isNaN(savedStatus) ? 5 : savedStatus;
   // });
 
-const [status, setStatus]=useState(5)
+const [status, setStatus]=useState(9)
 
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);

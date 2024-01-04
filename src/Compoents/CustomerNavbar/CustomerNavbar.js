@@ -11,6 +11,20 @@ import CustomerHomePage from "../CustomerHomePage";
 import CustomerOrder from "../customerOrder";
 export const CustomerNavbarData = [
   {
+    title: "Post Order",
+    id: 9,
+    icon: <ImUpload />,
+    cName: "nav-text",
+    component: <CustomerOrder />,
+  },
+  {
+    title: "Orders",
+    id: 8,
+    icon: <FaIcons.FaCartPlus />,
+    cName: "nav-text",
+    component: <CustomerHomePage />,
+  },
+  {
     title: "Invoice Pending",
     id: 5,
 
@@ -32,20 +46,8 @@ export const CustomerNavbarData = [
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
-  {
-    title: "All Orders",
-    id: 8,
-    icon: <FaIcons.FaCartPlus />,
-    cName: "nav-text",
-    component: <CustomerHomePage />,
-  },
-  {
-    title: "Post Order",
-    id: 9,
-    icon: <ImUpload />,
-    cName: "nav-text",
-    component: <CustomerOrder />,
-  },
+ 
+  
   //   {
   //     title: 'Accountant',
   //     icon: <IoIcons.IoMdPeople />,

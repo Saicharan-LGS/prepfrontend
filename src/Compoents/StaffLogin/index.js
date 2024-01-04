@@ -10,7 +10,7 @@ const StaffSigninPage = () => {
     password: "",
   });
 
-  const [staff, setStaff] = useState(true);
+  const [staff, setStaff] = useState(false);
 
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history
@@ -117,16 +117,15 @@ const StaffSigninPage = () => {
           />
         </div>
         <div className="signin-form-main-container">
-          <div className="signin-staff-customer-button-container">
+          {/* <div className="signin-staff-customer-button-container">
             <button className={activeStaffButton} onClick={onClickStaff}>
               Staff Signin
             </button>
             <button className={activeCustomerButton} onClick={onClickCustomer}>
               Customer Signin
             </button>
-          </div>
-          {staff ? (
-            <>
+          </div> */}
+          
               <center>
                 <h2 className="signin-form-heading-container">Staff Login</h2>
               </center>
@@ -167,10 +166,7 @@ const StaffSigninPage = () => {
                   {/* Display error message */}
                 </center>
               </form>
-            </>
-          ) : (
-            <CustomerLogin />
-          )}
+            
         </div>
       </div>
     </>

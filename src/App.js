@@ -57,8 +57,8 @@ function App() {
     <Routes>
       <Route path="*" element={<NotFound />} />
       
-      <Route path="/CustomerLogin" element={<CustomerLogin />} />
-      <Route path="/" element={<StaffSigninPage />} />
+      <Route path="/" element={<CustomerLogin />} />
+      <Route path="/login" element={<StaffSigninPage />} />
       <Route
         path="/CustomerOrderViewDetail/:id"
         element={

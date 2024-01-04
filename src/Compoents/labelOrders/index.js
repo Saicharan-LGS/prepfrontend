@@ -107,7 +107,14 @@ function LabelOrders({openDetailPageComponent}) {
                     {eachProduct.unit}
                   </p>
                   <p className="admin-order-accepted-order-tracking-sub-category">
-                    {eachProduct.tracking_url}
+                  {eachProduct.tracking_url? <a
+                        href={eachProduct.tracking_url}
+                        rel="noreferrer"
+                        target="_blank"
+                        className="tracking-url"
+                      >
+                        Order Link
+                      </a> : " " }
                   </p>
                   {/* <button className="admin-order-accepted-received-button">Received</button>
           <button className="admin-order-accepted-declined-button">Decline</button> */}
