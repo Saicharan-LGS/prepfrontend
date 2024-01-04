@@ -30,7 +30,13 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const generateInvoice = async () => {
-    alert("Are you sure.....")
+    const isConfirmed = window.confirm(
+      "Are you sure you want to Generate Invoice?"
+    );
+ 
+    if (!isConfirmed) {
+      return;
+    }
     console.log("generate invoice called");
     const orderIds = data.map((each) => each.id);
     console.log(orderIds);
