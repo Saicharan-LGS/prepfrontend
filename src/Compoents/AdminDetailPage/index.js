@@ -214,7 +214,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     const selectedProductsWithQuantity = Object.keys(productQuantities).map(
       (productId) => ({
         id: productId,
-        quantity: productQuantities[productId],
+        quantity: productQuantities[productId] || 0,
       })
     );
 
@@ -226,8 +226,6 @@ function OrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("product", product || "");
     formDataToSend.append("unit", unit || "");
     formDataToSend.append("tracking_url", tracking_url || "");
-    // formDataToSend.append("fnskuSend", fnskuSend);
-    // formDataToSend.append("labelSend", labelSend);
     formDataToSend.append("length", length1);
     formDataToSend.append("width", width1);
     formDataToSend.append("weight", weight1);

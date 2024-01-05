@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./index.css";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
-
 import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import DimensionUpdatePage from "../DimensionUpdatePage";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import CommonNavbar from "../CommonNavbar";
 
-function OrderViewDetail({ orderId, setStatus }) {
-  const id = orderId;
+function DimensionNewDetailPage() {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
     name: "",
@@ -219,7 +220,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     );
 
     const formDataToSend = new FormData();
-    formDataToSend.append("orderId", orderId);
+    formDataToSend.append("orderId", id);
     formDataToSend.append("date", date || "");
     formDataToSend.append("name", name || "");
     formDataToSend.append("service", service);
@@ -359,11 +360,10 @@ function OrderViewDetail({ orderId, setStatus }) {
       console.error("Error deleting file:", error);
     }
   };
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
-    const prevStatus = localStorage.getItem("prevStatus");
-    setStatus(prevStatus);
-    localStorage.setItem("status", prevStatus);
+    navigate("/dimensionorders");
   };
 
   const handleDimensionUpdate = () => {
@@ -371,6 +371,7 @@ function OrderViewDetail({ orderId, setStatus }) {
   };
   return (
     <>
+      <CommonNavbar />
       <div className="order-customer-container">
         <button
           className="order-customer-backward-button"
@@ -389,18 +390,19 @@ function OrderViewDetail({ orderId, setStatus }) {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="date"
                 name="date"
+                readOnly
                 value={date}
                 onChange={handleChange}
                 required
-                readOnly
               />
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name"> Name:</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="Name"
+                readOnly
                 value={name}
                 onChange={handleChange}
               />
@@ -417,11 +419,12 @@ function OrderViewDetail({ orderId, setStatus }) {
                 <div
                   key={service.id}
                   className="order-customer-service-input-container"
-                >
+                  >
                   <input
                     type="checkbox"
                     id={service.id}
                     name="selectedServices"
+                    readOnly
                     value={service.id}
                     checked={selectedServices.includes(service.id)}
                     onChange={(e) => handleServiceSelection(e, service.id)}
@@ -436,41 +439,15 @@ function OrderViewDetail({ orderId, setStatus }) {
                 </div>
               ))}
             </div>
-            {/* {["length", "width", "height", "weight"].map((dimension) => (
-              <div key={dimension} className="dimensions-input-container">
-                <label className="dimensions-label-text">
-                  {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
-                </label>
-                <div className="dimension-select-container">
-                  <input
-                    className="dimensions-input"
-                    type="text"
-                    name={dimension}
-                    value={dimensions[dimension]}
-                    onChange={(e) => handleDimensionsChange(e, dimension)}
-                  />
-                  <select
-                    className="dimensions-select"
-                    value={selectedUnits[dimension]}
-                    onChange={(e) => handleUnitChange(e, dimension)}
-                  >
-                    {unitOptions[dimension].map((unit) => (
-                      <option key={unit} value={unit}>
-                        {unit}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            ))} */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Service:</label>
               <select
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 onChange={handleChange}
                 required
+                readOnly
                 value={service}
               >
                 <option value="Prep Service">Prep Service</option>
@@ -479,36 +456,13 @@ function OrderViewDetail({ orderId, setStatus }) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Product:</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="product"
                 value={product}
+                readOnly
                 onChange={handleChange}
                 required
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                FNSKU ({fnskuSendFiles.length} files selected):
-              </label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="fnskuSend"
-                onChange={handleFnskuSendChange}
-                multiple
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Label ({labelSendFiles.length} files selected) :
-              </label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="labelSend"
-                onChange={handleLabelSendChange}
-                multiple
               />
             </div>
           </div>
@@ -516,9 +470,10 @@ function OrderViewDetail({ orderId, setStatus }) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Unit:</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="number"
                 name="unit"
+                readOnly
                 value={unit}
                 onChange={handleChange}
                 required
@@ -527,41 +482,33 @@ function OrderViewDetail({ orderId, setStatus }) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Tracking_url:</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="tracking_url"
+                readOnly
                 value={tracking_url}
                 onChange={handleChange}
               />
             </div>
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Amount</label>
-              <input
-                className="order-customer-lable-container"
-                type="text"
-                name="amount"
-                value={amount}
-                onChange={handleChange}
-              />
-            </div> */}
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Instructions</label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="instructions"
                 value={instructions}
+                readOnly
                 onChange={handleChange}
               />
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Status</label>
               <select
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="status"
+                readOnly
                 value={status || "Unknown Status"}
-                onChange={handleChange}
               >
                 <option value="0">Pending</option>
                 <option value="1">Rejected</option>
@@ -602,6 +549,8 @@ function OrderViewDetail({ orderId, setStatus }) {
                 </div>
               ))}
             </div>
+
+
             {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -636,10 +585,10 @@ function OrderViewDetail({ orderId, setStatus }) {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                <MdDeleteOutline
+                {/* <MdDeleteOutline
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
-                />
+                /> */}
               </div>
             ))}
           </div>
@@ -695,11 +644,11 @@ function OrderViewDetail({ orderId, setStatus }) {
             p: 3,
           }}
         >
-          <DimensionUpdatePage updateId={orderId} onClose={handleCloseModal} />
+          <DimensionUpdatePage updateId={id} onClose={handleCloseModal} />
         </Box>
       </Modal>
     </>
   );
 }
 
-export default OrderViewDetail;
+export default DimensionNewDetailPage;

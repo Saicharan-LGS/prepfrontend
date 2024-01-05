@@ -3,7 +3,7 @@ import React from "react";
 const TransactionSummary = ({ totalAmount }) => {
   return (
     <p className="navbar-nav-item-name">
-      Balance: <strong>Rs: {totalAmount}</strong>
+      Balance: <strong>$: {totalAmount}</strong>
     </p>
   );
 };
