@@ -149,7 +149,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
       ) : (
         <div className="admin-order-accepted-product-list">
           <h2 className="admin-order-accepted-order-list-heading">
-            Invoice Pending Orders
+            Dispatching Orders
           </h2>
           <div className="admin-order-accepted-search-filter-input-container">
             <input
