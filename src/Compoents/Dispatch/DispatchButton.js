@@ -1,18 +1,17 @@
 import Toast from "../utlis/toast";
 const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
   // Set the initial value as a string '1'
-  console.log(orderIds, "orderIds");
+  console.log(id, "id called");
   const token = sessionStorage.getItem("token");
-  const handleSubmit = async (id) => {
+  const handleSubmit = async () => {
     // Create an object with the data you want to send
     if (status === "5") {
       alert("Invoice is not accepted. You can't dispatch order");
       return;
     } else if (status === "7") {
-    } else if (status === "7") {
       alert("Invoice is Rejected by customer. You can't dispatch order");
       return;
-    } else if (status === "8") {
+    
     } else if (status === "8") {
       alert("Order is already dispatched");
       return;
@@ -24,6 +23,7 @@ const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
     };
 
     try {
+      console.log(id, "idsssssssssssssssssssssssss");
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}dispatch/${id}`,
         {
