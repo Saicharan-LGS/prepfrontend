@@ -74,7 +74,7 @@ function ViewAllOrders({openDetailPageComponent}) {
       try {
         const token = sessionStorage.getItem("token");
         const response = await fetch(
-          `${FETCH_URL}getOrders/${8}`,
+          `${FETCH_URL}getOrders/${9}`,
           {
             method: "GET",
             headers: {

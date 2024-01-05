@@ -72,7 +72,7 @@ function CustomerAllProducts({ openDetailPage }) {
       const token = sessionStorage.getItem("token");
       try {
         const response = await fetch(
-          `${FETCH_URL}customerorderlist/${8}`,
+          `${FETCH_URL}customerorderlist/${9}`,
           // Replace with your API endpoint
           {
             method: "GET",

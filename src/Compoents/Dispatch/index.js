@@ -33,11 +33,11 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
     // Filter products based on orderId and invoice status
     const filtered = products.filter((product) => {
       const productIdMatch = product.orders.toString().includes(orderId);
-      const statusMatch =  setStatus(product.status) === invoiceStatusFilter;
-  
+      const statusMatch = setStatus(product.status) === invoiceStatusFilter;
+
       return productIdMatch || statusMatch;
     });
-  
+
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter, currentPage]);
 
@@ -114,30 +114,32 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  const setStatus=(status)=>{
-    console.log(typeof(status,"statusstatus"))
-    if (status==="5"){
-      return (
-      <p className="admin-order-accepted-quantity-sub-category">
-     Invoice generated
-    </p>)
-    }else if(status==="6"){
-      return  (
-        <p className="admin-order-accepted-quantity-sub-category">
-       Invoice Accepted
-      </p>)
-    }else if(status==="7"){
+  const setStatus = (status) => {
+    console.log(typeof (status, "statusstatus"));
+    if (status === "5") {
       return (
         <p className="admin-order-accepted-quantity-sub-category">
-       Invoice Rejected
-      </p>)}
-      else {
-        return (
-          <p className="admin-order-accepted-quantity-sub-category">
-         Dispatched
-        </p>)
-      }
+          Invoice generated
+        </p>
+      );
+    } else if (status === "6") {
+      return (
+        <p className="admin-order-accepted-quantity-sub-category">
+          Invoice Accepted
+        </p>
+      );
+    } else if (status === "7") {
+      return (
+        <p className="admin-order-accepted-quantity-sub-category">
+          Invoice Rejected
+        </p>
+      );
+    } else {
+      return (
+        <p className="admin-order-accepted-quantity-sub-category">Dispatched</p>
+      );
     }
+  };
 
   return (
     <>
@@ -150,16 +152,16 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
             Invoice Pending Orders
           </h2>
           <div className="admin-order-accepted-search-filter-input-container">
-          <input
-            type="number"
-            name="orderid"
-            value={orderId}
-            onChange={handleSearch}
-            placeholder="Search by Order ID"
-            required
-            className="admin-order-accepted-search-filter-input"
-          />
-          <select
+            <input
+              type="number"
+              name="orderid"
+              value={orderId}
+              onChange={handleSearch}
+              placeholder="Search by Order ID"
+              required
+              className="admin-order-accepted-search-filter-input"
+            />
+            <select
               value={invoiceStatusFilter}
               onChange={(e) => setInvoiceStatusFilter(e.target.value)}
               className="admin-order-accepted-search-filter-input"
@@ -169,7 +171,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
               <option value="invoice_accepted">Invoice Accepted</option>
               <option value="invoice_rejected">Invoice Rejected</option>
             </select>
-            </div>
+          </div>
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">
@@ -213,19 +215,17 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-                        {setStatus(eachProduct.invoice_status)}
-                        
+                      {setStatus(eachProduct.invoice_status)}
+
                       <DispatchButton
-                        
+                        status={eachProduct.invoice_status}
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
                         fetchProducts={fetchProducts}
-                        
                       />
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
-                        status={eachProduct.invoice_status}
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />
