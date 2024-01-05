@@ -155,6 +155,7 @@ function CustomerAllProducts({ openDetailPage }) {
             <option value="Invoice">Invoice</option>
             <option value="Invoice Accepted">Invoice Accepted</option>
             <option value="Invoice Rejected">Invoice Rejected</option>
+            <option value="Dispatched">Dispatched</option>
           </select>
           </div>
           <div className="admin-order-accepted-table-container">
