@@ -29,7 +29,7 @@ function CustomerDimensionView({
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-  console.log(role, "ram");
+  
 
   const openDetailPage = (productId) => {
     if (role === "Admin") {
@@ -39,7 +39,7 @@ function CustomerDimensionView({
     }
   };
 
-  console.log(updateId,"updateIdupdateId")
+  
 
   const id = updateId;
   const token = sessionStorage.getItem("token");
@@ -80,7 +80,7 @@ function CustomerDimensionView({
   // }, []);
 
   const fetchData1 = async () => {
-    console.log("calling fetch");
+    
     try {
       const response = await fetch(`${FETCH_URL}/getdimensionbyid/${id}`);
       if (!response.ok) {
@@ -88,7 +88,7 @@ function CustomerDimensionView({
       }
       const data = await response.json();
       setDimensionList(data.dimensions);
-      console.log(data,"data.dimensionsdata.dimensions");
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -104,7 +104,6 @@ function CustomerDimensionView({
 
  
 
-  console.log(dimensionList,"dimensionListdimensionList")
 
   return (
     <div className="admin-order-accepted-product-list">

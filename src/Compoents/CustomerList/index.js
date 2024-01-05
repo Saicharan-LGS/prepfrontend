@@ -18,7 +18,7 @@ function CustomerList() {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleToggle = async (id, currentStatus) => {
-    console.log(currentStatus);
+    
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}update-customer-status/${id}`, {
@@ -32,7 +32,7 @@ function CustomerList() {
 
       if (response.ok) {
         // Handle success, maybe update the local state
-        console.log("User status updated successfully");
+        
         response.json().then((data) => {
           Toast.fire({
             icon: "success",

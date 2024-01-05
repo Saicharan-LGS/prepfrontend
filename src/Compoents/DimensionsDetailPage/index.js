@@ -4,7 +4,7 @@ import Toast from "../utlis/toast";
 
 function DimensionDetailPage({ dimensionData, fetchData1, index }) {
   const id = dimensionData.id;
-  console.log(dimensionData, "llllllllllllllllllllllll");
+
 
   const [dimensions, setDimensions] = useState({
     length: "",
@@ -33,7 +33,7 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
   const token = sessionStorage.getItem("token");
 
   const data = dimensionData;
-  console.log(data, "kpilraj reddy");
+  
   useEffect(() => {
     const lengthParts = (dimensionData.length || "").match(
       /([\d.]+)([a-zA-Z]+)/
@@ -166,7 +166,7 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value, "name");
+    
     setDimensions({
       ...dimensions,
       [name]: value,

@@ -65,7 +65,7 @@ function DimensionNewDetailPage() {
       });
       if (response.ok) {
         const data1 = await response.json();
-        console.log(data1, "data saicharan");
+       
         const data = data1.order;
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -84,7 +84,7 @@ function DimensionNewDetailPage() {
         setSelectedServices(productServicesIds);
 
         data1.services.Products.forEach((item) => {
-          console.log(item);
+          
           productQuantities[item.services] = item.quantity;
         });
 
@@ -335,7 +335,7 @@ function DimensionNewDetailPage() {
     if (!isConfirmed) {
       return;
     }
-    console.log(fileId);
+
     try {
       const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
         method: "DELETE",

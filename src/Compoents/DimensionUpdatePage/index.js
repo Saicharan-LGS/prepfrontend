@@ -30,7 +30,7 @@ function DimensionUpdatePage({
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-  console.log(role, "ram");
+  
 
   // const openDetailPage = (productId) => {
   //   if (role === "Admin") {
@@ -79,7 +79,7 @@ function DimensionUpdatePage({
   }, []);
 
   const fetchData1 = async () => {
-    console.log("calling fetch");
+   
     try {
       const response = await fetch(`${FETCH_URL}/getdimensionbyid/${id}`);
       if (!response.ok) {
@@ -87,7 +87,7 @@ function DimensionUpdatePage({
       }
       const data = await response.json();
       setDimensionList(data.dimensions);
-      console.log(data.dimensions);
+     
     } catch (error) {
       console.error("Error fetching data:", error);
     }

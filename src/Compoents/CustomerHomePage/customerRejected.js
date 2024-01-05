@@ -104,7 +104,7 @@ function CustomerRejected({ openDetailPage }) {
 
       const handleView=(each)=>{
         setSelectedOrders(each.orders)
-        console.log(each.orders,each.discount,each.discounted_amount,"ram")
+       
         setDiscount(each.discount)
         setDiscountedAmount(each.discounted_amount)
         setTotalAmount(each.totalamount)

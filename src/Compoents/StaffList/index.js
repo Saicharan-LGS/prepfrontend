@@ -16,7 +16,7 @@ function StaffList({ openDetailPageComponent }) {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleToggle = async (id, currentStatus, role1) => {
-    console.log(currentStatus);
+    
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}update-staff-status/${id}`, {
@@ -30,7 +30,7 @@ function StaffList({ openDetailPageComponent }) {
 
       if (response.ok) {
         // Handle success, maybe update the local state
-        console.log("User status updated successfully");
+       
         response.json().then((data) => {
           Toast.fire({
             icon: "success",

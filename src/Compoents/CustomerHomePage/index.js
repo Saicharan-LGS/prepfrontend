@@ -24,7 +24,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [discount,setDiscount] = useState("")
   const [discountedAmount,setDiscountedAmount] = useState("")
 
-  console.log(products,"products.....")
+
 
   useEffect(() => {
     // Filter products based on orderId
@@ -69,7 +69,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data, "saiiiiiiiiiiiiiiiiii");
+        
         setProducts(data);
         setLoading(false);
       } else {
@@ -100,7 +100,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
 
   const handleView=(each)=>{
     setSelectedOrders(each.orders)
-    console.log(each.orders,each.discount,each.discounted_amount,"ram")
+
     setDiscount(each.discount)
     setDiscountedAmount(each.discounted_amount)
     setTotalAmount(each.totalamount)

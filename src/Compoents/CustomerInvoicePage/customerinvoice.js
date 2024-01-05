@@ -13,8 +13,7 @@ function Customerinvoicedata({data}) {
         
       }, [data]);
     
-    console.log(data,"mmmmmm")
-
+    
 
     const fetchTotalAmount = () => {
       const token = sessionStorage.getItem("token");

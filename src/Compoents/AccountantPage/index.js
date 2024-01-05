@@ -28,12 +28,12 @@ function AccountOrders({ openDetailPageComponent }) {
   );
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [invoiceOrders, setInvoiceOrders] = useState([]);
-  console.log(invoiceOrders, "kapil invoice");
+ 
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  console.log(selectedIds, "selectedIds");
+  
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchProducts = async () => {
@@ -156,7 +156,7 @@ function AccountOrders({ openDetailPageComponent }) {
       : "pagination-arrow-container";
 
   const generateInvoice = async () => {
-    console.log(selectedIds,"kapikl");
+    
     if (selectedIds < 1) {
       alert("Please Select atleast one order");
     } else {
@@ -177,7 +177,7 @@ function AccountOrders({ openDetailPageComponent }) {
             title: data.message,
           });
           setInvoiceOrders(data.orders);
-          console.log(data.orders, "ordersdata");
+          
           // fetchProducts();
           setModalOpen(true);
         } else {

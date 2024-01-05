@@ -25,7 +25,7 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
       );
 
       if (response.ok) {
-        console.log("Order status and quantity received updated successfully");
+       
         // Add any additional logic you want to perform after a successful update
         response.json().then((data) => {
           Toast.fire({

@@ -7,7 +7,7 @@ const CustomerButton = ({
   orderIds,
 }) => {
   // Set the initial value as a string '1'
-  console.log(orderIds, "orderIds");
+ 
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send

@@ -48,7 +48,7 @@ const ProductService = ({ fetchProductServices }) => {
         price: 0,
       });
       fetchProductServices();
-      console.log("Product/Service added successfully:", data);
+      
     } catch (error) {
       console.error("Error adding product/service:", error.message);
       // Handle error or display a message to the user
