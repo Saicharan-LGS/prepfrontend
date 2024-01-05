@@ -225,6 +225,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
+                        status={eachProduct.invoice_status}
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />

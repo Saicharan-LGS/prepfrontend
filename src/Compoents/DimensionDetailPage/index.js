@@ -7,7 +7,7 @@ import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import DimensionUpdatePage from "../DimensionUpdatePage";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
 
 function DimensionNewDetailPage() {
@@ -215,7 +215,7 @@ function DimensionNewDetailPage() {
     const selectedProductsWithQuantity = Object.keys(productQuantities).map(
       (productId) => ({
         id: productId,
-        quantity: productQuantities[productId],
+        quantity: productQuantities[productId] || 0,
       })
     );
 
@@ -227,8 +227,6 @@ function DimensionNewDetailPage() {
     formDataToSend.append("product", product || "");
     formDataToSend.append("unit", unit || "");
     formDataToSend.append("tracking_url", tracking_url || "");
-    // formDataToSend.append("fnskuSend", fnskuSend);
-    // formDataToSend.append("labelSend", labelSend);
     formDataToSend.append("length", length1);
     formDataToSend.append("width", width1);
     formDataToSend.append("weight", weight1);
