@@ -19,6 +19,7 @@ import CommonNavbar from "./Compoents/CommonNavbar";
 import DimensionUpdatePage from "./Compoents/DimensionUpdatePage";
 import NotFound from "./Compoents/NotFound";
 import Dispatch from "./Compoents/Dispatch";
+import DimensionNewDetailPage from "./Compoents/DimensionDetailPage";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -52,7 +53,6 @@ function App() {
     }
   }, [role]);
 
-  
 
   return (
     <Routes>
@@ -60,6 +60,14 @@ function App() {
       
       <Route path="/" element={<CustomerLogin />} />
       <Route path="/login" element={<StaffSigninPage />} />
+      <Route
+        path="/dimensiondetailpage/:id"
+        element={
+          <ProtectedRoute allowedRoles={["Dimension"]}>
+            <DimensionNewDetailPage />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/CustomerOrderViewDetail/:id"
         element={
