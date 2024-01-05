@@ -317,6 +317,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     setModalOpen(false);
   };
 
+  const readOnlyInput = status==="0"? 'order-customer-lable-container':'order-customer-lable-container admin-order-accepted-readonly'
+
   return (
     <>
       <div className="order-customer-container">
@@ -346,7 +348,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name"> Name:</label>
               <input
-                className="order-customer-lable-container"
+                className={readOnlyInput}
                 type="text"
                 name="name"
                 value={name}
@@ -360,12 +362,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 Received Quantity:
               </label>
               <input
-                className="order-customer-lable-container"
+                className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="receivedQuantity"
                 value={quantity_received}
                 onChange={handleChange}
                 required
+                readOnly
               />
             </div>
             <p
@@ -429,7 +432,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Product :</label>
               <input
-                className="order-customer-lable-container"
+                className={readOnlyInput}
                 type="text"
                 name="product"
                 value={product}
@@ -483,9 +486,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           </div>
           <div className="order-customer-field3-container">
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Unit:</label>
+              <label className="order-customer-label-name" >Unit:</label>
               <input
-                className="order-customer-lable-container"
+                className={readOnlyInput}
                 type="number"
                 name="unit"
                 value={unit}
