@@ -9,6 +9,9 @@ const StaffSigninPage = () => {
     email: "",
     password: "",
   });
+  sessionStorage.removeItem("role");
+  sessionStorage.removeItem("token")
+  sessionStorage.removeItem("sname")
 
   const [staff, setStaff] = useState(false);
 
@@ -57,8 +60,6 @@ const StaffSigninPage = () => {
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
             setTimeout(() => {
-              navigate("/customernavbar");
-
               if (data.role === "Admin") {
                 navigate("/admin");
               } else if (data.role === "Label") {

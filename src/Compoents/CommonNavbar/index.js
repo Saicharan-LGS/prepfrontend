@@ -9,7 +9,7 @@ function CommonNavbar() {
     sessionStorage.removeItem("token");
     localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    navigate("/");
+    navigate("/login");
   };
 
   const role = sessionStorage.getItem("role");
