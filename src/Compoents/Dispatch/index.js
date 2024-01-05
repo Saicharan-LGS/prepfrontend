@@ -25,18 +25,21 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
 
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("dispatched");
+
   console.log(products, "products.....");
 
   useEffect(() => {
-    // Filter products based on orderId
+    // Filter products based on orderId and invoice status
     const filtered = products.filter((product) => {
       const productIdMatch = product.orders.toString().includes(orderId);
-
-      return productIdMatch;
+      const statusMatch =  setStatus(product.status) === invoiceStatusFilter;
+  
+      return productIdMatch || statusMatch;
     });
-
+  
     setFilteredProducts(filtered);
-  }, [products, orderId, currentPage]);
+  }, [products, orderId, invoiceStatusFilter, currentPage]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -111,6 +114,30 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+  const setStatus=(status)=>{
+    console.log(typeof(status,"statusstatus"))
+    if (status==="5"){
+      return (
+      <p className="admin-order-accepted-quantity-sub-category">
+     Invoice generated
+    </p>)
+    }else if(status==="6"){
+      return  (
+        <p className="admin-order-accepted-quantity-sub-category">
+       Invoice Accepted
+      </p>)
+    }else if(status==="7"){
+      return (
+        <p className="admin-order-accepted-quantity-sub-category">
+       Invoice Rejected
+      </p>)}
+      else {
+        return (
+          <p className="admin-order-accepted-quantity-sub-category">
+         Dispatched
+        </p>)
+      }
+    }
 
   return (
     <>
@@ -122,15 +149,27 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
           <h2 className="admin-order-accepted-order-list-heading">
             Invoice Pending Orders
           </h2>
+          <div className="admin-order-accepted-search-filter-input-container">
           <input
             type="number"
             name="orderid"
             value={orderId}
             onChange={handleSearch}
-            placeholder="Search by Name / Order ID"
+            placeholder="Search by Order ID"
             required
             className="admin-order-accepted-search-filter-input"
           />
+          <select
+              value={invoiceStatusFilter}
+              onChange={(e) => setInvoiceStatusFilter(e.target.value)}
+              className="admin-order-accepted-search-filter-input"
+            >
+              <option value="dispatched">Dispatched</option>
+              <option value="invoice_generated">Invoice Generated</option>
+              <option value="invoice_accepted">Invoice Accepted</option>
+              <option value="invoice_rejected">Invoice Rejected</option>
+            </select>
+            </div>
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">
@@ -174,15 +213,14 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-                      <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.status}
-                      </p>
+                        {setStatus(eachProduct.invoice_status)}
+                        
                       <DispatchButton
-                        discounted_amount={eachProduct.discounted_amount}
+                        
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
                         fetchProducts={fetchProducts}
-                        fetchTotalAmount={fetchTotalAmount}
+                        
                       />
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { Box, Modal } from "@mui/material";
-function ViewDetailedOrder() {
+import { IoArrowBackCircle } from "react-icons/io5";
+function ViewDetailedOrder({setStatus}) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
@@ -32,6 +33,7 @@ function ViewDetailedOrder() {
   });
   const [isModalOpen, setModalOpen] = React.useState(false);
   const token = sessionStorage.getItem("token");
+  const role = sessionStorage.getItem("role")
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
@@ -119,12 +121,30 @@ function ViewDetailedOrder() {
     setModalOpen(false);
   };
  
+  const navigate = useNavigate()
+
+  const handleBackClick = () => {
+    if(role==="Label"){
+      navigate('/labelorders')
+    }else if(role==="Dimension"){
+      navigate('/dimensionorders')
+    }else if(role==="Accountant"){
+      navigate('/accountOrders')
+    }
+    
+  };
  
 
   return (
     <>
       <CommonNavbar />
       <div className="order-customer-container">
+      <button
+          className="order-customer-backward-button"
+          onClick={handleBackClick}
+        >
+          <IoArrowBackCircle className="order-customer-backward-icon" />
+        </button>
         <center>
           <h1 className="order-customer-main-heading"> Order Details</h1>
         </center>
