@@ -394,7 +394,7 @@ function OrderViewDetail({ orderId, setStatus }) {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name"> Name:</label>
+              <label className="order-customer-label-name">Customer Name:</label>
               <input
                 className="order-customer-lable-container"
                 type="text"
@@ -475,7 +475,7 @@ function OrderViewDetail({ orderId, setStatus }) {
               </select>
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Product:</label>
+              <label className="order-customer-label-name">Product Name:</label>
               <input
                 className="order-customer-lable-container"
                 type="text"
