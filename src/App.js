@@ -18,6 +18,7 @@ import CustomerOrderViewDetail from "./Compoents/CustomerDetailP";
 import CommonNavbar from "./Compoents/CommonNavbar";
 import DimensionUpdatePage from "./Compoents/DimensionUpdatePage";
 import NotFound from "./Compoents/NotFound";
+import Dispatch from "./Compoents/Dispatch";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -64,6 +65,14 @@ function App() {
         element={
           <ProtectedRoute allowedRoles={["Customer"]}>
             <CustomerOrderViewDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dispatch"
+        element={
+          <ProtectedRoute allowedRoles={["Accountant", "Dispatch"]}>
+            <Dispatch />
           </ProtectedRoute>
         }
       />

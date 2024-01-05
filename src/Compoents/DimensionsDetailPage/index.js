@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 
-function DimensionDetailPage({ dimensionData, fetchData1 }) {
+function DimensionDetailPage({ dimensionData, fetchData1, index }) {
   const id = dimensionData.id;
   console.log(dimensionData, "llllllllllllllllllllllll");
 
@@ -187,6 +187,8 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
         className="dimensions-details-form-container"
         onSubmit={handleSubmit}
       >
+              <h3>Box No: {index + 1}</h3>
+
         <div className="dimension-flex">
           {["length", "width", "height", "weight"].map((dimension) => (
             <div key={dimension} className="dimensions-details-input-container">
@@ -228,7 +230,7 @@ function DimensionDetailPage({ dimensionData, fetchData1 }) {
             />
           </div>
           <div className="dimension-details-input-container-1">
-            <label className="dimensions-label-text">boxBy</label>
+            <label className="dimensions-label-text">Box By</label>
             <select
               className="dimensions-details-input-1"
               value={dimensions.boxBy}

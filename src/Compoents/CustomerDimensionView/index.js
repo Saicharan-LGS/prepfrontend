@@ -6,9 +6,14 @@ import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
 import CustomerDimension from "../CustomerDimension";
 
-function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts,onClose }) {
+function CustomerDimensionView({
+  openDetailPageComponent,
+  updateId,
+  fetchProducts,
+  onClose,
+}) {
   const [dimensionList, setDimensionList] = useState([]);
-  const [addDimesions,setAddDimensions] = useState(false)
+  const [addDimesions, setAddDimensions] = useState(false);
   const [formData, setFormData] = useState({
     customerName: "",
     productName: "",
@@ -23,7 +28,7 @@ function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-  console.log(role,"ram")
+  console.log(role, "ram");
 
   const openDetailPage = (productId) => {
     if (role === "Admin") {
@@ -72,7 +77,7 @@ function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts
   }, []);
 
   const fetchData1 = async () => {
-    console.log("calling fetch")
+    console.log("calling fetch");
     try {
       const response = await fetch(`${FETCH_URL}/getdimensionbyid/${id}`);
       if (!response.ok) {
@@ -89,61 +94,59 @@ function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts
     fetchData1();
   }, []);
 
-  const handleDimensions=()=>{
-    setAddDimensions(!addDimesions)
-  }
+  const handleDimensions = () => {
+    setAddDimensions(!addDimesions);
+  };
 
-  const handleDispatch= async()=>{
+  const handleDispatch = async () => {
     const isConfirmed = window.confirm(
       "Are you sure you want to dispatch this to labelling team.."
     );
- 
+
     if (!isConfirmed) {
       return;
     }
-      const requestData = {
-        status: 3,
-      };
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await fetch(
-          `${process.env.REACT_APP_FETCH_URL}adminUpdateOrderStatus/${id}`,
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestData), // Stringify the data
-          }
-        );
-   
-        if (response.ok) {
-          const data = await response.json();
-          Toast.fire({
-            icon: "success",
-            title: data.message,
-          });
-          fetchProducts()
-          onClose()
-        } else {
-        }
-      } catch (error) {}
+    const requestData = {
+      status: 3,
     };
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_FETCH_URL}adminUpdateOrderStatus/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData), // Stringify the data
+        }
+      );
 
+      if (response.ok) {
+        const data = await response.json();
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+        fetchProducts();
+        onClose();
+      } else {
+      }
+    } catch (error) {}
+  };
 
   return (
     <div className="admin-order-accepted-product-list">
       <div className="dimension-update-page-heading-flex">
         <h2 className="admin-order-accepted-order-list-heading">
-          Dimensions Order List
+          Dimensions Order List 
         </h2>
-        
+
         {/* <div className="dimension-update-page-button-container">
           <button className="dimension-update-page-button" onClick={handleDimensions}>Add Dimensions</button>
           <button className="dimension-update-page-button" onClick={handleDispatch}>Dispatch</button>
         </div> */}
-        
       </div>
       {/* <div className="admin-order-accepted-category-types">
         <p className="admin-order-accepted-order-id-category">Order Id</p>
@@ -183,9 +186,15 @@ function CustomerDimensionView({ openDetailPageComponent, updateId,fetchProducts
           )}
         </p>
       </div> */}
-        {role==="Customer" && dimensionList.length > 0 &&
-        dimensionList.map((each) => (
-          <CustomerDimension dimensionData={each} key={each.id} fetchData1 ={fetchData1} />
+      {role === "Customer" &&
+        dimensionList.length > 0 &&
+        dimensionList.map((each, index) => (
+          <CustomerDimension
+            dimensionData={each}
+            key={each.id}
+            index={index}
+            fetchData1={fetchData1}
+          />
         ))}
     </div>
   );

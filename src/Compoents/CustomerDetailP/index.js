@@ -4,7 +4,6 @@ import Toast from "../utlis/toast";
 import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { IoArrowBackCircle } from "react-icons/io5";
-import DimensionUpdatePage from "../DimensionUpdatePage";
 import { Box, Modal } from "@mui/material";
 import CustomerDimensionView from "../CustomerDimensionView";
 function CustomerOrderViewDetail({ orderId, setStatus }) {
@@ -30,7 +29,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     weight: "",
     amount: "",
     instructions: "",
-    quantity_received:""
+    quantity_received: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
@@ -39,7 +38,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const [services, setServices] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
- 
+
   const statusLabels = {
     0: "Pending",
     1: "Rejected",
@@ -53,7 +52,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
- 
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -69,22 +68,22 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         const data1 = await response.json();
         console.log(data1, "data saicharan");
         const data = data1.order;
- 
+
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
- 
+
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
- 
+
         const productServicesIds = data1.services.Services.map(
           (productService) => productService.services
         );
         setSelectedServices(productServicesIds);
- 
+
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
- 
+
         setFormData({
           ...formData,
           date: data.date,
@@ -108,7 +107,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           amount: data.amount,
           status: data.status,
           instructions: data.instructions,
-          quantity_received:data.quantity_received
+          quantity_received: data.quantity_received,
         });
       } else {
       }
@@ -134,7 +133,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
- 
+
     // Fetch services
     fetch(`${FETCH_URL}getprep-servicelist`, {
       method: "GET",
@@ -157,18 +156,18 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       });
     fetchData();
   }, [orderId]);
- 
+
   const handleBackClick = () => {
     const prevStatus = localStorage.getItem("prevStatus");
     setStatus(prevStatus);
     localStorage.setItem("status", prevStatus);
   };
- 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
- 
+
   const handleFnskuSendChange = (e) => {
     const files = e.target.files;
     setFnskuSendFiles([...fnskuSendFiles, ...files]);
@@ -177,7 +176,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     const files = e.target.files;
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
- 
+
   const getQuantityById = (productId) => {
     return productQuantities[productId] || "";
   };
@@ -186,7 +185,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     updatedQuantities[productId] = quantity;
     setProductQuantities(updatedQuantities);
   };
- 
+
   const handleServiceSelection = (e, serviceId) => {
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -196,13 +195,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       setSelectedServices(updatedServices);
     }
   };
- 
+
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this file?"
     );
- 
+
     if (!isConfirmed) {
       return; // User canceled the deletion
     }
@@ -216,7 +215,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           orderId: orderId,
         },
       });
- 
+
       if (response.ok) {
         // File deleted successfully
         fetchData(); // Update your component state or UI as needed
@@ -228,7 +227,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       console.error("Error deleting file:", error);
     }
   };
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const selectedServiceWithQunatity = selectedServices.map((productId) => ({
@@ -256,7 +255,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
- 
+
     formDataToSend.append(
       "selectedServices",
       JSON.stringify(selectedServiceWithQunatity)
@@ -265,11 +264,11 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       "selectedProducts",
       JSON.stringify(selectedProductsWithQuantity)
     );
- 
+
     labelSendFiles.forEach((file, index) => {
       formDataToSend.append(`labelSendFiles`, file);
     });
- 
+
     fetch(`${FETCH_URL}customerOrderDetail/${orderId}`, {
       method: "PUT",
       headers: {
@@ -289,13 +288,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         fetchData();
       });
   };
- 
+
   const openFileInNewTab = (fileURL) => {
     if (fileURL) {
       window.open(`${PDF_URL}${fileURL}`, "_blank");
     }
   };
- 
+
   const {
     date,
     name,
@@ -303,28 +302,21 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     product,
     unit,
     tracking_url,
- 
     fnskuSend1,
     labelSend1,
     quantity_received,
-    length,
-    width,
-    weight,
-    height,
-    amount,
     status,
     instructions,
   } = formData;
-  console.log(fnskuSend1, "saicharan");
- 
+
   const handleDimensionUpdate = () => {
     setModalOpen(true);
   };
- 
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
- 
+
   return (
     <>
       <div className="order-customer-container">
@@ -358,12 +350,15 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="name"
                 value={name}
+                readOnly={status === "0" ? false : true}
                 onChange={handleChange}
                 required
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name"> Received Quantity:</label>
+              <label className="order-customer-label-name">
+                Received Quantity:
+              </label>
               <input
                 className="order-customer-lable-container"
                 type="text"
@@ -438,6 +433,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="product"
                 value={product}
+                readOnly={status === "0" ? false : true}
                 onChange={handleChange}
                 required
               />
@@ -493,6 +489,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 type="number"
                 name="unit"
                 value={unit}
+                readOnly={status === "0" ? false : true}
                 onChange={handleChange}
                 required
               />
@@ -549,8 +546,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                     id={service.id}
                     name="selectedServices"
                     value={service.id}
+                    // readOnly={status === "0" ? false : true}
                     checked={selectedServices.includes(service.id)}
-                    onChange={(e) => handleServiceSelection(e, service.id)}
+                    onChange={(e) =>status === "0" ? handleServiceSelection(e, service.id): null }
                     className="order-customer-input-checkbox"
                   />
                   <label
@@ -691,5 +689,5 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     </>
   );
 }
- 
+
 export default CustomerOrderViewDetail;

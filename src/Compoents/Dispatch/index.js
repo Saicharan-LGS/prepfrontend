@@ -10,6 +10,7 @@ import DispatchButton from "./DispatchButton";
 import EmptyOrder from "../EmptyOrder";
 import { Box, Modal } from "@mui/material";
 import CustomerInvoicePage from "../CustomerInvoicePage";
+import CommonNavbar from "../CommonNavbar";
 function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +54,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-
+  const role = sessionStorage.getItem("role");
   const fetchProducts = async () => {
     const token = sessionStorage.getItem("token");
     try {
@@ -113,6 +114,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
 
   return (
     <>
+      {role === "Dispatch" && <CommonNavbar />}
       {loading ? (
         <Spinner />
       ) : (

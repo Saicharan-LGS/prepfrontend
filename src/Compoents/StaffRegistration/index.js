@@ -168,6 +168,7 @@ const StaffSignupPage = () => {
               <option value="Dimension">Dimension</option>
               <option value="Label">Label</option>
               <option value="Accountant">Accountant</option>
+              <option value="Dispatch">Dispatch</option>
             </select>
           </div>
           <center>

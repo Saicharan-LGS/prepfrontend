@@ -124,7 +124,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
     setDimensions({...dimensions, boxBy:e.target.value})
   }
 
- 
+ console.log("dimension called")
   return (
     <div className="dimensions-main-container">
       <form className="dimensions-form-container" onSubmit={handleSubmit}>

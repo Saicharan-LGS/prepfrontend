@@ -67,6 +67,8 @@ const StaffSigninPage = () => {
                 navigate("/dimensionorders");
               } else if (data.role === "Accountant") {
                 navigate("/accountOrders");
+              } else if (data.role === "Dispatch"){
+                navigate("/dispatch")
               }
             }, 100);
           });
