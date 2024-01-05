@@ -8,6 +8,7 @@ import {
   MdOutlinePeopleAlt,
 } from "react-icons/md";
 import { AiOutlineTeam } from "react-icons/ai";
+import { IoPaperPlane } from "react-icons/io5";
 import { RiAccountCircleFill } from "react-icons/ri";
 import AdminHomePage from "../AdminHomePage";
 import Customersignup from "../CustomerSignup";
@@ -21,11 +22,43 @@ import { ProductServiceList } from "../Services";
 export const SidebarData = [
   {
     id: 1,
-    title: "View Order",
+    title: "Receiving",
     path: "/",
     icon: <MdProductionQuantityLimits fontSize="25px" />,
     cName: "active-nav-item",
     component: <AdminHomePage />,
+  },
+  {
+    id: 4,
+    title: "Dimensions",
+    path: "/messages",
+    icon: <MdOutlinePinch fontSize="25px" />,
+    cName: "",
+    component: <DimensionOrderList />,
+  },
+  {
+    id: 5,
+    title: "Label Orders",
+    path: "/support",
+    icon: <MdLabelImportant fontSize="25px" />,
+    cName: "",
+    component: <LabelOrders />,
+  },
+  {
+    id: 6,
+    title: "Accountant",
+    path: "/support",
+    icon: <RiAccountCircleFill fontSize="25px" />,
+    cName: "",
+    component: <AccountOrders />,
+  },
+  {
+    id: 10,
+    title: "Dispatch",
+    path: "/support",
+    icon: <IoPaperPlane fontSize="20px" />,
+    cName: "",
+    component: <AccountOrders />,
   },
   {
     id: 2,
@@ -59,30 +92,8 @@ export const SidebarData = [
     cName: "nav-text",
     component: <StaffList />,
   },
-  {
-    id: 4,
-    title: "Dimensions",
-    path: "/messages",
-    icon: <MdOutlinePinch fontSize="25px" />,
-    cName: "",
-    component: <DimensionOrderList />,
-  },
-  {
-    id: 5,
-    title: "Label Orders",
-    path: "/support",
-    icon: <MdLabelImportant fontSize="25px" />,
-    cName: "",
-    component: <LabelOrders />,
-  },
-  {
-    id: 6,
-    title: "Accountant",
-    path: "/support",
-    icon: <RiAccountCircleFill fontSize="25px" />,
-    cName: "",
-    component: <AccountOrders />,
-  },
+  
+  
   {
     id: 9,
     title: "Product & Services ",
