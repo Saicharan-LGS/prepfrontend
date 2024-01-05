@@ -1,9 +1,8 @@
 import Toast from "../utlis/toast";
 const DispatchButton = ({
   id,
-  discounted_amount,
+  
   fetchProducts,
-  fetchTotalAmount,
   orderIds,
 }) => {
   // Set the initial value as a string '1'
@@ -12,7 +11,7 @@ const DispatchButton = ({
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
     const requestData = {
-      status: 7,
+      status: 8,
       orderIds: orderIds,
     };
 

@@ -110,6 +110,30 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
+  const setStatus=(status)=>{
+    console.log(typeof(status,"statusstatus"))
+    if (status==="5"){
+      return (
+      <p className="admin-order-accepted-quantity-sub-category">
+     Invoice generated
+    </p>)
+    }else if(status==="6"){
+      return  (
+        <p className="admin-order-accepted-quantity-sub-category">
+       Invoice Accepted
+      </p>)
+    }else if(status==="7"){
+      return (
+        <p className="admin-order-accepted-quantity-sub-category">
+       Invoice Rejected
+      </p>)}
+      else {
+        return (
+          <p className="admin-order-accepted-quantity-sub-category">
+         Dispatched
+        </p>)
+      }
+    }
 
   return (
     <>
@@ -172,15 +196,14 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-                      <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.status}
-                      </p>
+                        {setStatus(eachProduct.status)}
+                        
                       <DispatchButton
-                        discounted_amount={eachProduct.discounted_amount}
+                        
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
                         fetchProducts={fetchProducts}
-                        fetchTotalAmount={fetchTotalAmount}
+                        
                       />
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
