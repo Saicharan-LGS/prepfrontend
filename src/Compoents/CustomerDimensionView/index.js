@@ -5,6 +5,7 @@ import DimensionsUpdate from "../DimensionsUpdate";
 import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
 import CustomerDimension from "../CustomerDimension";
+import { ImCancelCircle } from "react-icons/im";
 
 function CustomerDimensionView({
   openDetailPageComponent,
@@ -38,43 +39,45 @@ function CustomerDimensionView({
     }
   };
 
+  console.log(updateId,"updateIdupdateId")
+
   const id = updateId;
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
-  useEffect(() => {
-    // Fetch data using the id passed as a prop
-    async function fetchData() {
-      try {
-        const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: ` Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const data1 = await response.json();
-          const data = data1.order;
+  // useEffect(() => {
+  //   // Fetch data using the id passed as a prop
+  //   async function fetchData() {
+  //     try {
+  //       const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: ` Bearer ${token}`,
+  //         },
+  //       });
+  //       if (response.ok) {
+  //         const data1 = await response.json();
+  //         const data = data1.order;
 
-          setFormData({
-            ...formData,
-            customerName: data.name,
-            productName: data.product,
-            units: data.unit,
-            trackingURL: data.tracking_url,
-            length: data.length,
-            width: data.width,
-            height: data.height,
-            weight: data.weight,
-            instructions: data.instructions,
-          });
-        } else {
-        }
-      } catch (error) {}
-    }
+  //         setFormData({
+  //           ...formData,
+  //           customerName: data.name,
+  //           productName: data.product,
+  //           units: data.unit,
+  //           trackingURL: data.tracking_url,
+  //           length: data.length,
+  //           width: data.width,
+  //           height: data.height,
+  //           weight: data.weight,
+  //           instructions: data.instructions,
+  //         });
+  //       } else {
+  //       }
+  //     } catch (error) {}
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const fetchData1 = async () => {
     console.log("calling fetch");
@@ -85,7 +88,7 @@ function CustomerDimensionView({
       }
       const data = await response.json();
       setDimensionList(data.dimensions);
-      console.log(data.dimensions);
+      console.log(data,"data.dimensionsdata.dimensions");
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -94,50 +97,18 @@ function CustomerDimensionView({
     fetchData1();
   }, []);
 
-  const handleDimensions = () => {
-    setAddDimensions(!addDimesions);
-  };
+ 
+  const handleModel=()=>{
+    onClose()
+  }
 
-  const handleDispatch = async () => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to dispatch this to labelling team.."
-    );
+ 
 
-    if (!isConfirmed) {
-      return;
-    }
-    const requestData = {
-      status: 3,
-    };
-    const token = sessionStorage.getItem("token");
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_FETCH_URL}adminUpdateOrderStatus/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData), // Stringify the data
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        Toast.fire({
-          icon: "success",
-          title: data.message,
-        });
-        fetchProducts();
-        onClose();
-      } else {
-      }
-    } catch (error) {}
-  };
+  console.log(dimensionList,"dimensionListdimensionList")
 
   return (
     <div className="admin-order-accepted-product-list">
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
       <div className="dimension-update-page-heading-flex">
         <h2 className="admin-order-accepted-order-list-heading">
           Dimensions Order List 
@@ -186,8 +157,8 @@ function CustomerDimensionView({
           )}
         </p>
       </div> */}
-      {role === "Customer" &&
-        dimensionList.length > 0 &&
+      {(role === "Customer" || role==="Label") &&
+        dimensionList.length > 0 ?
         dimensionList.map((each, index) => (
           <CustomerDimension
             dimensionData={each}
@@ -195,7 +166,7 @@ function CustomerDimensionView({
             index={index}
             fetchData1={fetchData1}
           />
-        ))}
+        )):"No Dimensions"}
     </div>
   );
 }

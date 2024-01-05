@@ -215,7 +215,7 @@ function DimensionNewDetailPage() {
     const selectedProductsWithQuantity = Object.keys(productQuantities).map(
       (productId) => ({
         id: productId,
-        quantity: productQuantities[productId],
+        quantity: productQuantities[productId] || 0,
       })
     );
 
