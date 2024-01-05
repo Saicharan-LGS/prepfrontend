@@ -19,6 +19,7 @@ import { IoMdLogOut } from "react-icons/io";
 
 
 import { ProductServiceList } from "../Services";
+import Dispatch from "../Dispatch";
  
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -127,6 +128,8 @@ function Navbar() {
           <CustomerList openDetailPageComponent={openDetailPageComponent} />
         ) : parseInt(status) === 9 ? (
           <ProductServiceList />
+        ) : parseInt(status) === 10 ? (
+          <Dispatch />
         ) : (
           <OrderViewDetail orderId={orderId} setStatus={setStatus} />
         )}

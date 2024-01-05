@@ -19,6 +19,7 @@ import AccountOrders from "../AccountantPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
 import { ProductServiceList } from "../Services";
+import Dispatch from "../Dispatch";
 export const SidebarData = [
   {
     id: 1,
@@ -58,7 +59,7 @@ export const SidebarData = [
     path: "/support",
     icon: <IoPaperPlane fontSize="20px" />,
     cName: "",
-    component: <AccountOrders />,
+    component: <Dispatch />,
   },
   {
     id: 2,
@@ -92,8 +93,7 @@ export const SidebarData = [
     cName: "nav-text",
     component: <StaffList />,
   },
-  
-  
+
   {
     id: 9,
     title: "Product & Services ",
