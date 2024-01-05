@@ -37,10 +37,10 @@ function CustomerInvoicePage({onClose,selectedOrders,totalAmount,discount,discou
         //     icon: "success",
         //     title: data.message,
         //   });
-          console.log(response,"vashni")
+         
           setInvoiceOrders(data.orders);
           setCustomerName(data.orders[0].name)
-          console.log(data.orders, "ordersdata");
+          
           // fetchProducts();
         } else {
           const data = await response.json();

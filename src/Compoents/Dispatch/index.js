@@ -27,7 +27,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
 
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("dispatched");
 
-  console.log(products, "products.....");
+ 
 
   useEffect(() => {
     // Filter products based on orderId and invoice status
@@ -73,7 +73,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log(data, "saiiiiiiiiiiiiiiiiii");
+        
         setProducts(data);
         setLoading(false);
       } else {
@@ -104,7 +104,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
 
   const handleView = (each) => {
     setSelectedOrders(each.orders);
-    console.log(each.orders, each.discount, each.discounted_amount, "ram");
+   
     setDiscount(each.discount);
     setDiscountedAmount(each.discounted_amount);
     setTotalAmount(each.totalamount);
@@ -115,7 +115,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
     setModalOpen(false);
   };
   const setStatus = (status) => {
-    console.log(typeof (status, "statusstatus"));
+    
     if (status === "5") {
       return (
         <p className="admin-order-accepted-quantity-sub-category">

@@ -159,7 +159,7 @@ const CustomerOrder = () => {
       quantity: 1,
     })
   );
-  console.log(selectedServices,selectedServiceWithQunatity, "selected services");
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -172,8 +172,7 @@ const CustomerOrder = () => {
 
     
     try {
-      console.log(selectedServiceWithQunatity);
-      console.log(selectedProductsWithQuantity);
+     
       const token = sessionStorage.getItem("token");
       const formData = new FormData();
       formData.append("date", date);
@@ -210,7 +209,7 @@ const CustomerOrder = () => {
         body: formData,
       });
 
-      console.log(response);
+      
 
       if (response.ok) {
         response.json().then((data) => {

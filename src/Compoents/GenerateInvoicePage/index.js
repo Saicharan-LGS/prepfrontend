@@ -11,7 +11,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   const [discountAmount, setDiscountAmount] = useState();
 
   const handleDiscount = (e) => {
-    console.log(e.target.value);
+  
     if(e.target.value>100){
       alert("Value must be 2 digits only...")
       return
@@ -37,9 +37,9 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
     if (!isConfirmed) {
       return;
     }
-    console.log("generate invoice called");
+ 
     const orderIds = data.map((each) => each.id);
-    console.log(orderIds);
+   
     try {
       const response = await fetch(`${FETCH_URL}postgenerateInvoice`, {
         method: "POST",
@@ -61,7 +61,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
       }
       onClose()
       fetchProducts()
-      console.log("Invoice generated successfully");
+     
     } catch (error) {
       console.error("Error generating invoice:", error.message);
     }
@@ -84,8 +84,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
     setDiscountAmount(total)
   }, [data]);
 
-  console.log(totalAmount, "totalamount");
-  console.log(totalAmount, "totalamount")
+  
 
   const handleModel=()=>{
     onClose()

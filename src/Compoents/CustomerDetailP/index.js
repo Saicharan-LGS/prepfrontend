@@ -66,7 +66,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       );
       if (response.ok) {
         const data1 = await response.json();
-        console.log(data1, "data saicharan");
+        
         const data = data1.order;
 
         const fnskuFiles =

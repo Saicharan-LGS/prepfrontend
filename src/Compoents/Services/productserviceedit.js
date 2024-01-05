@@ -16,7 +16,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
     });
   };
 
-  console.log(formData, "ramesh");
+ 
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -51,7 +51,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
       });
       fetchProductServices();
       onClose();
-      console.log("Product/Service added successfully:", data);
+      
     } catch (error) {
       console.error("Error adding product/service:", error.message);
       // Handle error or display a message to the user
@@ -76,7 +76,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
         }
 
         const data = await response.json();
-        console.log(data, "kapilraj");
+        
         setFormData({
           category: data.data.category,
           name: data.data.name,

@@ -1,7 +1,7 @@
 import Toast from "../utlis/toast";
 const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
   // Set the initial value as a string '1'
-  console.log(id, "id called");
+ 
   const token = sessionStorage.getItem("token");
   const handleSubmit = async () => {
     // Create an object with the data you want to send

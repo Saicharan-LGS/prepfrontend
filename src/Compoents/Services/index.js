@@ -48,7 +48,7 @@ export const ProductServiceList = () => {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchProductServices = async () => {
-    console.log("called");
+   
     try {
       const response = await fetch(`${FETCH_URL}productservicelist`);
       if (!response.ok) {
@@ -67,7 +67,7 @@ export const ProductServiceList = () => {
   }, []);
 
   const handleToggle = async (id, currentStatus) => {
-    console.log(currentStatus);
+   
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}updateServiceStatus/${id}`, {
@@ -81,7 +81,7 @@ export const ProductServiceList = () => {
 
       if (response.ok) {
         // Handle success, maybe update the local state
-        console.log("User status updated successfully");
+       
         response.json().then((data) => {
           Toast.fire({
             icon: "success",

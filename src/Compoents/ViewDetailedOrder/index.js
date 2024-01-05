@@ -50,7 +50,7 @@ function ViewDetailedOrder({setStatus}) {
         });
         if (response.ok) {
           const data1 = await response.json();
-          console.log(data1, "data saicharan");
+          
           const data = data1.order;
 
           const fnskuFiles =
@@ -59,9 +59,7 @@ function ViewDetailedOrder({setStatus}) {
           const labelFiles =
             data1.files.filter((file) => file.type === "labelSend") || [];
 
-          console.log(labelFiles, "labelFiles");
-
-          console.log("called sai2");
+          
 
           setFormData({
             ...formData,
