@@ -6,11 +6,11 @@ import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import Spinner from "../Spinner";
 
-function ViewAllOrders({openDetailPageComponent}) {
+function ViewAllOrders({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); 
+  const [productsPerPage] = useState(10);
 
   const [selectedFilter, setSelectedFilter] = useState("");
   const [orderId, setOrderId] = useState("");
@@ -28,24 +28,23 @@ function ViewAllOrders({openDetailPageComponent}) {
       7: "Invoice Rejected",
       8: "Dispatched"
     };
-  
+
     // Filter products based on orderId and selected filter
     const filtered = products.filter((product) => {
-        const productIdMatch = product.id.toString().includes(orderId);
-        const productNameMatch = product.name.toLowerCase().includes(orderId);
-        const matchesOrderId= productIdMatch || productNameMatch;
-   
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      const matchesOrderId = productIdMatch || productNameMatch;
+
       const matchesFilter =
         selectedFilter === "" ||
         statusLabels[product.status] === selectedFilter;
-  
+
       return matchesOrderId && matchesFilter;
     });
-  
+
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage, selectedFilter]);
 
-  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -55,34 +54,31 @@ function ViewAllOrders({openDetailPageComponent}) {
 
   const handleSearch = (e) => {
     const { name, value } = e.target;
-  
+
     if (name === "orderid") {
       setOrderId(value);
     } else if (name === "filter") {
       setSelectedFilter(value);
     }
-  
+
     setCurrentPage(1); // Reset pagination when changing search filter
   };
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const token = sessionStorage.getItem("token");
-        const response = await fetch(
-          `${FETCH_URL}getOrders/${9}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${FETCH_URL}getOrders/${9}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           setProducts(data.results);
@@ -104,7 +100,6 @@ function ViewAllOrders({openDetailPageComponent}) {
   // const openDetailPage = (e, productId) => {
   //   navigate(`/adminViewDetail/${productId}`);
   // };
-
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
@@ -137,31 +132,31 @@ function ViewAllOrders({openDetailPageComponent}) {
             All Orders
           </h2>
           <div className="admin-order-accepted-search-filter-input-container">
-          <input
-            type="text"
-            name="orderid"
-            value={orderId}
-            onChange={handleSearch}
-            placeholder="Search by Name / Order ID"
-            required
-            className="admin-order-accepted-search-filter-input"
-          />
-          <select
-            name="filter"
-            value={selectedFilter}
-            onChange={handleSearch}
-            className="admin-order-accepted-search-filter-input"
-          >
-            <option value="">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Received">Received</option>
-            <option value="Dimension">Dimension</option>
-            <option value="Label">Label</option>
-            <option value="Invoice">Invoice</option>
-            <option value="Invoice Accepted">Invoice Accepted</option>
-            <option value="Invoice Rejected">Invoice Rejected</option>
-          </select>
+            <input
+              type="text"
+              name="orderid"
+              value={orderId}
+              onChange={handleSearch}
+              placeholder="Search by Name / Order ID"
+              required
+              className="admin-order-accepted-search-filter-input"
+            />
+            <select
+              name="filter"
+              value={selectedFilter}
+              onChange={handleSearch}
+              className="admin-order-accepted-search-filter-input"
+            >
+              <option value="">All</option>
+              <option value="Pending">Pending</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Received">Received</option>
+              <option value="Dimension">Dimension</option>
+              <option value="Label">Label</option>
+              <option value="Invoice">Invoice</option>
+              <option value="Invoice Accepted">Invoice Accepted</option>
+              <option value="Invoice Rejected">Invoice Rejected</option>
+            </select>
           </div>
           <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
@@ -179,66 +174,72 @@ function ViewAllOrders({openDetailPageComponent}) {
             </p>
           </div>
 
-          {filteredProducts.length > 0 ? (
-            <>
-              {currentProducts.map((eachProduct) => {
-                return (
-                  <div className="admin-order-accepted-display-of-products-container">
-                    <p className="admin-order-accepted-order-id-sub-category">
-                      {eachProduct.id}
-                    </p>
-                    <p className="admin-order-accepted-name-sub-category">
-                      {eachProduct.name}
-                    </p>
-                    <p className="admin-order-accepted-service-sub-category">
-                      {eachProduct.product}
-                    </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
-                      {eachProduct.unit}
-                    </p>
-                    <p className="admin-order-accepted-order-tracking-sub-category">
-                      {eachProduct.tracking_url ? <a
-                        href={eachProduct.tracking_url}
-                        rel="noreferrer"
-                        target="_blank"
-                        className="tracking-url"
-                      >
-                        Order Link
-                      </a> : <p className=""tracking_url> </p> }
-                    </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
-                      {statusLabels[eachProduct.status] || "Unknown Status"}
-                    </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
-                      {eachProduct.amount}
-                    </p>
-                    <BsFillArrowRightCircleFill
-                      id={eachProduct.id}
-                      value={eachProduct.id}
-                      onClick={() => openDetailPageComponent( eachProduct.id)}
-                      className="admin-order-accepted-view-in-detail-sub-category"
-                    />
-                  </div>
-                );
-              })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={previousButton}
-                />
-                <span>Page {currentPage}</span>
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= filteredProducts.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyOrder />
-          )}
-        </div>
+            {filteredProducts.length > 0 ? (
+              <>
+                {currentProducts.map((eachProduct) => {
+                  return (
+                    <div className="admin-order-accepted-display-of-products-container">
+                      <p className="admin-order-accepted-order-id-sub-category">
+                        {eachProduct.id}
+                      </p>
+                      <p className="admin-order-accepted-name-sub-category">
+                        {eachProduct.name}
+                      </p>
+                      <p className="admin-order-accepted-service-sub-category">
+                        {eachProduct.product}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {eachProduct.unit}
+                      </p>
+                      <p className="admin-order-accepted-order-tracking-sub-category">
+                        {eachProduct.tracking_url ? (
+                          <a
+                            href={eachProduct.tracking_url}
+                            rel="noreferrer"
+                            target="_blank"
+                            className="tracking-url"
+                          >
+                            Order Link
+                          </a>
+                        ) : (
+                          <p className="" tracking_url>
+                            {" "}
+                          </p>
+                        )}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {statusLabels[eachProduct.status] || "Unknown Status"}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {eachProduct.amount}
+                      </p>
+                      <BsFillArrowRightCircleFill
+                        id={eachProduct.id}
+                        value={eachProduct.id}
+                        onClick={() => openDetailPageComponent(eachProduct.id)}
+                        className="admin-order-accepted-view-in-detail-sub-category"
+                      />
+                    </div>
+                  );
+                })}
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={previousButton}
+                  />
+                  <span>Page {currentPage}</span>
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= filteredProducts.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyOrder />
+            )}
+          </div>
         </div>
       )}
     </>
