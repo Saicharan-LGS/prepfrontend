@@ -5,13 +5,13 @@ const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
     // Create an object with the data you want to send
-    if (status === 5) {
+    if (status === "5") {
       alert("Invoice is not accepted. You can't dispatch order");
       return;
-    } else if (status === 7) {
+    } else if (status === "7") {
       alert("Invoice is Rejected by customer. You can't dispatch order");
       return;
-    } else if (status === 8) {
+    } else if (status === "8") {
       alert("Order is already dispatched");
       return;
     } 

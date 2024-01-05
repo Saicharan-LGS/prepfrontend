@@ -138,7 +138,7 @@ export const ProductServiceList = () => {
       <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="customer-list-table-row">ID</p>
-            <p className="customer-list-table-row">Name</p>
+            <p className="customer-list-table-row">Customer Name</p>
             <p className="customer-list-table-row">Category</p>
             <p className="customer-list-table-row">Price</p>
             <p className="customer-list-table-row">Date & Time</p>

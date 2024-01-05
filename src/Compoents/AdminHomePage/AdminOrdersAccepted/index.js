@@ -156,8 +156,8 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
           <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Name</p>
-            <p className="admin-order-accepted-service-category">Product</p>
+            <p className="admin-order-accepted-name-category">Customer Name</p>
+            <p className="admin-order-accepted-service-category">Product Name</p>
             <p className="admin-order-accepted-quantity-category">Quantity</p>
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link

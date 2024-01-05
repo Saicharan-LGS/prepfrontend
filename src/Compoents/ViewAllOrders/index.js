@@ -26,6 +26,7 @@ function ViewAllOrders({openDetailPageComponent}) {
       5: "Invoice",
       6: "Invoice Accepted",
       7: "Invoice Rejected",
+      8: "Dispatched"
     };
   
     // Filter products based on orderId and selected filter
@@ -123,6 +124,7 @@ function ViewAllOrders({openDetailPageComponent}) {
     5: "Invoice",
     6: "Invoice Accepted",
     7: "Invoice Rejected",
+    8: "Dispatched"
   };
 
   return (
@@ -164,8 +166,8 @@ function ViewAllOrders({openDetailPageComponent}) {
           <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Name</p>
-            <p className="admin-order-accepted-service-category">Product</p>
+            <p className="admin-order-accepted-name-category">Customer Name</p>
+            <p className="admin-order-accepted-service-category">Product Name</p>
             <p className="admin-order-accepted-quantity-category">Quantity</p>
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link

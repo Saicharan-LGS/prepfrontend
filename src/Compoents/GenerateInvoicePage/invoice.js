@@ -40,7 +40,7 @@ function Invoice({data}) {
       <h5>Calculations</h5>
       <div className="generate-invoice-table-container-1">
       <div className="generate-invoice-header-table-container">
-          <p className="generate-invoice-table-header">Name</p>
+          <p className="generate-invoice-table-header">Customer Name</p>
           <p className="generate-invoice-table-header">Category</p>
           <p className="generate-invoice-table-header">Quantity</p>
           <p className="generate-invoice-table-header">Price</p>

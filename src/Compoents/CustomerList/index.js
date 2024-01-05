@@ -140,7 +140,7 @@ function CustomerList() {
           <div className="admin-order-accepted-table-container">
           <div className="admin-order-accepted-category-types">
             <p className="customer-list-table-row">Customer Id</p>
-            <p className="customer-list-table-row">Name</p>
+            <p className="customer-list-table-row">Customer Name</p>
             <p className="customer-list-table-row">Email</p>
             <p className="customer-list-table-row">Status</p>
           </div>
