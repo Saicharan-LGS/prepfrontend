@@ -346,7 +346,7 @@ const CustomerOrder = () => {
                   multiple
                 />
               </div>
-              <div className="order-customer-service-container">
+              {/* <div className="order-customer-service-container">
                 <label className="order-customer-service-name">Products :</label>
                 {products.map((product) => (
                   <div key={product.id} className="order-customer-service-input-container">
@@ -368,7 +368,7 @@ const CustomerOrder = () => {
                     />
                   </div>
                 ))}
-              </div>
+              </div> */}
             </div>
             <div className="order-customer-field3-container">
               <div className="order-customer-input-feild">
