@@ -48,6 +48,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     5: "Invoice Generated",
     6: "Invoice Accepted",
     7: "Invoice Rejected",
+    8: "Dispatched",
   };
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;

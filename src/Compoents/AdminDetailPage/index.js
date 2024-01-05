@@ -569,7 +569,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 <option value="5">Invoice Generated</option>
                 <option value="6">Invoice Accepted</option>
                 <option value="7">Invoice Rejected</option>
-                <option value="8">Dispatch</option>
+                <option value="8">Dispatched</option>
               </select>
             </div>
 

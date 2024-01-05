@@ -27,7 +27,6 @@ export const CustomerNavbarData = [
   {
     title: "Invoice Pending",
     id: 5,
-
     icon: <BsFillBoxSeamFill />,
     cName: "nav-text",
     component: <CustomerHomePage />,
