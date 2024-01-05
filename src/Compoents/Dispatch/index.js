@@ -222,7 +222,7 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
                         fetchProducts={fetchProducts}
-                        status={eachProduct.invoice_status}
+                    
                         
                       />
                       <BsFillArrowRightCircleFill
