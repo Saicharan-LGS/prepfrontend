@@ -13,6 +13,7 @@ import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import { IoMdLogOut } from "react-icons/io";
+import Wallet from "../Wallet/index,.js";
 
 function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
@@ -22,7 +23,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   //   return isNaN(savedStatus) ? 5 : savedStatus;
   // });
 
-const [status, setStatus]=useState(9)
+  const [status, setStatus] = useState(9);
 
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);
@@ -56,7 +57,6 @@ const [status, setStatus]=useState(9)
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
 
   const openDetailPage = (id) => {
- 
     if (id) {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
@@ -64,7 +64,7 @@ const [status, setStatus]=useState(9)
       setStatus(10);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
-    } 
+    }
   };
   return (
     <div className="navbar-container">
@@ -80,7 +80,10 @@ const [status, setStatus]=useState(9)
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
-          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
+          <IoMdLogOut
+            className="navbar-logout-button-icon"
+            onClick={handleLogout}
+          />
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -129,6 +132,8 @@ const [status, setStatus]=useState(9)
             orderId={orderId}
             setStatus={setStatus}
           />
+        ) : parseInt(status) === 4 ? (
+          <Wallet />
         ) : (
           <CustomerOrder />
         )}

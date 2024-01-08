@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
@@ -10,7 +9,6 @@ function StaffList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -70,10 +68,7 @@ function StaffList({ openDetailPageComponent }) {
     indexOfLastProduct
   );
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
+  
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
@@ -20,14 +19,16 @@ function Dispatch() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState();
-
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(8);
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
 
   useEffect(() => {
     const filtered = products.filter((product) => {
+      const statusMatch =
+        product.invoice_status === invoiceStatusFilter.toString();
       const statusMatch =
         product.invoice_status === invoiceStatusFilter.toString();
       const productIdMatch = product.orders.toString().includes(orderId);
