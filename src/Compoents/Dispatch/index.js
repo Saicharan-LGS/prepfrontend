@@ -22,13 +22,10 @@ function Dispatch() {
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
-  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(8);
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
 
   useEffect(() => {
     const filtered = products.filter((product) => {
-      const statusMatch =
-        product.invoice_status === invoiceStatusFilter.toString();
       const statusMatch =
         product.invoice_status === invoiceStatusFilter.toString();
       const productIdMatch = product.orders.toString().includes(orderId);
@@ -37,6 +34,7 @@ function Dispatch() {
 
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter, currentPage]);
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(

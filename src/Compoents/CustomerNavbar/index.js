@@ -133,7 +133,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
             setStatus={setStatus}
           />
         ) : parseInt(status) === 4 ? (
-          <Wallet />
+          <Wallet totalAmount={totalAmount} />
         ) : (
           <CustomerOrder />
         )}
