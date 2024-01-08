@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-
 //import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
@@ -11,7 +10,7 @@ import EmptyOrder from "../EmptyOrder";
 import { Box, Modal } from "@mui/material";
 import CustomerInvoicePage from "../CustomerInvoicePage";
 import CommonNavbar from "../CommonNavbar";
-function Dispatch({ fetchTotalAmount, openDetailPage }) {
+function Dispatch() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,27 +19,20 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState();
-
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
-
-  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("dispatched");
-
- 
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
 
   useEffect(() => {
-    // Filter products based on orderId and invoice status
     const filtered = products.filter((product) => {
+      const statusMatch = product.invoice_status ===invoiceStatusFilter.toString();
       const productIdMatch = product.orders.toString().includes(orderId);
-      const statusMatch = setStatus(product.status) === invoiceStatusFilter;
-
-      return productIdMatch || statusMatch;
+      return productIdMatch && statusMatch;
     });
-
+  
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter, currentPage]);
-
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -61,19 +53,15 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const fetchProducts = async () => {
     const token = sessionStorage.getItem("token");
     try {
-      const response = await fetch(
-        `${FETCH_URL}getdispatch`,
-        // Replace with your API endpoint
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${FETCH_URL}getdispatch`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         const data = await response.json();
-        
+
         setProducts(data);
         setLoading(false);
       } else {
@@ -104,7 +92,6 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
 
   const handleView = (each) => {
     setSelectedOrders(each.orders);
-   
     setDiscount(each.discount);
     setDiscountedAmount(each.discounted_amount);
     setTotalAmount(each.totalamount);
@@ -114,8 +101,8 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  const setStatus = (status) => {
-    
+  const setStatus = (status, id) => {
+    // console.log(status, "staus", id)
     if (status === "5") {
       return (
         <p className="admin-order-accepted-quantity-sub-category">
@@ -166,10 +153,10 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
               onChange={(e) => setInvoiceStatusFilter(e.target.value)}
               className="admin-order-accepted-search-filter-input"
             >
-              <option value="dispatched">Dispatched</option>
-              <option value="invoice_generated">Invoice Generated</option>
-              <option value="invoice_accepted">Invoice Accepted</option>
-              <option value="invoice_rejected">Invoice Rejected</option>
+              <option value={8}>Dispatched</option>
+              <option value={5}>Invoice Generated</option>
+              <option value={6}>Invoice Accepted</option>
+              <option value={7}>Invoice Rejected</option>
             </select>
           </div>
           <div className="admin-order-accepted-table-container">
@@ -189,14 +176,6 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
               <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-              {/* <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
-              </p>
-
-              
-              <p className="admin-order-accepted-fnsku-category">Amount</p>
-
-              */}
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -215,18 +194,20 @@ function Dispatch({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-                      {setStatus(eachProduct.invoice_status)}
+                      {setStatus(
+                        eachProduct.invoice_status,
+                        eachProduct.orders
+                      )}
 
                       <DispatchButton
                         status={eachProduct.invoice_status}
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
-                        fetchProducts={fetchProducts} 
+                        fetchProducts={fetchProducts}
                       />
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
-                        
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />

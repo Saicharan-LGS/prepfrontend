@@ -6,7 +6,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 // import AdminHomePage from '../AdminHomePage';
 // import DimensionOrderList from '../DimensionOrders';
 // import LabelOrders from '../labelOrders';
-
+import Wallet from "../Wallet/index,";
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerOrder from "../customerOrder";
 export const CustomerNavbarData = [
@@ -45,7 +45,13 @@ export const CustomerNavbarData = [
     cName: "nav-text",
     component: <CustomerHomePage />,
   },
- 
+  {
+    title: "Wallet",
+    id:4 ,
+    icon: <BsXOctagonFill />,
+    cName: "nav-text",
+    component: <Wallet />,
+  },
   
   //   {
   //     title: 'Accountant',
