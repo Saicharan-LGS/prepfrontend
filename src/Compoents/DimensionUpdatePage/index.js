@@ -30,7 +30,6 @@ function DimensionUpdatePage({
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-  
 
   // const openDetailPage = (productId) => {
   //   if (role === "Admin") {
@@ -79,7 +78,6 @@ function DimensionUpdatePage({
   }, []);
 
   const fetchData1 = async () => {
-   
     try {
       const response = await fetch(`${FETCH_URL}/getdimensionbyid/${id}`);
       if (!response.ok) {
@@ -87,7 +85,6 @@ function DimensionUpdatePage({
       }
       const data = await response.json();
       setDimensionList(data.dimensions);
-     
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -168,8 +165,9 @@ function DimensionUpdatePage({
       <div className="admin-order-accepted-table-container-1">
         <div className="admin-order-accepted-category-types">
           <p className="admin-order-accepted-order-id-category">Order Id</p>
-          <p className="admin-order-accepted-name-category">Name</p>
-          <p className="admin-order-accepted-service-category">Product</p>
+          <p className="admin-order-accepted-name-category">Customer Name</p>
+
+          <p className="admin-order-accepted-service-category">Product Name</p>
           <p className="admin-order-accepted-quantity-category">Quantity</p>
           <p className="admin-order-accepted-order-tracking-category">
             Order Tracking Link

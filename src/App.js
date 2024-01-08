@@ -25,10 +25,8 @@ function App() {
   const role = localStorage.getItem("role");
   const [totalAmount, setTotalAmount] = useState(0);
   const token = sessionStorage.getItem("token");
- 
+
   const fetchTotalAmount = () => {
-    
- 
     if (!token) {
       return;
     }
@@ -40,9 +38,10 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setTotalAmount(data.total_amount);
+        console.log(data.total_amount);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         setTotalAmount(0);
       });
   };
@@ -53,11 +52,10 @@ function App() {
     }
   }, [role]);
 
-
   return (
     <Routes>
       <Route path="*" element={<NotFound />} />
-      
+
       <Route path="/" element={<CustomerLogin />} />
       <Route path="/login" element={<StaffSigninPage />} />
       <Route

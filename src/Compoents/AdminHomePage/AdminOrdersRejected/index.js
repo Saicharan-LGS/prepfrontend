@@ -109,100 +109,112 @@ function AdminOrdersRejected({ openDetailPageComponent }) {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-          <div className="admin-order-accepted-category-types">
-            <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Customer Name</p>
-            <p className="admin-order-accepted-service-category">Product Name</p>
-            <p className="admin-order-accepted-quantity-category">Quantity</p>
-            <p className="admin-order-accepted-order-tracking-category">
-              Order Tracking Link
-            </p>
-            {/* <p className="admin-order-accepted-decline-category">Decline</p>
+            <div className="admin-order-accepted-category-types">
+              <p className="admin-order-accepted-order-id-category">Order Id</p>
+              <p className="admin-order-accepted-name-category">
+                Customer Name
+              </p>
+              <p className="admin-order-accepted-name-category">Order Name</p>
+              <p className="admin-order-accepted-service-category">
+                Product Name
+              </p>
+              <p className="admin-order-accepted-quantity-category">Quantity</p>
+              <p className="admin-order-accepted-order-tracking-category">
+                Order Tracking Link
+              </p>
+              {/* <p className="admin-order-accepted-decline-category">Decline</p>
           <p className="admin-order-accepted-accept-category">Accept</p> */}
-            <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
-            <p className="admin-order-accepted-box-label-category">Box Label</p>
-            <p className="admin-order-accepted-view-in-detail-category">
-              View In Detail
-            </p>
+              <p className="admin-order-accepted-fnsku-category">
+                FNSKU Status
+              </p>
+              <p className="admin-order-accepted-box-label-category">
+                Box Label
+              </p>
+              <p className="admin-order-accepted-view-in-detail-category">
+                View In Detail
+              </p>
+            </div>
+            {filteredProducts.length > 0 ? (
+              <>
+                {currentProducts.map((eachProduct) => {
+                  return (
+                    <div className="admin-order-accepted-display-of-products-container">
+                      <p className="admin-order-accepted-order-id-sub-category">
+                        {eachProduct.id}
+                      </p>
+                      <p className="admin-order-accepted-name-sub-category">
+                        {eachProduct.customer_name}
+                      </p>
+                      <p className="admin-order-accepted-name-sub-category">
+                        {eachProduct.name}
+                      </p>
+                      <p className="admin-order-accepted-service-sub-category">
+                        {eachProduct.product}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {eachProduct.unit}
+                      </p>
+                      <p className="admin-order-accepted-order-tracking-sub-category">
+                        {eachProduct.tracking_url ? (
+                          <a
+                            href={eachProduct.tracking_url}
+                            rel="noreferrer"
+                            target="_blank"
+                            className="tracking-url"
+                          >
+                            Order Link
+                          </a>
+                        ) : (
+                          <p className="tracking_url"> </p>
+                        )}
+                      </p>
+                      <div className="admin-order-accepted-fnsku-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.fnsku_status === "1" ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+                      <div className="admin-order-accepted-box-label-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.label_status === "1" ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+                      <BsFillArrowRightCircleFill
+                        id={eachProduct.id}
+                        value={eachProduct.id}
+                        onClick={() => openDetailPageComponent(eachProduct.id)}
+                        className="admin-order-accepted-view-in-detail-sub-category"
+                      />
+                    </div>
+                  );
+                })}
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={previousButton}
+                  />
+
+                  <span>Page {currentPage}</span>
+
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= products.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyOrder />
+            )}
           </div>
-          {filteredProducts.length > 0 ? (
-            <>
-              {currentProducts.map((eachProduct) => {
-                return (
-                  <div className="admin-order-accepted-display-of-products-container">
-                    <p className="admin-order-accepted-order-id-sub-category">
-                      {eachProduct.id}
-                    </p>
-                    <p className="admin-order-accepted-name-sub-category">
-                      {eachProduct.name}
-                    </p>
-                    <p className="admin-order-accepted-service-sub-category">
-                      {eachProduct.product}
-                    </p>
-                    <p className="admin-order-accepted-quantity-sub-category">
-                      {eachProduct.unit}
-                    </p>
-                    <p className="admin-order-accepted-order-tracking-sub-category">
-                      {eachProduct.tracking_url ? (
-                        <a
-                          href={eachProduct.tracking_url}
-                          rel="noreferrer"
-                          target="_blank"
-                          className="tracking-url"
-                        >
-                          Order Link
-                        </a>
-                      ) : (
-                        <p className="tracking_url"> </p>
-                      )}
-                    </p>
-                    <div className="admin-order-accepted-fnsku-sub-category">
-                      <input
-                        type="checkbox"
-                        checked={
-                          eachProduct.fnsku_status === "1" ? true : false
-                        }
-                        className="admin-order-accepted-checkbox"
-                      />
-                    </div>
-                    <div className="admin-order-accepted-box-label-sub-category">
-                      <input
-                        type="checkbox"
-                        checked={
-                          eachProduct.label_status === "1" ? true : false
-                        }
-                        className="admin-order-accepted-checkbox"
-                      />
-                    </div>
-                    <BsFillArrowRightCircleFill
-                      id={eachProduct.id}
-                      value={eachProduct.id}
-                      onClick={() => openDetailPageComponent(eachProduct.id)}
-                      className="admin-order-accepted-view-in-detail-sub-category"
-                    />
-                  </div>
-                );
-              })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={previousButton}
-                />
-
-                <span>Page {currentPage}</span>
-
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= products.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyOrder />
-          )}
-        </div>
         </div>
       )}
     </>

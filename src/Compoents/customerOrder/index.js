@@ -56,7 +56,6 @@ const CustomerOrder = () => {
         }
       })
       .then((data) => {
-        setCustomerName(data.name);
         setCustomerId(data.id);
       })
       .catch(() => {});
@@ -152,31 +151,25 @@ const CustomerOrder = () => {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
-  
-  const selectedServiceWithQunatity = selectedServices.map(
-    (productId) => ({
-      id: productId,
-      quantity: 1,
-    })
-  );
-
+  const selectedServiceWithQunatity = selectedServices.map((productId) => ({
+    id: productId,
+    quantity: 1,
+  }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
-      (productId) => ({
+    const selectedProductsWithQuantity = Object.keys(productQuantities)
+      .map((productId) => ({
         id: productId,
         quantity: productQuantities[productId] || 0,
-      })
-    );
+      }))
+      .filter((product) => product.quantity > 0);
 
-    
     try {
-     
       const token = sessionStorage.getItem("token");
       const formData = new FormData();
       formData.append("date", date);
-      formData.append("customerName", customerName);
+      formData.append("name", customerName);
       formData.append("service", servicesReq);
       formData.append("product", productName);
       formData.append("units", units);
@@ -209,8 +202,6 @@ const CustomerOrder = () => {
         body: formData,
       });
 
-      
-
       if (response.ok) {
         response.json().then((data) => {
           Toast.fire({
@@ -224,8 +215,9 @@ const CustomerOrder = () => {
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
         setInstructions("");
-        setSelectedServices([])
-        setProductQuantities({})
+        setSelectedServices([]);
+        setProductQuantities({});
+        setCustomerName("");
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -261,9 +253,7 @@ const CustomerOrder = () => {
                 />
               </div>
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">
-                  Customer Name:
-                </label>
+                <label className="order-customer-label-name">Order Name:</label>
                 <input
                   className="order-customer-lable-container"
                   type="text"
@@ -288,7 +278,10 @@ const CustomerOrder = () => {
               <div className="order-customer-service-container">
                 <p className="order-customer-service-name">Services :</p>
                 {services.map((service) => (
-                  <div key={service.id} className="order-customer-service-input-container">
+                  <div
+                    key={service.id}
+                    className="order-customer-service-input-container"
+                  >
                     <input
                       type="checkbox"
                       id={service.id}
@@ -297,9 +290,13 @@ const CustomerOrder = () => {
                       checked={selectedServices.includes(service.id)}
                       onChange={(e) => handleServiceSelection(e, service.id)}
                       className="order-customer-input-checkbox"
-
                     />
-                    <label htmlFor={service.id} className="order-customer-label-name">{service.name}</label>
+                    <label
+                      htmlFor={service.id}
+                      className="order-customer-label-name"
+                    >
+                      {service.name}
+                    </label>
                   </div>
                 ))}
               </div>
@@ -346,15 +343,21 @@ const CustomerOrder = () => {
                 />
               </div>
               <div className="order-customer-service-container">
-                <label className="order-customer-service-name">Products :</label>
+                <label className="order-customer-service-name">
+                  Products :
+                </label>
                 {products.map((product) => (
-                  <div key={product.id} className="order-customer-service-input-container">
-                    <label htmlFor={`product-${product.id}`} className="order-customer-label-name">
+                  <div
+                    key={product.id}
+                    className="order-customer-service-input-container"
+                  >
+                    <label
+                      htmlFor={`product-${product.id}`}
+                      className="order-customer-label-name"
+                    >
                       {product.name} :
-                      
                     </label>
                     <input
-                    required
                       type="number"
                       id={`product-${product.id}`}
                       name={`product-${product.id}`}
@@ -405,8 +408,6 @@ const CustomerOrder = () => {
                   onChange={handleChange}
                 />
               </div>
-              
-             
             </div>
           </div>
           <div className="order-customer-submit-button-container">

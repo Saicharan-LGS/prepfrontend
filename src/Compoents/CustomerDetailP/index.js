@@ -67,7 +67,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       );
       if (response.ok) {
         const data1 = await response.json();
-        
+
         const data = data1.order;
 
         const fnskuFiles =
@@ -235,12 +235,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       id: productId,
       quantity: 1,
     }));
-    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
-      (productId) => ({
+    const selectedProductsWithQuantity = Object.keys(productQuantities)
+      .map((productId) => ({
         id: productId,
         quantity: productQuantities[productId] || 0,
-      })
-    );
+      }))
+      .filter((product) => product.quantity > 0);
+
     const formDataToSend = new FormData();
     formDataToSend.append("date", date);
     formDataToSend.append("name", name);
@@ -318,7 +319,10 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     setModalOpen(false);
   };
 
-  const readOnlyInput = status==="0"? 'order-customer-lable-container':'order-customer-lable-container admin-order-accepted-readonly'
+  const readOnlyInput =
+    status === "0"
+      ? "order-customer-lable-container"
+      : "order-customer-lable-container admin-order-accepted-readonly";
 
   return (
     <>
@@ -347,7 +351,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Customer Name:</label>
+              <label className="order-customer-label-name">Order Name:</label>
               <input
                 className={readOnlyInput}
                 type="text"
@@ -431,7 +435,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               </select>
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Product Name :</label>
+              <label className="order-customer-label-name">
+                Product Name :
+              </label>
               <input
                 className={readOnlyInput}
                 type="text"
@@ -487,7 +493,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           </div>
           <div className="order-customer-field3-container">
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name" >Unit:</label>
+              <label className="order-customer-label-name">Unit:</label>
               <input
                 className={readOnlyInput}
                 type="number"
@@ -552,7 +558,11 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                     value={service.id}
                     // readOnly={status === "0" ? false : true}
                     checked={selectedServices.includes(service.id)}
-                    onChange={(e) =>status === "0" ? handleServiceSelection(e, service.id): null }
+                    onChange={(e) =>
+                      status === "0"
+                        ? handleServiceSelection(e, service.id)
+                        : null
+                    }
                     className="order-customer-input-checkbox"
                   />
                   <label

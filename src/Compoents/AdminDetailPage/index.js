@@ -64,7 +64,7 @@ function OrderViewDetail({ orderId, setStatus }) {
       });
       if (response.ok) {
         const data1 = await response.json();
-       
+
         const data = data1.order;
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -83,7 +83,6 @@ function OrderViewDetail({ orderId, setStatus }) {
         setSelectedServices(productServicesIds);
 
         data1.services.Products.forEach((item) => {
-          
           productQuantities[item.services] = item.quantity;
         });
 
@@ -211,12 +210,12 @@ function OrderViewDetail({ orderId, setStatus }) {
       id: productId,
       quantity: 1,
     }));
-    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
-      (productId) => ({
+    const selectedProductsWithQuantity = Object.keys(productQuantities)
+      .map((productId) => ({
         id: productId,
         quantity: productQuantities[productId] || 0,
-      })
-    );
+      }))
+      .filter((product) => product.quantity > 0);
 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
@@ -334,7 +333,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     if (!isConfirmed) {
       return;
     }
-    
+
     try {
       const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
         method: "DELETE",
@@ -394,11 +393,11 @@ function OrderViewDetail({ orderId, setStatus }) {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Customer Name:</label>
+              <label className="order-customer-label-name">Order Name:</label>
               <input
                 className="order-customer-lable-container"
                 type="text"
-                name="Name"
+                name="name"
                 value={name}
                 onChange={handleChange}
               />
