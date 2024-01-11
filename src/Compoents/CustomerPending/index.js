@@ -91,7 +91,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
       ) : (
         <div className="admin-order-accepted-product-list">
           <h2 className="admin-order-accepted-order-list-heading">
-            Order List
+           Customer Pending Pending List
           </h2>
           <input
             type="text"
