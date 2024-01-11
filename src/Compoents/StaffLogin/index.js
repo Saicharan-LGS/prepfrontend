@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import React Router
 import "./index.css";
 import Toast from "../utlis/toast";
 import CustomerLogin from "../CustomerLogin";
+import axxpress from '../images/axxpress.png'
 
 const StaffSigninPage = () => {
   const [formData, setFormData] = useState({
@@ -128,6 +129,8 @@ const StaffSigninPage = () => {
               Customer Signin
             </button>
           </div> */}
+                <img className='logo-image-axxpress' src={axxpress} alt=''/>
+
           
               <center>
                 <h2 className="signin-form-heading-container">Staff Login</h2>

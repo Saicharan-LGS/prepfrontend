@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import { Link, useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
+import axxpress from '../images/axxpress.png'
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -112,6 +113,8 @@ const CustomerLogin = () => {
           </button>
           <button className="customer-customer-button">Customer Signin</button>
         </div> */}
+                <img className='logo-image-axxpress' src={axxpress} alt=''/>
+
         <center>
           <h2 className="signin-form-heading-container">Login</h2>
         </center>
@@ -145,51 +148,14 @@ const CustomerLogin = () => {
             <button className="signin-form-button-container" type="submit">
               Login
             </button>
-            <Link to="/signup">
-            <p>Don't have an account? Signup</p></Link>
-            <Link to="/CustomerForgotPassword">
+            <Link to="/signup"  style={{ textDecoration: 'none' }}>
+            <p>Create new account? Signup</p></Link>
+            <Link to="/CustomerForgotPassword" style={{ textDecoration: 'none' }}>
             <p>forgot password</p></Link>
           </center>
         </form>
       </div>
     </div>
-    // <>
-    //   <center>
-    //     <h2 className="signin-form-heading-container">Customer Login</h2>
-    //   </center>
-    //   <form onSubmit={handleSubmit} className="signin-form-container">
-    //     <div className="signin-form-group-container">
-    //       <label className="signin-form-label-container">Email:</label>
-    //       <input
-    //         type="email"
-    //         name="email"
-    //         value={formData.email}
-    //         onChange={handleInputChange}
-    //         className="signin-input-text"
-    //       />
-    //       {errors.email && <p className="error-message">{errors.email}</p>}
-    //     </div>
-    //     <div className="signin-form-group-container">
-    //       <label className="signin-form-label-container">Password:</label>
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         value={formData.password}
-    //         onChange={handleInputChange}
-    //         className="signin-input-text"
-    //       />
-    //       {errors.password && (
-    //         <p className="error-message">{errors.password}</p>
-    //       )}
-    //     </div>
-    //     {loginError && <p className="error-message">{loginError}</p>}
-    //     <center>
-    //       <button className="signin-form-button-container" type="submit">
-    //         Sign In
-    //       </button>
-    //     </center>
-    //   </form>
-    // </>
   );
 };
 
