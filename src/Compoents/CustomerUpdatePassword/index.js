@@ -16,16 +16,16 @@ const CustomerUpdatePassword = ({onClose}) => {
  
   const updatePassword = async () => {
     
-    const authToken = sessionStorage.getItem("authToken");
+    const authToken = sessionStorage.getItem("token");
     try {
-      const response = await fetch("your-api-endpoint", {
-        method: "POST",
+      const response = await fetch(`${process.env.REACT_APP_FETCH_URL}updatecustomerpassword`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify({
-          oldPassword,
+          currentPassword: oldPassword,
           newPassword,
         }),
       });
@@ -48,7 +48,7 @@ const CustomerUpdatePassword = ({onClose}) => {
     <div className="customer-update-password-main-container">
       
       <form className="customer-update-password-form-container">
-      <h2>Password Update</h2>
+      <h2 className="customer-update-password-heading">Password Update</h2>
         <div className="customer-update-password-input-container">
         <label htmlFor="oldPassword" className="customer-update-password-label-name">Old Password:</label>
         <input

@@ -5,7 +5,7 @@ const Customersignup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
+    
   });
   const [errors, setErrors] = useState({});
   const [backendError, setBackendError] = useState(null);
@@ -27,9 +27,7 @@ const Customersignup = () => {
     if (!formData.email.trim()) {
       validationErrors.email = "Email is required";
     }
-    if (!formData.password.trim()) {
-      validationErrors.password = "Password is required";
-    }
+   
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -59,9 +57,9 @@ const Customersignup = () => {
             setFormData({
               name: "",
               email: "",
-              password: "",
             });
           });
+          
         } else {
           response.json().then((data) => {
             Toast.fire({
@@ -71,7 +69,6 @@ const Customersignup = () => {
             setFormData({
               name: "",
               email: "",
-              password: "",
             });
           });
         }
@@ -127,7 +124,7 @@ const Customersignup = () => {
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div className="customer-signin-form-group-container">
+          {/* <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
               Password:
             </label>
@@ -142,7 +139,7 @@ const Customersignup = () => {
               <p className="error-message">{errors.password}</p>
             )}
           </div>
-          {backendError && <p className="error-message">{backendError}</p>}
+          {backendError && <p className="error-message">{backendError}</p>} */}
           <center>
             <button
               className="customer-signin-form-button-container"
