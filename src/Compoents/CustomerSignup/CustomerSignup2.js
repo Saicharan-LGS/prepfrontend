@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Toast from "../utlis/toast";
 import { Link, useNavigate } from "react-router-dom";
+import axxpress from '../images/axxpress.png'
 
 const Customersignup2 = () => {
   const [formData, setFormData] = useState({
@@ -109,9 +110,11 @@ const Customersignup2 = () => {
         />
       </div>
       <div className="customer-signin-form-main-container">
+      <img className='logo-image-axxpress' src={axxpress} alt=''/>
+
         <center>
           <h2 className="customer-signin-form-heading-container">
-            Add Customer
+            Signup
           </h2>
         </center>
         <form
@@ -182,7 +185,7 @@ const Customersignup2 = () => {
             >
               Sign Up
             </button>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: 'none' }}>
               <p>Do you have account Already? login</p>
             </Link>
           </center>
