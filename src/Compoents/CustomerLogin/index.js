@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
 
 const CustomerLogin = () => {
@@ -145,6 +145,10 @@ const CustomerLogin = () => {
             <button className="signin-form-button-container" type="submit">
               Login
             </button>
+            <Link to="/signup">
+            <p>Don't have an account? Signup</p></Link>
+            <Link to="/CustomerForgotPassword">
+            <p>forgot password</p></Link>
           </center>
         </form>
       </div>

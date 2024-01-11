@@ -1,25 +1,34 @@
 import React, { useState } from "react";
-import "./index.css";
+
 import Toast from "../utlis/toast";
-const Customersignup = () => {
+import { Link, useNavigate } from "react-router-dom";
+
+const Customersignup2 = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [backendError, setBackendError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "confirmPassword") {
+      setConfirmPassword(value);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBackendError(null); // Clear any previous backend errors
 
-    // Validate the form data
+    setBackendError(null);
+
     const validationErrors = {};
     if (!formData.name.trim()) {
       validationErrors.name = "Name is required";
@@ -30,28 +39,33 @@ const Customersignup = () => {
     if (!formData.password.trim()) {
       validationErrors.password = "Password is required";
     }
+    if (!confirmPassword.trim()) {
+      validationErrors.confirmPassword = "Confirm Password is required";
+    }
+    if (formData.password !== confirmPassword) {
+      validationErrors.confirmPassword = "Passwords do not match";
+    }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-
-    const token = sessionStorage.getItem("token");
-    // Construct the request object with the POST method and the request body as JSON
     const requestOptions = {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json", // Set the Content-Type to JSON
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     };
 
-    // Send the POST request using the fetch API
-    fetch(`${process.env.REACT_APP_FETCH_URL}registration`, requestOptions)
+    fetch(
+      `${process.env.REACT_APP_FETCH_URL}customerregistration`,
+      requestOptions
+    )
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           response.json().then((data) => {
+            localStorage.setItem("email", formData.email);
             Toast.fire({
               icon: "success",
               title: data.message,
@@ -61,6 +75,8 @@ const Customersignup = () => {
               email: "",
               password: "",
             });
+            setConfirmPassword("");
+            navigate("/verifypassword");
           });
         } else {
           response.json().then((data) => {
@@ -68,15 +84,16 @@ const Customersignup = () => {
               icon: "error",
               title: data.message,
             });
+            // Set isModalOpen to false if the status is not 200
             setFormData({
               name: "",
               email: "",
               password: "",
             });
+            setConfirmPassword("");
           });
         }
       })
-      .then((data) => {})
       .catch(() => {
         setBackendError("An error occurred while processing your request.");
       });
@@ -142,6 +159,21 @@ const Customersignup = () => {
               <p className="error-message">{errors.password}</p>
             )}
           </div>
+          <div className="customer-signin-form-group-container">
+            <label className="customer-singnin-form-lable-container">
+              Confirm Password:
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              className="customer-signin-input-container"
+              value={confirmPassword}
+              onChange={handleInputChange}
+            />
+            {errors.confirmPassword && (
+              <p className="error-message">{errors.confirmPassword}</p>
+            )}
+          </div>
           {backendError && <p className="error-message">{backendError}</p>}
           <center>
             <button
@@ -150,7 +182,9 @@ const Customersignup = () => {
             >
               Sign Up
             </button>
-            <p>Already have an account? Login</p>
+            <Link to="/">
+              <p>Do you have account Already? login</p>
+            </Link>
           </center>
         </form>
       </div>
@@ -158,4 +192,4 @@ const Customersignup = () => {
   );
 };
 
-export default Customersignup;
+export default Customersignup2;
