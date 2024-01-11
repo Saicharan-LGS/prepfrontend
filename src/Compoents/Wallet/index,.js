@@ -82,7 +82,7 @@ function Wallet({ totalAmount }) {
   };
   const handleSearch = (e) => {
     setOrderId(e.target.value);
-    setCurrentPage(1); // Reset pagination when changing search filter
+    setCurrentPage(1);
   };
   return (
     <div className="admin-order-accepted-product-list">
@@ -122,10 +122,9 @@ function Wallet({ totalAmount }) {
                 className="admin-order-accepted-display-of-products-container"
                 key={eachProduct.id}
               >
-                {/* Display your product details */}
                 <p className="customer-list-table-row">{eachProduct.id}</p>
                 <p className="customer-list-table-row">
-                  {eachProduct.order_ids}
+                  {JSON.parse(eachProduct.order_ids).join(", ")}
                 </p>
                 <p className="customer-list-table-row">{eachProduct.amount}</p>
 
