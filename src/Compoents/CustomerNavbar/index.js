@@ -13,6 +13,9 @@ import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import { IoMdLogOut } from "react-icons/io";
+import { CgProfile } from "react-icons/cg";
+import Popup from "reactjs-popup";
+import CustomerProfileView from "../CustomerProfileView/index.js";
 
 function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
@@ -23,6 +26,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   // });
 
 const [status, setStatus]=useState(9)
+const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);
@@ -66,6 +70,11 @@ const [status, setStatus]=useState(9)
       // navigate(`/CustomerOrderViewDetail/${id}`);
     } 
   };
+
+  const handleCloseClick=()=>{
+    setIsPopupOpen(false)
+  }
+
   return (
     <div className="navbar-container">
       {/* <IconContext.Provider value={{ color: "#000" }}> */}
@@ -76,6 +85,10 @@ const [status, setStatus]=useState(9)
         <div className="navbar-logout-button-container">
           <TransactionSummary totalAmount={totalAmount} />
           <p className="navbar-nav-item-name">{name}</p>
+          
+          <Popup closeOnDocumentClick={false}  open={isPopupOpen}  onClose={handleCloseClick} contentStyle={{ width: '400px', padding: '20px' }}  trigger={<img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="" className="navbar-profile-image" onClick=""/>} position="bottom right">
+                <CustomerProfileView onClose={handleCloseClick}/>
+          </Popup>
           {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
