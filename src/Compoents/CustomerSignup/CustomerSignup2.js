@@ -77,7 +77,7 @@ const Customersignup2 = () => {
               password: "",
             });
             setConfirmPassword("");
-            navigate("/verifypassword");
+            navigate("/CustomerOtpVerification");
           });
         } else {
           response.json().then((data) => {
