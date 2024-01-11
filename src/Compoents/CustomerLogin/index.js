@@ -40,6 +40,8 @@ const CustomerLogin = () => {
       return;
     }
 
+    const role = sessionStorage.getItem("srole")
+
     // Define the URL of your server's login endpoint
     const url = `${process.env.REACT_APP_FETCH_URL}login`;
 

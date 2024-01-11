@@ -21,19 +21,14 @@ import CustomerProfileView from "../CustomerProfileView/index.js";
 function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
   const [orderId, setOrderId] = useState("");
-  // const [status, setStatus] = useState(() => {
-  //   const savedStatus = parseInt(localStorage.getItem("status"), 10);
-  //   return isNaN(savedStatus) ? 5 : savedStatus;
-  // });
-
-const [status, setStatus]=useState(9)
-const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userDetatils, setUserDetails] = useState([]);
+  const [status, setStatus] = useState(9);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);
-
+  const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
   const handleSidebarItemClick = async (id) => {
-    // Save the current status to the previous status
     setPrevStatus(status);
     await setSidebar(false);
     await setStatus(id);
@@ -41,7 +36,6 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
   useEffect(() => {
     fetchTotalAmount();
     handleSidebarItemClick(status);
-    // Save status to cookie
     localStorage.setItem("status", status);
     localStorage.setItem("prevStatus", prevStatus);
   }, [status]);
@@ -71,9 +65,33 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
     }
   };
 
-  const handleCloseClick=()=>{
-    setIsPopupOpen(false)
-  }
+  const handleCloseClick = () => {
+    setIsPopupOpen(false);
+  };
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const fetchProducts = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${FETCH_URL}getspecificcustomerdetails`, {
+        method: "GET",
+        headers: {
+          Authorization: ` Bearer ${token}`,
+        },
+      }); // Replace with your API endpoint
+      if (response.ok) {
+        const data = await response.json();
+        setUserDetails(data.customer);
+      } else {
+        setUserDetails("");
+      }
+    } catch (error) {
+      setUserDetails("");
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <div className="navbar-container">
@@ -85,9 +103,28 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
         <div className="navbar-logout-button-container">
           <TransactionSummary totalAmount={totalAmount} />
           <p className="navbar-nav-item-name">{name}</p>
-          
-          <Popup closeOnDocumentClick={false}  open={isPopupOpen}  onClose={handleCloseClick} contentStyle={{ width: '400px', padding: '20px' }}  trigger={<img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="" className="navbar-profile-image" onClick=""/>} position="bottom right">
-                <CustomerProfileView onClose={handleCloseClick}/>
+
+          <Popup
+            closeOnDocumentClick={false}
+            open={isPopupOpen}
+            onClose={handleCloseClick}
+            contentStyle={{ width: "500px", padding: "20px" }}
+            trigger={
+              <img
+                src={`${REACT_APP_PDF_URL}${
+                  userDetatils && userDetatils.profile
+                }`}
+                alt=""
+                className="navbar-profile-image"
+                onClick=""
+              />
+            }
+            position="bottom right"
+          >
+            <CustomerProfileView
+              onClose={handleCloseClick}
+              fetchProducts1={fetchProducts}
+            />
           </Popup>
           {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
           <button className="navbar-logout-button" onClick={handleLogout}>
