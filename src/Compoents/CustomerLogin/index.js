@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import { Link, useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
-import axxpress from '../images/axxpress.png'
+import axxpress from "../images/axxpress.png";
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ const CustomerLogin = () => {
       return;
     }
 
-    const role = sessionStorage.getItem("srole")
+    const role = sessionStorage.getItem("srole");
 
     // Define the URL of your server's login endpoint
     const url = `${process.env.REACT_APP_FETCH_URL}login`;
@@ -54,9 +54,9 @@ const CustomerLogin = () => {
     fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", // Set the Content-Type to JSON
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(jsonData), // Convert JSON object to string
+      body: JSON.stringify(jsonData),
     })
       .then((response) => {
         if (response.status === 200) {
@@ -115,7 +115,7 @@ const CustomerLogin = () => {
           </button>
           <button className="customer-customer-button">Customer Signin</button>
         </div> */}
-                <img className='logo-image-axxpress' src={axxpress} alt=''/>
+        <img className="logo-image-axxpress" src={axxpress} alt="" />
 
         <center>
           <h2 className="signin-form-heading-container">Login</h2>
@@ -150,10 +150,15 @@ const CustomerLogin = () => {
             <button className="signin-form-button-container" type="submit">
               Login
             </button>
-            <Link to="/signup"  style={{ textDecoration: 'none' }}>
-            <p>Create new account? Signup</p></Link>
-            <Link to="/CustomerForgotPassword" style={{ textDecoration: 'none' }}>
-            <p>forgot password</p></Link>
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <p>Create new account? Signup</p>
+            </Link>
+            <Link
+              to="/CustomerForgotPassword"
+              style={{ textDecoration: "none" }}
+            >
+              <p>forgot password</p>
+            </Link>
           </center>
         </form>
       </div>

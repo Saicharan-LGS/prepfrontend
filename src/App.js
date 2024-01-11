@@ -25,6 +25,7 @@ import Customersignup2 from "./Compoents/CustomerSignup/CustomerSignup2";
 import CustomerForgotPassword from "./Compoents/CustomerNavbar/CustomerForgot";
 import CustomerOtpVerification from "./Compoents/CustomerNavbar/CustomerOtp";
 import CustomerOtpVerification2 from "./Compoents/CustomerNavbar/CustomerOtp2";
+import CreatePassword from "./Compoents/CustomerCreatePassword";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -63,6 +64,7 @@ function App() {
         path="/CustomerOtpVerification"
         element={<CustomerOtpVerification />}
       />
+      <Route path="/createpassword/:email" element={<CreatePassword />} />
       <Route
         path="/CustomerOtpVerification2"
         element={<CustomerOtpVerification2 />}
