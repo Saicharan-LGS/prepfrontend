@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import AddAmountCustomer from "./AddAmount";
 
 function CustomerList() {
+  const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,10 +18,14 @@ function CustomerList() {
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const [amountId, setAmountId]= useState("",)
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   const handleToggle = async (id, currentStatus) => {
-    
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}update-customer-status/${id}`, {
@@ -32,7 +39,7 @@ function CustomerList() {
 
       if (response.ok) {
         // Handle success, maybe update the local state
-        
+
         response.json().then((data) => {
           Toast.fire({
             icon: "success",
@@ -119,6 +126,12 @@ function CustomerList() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
+  const onclickaddamount = (e) => {
+    console.log(e.target.value);
+    setAmountId(e.target.value);
+    setModalOpen(true);
+  };
+
   return (
     <>
       {loading ? (
@@ -138,59 +151,89 @@ function CustomerList() {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-          <div className="admin-order-accepted-category-types">
-            <p className="customer-list-table-row">Customer Id</p>
-            <p className="customer-list-table-row">Customer Name</p>
-            <p className="customer-list-table-row">Email</p>
-            <p className="customer-list-table-row">Status</p>
-          </div>
+            <div className="admin-order-accepted-category-types">
+              <p className="customer-list-table-row">Customer Id</p>
+              <p className="customer-list-table-row">Customer Name</p>
+              <p className="customer-list-table-row">Email</p>
+              <p className="customer-list-table-row">Status</p>
+              <p className="customer-list-table-row">Amount</p>
+            </div>
 
-          {filteredProducts.length > 0 ? (
-            <>
-              {currentProducts.map((eachProduct) => {
-                return (
-                  <div
-                    className="admin-order-accepted-display-of-products-container"
-                    key={eachProduct.id}
-                  >
-                    <p className="customer-list-table-row">{eachProduct.id}</p>
-                    <p className="customer-list-table-row">
-                      {eachProduct.name}
-                    </p>
-                    <p className="customer-list-table-row">
-                      {eachProduct.email}
-                    </p>
-                    <div className="customer-list-table-row">
-                      <input
-                        type="checkbox"
-                        className="customer-list-table-row-input"
-                        checked={eachProduct.status === 1 ? true : false}
-                        onChange={() =>
-                          handleToggle(eachProduct.id, eachProduct.status === 1)
-                        }
-                      />
+            {filteredProducts.length > 0 ? (
+              <>
+                {currentProducts.map((eachProduct) => {
+                  return (
+                    <div
+                      className="admin-order-accepted-display-of-products-container"
+                      key={eachProduct.id}
+                    >
+                      <p className="customer-list-table-row">
+                        {eachProduct.id}
+                      </p>
+                      <p className="customer-list-table-row">
+                        {eachProduct.name}
+                      </p>
+                      <p className="customer-list-table-row">
+                        {eachProduct.email}
+                      </p>
+                      <div className="customer-list-table-row">
+                        <input
+                          type="checkbox"
+                          className="customer-list-table-row-input"
+                          checked={eachProduct.status === 1 ? true : false}
+                          onChange={() =>
+                            handleToggle(
+                              eachProduct.id,
+                              eachProduct.status === 1
+                            )
+                          }
+                        />
+                      </div>
+                      <button value={eachProduct.id} onClick={onclickaddamount}>
+                        Add Amount
+                      </button>
                     </div>
-                  </div>
-                );
-              })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage <= 1}
-                  className={previousButton}
-                />
-                <span>Page {currentPage}</span>
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= products.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <h5> No Customers</h5>
-          )}
-        </div>
+                  );
+                })}
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                    className={previousButton}
+                  />
+                  <span>Page {currentPage}</span>
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= products.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <h5> No Customers</h5>
+            )}
+          </div>
+          <Modal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            style={{ width: "100%" }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                width: "20%",
+                top: "50%",
+                left: "50%",
+                height: "150px",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                borderRadius: "8px",
+                p: 3,
+              }}
+            >
+              <AddAmountCustomer id={amountId} setModalOpen={setModalOpen} />
+            </Box>
+          </Modal>
         </div>
       )}
     </>

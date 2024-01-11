@@ -20,6 +20,7 @@ import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
 import { ProductServiceList } from "../Services";
 import Dispatch from "../Dispatch";
+import CustomerPendingList from "../CustomerPending";
 export const SidebarData = [
   {
     id: 1,
@@ -101,5 +102,12 @@ export const SidebarData = [
     icon: <RiAccountCircleFill fontSize="25px" />,
     cName: "",
     component: <ProductServiceList />,
+  },{
+    id: 11,
+    title: "Customer Requests",
+    path: "/support",
+    icon: <IoPaperPlane fontSize="20px" />,
+    cName: "",
+    component: <CustomerPendingList />,
   },
 ];

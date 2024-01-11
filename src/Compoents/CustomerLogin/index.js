@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
 
 const CustomerLogin = () => {
@@ -16,6 +16,9 @@ const CustomerLogin = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  sessionStorage.removeItem("role");
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("sname");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,11 +98,15 @@ const CustomerLogin = () => {
 
   return (
     <div className="customer-signin-div-container">
-       <div className="login-image-container">
-        <img src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png" className="Login-image" alt=""/>
+      <div className="login-image-container">
+        <img
+          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          className="Login-image"
+          alt=""
+        />
       </div>
       <div className="signin-form-main-container">
-         {/* <div className="customer-staff-customer-button-container">
+        {/* <div className="customer-staff-customer-button-container">
           <button className="customer-staff-button" onClick={onClickStaff}>
             Staff Signin
           </button>
@@ -138,6 +145,10 @@ const CustomerLogin = () => {
             <button className="signin-form-button-container" type="submit">
               Login
             </button>
+            <Link to="/signup">
+            <p>Don't have an account? Signup</p></Link>
+            <Link to="/CustomerForgotPassword">
+            <p>forgot password</p></Link>
           </center>
         </form>
       </div>

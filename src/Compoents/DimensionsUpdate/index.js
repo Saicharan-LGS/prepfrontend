@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
-const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => {
+const DimensionsUpdate = ({
+  id,
+  fetchProducts,
+  fetchData1,
+  handleDimensions,
+}) => {
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
     height: "",
     weight: "",
-    itemNo:"",
-    boxBy:"prep"
+    itemNo: "",
+    boxBy: "prep",
   });
 
   const [unitOptions] = useState({
@@ -41,8 +46,7 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
     });
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
-  
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,22 +68,19 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
         width: dimensions.width + selectedUnits.width,
         height: dimensions.height + selectedUnits.height,
         weight: dimensions.weight + selectedUnits.weight,
-        itemNo:dimensions.itemNo,
-        boxBy: dimensions.boxBy
+        itemNo: dimensions.itemNo,
+        boxBy: dimensions.boxBy,
       };
       const token = sessionStorage.getItem("token");
- 
-      const response = await fetch(
-        `${FETCH_URL}CreateDimension/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(dimensionsWithUnits),
-        }
-      );
+
+      const response = await fetch(`${FETCH_URL}CreateDimension/${id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dimensionsWithUnits),
+      });
       if (response.ok) {
         response.json().then((data) => {
           Toast.fire({
@@ -92,22 +93,21 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
           width: "",
           height: "",
           weight: "",
-          itemNo:"",
-          boxBy:"prep"
+          itemNo: "",
+          boxBy: "prep",
         });
- 
+
         setSelectedUnits({
           length: "inches",
           width: "inches",
           height: "inches",
           weight: "lb",
         });
-        
-        fetchData1()
 
-        handleDimensions()
+        fetchData1();
+
+        handleDimensions();
         fetchProducts();
-        
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -117,14 +117,12 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
         });
         fetchProducts();
       }
-    } catch  {
-    }
+    } catch {}
   };
-  const handleBoxBy=(e)=>{
-    setDimensions({...dimensions, boxBy:e.target.value})
-  }
+  const handleBoxBy = (e) => {
+    setDimensions({ ...dimensions, boxBy: e.target.value });
+  };
 
- 
   return (
     <div className="dimensions-main-container">
       <form className="dimensions-form-container" onSubmit={handleSubmit}>
@@ -159,17 +157,28 @@ const DimensionsUpdate = ({ id, fetchProducts,fetchData1,handleDimensions }) => 
           ))}
         </div>
         <div className="dimension-flex-container">
-        <div className="dimension-input-container-1">
-           <label className="dimensions-label-text">Quantity</label>
-           <input type="number" value={dimensions.itemNo} name="itemNo" onChange={handleInputChange} placeholder="Enter the quantity" className="dimensions-input"/>
-        </div>
-        <div className="dimension-input-container-1">
-           <label className="dimensions-label-text">boxBy</label>
-           <select className="dimensions-input" value={dimensions.boxBy}  onChange={handleBoxBy} >
-            <option value="prep">Prep</option>
-            <option value="customer">Customer</option>
-           </select>
-        </div>
+          <div className="dimension-input-container-1">
+            <label className="dimensions-label-text">Quantity</label>
+            <input
+              type="number"
+              value={dimensions.itemNo}
+              name="itemNo"
+              onChange={handleInputChange}
+              placeholder="Enter the quantity"
+              className="dimensions-input"
+            />
+          </div>
+          <div className="dimension-input-container-1">
+            <label className="dimensions-label-text">Box By</label>
+            <select
+              className="dimensions-input"
+              value={dimensions.boxBy}
+              onChange={handleBoxBy}
+            >
+              <option value="prep">Prep</option>
+              <option value="customer">Customer</option>
+            </select>
+          </div>
         </div>
         <center>
           <button className="dimensions-button" type="submit">

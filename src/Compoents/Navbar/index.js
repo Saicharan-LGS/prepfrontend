@@ -20,6 +20,7 @@ import { IoMdLogOut } from "react-icons/io";
 
 import { ProductServiceList } from "../Services";
 import Dispatch from "../Dispatch";
+import CustomerPendingList from "../CustomerPending";
  
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -53,7 +54,7 @@ function Navbar() {
     if (id) {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
-      localStorage.setItem("status", 11);
+      // localStorage.setItem("status", 12);
       setStatus(11);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
@@ -130,6 +131,8 @@ function Navbar() {
           <ProductServiceList />
         ) : parseInt(status) === 10 ? (
           <Dispatch />
+        ): parseInt(status) === 11 ? (
+          <CustomerPendingList />
         ) : (
           <OrderViewDetail orderId={orderId} setStatus={setStatus} />
         )}

@@ -13,6 +13,7 @@ import CustomerOrder from "../customerOrder/index.js";
 import TransactionSummary from "./Amount.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import { IoMdLogOut } from "react-icons/io";
+import Wallet from "../Wallet/index,.js";
 import { CgProfile } from "react-icons/cg";
 import Popup from "reactjs-popup";
 import CustomerProfileView from "../CustomerProfileView/index.js";
@@ -60,7 +61,6 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
 
   const openDetailPage = (id) => {
- 
     if (id) {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
@@ -68,7 +68,7 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
       setStatus(10);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
-    } 
+    }
   };
 
   const handleCloseClick=()=>{
@@ -93,7 +93,10 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
-          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
+          <IoMdLogOut
+            className="navbar-logout-button-icon"
+            onClick={handleLogout}
+          />
         </div>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
@@ -142,6 +145,8 @@ const [isPopupOpen, setIsPopupOpen] = useState(false);
             orderId={orderId}
             setStatus={setStatus}
           />
+        ) : parseInt(status) === 4 ? (
+          <Wallet totalAmount={totalAmount} />
         ) : (
           <CustomerOrder />
         )}

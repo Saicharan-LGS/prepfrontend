@@ -28,12 +28,11 @@ function AccountOrders({ openDetailPageComponent }) {
   );
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [invoiceOrders, setInvoiceOrders] = useState([]);
- 
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const fetchProducts = async () => {
@@ -156,7 +155,6 @@ function AccountOrders({ openDetailPageComponent }) {
       : "pagination-arrow-container";
 
   const generateInvoice = async () => {
-    
     if (selectedIds < 1) {
       alert("Please Select atleast one order");
     } else {
@@ -177,7 +175,7 @@ function AccountOrders({ openDetailPageComponent }) {
             title: data.message,
           });
           setInvoiceOrders(data.orders);
-          
+
           // fetchProducts();
           setModalOpen(true);
         } else {
@@ -213,7 +211,10 @@ function AccountOrders({ openDetailPageComponent }) {
           <div className="admin-order-accepted-category-types">
             <p className="admin-order-accepted-order-id-category">Order Id</p>
             <p className="admin-order-accepted-name-category">Customer Name</p>
-            <p className="admin-order-accepted-service-category">Product Name</p>
+            <p className="admin-order-accepted-name-category">Order Name</p>
+            <p className="admin-order-accepted-service-category">
+              Product Name
+            </p>
             <p className="admin-order-accepted-quantity-category">Quantity</p>
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link
@@ -231,6 +232,9 @@ function AccountOrders({ openDetailPageComponent }) {
                 <div className="admin-order-accepted-display-of-products-container">
                   <p className="admin-order-accepted-order-id-sub-category">
                     {eachProduct.id}
+                  </p>
+                  <p className="admin-order-accepted-name-sub-category">
+                    {eachProduct.customer_name}
                   </p>
                   <p className="admin-order-accepted-name-sub-category">
                     {eachProduct.name}

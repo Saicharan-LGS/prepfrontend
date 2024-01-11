@@ -20,15 +20,17 @@ import DimensionUpdatePage from "./Compoents/DimensionUpdatePage";
 import NotFound from "./Compoents/NotFound";
 import Dispatch from "./Compoents/Dispatch";
 import DimensionNewDetailPage from "./Compoents/DimensionDetailPage";
+import CustomerResetPasswordUpdate from "./Compoents/CustomerNavbar/CustomerResetPassword";
+import Customersignup2 from "./Compoents/CustomerSignup/CustomerSignup2";
+import CustomerForgotPassword from "./Compoents/CustomerNavbar/CustomerForgot";
+import CustomerOtpVerification from "./Compoents/CustomerNavbar/CustomerOtp";
 
 function App() {
   const role = localStorage.getItem("role");
   const [totalAmount, setTotalAmount] = useState(0);
   const token = sessionStorage.getItem("token");
- 
+
   const fetchTotalAmount = () => {
-    
- 
     if (!token) {
       return;
     }
@@ -40,9 +42,10 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setTotalAmount(data.total_amount);
+        console.log(data.total_amount);
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         setTotalAmount(0);
       });
   };
@@ -53,11 +56,14 @@ function App() {
     }
   }, [role]);
 
-
   return (
     <Routes>
+      <Route path="/CustomerOtpVerification" element={<CustomerOtpVerification />} />
+      <Route path="/CustomerForgotPassword"  element={<CustomerForgotPassword />} />
+      <Route path="/signup" element={<Customersignup2 />} />
+      <Route path="/CustomerResetPasswordUpdate" element={<CustomerResetPasswordUpdate />} />
       <Route path="*" element={<NotFound />} />
-      
+
       <Route path="/" element={<CustomerLogin />} />
       <Route path="/login" element={<StaffSigninPage />} />
       <Route

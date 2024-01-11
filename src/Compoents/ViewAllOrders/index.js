@@ -26,7 +26,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
       5: "Invoice",
       6: "Invoice Accepted",
       7: "Invoice Rejected",
-      8: "Dispatched"
+      8: "Dispatched",
     };
 
     // Filter products based on orderId and selected filter
@@ -119,7 +119,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
     5: "Invoice",
     6: "Invoice Accepted",
     7: "Invoice Rejected",
-    8: "Dispatched"
+    8: "Dispatched",
   };
 
   return (
@@ -156,23 +156,29 @@ function ViewAllOrders({ openDetailPageComponent }) {
               <option value="Invoice">Invoice</option>
               <option value="Invoice Accepted">Invoice Accepted</option>
               <option value="Invoice Rejected">Invoice Rejected</option>
+              <option value="Dispatched">Dispatched</option>
             </select>
           </div>
           <div className="admin-order-accepted-table-container">
-          <div className="admin-order-accepted-category-types">
-            <p className="admin-order-accepted-order-id-category">Order Id</p>
-            <p className="admin-order-accepted-name-category">Customer Name</p>
-            <p className="admin-order-accepted-service-category">Product Name</p>
-            <p className="admin-order-accepted-quantity-category">Quantity</p>
-            <p className="admin-order-accepted-order-tracking-category">
-              Order Tracking Link
-            </p>
-            <p className="admin-order-accepted-fnsku-category">Status</p>
-            <p className="admin-order-accepted-fnsku-category">Amount</p>
-            <p className="admin-order-accepted-view-in-detail-category">
-              View In Detail
-            </p>
-          </div>
+            <div className="admin-order-accepted-category-types">
+              <p className="admin-order-accepted-order-id-category">Order Id</p>
+              <p className="admin-order-accepted-name-category">
+                Customer Name
+              </p>
+              <p className="admin-order-accepted-name-category">Order Name</p>
+              <p className="admin-order-accepted-service-category">
+                Product Name
+              </p>
+              <p className="admin-order-accepted-quantity-category">Quantity</p>
+              <p className="admin-order-accepted-order-tracking-category">
+                Order Tracking Link
+              </p>
+              <p className="admin-order-accepted-fnsku-category">Status</p>
+              <p className="admin-order-accepted-fnsku-category">Amount</p>
+              <p className="admin-order-accepted-view-in-detail-category">
+                View In Detail
+              </p>
+            </div>
 
             {filteredProducts.length > 0 ? (
               <>
@@ -181,6 +187,9 @@ function ViewAllOrders({ openDetailPageComponent }) {
                     <div className="admin-order-accepted-display-of-products-container">
                       <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.id}
+                      </p>
+                      <p className="admin-order-accepted-name-sub-category">
+                        {eachProduct.customer_name}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.name}
@@ -207,7 +216,29 @@ function ViewAllOrders({ openDetailPageComponent }) {
                           </p>
                         )}
                       </p>
-                      <p className="admin-order-accepted-quantity-sub-category">
+                      <p
+                        className={`admin-order-accepted-quantity-sub-category ${
+                          eachProduct.status === "8"
+                            ? "status-dispatced"
+                            : eachProduct.status === "7"
+                            ? "status-invoice-rejected"
+                            : eachProduct.status === "6"
+                            ? "status-invoice-accepted"
+                            : eachProduct.status === "5"
+                            ? "status-invoice-generated"
+                            : eachProduct.status === "4"
+                            ? "status-label"
+                            : eachProduct.status === "3"
+                            ? "status-dimension"
+                            : eachProduct.status === "2"
+                            ? "status-received"
+                            : eachProduct.status === "1"
+                            ? "status-rejected"
+                            : eachProduct.status === "0"
+                            ? "status-pending"
+                            : ""
+                        }`}
+                      >
                         {statusLabels[eachProduct.status] || "Unknown Status"}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
