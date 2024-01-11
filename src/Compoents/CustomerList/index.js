@@ -189,9 +189,11 @@ function CustomerList() {
                           }
                         />
                       </div>
-                      <button value={eachProduct.id} onClick={onclickaddamount}>
-                        Add Amount
+                      <div className="customer-list-table-row">
+                      <button value={eachProduct.id} onClick={onclickaddamount}  className="customer-list-amount-button">
+                        Add
                       </button>
+                      </div>
                     </div>
                   );
                 })}
@@ -221,17 +223,17 @@ function CustomerList() {
             <Box
               sx={{
                 position: "absolute",
-                width: "20%",
+                width: "300px",
                 top: "50%",
                 left: "50%",
-                height: "150px",
+                height: "180px",
                 transform: "translate(-50%, -50%)",
                 bgcolor: "background.paper",
                 borderRadius: "8px",
                 p: 3,
               }}
             >
-              <AddAmountCustomer id={amountId} setModalOpen={setModalOpen} />
+              <AddAmountCustomer id={amountId}  onClose={handleCloseModal} />
             </Box>
           </Modal>
         </div>

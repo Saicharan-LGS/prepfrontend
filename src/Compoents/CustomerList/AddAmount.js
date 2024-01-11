@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { ImCancelCircle } from "react-icons/im";
 
-const AddAmountCustomer = ({ id,setModalOpen }) => {
+const AddAmountCustomer = ({ id,onClose }) => {
   const [amount, setAmount] = useState(0);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -25,7 +26,7 @@ const AddAmountCustomer = ({ id,setModalOpen }) => {
         throw new Error("Failed to add amount");
       }
       alert("Amount added successfully");
-      setModalOpen(false);
+      onClose();
       // Handle success, if needed
       console.log("Amount added successfully");
     } catch (error) {
@@ -35,8 +36,12 @@ const AddAmountCustomer = ({ id,setModalOpen }) => {
 
   return (
     <>
-      <input type="number" value={amount} onChange={handleInputChange} />
-      <button onClick={handleAddAmount}>Add Amount</button>
+    <ImCancelCircle onClick={onClose} style={{fontSize:"24px", color:"#212d45",cursor:"pointer",marginBottom:"10px"}}/>
+    <div className="customer-list-add-amount-container">
+      <h1 className="customer-list-add-amount-heading">Enter Amount</h1>
+      <input type="number" className="customer-list-add-amount-input" value={amount} onChange={handleInputChange} />
+      <button onClick={handleAddAmount} className="customer-list-add-amount-button">Add Amount</button>
+    </div>
     </>
   );
 };
