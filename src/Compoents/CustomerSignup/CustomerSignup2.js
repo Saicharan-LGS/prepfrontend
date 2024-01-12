@@ -12,12 +12,9 @@ const Customersignup2 = () => {
   });
   const navigate = useNavigate();
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const [backendError, setBackendError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "confirmPassword") {
       setConfirmPassword(value);
     } else {
@@ -27,30 +24,42 @@ const Customersignup2 = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    setBackendError(null);
-
-    const validationErrors = {};
     if (!formData.name.trim()) {
-      validationErrors.name = "Name is required";
+      Toast.fire({
+        icon: "error",
+        title: "Name is required",
+      });
+      return
     }
     if (!formData.email.trim()) {
-      validationErrors.email = "Email is required";
+      Toast.fire({
+        icon: "error",
+        title: "Email is required",
+      });
+      return
     }
     if (!formData.password.trim()) {
-      validationErrors.password = "Password is required";
+      Toast.fire({
+        icon: "error",
+        title: "Password is required",
+      });
+      return
     }
     if (!confirmPassword.trim()) {
-      validationErrors.confirmPassword = "Confirm Password is required";
+      Toast.fire({
+        icon: "error",
+        title: "Passwords do not match",
+      });
+      return
     }
     if (formData.password !== confirmPassword) {
-      validationErrors.confirmPassword = "Passwords do not match";
+      Toast.fire({
+        icon: "error",
+        title: "Passwords do not match",
+      });
+      return
     }
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
     const requestOptions = {
       method: "POST",
       headers: {
@@ -96,7 +105,10 @@ const Customersignup2 = () => {
         }
       })
       .catch(() => {
-        setBackendError("An error occurred while processing your request.");
+        Toast.fire({
+          icon: "error",
+          title: "An error occurred while processing your request"
+        });
       });
   };
 
@@ -132,7 +144,6 @@ const Customersignup2 = () => {
               value={formData.name}
               onChange={handleInputChange}
             />
-            {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
@@ -145,7 +156,6 @@ const Customersignup2 = () => {
               value={formData.email}
               onChange={handleInputChange}
             />
-            {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
@@ -158,9 +168,6 @@ const Customersignup2 = () => {
               value={formData.password}
               onChange={handleInputChange}
             />
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
-            )}
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
@@ -172,12 +179,8 @@ const Customersignup2 = () => {
               className="customer-signin-input-container"
               value={confirmPassword}
               onChange={handleInputChange}
-            />
-            {errors.confirmPassword && (
-              <p className="error-message">{errors.confirmPassword}</p>
-            )}
+            />  
           </div>
-          {backendError && <p className="error-message">{backendError}</p>}
           <center>
             <button
               className="customer-signin-form-button-container"

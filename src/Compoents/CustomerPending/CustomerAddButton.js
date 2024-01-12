@@ -1,18 +1,13 @@
 import Toast from "../utlis/toast";
-import React, { useState } from 'react'
-import ReceivedQuantity from "../ReceivedQuantity";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+import React, { useState } from "react";
 
 const CustomerAddButton = (props) => {
-  const [isModalOpen, setModalOpen] = React.useState(false);
+const [status, setStatus] = useState("");
 
-  const [admin,setAdmin] = useState("")
-
-  const handleSubmit = async (id, status, unit) => {
-    // Create an object with the data you want to send
+  const handleSubmit = async (id, id1) => {
+    console.log("called submit", id1);
     const requestData = {
-      admin: admin,
+      admin: id1,
     };
     const token = sessionStorage.getItem("token");
     try {
@@ -41,19 +36,14 @@ const CustomerAddButton = (props) => {
   };
 
   const onClickDecline = (e) => {
-    const status = false;
-    setAdmin(false)
-    handleSubmit(e.target.value, status);
+    setStatus(false);
+    handleSubmit(e.target.value, false);
   };
 
   const onClickReceived = (e) => {
-    setAdmin(true)
-    setModalOpen(true);
-    const status = true;
-    handleSubmit(e.target.value, status); // Set the status here
+    setStatus(true);
+    handleSubmit(e.target.value, true); // Set the status here
   };
-
-  
 
   return (
     <>
@@ -71,13 +61,8 @@ const CustomerAddButton = (props) => {
       >
         Decline
       </button>
-     
     </>
   );
 };
 
 export default CustomerAddButton;
-
-
-
-

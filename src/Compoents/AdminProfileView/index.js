@@ -96,11 +96,11 @@ function AdminProfileView({ fetchProducts1 }) {
                   {userDetatils && userDetatils.mobile_number}
                 </p>
               </div>
-              <div className="customer-profile-view-detail-container">
+              {/* <div className="customer-profile-view-detail-container">
                 <p className="customer-profile-view-detail-container-name">
                   {userDetatils && userDetatils.Address}
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
           <p
