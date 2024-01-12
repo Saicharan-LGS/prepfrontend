@@ -9,7 +9,26 @@ const AdminOtp = () => {
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const email = localStorage.getItem("email");
-
+  const staffresendotp = async () => {
+    try {
+      const response = await fetch(`${FETCH_URL}staffforgetpassword`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      const data = await response.json();
+      Toast.fire({
+        icon: "success",
+        title: data.message,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   const handleVerifyClick = async (e) => {
     e.preventDefault();
     console.log("called verify", otp, email);
@@ -62,6 +81,9 @@ const AdminOtp = () => {
           <button onClick={handleVerifyClick} className="verify-otp-button">
             Verify OTP
           </button>
+          <p style={{ cursor: "pointer" }} onClick={staffresendotp}>
+            Didn't get the OTP? Resend
+          </p>
         </div>
       </div>
     </div>
