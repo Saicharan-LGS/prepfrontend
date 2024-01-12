@@ -4,6 +4,9 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
+import { TiEdit } from "react-icons/ti";
+import { Box, Modal } from "@mui/material";
+import EditStaffDetails from "../EditStaffDetails";
 
 function StaffList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
@@ -12,6 +15,11 @@ function StaffList({ openDetailPageComponent }) {
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const [selectedStaff, setSelectedStaff] = useState(null);
+
+  const [isModelOpen,setIsModelOpen] = useState(false)
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleToggle = async (id, currentStatus, role1) => {
@@ -114,6 +122,19 @@ function StaffList({ openDetailPageComponent }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
+  const handleEdit=(staffData)=>{
+    console.log(staffData,"staffDatastaffData")
+    setSelectedStaff(staffData)
+    setIsModelOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    
+    
+    setIsModelOpen(false);
+  };
+
+
   return (
     <>
       {loading ? (
@@ -139,6 +160,7 @@ function StaffList({ openDetailPageComponent }) {
               <p className="customer-list-table-row">Role</p>
               <p className="customer-list-table-row">Email</p>
               <p className="customer-list-table-row">Status</p>
+              <p className="customer-list-table-row">Edit</p>
             </div>
 
             {filteredProducts.length > 0 ? (
@@ -175,6 +197,10 @@ function StaffList({ openDetailPageComponent }) {
                           }
                         />
                       </div>
+                      <div className="customer-list-table-row">
+                        <TiEdit onClick={()=>handleEdit(eachProduct)}  style={{fontSize:"28px",color:"#ff0000",cursor:"pointer"}}/>
+                      </div>
+                      
                     </div>
                   );
                 })}
@@ -197,7 +223,34 @@ function StaffList({ openDetailPageComponent }) {
             )}
           </div>
         </div>
+        
       )}
+       <Modal
+        open={isModelOpen}
+        onClose={handleCloseModal}
+        style={{ width: "100%" }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            width: "550px",
+            top: "50%",
+            left: "50%",
+            
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: "8px",
+            p: 3,
+          }}
+        >
+          {/* <DimensionUpdatePage
+                updateId={updateId}
+                onClose={handleCloseModal}
+                fetchProducts={fetchProducts}
+              /> */}
+          <EditStaffDetails onClose={handleCloseModal} staff = {selectedStaff} />
+        </Box>
+      </Modal>
     </>
   );
 }
