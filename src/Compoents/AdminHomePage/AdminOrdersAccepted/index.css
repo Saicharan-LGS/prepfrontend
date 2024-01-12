@@ -18,7 +18,7 @@
     background-color: #e6e6e6;
     min-width:1000px;
     gap:20px;
-    padding:2px 4px;
+    padding:2px 0px;
     min-height:24px;
     min-width:1000px;
     max-height:max-content;
@@ -151,10 +151,9 @@
     border-left:0.5px solid #e0e0eb;
     border-right:0.5px solid #e0e0eb;
     border-bottom:0.5px solid #e0e0eb;
-    
+    padding:2px 0px;
     min-width:1000px;
     gap:20px;
-    padding:2px 4px;
     height:40px;
     width:100%;
     overflow-x:auto;
@@ -363,7 +362,7 @@
 .admin-order-accepted-table-container{
     width:100%;
     overflow-x:auto;
-    min-height:80vh;
+    min-height:88vh;
 }
 .admin-order-accepted-table-container::-webkit-scrollbar{
     height:1px;
