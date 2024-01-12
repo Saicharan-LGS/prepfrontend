@@ -21,8 +21,8 @@ const AdminUpdatePassword = ({ onClose }) => {
   const updatePassword = async () => {
     if (newPassword !== newPassword1) {
       Toast.fire({
-        icon: "success",
-        title: "passwords doesn't match",
+        icon: "error",
+        title: "New passwords doesn't match",
       });
       return;
     }

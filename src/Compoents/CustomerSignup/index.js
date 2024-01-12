@@ -45,7 +45,6 @@ const Customersignup = () => {
       body: JSON.stringify(formData),
     };
 
-    // Send the POST request using the fetch API
     fetch(`${process.env.REACT_APP_FETCH_URL}registration`, requestOptions)
       .then((response) => {
         if (response.status === 201) {
