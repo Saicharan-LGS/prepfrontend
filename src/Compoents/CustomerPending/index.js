@@ -108,7 +108,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
               <p className="customer-list-table-row">
                 Customer Name
               </p>
-              <p className="customer-list-table-row">Email</p>
+              <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
               {/* <p className="admin-order-accepted-service-category">
                 Product Name
               </p>
@@ -139,7 +139,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
                       <p className="customer-list-table-row">
                         {eachProduct.name}
                       </p>
-                      <p className="customer-list-table-row">
+                      <p className="customer-list-table-row" style={{width:"30%"}}>
                         {eachProduct.email}
                       </p>
                       {/* <p className="admin-order-accepted-service-sub-category">

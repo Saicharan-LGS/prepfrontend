@@ -59,7 +59,7 @@ function Navbar() {
       setPrevStatus(status);
       localStorage.setItem("prevStatus", status);
       // localStorage.setItem("status", 12);
-      setStatus(11);
+      setStatus(12);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
     } else {

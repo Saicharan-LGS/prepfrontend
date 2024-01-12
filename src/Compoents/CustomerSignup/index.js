@@ -153,7 +153,7 @@ const Customersignup = () => {
               Sign Up
             </button> */}
             <Button
-              text="Send OTP"
+              text="Register"
               type="Submit"
               loading={showLoader}
               disabled={showLoader}

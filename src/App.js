@@ -46,7 +46,8 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setTotalAmount(data.total_amount);
+        setTotalAmount(data.total_amount || 0);
+      
         console.log(data.total_amount);
       })
       .catch((error) => {
