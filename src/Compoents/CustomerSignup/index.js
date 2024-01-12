@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
+import Button from "../Button";
 const Customersignup = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -9,6 +10,7 @@ const Customersignup = () => {
   });
   const [errors, setErrors] = useState({});
   const [backendError, setBackendError] = useState(null);
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,6 +19,7 @@ const Customersignup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShowLoader(true)
     setBackendError(null); // Clear any previous backend errors
 
     // Validate the form data
@@ -53,6 +56,7 @@ const Customersignup = () => {
               icon: "success",
               title: data.message,
             });
+            setShowLoader(false)
             setFormData({
               name: "",
               email: "",
@@ -65,6 +69,7 @@ const Customersignup = () => {
               icon: "error",
               title: data.message,
             });
+            setShowLoader(false)
             setFormData({
               name: "",
               email: "",
@@ -74,6 +79,7 @@ const Customersignup = () => {
       })
       .then((data) => {})
       .catch(() => {
+        setShowLoader(false)
         setBackendError("An error occurred while processing your request.");
       });
   };
@@ -140,12 +146,18 @@ const Customersignup = () => {
           </div>
           {backendError && <p className="error-message">{backendError}</p>} */}
           <center>
-            <button
+            {/* <button
               className="customer-signin-form-button-container"
               type="submit"
             >
               Sign Up
-            </button>
+            </button> */}
+            <Button
+              text="Send OTP"
+              type="Submit"
+              loading={showLoader}
+              disabled={showLoader}
+            />
           </center>
         </form>
       </div>

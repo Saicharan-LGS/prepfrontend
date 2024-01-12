@@ -1,36 +1,41 @@
+
+/* .customer-signin-form-button-container {
+  background-color: #ffc03d;
+  color: #212d45;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+.customer-signin-form-button-container:hover{
+  border:1px solid #212d45;
+  color:#212d45;
+  background-color: #fff;
+  transition:0.3s ease-in-out;
+} */
 .loader-spinner-button {
+  background-color: #ffc03d;
+  color: #212d45;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
   cursor: pointer;
-  background: linear-gradient(#FFF, #FFF) padding-box, linear-gradient(to right,#7cb4e4,#1c74d4,#0e39a9) border-box;
-  transition: all .5s ease;
-  border: 2.5px solid transparent;
-  border-radius: 10px;
-  background-color:transparent;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 600;
-  letter-spacing: 1.25px;
-  color: #222;
-  padding: 10px 24px;
-  text-align: center;
-  text-transform: uppercase;
-  cursor: pointer;
-  margin:6px 0px;
+  font-size: 18px;
+  transition: background-color 0.3s;
 }
 .loader-spinner-button:hover {
-  background: linear-gradient(to right, #196ae5, #196ae5) border-box;
-  border: 3px solid transparent;
-  color: #FFF;
-  transition: all .1s ease;
-  transition-property: all;
-  transition-duration: 0.1s;
-  transition-timing-function: ease;
-  transition-delay:0s;
+  border:1px solid #212d45;
+  color:#212d45;
+  background-color: #fff;
+  transition:0.3s ease-in-out;
 
 }
 
 .loader-spinner-button:disabled {
-  background-color: #e7e8e9;
-  color: #1954ac;
+  background-color: #ffc03d;
+  color: #ffc03d;
   cursor: not-allowed;
   width: 110px;
 }
