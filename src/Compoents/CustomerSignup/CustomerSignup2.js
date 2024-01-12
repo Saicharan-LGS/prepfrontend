@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Toast from "../utlis/toast";
 import { Link, useNavigate } from "react-router-dom";
 import axxpress from '../images/axxpress.png'
+import Button from "../Button"
 
 const Customersignup2 = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const Customersignup2 = () => {
   });
   const navigate = useNavigate();
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +26,7 @@ const Customersignup2 = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setShowLoader(true)
     if (!formData.name.trim()) {
       Toast.fire({
         icon: "error",
@@ -88,12 +91,14 @@ const Customersignup2 = () => {
             setConfirmPassword("");
             navigate("/CustomerOtpVerification");
           });
+          setShowLoader(false)
         } else {
           response.json().then((data) => {
             Toast.fire({
               icon: "error",
               title: data.message,
             });
+            setShowLoader(false)
             // Set isModalOpen to false if the status is not 200
             setFormData({
               name: "",
@@ -109,6 +114,7 @@ const Customersignup2 = () => {
           icon: "error",
           title: "An error occurred while processing your request"
         });
+        setShowLoader(false)
       });
   };
 
@@ -182,12 +188,18 @@ const Customersignup2 = () => {
             />  
           </div>
           <center>
-            <button
+          <Button
+              text="Sign Up"
+              type="Submit"
+              loading={showLoader}
+              disabled={showLoader}
+            />
+            {/* <button
               className="customer-signin-form-button-container"
               type="submit"
             >
               Sign Up
-            </button>
+            </button> */}
             <Link to="/" style={{ textDecoration: 'none' }}>
               <p>Do you have account Already? login</p>
             </Link>

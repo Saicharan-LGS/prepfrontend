@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Toast from "../utlis/toast";
 import axxpress from "../images/axxpress.png";
 import { useNavigate } from "react-router";
+import Button from "../Button";
 const StaffForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [showLoader, setShowLoader] = useState(false);
   const navigate = useNavigate();
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -14,6 +16,7 @@ const StaffForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setShowLoader(true)
 
     try {
       const response = await fetch(`${FETCH_URL}staffforgetpassword`, {
@@ -29,6 +32,7 @@ const StaffForgotPassword = () => {
           icon: "success",
           title: data.message,
         });
+        setShowLoader(false)
         localStorage.setItem("email", email);
         navigate("/AdminOtp");
       } else {
@@ -36,8 +40,10 @@ const StaffForgotPassword = () => {
           icon: "error",
           title: data.message,
         });
+        setShowLoader(false)
       }
     } catch (error) {
+      setShowLoader(false)
       console.error("An error occurred while sending OTP", error);
     }
   };
@@ -60,9 +66,15 @@ const StaffForgotPassword = () => {
             className="forgot-passsword-input-container"
           />
           <div className="forgot-password-button-container">
-            <button className="forgot-password-button" type="submit">
+            {/* <button className="forgot-password-button" type="submit">
               Send OTP
-            </button>
+            </button> */}
+            <Button
+              text="Send OTP"
+              type="Submit"
+              loading={showLoader}
+              disabled={showLoader}
+            />
           </div>
         </form>
       </div>

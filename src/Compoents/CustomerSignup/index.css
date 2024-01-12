@@ -7,7 +7,7 @@
 .customer-signin-form-main-container {
     width: 25%;
     margin: 70px;
-    padding: 5px;
+    padding: 10px;
     border: 2px solid #4b4f58;
     border-radius: 5px;
     
@@ -16,6 +16,7 @@
     font-size:32px;
     font-weight:600;
     color:#212d45;
+    margin:10px 0px 4px 0px;
   }
   .customer-singin-form-container{
     width:100%;
