@@ -1,8 +1,5 @@
 import Toast from "../utlis/toast";
 import React, { useState } from "react";
-import ReceivedQuantity from "../ReceivedQuantity";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
 
 const CustomerAddButton = (props) => {
 const [status, setStatus] = useState("");
