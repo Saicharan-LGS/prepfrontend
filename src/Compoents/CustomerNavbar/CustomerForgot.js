@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "./Customerforgot.css";
 import Toast from "../utlis/toast";
-import axxpress from '../images/axxpress.png'
-
+import axxpress from "../images/axxpress.png";
+import { useNavigate } from "react-router";
 const CustomerForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -14,35 +17,35 @@ const CustomerForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/send-otp', {
+      const response = await fetch(`${FETCH_URL}forgetpassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(email),
+        body: JSON.stringify({ email }),
       });
-    const data = response.json()
+      const data = await response.json();
       if (response.ok) {
-        console.log('OTP sent successfully');
         Toast.fire({
           icon: "success",
           title: data.message,
         });
+        localStorage.setItem("email", email);
+        navigate("/CustomerOtpVerification2");
       } else {
-        console.error('Failed to send OTP');
         Toast.fire({
           icon: "error",
           title: data.message,
         });
       }
     } catch (error) {
-      console.error('An error occurred while sending OTP', error);
+      console.error("An error occurred while sending OTP", error);
     }
   };
   return (
     <div className="forgot-password-main-container">
       <div className="forgot-password-container">
-      <img className='logo-image-axxpress' src={axxpress} alt=''/>
+        <img className="logo-image-axxpress" src={axxpress} alt="" />
 
         <h2 className="forgot-password-heading">Forgot Password</h2>
         <form
