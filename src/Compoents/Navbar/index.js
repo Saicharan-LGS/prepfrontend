@@ -15,12 +15,14 @@ import OrderViewDetail from "../AdminDetailPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
 import { IoMdLogOut } from "react-icons/io";
-
+import CustomerProfileView from '../CustomerProfileView'
 
 
 import { ProductServiceList } from "../Services";
 import Dispatch from "../Dispatch";
 import CustomerPendingList from "../CustomerPending";
+import Popup from "reactjs-popup";
+import AdminProfileView from "../AdminProfileView";
  
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
@@ -28,6 +30,7 @@ function Navbar() {
   const [orderId, setOrderId] = useState("");
   const showSidebar = () => setSidebar(!sidebar);
   const [prevStatus, setPrevStatus] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
  
   const handleSidebarItemClick = async (id) => {
     setPrevStatus(status);
@@ -61,6 +64,11 @@ function Navbar() {
     } else {
     }
   };
+
+  const handleCloseClick=()=>{
+    setIsPopupOpen(false)
+  }
+
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
  
@@ -74,6 +82,9 @@ function Navbar() {
         <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>
           <p className="navbar-nav-item-name">{role}</p>
+          <Popup closeOnDocumentClick={false}  contentStyle={{ width: '400px', padding: '20px' }}  trigger={<img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="" className="navbar-profile-image" onClick=""/>} position="bottom right">
+                <AdminProfileView onClose={handleCloseClick}/>
+          </Popup>
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
