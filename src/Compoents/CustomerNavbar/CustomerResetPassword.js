@@ -1,37 +1,60 @@
 import React, { useState } from "react";
 import "./CustomerResetPassword.css";
+import Toast from "../utlis/toast";
+import { useNavigate } from "react-router";
 
 const CustomerResetPasswordUpdate = () => {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleOldPasswordChange = (e) => {
-    setOldPassword(e.target.value);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const handleNewPasswordChange = (e) => {
-    setNewPassword(e.target.value);
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
   };
+
+  const navigate = useNavigate();
 
   const updatePassword = async () => {
-    const authToken = sessionStorage.getItem("authToken");
     try {
-      const response = await fetch("your-api-endpoint", {
+      if (password !== confirmPassword) {
+        alert(
+          "Passwords do not match. Please make sure both passwords are the same."
+        );
+        return;
+      }
+
+      const email = localStorage.getItem("email");
+
+      const response = await fetch(`${FETCH_URL}resetpassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
         },
         body: JSON.stringify({
-          newPassword,
-          newPassword1: oldPassword,
+          password,
+          email,
         }),
       });
 
       if (response.ok) {
-        alert("Password updated successfully!");
+        const data = await response.json();
+        Toast.fire({
+          icon: "success",
+          title: data.message,
+        });
+
+        navigate("/");
       } else {
-        alert("Failed to update password. Please try again.");
+        const data = await response.json();
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
       }
     } catch (error) {
       console.error("Error updating password:", error);
@@ -42,7 +65,7 @@ const CustomerResetPasswordUpdate = () => {
   return (
     <div className="update-password-main-container">
       <div className="update-password-sub-container">
-        <h2 className="update-password-heading"> Update Password</h2>
+        <h2 className="update-password-heading"> Reset Password</h2>
         <form>
           <label
             htmlFor="oldPassword"
@@ -53,8 +76,8 @@ const CustomerResetPasswordUpdate = () => {
           <input
             type="password"
             id="oldPassword"
-            value={oldPassword}
-            onChange={handleOldPasswordChange}
+            value={password}
+            onChange={handlePasswordChange}
             required
             className="update-password-input-container"
           />
@@ -67,32 +90,18 @@ const CustomerResetPasswordUpdate = () => {
           <input
             type="password"
             id="newPassword"
-            value={newPassword}
-            onChange={handleNewPasswordChange}
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
             required
             className="update-password-input-container"
           />
-          {/* <label
-            htmlFor="oldPassword"
-            className="update-password-lable-container"
-          >
-            Conform Password:
-          </label>
-          <input
-            type="password"
-            id="oldPassword"
-            value={oldPassword}
-            onChange={handleOldPasswordChange}
-            required
-            className="update-password-input-container"
-          /> */}
 
           <button
             type="button"
             onClick={updatePassword}
             className="update-password-button"
           >
-            Update Password
+            Reset Password
           </button>
         </form>
       </div>

@@ -147,7 +147,6 @@ const Customersignup = () => {
             >
               Sign Up
             </button>
-            <p>Already have an account? Login</p>
           </center>
         </form>
       </div>
