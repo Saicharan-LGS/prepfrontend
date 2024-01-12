@@ -1,0 +1,63 @@
+.loader-spinner-button {
+  cursor: pointer;
+  background: linear-gradient(#FFF, #FFF) padding-box, linear-gradient(to right,#7cb4e4,#1c74d4,#0e39a9) border-box;
+  transition: all .5s ease;
+  border: 2.5px solid transparent;
+  border-radius: 10px;
+  background-color:transparent;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 1.25px;
+  color: #222;
+  padding: 10px 24px;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin:6px 0px;
+}
+.loader-spinner-button:hover {
+  background: linear-gradient(to right, #196ae5, #196ae5) border-box;
+  border: 3px solid transparent;
+  color: #FFF;
+  transition: all .1s ease;
+  transition-property: all;
+  transition-duration: 0.1s;
+  transition-timing-function: ease;
+  transition-delay:0s;
+
+}
+
+.loader-spinner-button:disabled {
+  background-color: #e7e8e9;
+  color: #1954ac;
+  cursor: not-allowed;
+  width: 110px;
+}
+
+.spinner-button {
+  animation-name: loaderspinner;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  width: 20px;
+}
+
+@keyframes loaderspinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width:768px){
+  .loader-spinner-button{
+    padding:4px 10px;
+  }
+
+  .loader-spinner-button:disabled {
+    width: 100px;
+  }
+}
