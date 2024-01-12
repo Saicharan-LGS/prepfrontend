@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+ 
 import { ImCancelCircle } from "react-icons/im";
 import Toast from "../utlis/toast";
 
@@ -18,7 +19,7 @@ const AdminUpdatePassword = ({onClose}) => {
     
     const authToken = sessionStorage.getItem("token");
     try {
-      const response = await fetch(`${process.env.REACT_APP_FETCH_URL}updatecustomerpassword`, {
+      const response = await fetch(`${process.env.REACT_APP_FETCH_URL}updatestaffpassword`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

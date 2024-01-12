@@ -26,6 +26,9 @@ import CustomerForgotPassword from "./Compoents/CustomerNavbar/CustomerForgot";
 import CustomerOtpVerification from "./Compoents/CustomerNavbar/CustomerOtp";
 import CustomerOtpVerification2 from "./Compoents/CustomerNavbar/CustomerOtp2";
 import CreatePassword from "./Compoents/CustomerCreatePassword";
+import StaffForgotPassword from "./Compoents/StaffForgotPassword";
+import AdminOtp from "./Compoents/AdminOtp";
+import AdminResetPassword from "./Compoents/AdminResetPassword";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -70,13 +73,25 @@ function App() {
         element={<CustomerOtpVerification2 />}
       />
       <Route
+        path="/AdminOtp"
+        element={<AdminOtp />}
+      />
+      <Route
         path="/CustomerForgotPassword"
         element={<CustomerForgotPassword />}
+      />
+      <Route
+        path="/StaffForgotPassword"
+        element={<StaffForgotPassword />}
       />
       <Route path="/signup" element={<Customersignup2 />} />
       <Route
         path="/CustomerResetPasswordUpdate"
         element={<CustomerResetPasswordUpdate />}
+      />
+      <Route
+        path="/AdminResetPassword"
+        element={<AdminResetPassword />}
       />
       <Route path="*" element={<NotFound />} />
 

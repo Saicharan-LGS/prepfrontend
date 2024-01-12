@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import React Router
+import { Link, useNavigate } from "react-router-dom"; // Import React Router
 import "./index.css";
 import Toast from "../utlis/toast";
 import CustomerLogin from "../CustomerLogin";
@@ -171,6 +171,12 @@ const StaffSigninPage = () => {
                   {error && <p className="error-message">{error}</p>}{" "}
                   {/* Display error message */}
                 </center>
+                <Link
+                    to="/StaffForgotPassword"
+                    style={{ textDecoration: "none",textAlign:'center' }}
+                  >
+                    <p>Forgot Password</p>
+            </Link>
               </form>
             
         </div>

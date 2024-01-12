@@ -31,6 +31,7 @@ function Navbar() {
   const showSidebar = () => setSidebar(!sidebar);
   const [prevStatus, setPrevStatus] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userDetatils, setUserDetails] = useState([]);
  
   const handleSidebarItemClick = async (id) => {
     setPrevStatus(status);
@@ -51,7 +52,7 @@ function Navbar() {
     sessionStorage.removeItem("sname");
     localStorage.removeItem("prevStatus");
     localStorage.removeItem("status");
-    navigate("/");
+    navigate("/login");
   };
   const openDetailPageComponent = (id) => {
     if (id) {
@@ -73,6 +74,33 @@ function Navbar() {
   const name = sessionStorage.getItem("sname");
  
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
+
+  const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
+
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const fetchProducts = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
+        method: "GET",
+        headers: {
+          Authorization: ` Bearer ${token}`,
+        },
+      }); // Replace with your API endpoint
+      if (response.ok) {
+        const data = await response.json();
+        setUserDetails(data.staff, "stafffffffffffffffffffffffffffffffffffff");
+      } else {
+        setUserDetails("");
+      }
+    } catch (error) {
+      setUserDetails("");
+    }
+  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <div className="navbar-container">
       <div className="navbar">
@@ -82,8 +110,27 @@ function Navbar() {
         <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>
           <p className="navbar-nav-item-name">{role}</p>
-          <Popup closeOnDocumentClick={false}  contentStyle={{ width: '400px', padding: '20px' }}  trigger={<img src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg" alt="" className="navbar-profile-image" onClick=""/>} position="bottom right">
-                <AdminProfileView onClose={handleCloseClick}/>
+          <Popup
+            closeOnDocumentClick={false}
+            open={isPopupOpen}
+            onClose={handleCloseClick}
+            contentStyle={{ width: "500px", padding: "20px" }}
+            trigger={
+              <img
+                src={`${REACT_APP_PDF_URL}${
+                  userDetatils && userDetatils.profile
+                }`}
+                alt=""
+                className="navbar-profile-image"
+                onClick=""
+              />
+            }
+            position="bottom right"
+          >
+            <AdminProfileView
+              onClose={handleCloseClick}
+              fetchProducts1={fetchProducts}
+            />
           </Popup>
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout

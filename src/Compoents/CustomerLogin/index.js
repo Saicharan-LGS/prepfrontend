@@ -157,7 +157,7 @@ const CustomerLogin = () => {
               to="/CustomerForgotPassword"
               style={{ textDecoration: "none" }}
             >
-              <p>forgot password</p>
+              <p>Forgot Password</p>
             </Link>
           </center>
         </form>
