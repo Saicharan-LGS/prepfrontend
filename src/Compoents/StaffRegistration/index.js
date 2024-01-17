@@ -112,6 +112,7 @@ const StaffSignupPage = () => {
   };
 
   return (
+    <div className="customer-signin-sub-container">
     <div className="signup-div-container">
       <div className="login-image-container">
         <img
@@ -126,7 +127,7 @@ const StaffSignupPage = () => {
         </center>
         <form onSubmit={handleSubmit} className="signup-form-container">
           <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Name:</label>
+            <label className="signup-form-lable-container">Name</label>
             <input
               type="text"
               name="name"
@@ -137,7 +138,7 @@ const StaffSignupPage = () => {
           </div>
 
           <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Email:</label>
+            <label className="signup-form-lable-container">Email ID</label>
             <input
               type="email"
               name="email"
@@ -147,7 +148,7 @@ const StaffSignupPage = () => {
             />
           </div>
           <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Password:</label>
+            <label className="signup-form-lable-container">Password</label>
             <input
               type="password"
               name="password"
@@ -157,7 +158,7 @@ const StaffSignupPage = () => {
             />
           </div>
           <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Role:</label>
+            <label className="signup-form-lable-container">Role</label>
             <select
               name="role"
               className="signin-input-text"
@@ -171,11 +172,11 @@ const StaffSignupPage = () => {
               <option value="Dispatch">Dispatch</option>
             </select>
           </div>
-          <center>
+          <div className="signup-whole-form-contaner">
             <button className="signup-form-button-container" type="submit">
               Signup
             </button>
-          </center>
+          </div>
           <div>
             {errorMessages.name && (
               <p className="signup-error-messages">{errorMessages.name}</p>
@@ -189,6 +190,7 @@ const StaffSignupPage = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

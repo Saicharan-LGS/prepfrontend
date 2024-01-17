@@ -8,13 +8,13 @@
   .cart-empty-image {
     width: 50px;
     height: 40px;
-    padding-top: 100px;
+    padding-top: 40px;
   }
   
   @media screen and (min-width: 768px) {
     .cart-empty-image {
-      width: 360px;
-      height: 380px;
+      width: 250px;
+      height: 200px;
     }
   }
   

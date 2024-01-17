@@ -2,25 +2,26 @@
   display:flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  height:80vh;
   width:90%;
-  min-height:100vh;
+  border-radius:20px;
   /* background-image: url("https://maamus.com/image/loginbg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
    */
 }
 .signin-form-main-container {
-    width: 24%;
-    margin: 70px;
-    padding: 50px 30px;
-    border: 2px solid #4b4f58;
-    border-radius: 5px;
-    box-shadow: 0 0 20px #282046(0, 0, 0, 0.1);
+    width: 28%;
+    padding: 20px 45px;
+    border: 2px solid #f2f2f2;
+    border-radius: 20px;
     background-color:#fff;
+    margin:0px 10px;
     
   }
   .signin-form-heading-container{
-    font-size:28px;
+    font-size:22px;
     font-weight:600;
     color:#212d45;
   }
@@ -33,7 +34,7 @@
   
   .signin-form-group-container {
     margin-bottom: 20px;
-    width:100%;
+    width:94%;
     display: flex;
     flex-direction: column;
     gap:4px;
@@ -47,25 +48,39 @@
   }
   
   .signin-input-text {
-    width: 90%;
+    width: 100%;
     padding: 8px;
     font-size: 16px;
-    border: 2px solid #4b4f58;
+    background-color: #f2f2f2;
     border-radius: 7px;
+    outline:none;
+    border:none;
   }
   
 .signin-form-button-container {
     background-color: #ffc03d;
     color: #4b4f58;
-    padding: 8px 20px;
+    padding: 7px 20px;
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
     transition: background-color 0.3s;
     font-weight:600;
+    width:100%;
   }
-  
+  .customer-signin-form-button-container{
+    background-color: #212d45;
+    color: #fff;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    font-weight:600;
+    width:100%;
+  }
   .signin-form-button-container:hover {
     border: 1px solid  #4b4f58;
     color: #4b4f58;
@@ -107,10 +122,10 @@
     letter-spacing: 0.5px;
   }
   .login-image-container{
-    width:50%;
+    width:60%;
   }
   .Login-image{
-    width:100%;
+    width:98%;
   }
   @media (min-width: 769px) and (max-width: 1024px) {
     .signin-form-main-container{

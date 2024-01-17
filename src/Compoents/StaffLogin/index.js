@@ -4,6 +4,7 @@ import "./index.css";
 import Toast from "../utlis/toast";
 import CustomerLogin from "../CustomerLogin";
 import axxpress from '../images/axxpress.png'
+import staffImage from '../utlis/staff-signup-3.jpg'
 
 const StaffSigninPage = () => {
   const [formData, setFormData] = useState({
@@ -112,10 +113,11 @@ const StaffSigninPage = () => {
 
   return (
     <>
+    <div className="customer-signin-sub-container">
       <div className="signin-div-container">
         <div className="login-image-container">
           <img
-            src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+            src={staffImage}
             className="Login-image"
             alt=""
           />
@@ -138,7 +140,7 @@ const StaffSigninPage = () => {
 
               <form onSubmit={handleSubmit} className="signin-form-container">
                 <div className="signin-form-group-container">
-                  <label className="signin-form-label-container">Email:</label>
+                  <label className="signin-form-label-container">Email ID</label>
                   <input
                     type="email"
                     name="email"
@@ -150,7 +152,7 @@ const StaffSigninPage = () => {
                 </div>
                 <div className="signin-form-group-container">
                   <label className="signin-form-label-container">
-                    Password:
+                    Password
                   </label>
                   <input
                     type="password"
@@ -180,6 +182,7 @@ const StaffSigninPage = () => {
               </form>
             
         </div>
+      </div>
       </div>
     </>
   );

@@ -21,6 +21,8 @@ import CustomerList from "../CustomerList";
 import { ProductServiceList } from "../Services";
 import Dispatch from "../Dispatch";
 import CustomerPendingList from "../CustomerPending";
+import { IoIosNotifications } from "react-icons/io";
+import { FaListAlt } from "react-icons/fa";
 export const SidebarData = [
   {
     id: 1,
@@ -90,7 +92,7 @@ export const SidebarData = [
     id: 7,
     title: "Staff List",
     path: "/stafflist",
-    icon: <MdOutlinePeopleAlt />,
+    icon: <MdOutlinePeopleAlt fontSize="25px"/>,
     cName: "nav-text",
     component: <StaffList />,
   },
@@ -99,14 +101,14 @@ export const SidebarData = [
     id: 9,
     title: "Product & Services ",
     path: "/support",
-    icon: <RiAccountCircleFill fontSize="25px" />,
+    icon: <FaListAlt fontSize="20px" />,
     cName: "",
     component: <ProductServiceList />,
   },{
     id: 11,
     title: "Customer Requests",
     path: "/support",
-    icon: <IoPaperPlane fontSize="20px" />,
+    icon: <IoIosNotifications fontSize="25px" />,
     cName: "",
     component: <CustomerPendingList />,
   },

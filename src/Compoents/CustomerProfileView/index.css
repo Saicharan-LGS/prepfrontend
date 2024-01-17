@@ -11,12 +11,10 @@
 }
 .customer-profile-view-top-container{
     display:flex;
-    align-items: center;
     justify-content: space-between;
     width:100%;
 }
 .customer-profile-view-edit-button{
-    margin: 10px;
     width:max-content;
     padding: 6px 20px;
     background-color: #ffc03d;
@@ -32,7 +30,7 @@
 }
 .customer-profile-view-profile-image-container{
     display:flex;
-    align-items:center;
+
     gap:10px;
 }
 .customer-profile-view-profile-image{
@@ -60,9 +58,8 @@
 }
 .customer-profile-view-details-display-flex{
     display:flex;
-    justify-content: center;
     align-items: center;
-    gap:50px;
+    gap:15px;
 }
 .customer-profile-view-detail-container-name{
     margin:0px;
@@ -71,7 +68,8 @@
 }
 .customer-profile-view-update-password{
     font-size:16px;
-    margin:0px;
+    margin-top:10px;
+    margin-bottom:0px;
     text-align: right;
     color:#4d4dff;
     cursor:pointer;

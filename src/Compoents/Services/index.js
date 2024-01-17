@@ -110,7 +110,7 @@ export const ProductServiceList = () => {
   }
 
   return (
-    <div style={{margin:"15px", marginTop:"0pxa"}}>
+    <div style={{margin:"15px", marginTop:"0px"}}>
       <div className="service-add-button-container">
           <h2 style={{marginLeft:'50px'}} className="product-service-list-heading">Product/Service List</h2>
           <button className="service-add-button" style={{marginRight:'50px'}} onClick={openModal}>Add</button>

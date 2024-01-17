@@ -4,6 +4,7 @@ import Toast from "../utlis/toast";
 import { Link, useNavigate } from "react-router-dom";
 import axxpress from '../images/axxpress.png'
 import Button from "../Button"
+import signup from '../utlis/signup-img-2.png'
 
 const Customersignup2 = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +33,7 @@ const Customersignup2 = () => {
         icon: "error",
         title: "Name is required",
       });
+      setShowLoader(false)
       return
     }
     if (!formData.email.trim()) {
@@ -39,6 +41,7 @@ const Customersignup2 = () => {
         icon: "error",
         title: "Email is required",
       });
+      setShowLoader(false)
       return
     }
     if (!formData.password.trim()) {
@@ -46,6 +49,7 @@ const Customersignup2 = () => {
         icon: "error",
         title: "Password is required",
       });
+      setShowLoader(false)
       return
     }
     if (!confirmPassword.trim()) {
@@ -53,6 +57,7 @@ const Customersignup2 = () => {
         icon: "error",
         title: "Passwords do not match",
       });
+      setShowLoader(false)
       return
     }
     if (formData.password !== confirmPassword) {
@@ -60,6 +65,7 @@ const Customersignup2 = () => {
         icon: "error",
         title: "Passwords do not match",
       });
+      setShowLoader(false)
       return
     }
 
@@ -119,10 +125,13 @@ const Customersignup2 = () => {
   };
 
   return (
+    <div className="customer-signin-sub-container">
     <div className="customer-signin-div-container">
+      
       <div className="login-image-container">
         <img
-          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          src={signup}
           className="Login-image"
           alt=""
         />
@@ -141,7 +150,7 @@ const Customersignup2 = () => {
         >
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Name:
+              Name
             </label>
             <input
               type="text"
@@ -149,11 +158,13 @@ const Customersignup2 = () => {
               className="customer-signin-input-container"
               value={formData.name}
               onChange={handleInputChange}
+              placeholder="Enter Your Name"
+              required
             />
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Email:
+              Email ID
             </label>
             <input
               type="email"
@@ -161,11 +172,13 @@ const Customersignup2 = () => {
               className="customer-signin-input-container"
               value={formData.email}
               onChange={handleInputChange}
+              placeholder="Enter Your Email"
+              required
             />
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Password:
+              Password
             </label>
             <input
               type="password"
@@ -173,11 +186,13 @@ const Customersignup2 = () => {
               className="customer-signin-input-container"
               value={formData.password}
               onChange={handleInputChange}
+              placeholder="Enter Your Password"
+              required
             />
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Confirm Password:
+              Confirm Password
             </label>
             <input
               type="password"
@@ -185,27 +200,34 @@ const Customersignup2 = () => {
               className="customer-signin-input-container"
               value={confirmPassword}
               onChange={handleInputChange}
+              placeholder="Enter Your Confirm Password"
+              required
             />  
           </div>
-          <center>
+          <div className="customer-signin-form-group-container">
+            <center>
           <Button
               text="Sign Up"
               type="Submit"
               loading={showLoader}
               disabled={showLoader}
             />
+            </center>
             {/* <button
               className="customer-signin-form-button-container"
               type="submit"
             >
               Sign Up
             </button> */}
+            <center>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <p>Do you have account Already? login</p>
+              <p style={{fontSize:"17px",color:"#212d45",fontWeight:"600"}}><span style={{color:"#b3b3b3",fontSize:"14px",fontWeight:"500"}}>Do you have account Already?</span> Login</p>
             </Link>
-          </center>
+            </center>
+          </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

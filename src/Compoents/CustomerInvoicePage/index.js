@@ -67,9 +67,10 @@ function CustomerInvoicePage({onClose,selectedOrders,totalAmount,discount,discou
 
   return (
     <>
-      <div style={{display:"flex",justifyContent:"space-between"}}>
-      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
-      <button className="service-add-button" onClick={handlePrint}>Download PDF</button>
+      <div style={{display:"flex",justifyContent:"flex-end",alignItems:"center",gap:"30px"}}>
+      
+      <button className="service-add-button" style={{margin:"0px"}} onClick={handlePrint}>Download PDF</button>
+      <ImCancelCircle className="model-close-icon"  style={{margin:"0px"}} onClick={handleModel}/>
       </div>
       <div ref={contentRef} style={{padding:"20px 20px"}}>
       <h1 className="genearte-invoice-heading">Invoice</h1>

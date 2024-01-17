@@ -35,6 +35,7 @@ const CustomerOtpVerification = () => {
   const handleVerifyClick = async (e) => {
     e.preventDefault();
     console.log("called verify", otp, email);
+    if(otp !== ""){
     try {
       const response = await fetch(`${FETCH_URL}customerotpverfiy`, {
         method: "POST",
@@ -61,6 +62,7 @@ const CustomerOtpVerification = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  }
   };
 
   return (

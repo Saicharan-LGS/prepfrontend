@@ -382,6 +382,36 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             >
               See Dimensions
             </p>
+            <div className="order-customer-service-container">
+              <p className="order-customer-service-name">Services :</p>
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="order-customer-service-input-container"
+                >
+                  <input
+                    type="checkbox"
+                    id={service.id}
+                    name="selectedServices"
+                    value={service.id}
+                    // readOnly={status === "0" ? false : true}
+                    checked={selectedServices.includes(service.id)}
+                    onChange={(e) =>
+                      status === "0"
+                        ? handleServiceSelection(e, service.id)
+                        : null
+                    }
+                    className="order-customer-input-checkbox"
+                  />
+                  <label
+                    htmlFor={service.id}
+                    className="order-customer-label-name"
+                  >
+                    {service.name}
+                  </label>
+                </div>
+              ))}
+            </div>
             {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Length</label>
               <input
@@ -479,6 +509,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleLabelSendChange}
                 multiple
               />
+
               {/* {label_status === 1 && (
                 <button
                   type="button"
@@ -489,6 +520,33 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                   View Box Label File
                 </button>
               )} */}
+            </div>
+            <div className="order-customer-service-container">
+              <label className="order-customer-service-name">Products :</label>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="order-customer-service-input-container"
+                >
+                  <label
+                    htmlFor={`product-${product.id}`}
+                    className="order-customer-label-name"
+                  >
+                    {product.name} :
+                  </label>
+                  <input
+                    type="number"
+                    id={`product-${product.id}`}
+                    name={`product-${product.id}`}
+                    value={getQuantityById(product.id)}
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
+                    placeholder="Enter Quantity"
+                    className="order-customer-service-input"
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="order-customer-field3-container">
@@ -544,63 +602,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            <div className="order-customer-service-container">
-              <p className="order-customer-service-name">Services :</p>
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="order-customer-service-input-container"
-                >
-                  <input
-                    type="checkbox"
-                    id={service.id}
-                    name="selectedServices"
-                    value={service.id}
-                    // readOnly={status === "0" ? false : true}
-                    checked={selectedServices.includes(service.id)}
-                    onChange={(e) =>
-                      status === "0"
-                        ? handleServiceSelection(e, service.id)
-                        : null
-                    }
-                    className="order-customer-input-checkbox"
-                  />
-                  <label
-                    htmlFor={service.id}
-                    className="order-customer-label-name"
-                  >
-                    {service.name}
-                  </label>
-                </div>
-              ))}
-            </div>
-            <div className="order-customer-service-container">
-              <label className="order-customer-service-name">Products :</label>
-              {products.map((product) => (
-                <div
-                  key={product.id}
-                  className="order-customer-service-input-container"
-                >
-                  <label
-                    htmlFor={`product-${product.id}`}
-                    className="order-customer-label-name"
-                  >
-                    {product.name} :
-                  </label>
-                  <input
-                    type="number"
-                    id={`product-${product.id}`}
-                    name={`product-${product.id}`}
-                    value={getQuantityById(product.id)}
-                    onChange={(e) =>
-                      handleQuantityChange(product.id, e.target.value)
-                    }
-                    placeholder="Enter Quantity"
-                    className="order-customer-service-input"
-                  />
-                </div>
-              ))}
-            </div>
+           
+            
             {/* <div className="order-customer-input-feild-fnsku-status">
             <input
               className="order-customer-lable-container-checkbox"
@@ -621,7 +624,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           </div> */}
           </div>
         </form>
-        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+        <p style={{ marginLeft: "30px",marginTop:"20px",fontWeight:"600" }} className="order-customer-label-name">
           Fnsku Files
         </p>
         {fnskuSend1 && (
@@ -635,7 +638,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                <MdDeleteOutline
+                <MdDeleteOutline style={{cursor:"pointer"}}
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
                 />
@@ -643,7 +646,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             ))}
           </div>
         )}
-        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+        <p style={{ marginLeft: "30px",marginTop:"10px",fontWeight:"600" }} className="order-customer-label-name">
           Label Files
         </p>
         {labelSend1 && (
@@ -657,7 +660,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                <MdDeleteOutline
+                <MdDeleteOutline style={{cursor:"pointer"}}
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
                 />

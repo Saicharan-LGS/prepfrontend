@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router";
+import signup from '../utlis/signup-img-2.png'
 
 const AdminResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -62,7 +63,17 @@ const AdminResetPassword = () => {
   };
 
   return (
+    <div className="update-password-background-container">
     <div className="update-password-main-container">
+    <div className="login-image-container">
+        <img
+          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          src={signup}
+          className="Login-image"
+          alt=""
+        />
+      </div>
+    
       <div className="update-password-sub-container">
         <h2 className="update-password-heading"> Reset Password</h2>
         <form>
@@ -74,6 +85,7 @@ const AdminResetPassword = () => {
           </label>
           <input
             type="password"
+            placeholder="Enter new password"
             id="oldPassword"
             value={password}
             onChange={handlePasswordChange}
@@ -89,6 +101,7 @@ const AdminResetPassword = () => {
           <input
             type="password"
             id="newPassword"
+            placeholder="Enter confirm password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             required
@@ -104,6 +117,7 @@ const AdminResetPassword = () => {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

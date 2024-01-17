@@ -1,7 +1,7 @@
 .order-customer-container{
   border-radius: 10px;
   padding:20px;
-  width:90%;
+  width:97%;
   height:90vh;
   background-color: #fff;
 }
@@ -65,9 +65,9 @@
 
 .order-customer-button-container{
   margin: 10px;
-  padding: 6px 12px;
-  background-color: #ffc03d;
-  color: #212d45;
+  padding: 6px 16px;
+  background-color: #212d45;
+  color: #fff;
   border: none;
   border-radius: 20px;
   cursor: pointer;

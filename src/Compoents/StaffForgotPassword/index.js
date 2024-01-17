@@ -3,6 +3,9 @@ import Toast from "../utlis/toast";
 import axxpress from "../images/axxpress.png";
 import { useNavigate } from "react-router";
 import Button from "../Button";
+import signup from '../utlis/signup-img-2.png'
+
+
 const StaffForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [showLoader, setShowLoader] = useState(false);
@@ -48,7 +51,16 @@ const StaffForgotPassword = () => {
     }
   };
   return (
+    <div className="forgot-password-background-container">
     <div className="forgot-password-main-container">
+    <div className="login-image-container">
+        <img
+          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          src={signup}
+          className="Login-image"
+          alt=""
+        />
+      </div>
       <div className="forgot-password-container">
         <img className="logo-image-axxpress" src={axxpress} alt="" />
 
@@ -57,12 +69,13 @@ const StaffForgotPassword = () => {
           className="forgot-password-form-container"
           onSubmit={handleSubmit}
         >
-          <label className="forgot-password-lable-container">Email:</label>
+          <label className="forgot-password-lable-container">Email ID</label>
           <input
             type="email"
             value={email}
             onChange={handleEmailChange}
             required
+            placeholder="Enter Your Email"
             className="forgot-passsword-input-container"
           />
           <div className="forgot-password-button-container">
@@ -78,6 +91,7 @@ const StaffForgotPassword = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

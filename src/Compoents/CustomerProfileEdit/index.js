@@ -82,6 +82,8 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
   return (
     <>
+    <div style={{display:"flex",justifyContent:"space-between"}}>
+    <h1 className="customer-profile-edit-heading">Update Profile</h1>
       <ImCancelCircle
         onClick={onClose}
         style={{
@@ -91,9 +93,10 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
           marginBottom: "10px",
         }}
       />
+      </div>
       <div className="customer-profile-edit-main-container">
         <div className="customer-profile-edit-sub-container">
-          <h1 className="customer-profile-edit-heading">Update Profile</h1>
+          
           <div className="customer-profile-edit-input-container">
             <label className="customer-profile-edit-name">Name</label>
             <input

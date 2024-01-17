@@ -1,21 +1,34 @@
+.customer-signin-sub-container{
+  background-image: url('../utlis/signup-bg-2.png') !important;
+  background-size: cover;
+  height:100vh;
+  width:100%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 .customer-signin-div-container{
   display:flex;
   justify-content: center;
   align-items: center;
-  height:100vh;
+  background-color: #fff;
+  height:80vh;
+  width:90%;
+  border-radius:20px;
 }
+
 .customer-signin-form-main-container {
-    width: 25%;
-    margin: 70px;
-    padding: 10px;
-    border: 2px solid #4b4f58;
-    border-radius: 5px;
+    width: 30%;
+    margin: 0px 10px;
+    padding: 10px 16px 10px 10px;
+    border: 2px solid #f2f2f2;
+    border-radius: 20px;
     
   }
   .customer-signin-form-heading-container{
-    font-size:32px;
+    font-size:22px;
     font-weight:600;
-    color:#212d45;
+    color:hsl(220, 35%, 20%);
     margin:10px 0px 4px 0px;
   }
   .customer-singin-form-container{
@@ -26,7 +39,7 @@
   }
   
   .customer-signin-form-group-container {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width:80%;
     display: flex;
     flex-direction: column;
@@ -35,15 +48,15 @@
   }
   
 .customer-singnin-form-lable-container {
-    font-weight: bold;
     margin-bottom: 5px;
   }
  .customer-signin-input-container{
-    width: 90%;
+    width: 95%;
     padding: 8px;
     font-size: 16px;
-    border: 2px solid#212d45;
+    border: none;
     border-radius: 7px;
+    background-color: #f2f2f2;
   }
   
 .customer-signin-form-button-container {

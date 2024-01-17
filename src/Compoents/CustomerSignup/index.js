@@ -26,9 +26,11 @@ const Customersignup = () => {
     const validationErrors = {};
     if (!formData.name.trim()) {
       validationErrors.name = "Name is required";
+      setShowLoader(false)
     }
     if (!formData.email.trim()) {
       validationErrors.email = "Email is required";
+      setShowLoader(false)
     }
    
 
@@ -63,6 +65,7 @@ const Customersignup = () => {
             });
           });
           
+          
         } else {
           response.json().then((data) => {
             Toast.fire({
@@ -75,6 +78,7 @@ const Customersignup = () => {
               email: "",
             });
           });
+
         }
       })
       .then((data) => {})
@@ -85,7 +89,9 @@ const Customersignup = () => {
   };
 
   return (
+    <div className="customer-signin-sub-container">
     <div className="customer-signin-div-container">
+      
       <div className="login-image-container">
         <img
           src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
@@ -105,7 +111,7 @@ const Customersignup = () => {
         >
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Name:
+              Name
             </label>
             <input
               type="text"
@@ -113,12 +119,13 @@ const Customersignup = () => {
               className="customer-signin-input-container"
               value={formData.name}
               onChange={handleInputChange}
+              placeholder="Enter Your Name"
             />
             {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
           <div className="customer-signin-form-group-container">
             <label className="customer-singnin-form-lable-container">
-              Email:
+              Email ID
             </label>
             <input
               type="email"
@@ -126,6 +133,7 @@ const Customersignup = () => {
               className="customer-signin-input-container"
               value={formData.email}
               onChange={handleInputChange}
+              placeholder="Enter Your Email"
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
@@ -145,21 +153,26 @@ const Customersignup = () => {
             )}
           </div>
           {backendError && <p className="error-message">{backendError}</p>} */}
-          <center>
+          
             {/* <button
               className="customer-signin-form-button-container"
               type="submit"
             >
               Sign Up
+
             </button> */}
+            <div className="customer-signin-form-group-container">
             <Button
               text="Register"
               type="Submit"
+              style={{color:"#212d45",backgroundColor:"#ffc03d"}}
               loading={showLoader}
               disabled={showLoader}
             />
-          </center>
+            </div>
+          
         </form>
+      </div>
       </div>
     </div>
   );

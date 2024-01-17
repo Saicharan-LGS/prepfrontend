@@ -16,14 +16,16 @@
   transition:0.3s ease-in-out;
 } */
 .loader-spinner-button {
-  background-color: #ffc03d;
-  color: #212d45;
-  padding: 10px 20px;
+  background-color: #212d45;
+  color: #fff;
+  padding: 7px 0px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   transition: background-color 0.3s;
+  width:100%;
+  min-width: max-content;
 }
 .loader-spinner-button:hover {
   border:1px solid #212d45;
@@ -34,10 +36,12 @@
 }
 
 .loader-spinner-button:disabled {
-  background-color: #ffc03d;
+  border: 1px solid#212d45;
+
+  background-color: #fff;
   color: #ffc03d;
   cursor: not-allowed;
-  width: 110px;
+  width:98%;
 }
 
 .spinner-button {

@@ -3,6 +3,7 @@ import "./index.css";
 import { Link, useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
 import axxpress from "../images/axxpress.png";
+import signup from '../utlis/signup-img-2.png'
 
 const CustomerLogin = () => {
   const [formData, setFormData] = useState({
@@ -100,10 +101,12 @@ const CustomerLogin = () => {
   };
 
   return (
+    <div className="customer-signin-sub-container">
     <div className="customer-signin-div-container">
       <div className="login-image-container">
         <img
-          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          src={signup}
           className="Login-image"
           alt=""
         />
@@ -122,24 +125,26 @@ const CustomerLogin = () => {
         </center>
         <form onSubmit={handleSubmit} className="signin-form-container">
           <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Email:</label>
+            <label className="signin-form-label-container">Email ID</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               className="signin-input-text"
+              placeholder="Enter your Email"
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
           <div className="signin-form-group-container">
-            <label className="signin-form-label-container">Password:</label>
+            <label className="signin-form-label-container">Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               className="signin-input-text"
+              placeholder="Enter your Password"
             />
             {errors.password && (
               <p className="error-message">{errors.password}</p>
@@ -147,21 +152,22 @@ const CustomerLogin = () => {
           </div>
           {loginError && <p className="error-message">{loginError}</p>}
           <center>
-            <button className="signin-form-button-container" type="submit">
+            <button className="customer-signin-form-button-container" type="submit">
               Login
             </button>
             <Link to="/signup" style={{ textDecoration: "none" }}>
-              <p>Create new account? Signup</p>
+              <p style={{color:"#212d45",fontWeight:"600"}}> <span style={{color:"#b3b3b3",fontWeight:"500"}}>Create new account?</span> Signup</p>
             </Link>
             <Link
               to="/CustomerForgotPassword"
-              style={{ textDecoration: "none" }}
+              style={{ textDecoration: "none",color:"#212d45" }}
             >
               <p>Forgot Password</p>
             </Link>
           </center>
         </form>
       </div>
+    </div>
     </div>
   );
 };

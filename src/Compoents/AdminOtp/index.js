@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
+import signup from '../utlis/signup-img-2.png'
 
 const AdminOtp = () => {
   const [otp, setOtp] = useState("");
@@ -32,6 +33,7 @@ const AdminOtp = () => {
   const handleVerifyClick = async (e) => {
     e.preventDefault();
     console.log("called verify", otp, email);
+    if(otp){
     try {
       const response = await fetch(`${FETCH_URL}staffcustomerotpverfiysend`, {
         method: "POST",
@@ -57,20 +59,31 @@ const AdminOtp = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  }
   };
 
   return (
+    <div className="otp-input-background-container">
     <div className="otp-input-form-container">
+    <div className="login-image-container">
+        <img
+          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
+          src={signup}
+          className="Login-image"
+          alt=""
+        />
+      </div>
       <div className="otp-input-sub-container">
         <div className="otp-input-display-container">
-          <p>
+          <p className="otp-input-label-name">
             Enter the 4-digit OTP sent to your email address to verify your
             account.
           </p>
-          <p>{email}</p>
+          <p className="otp-input-label-name">{email}</p>
           <h1 className="enter-your-otp-heading">Enter Your OTP</h1>
           <OtpInput
             value={otp}
+            required
             onChange={setOtp}
             numInputs={4}
             renderSeparator={<span></span>}
@@ -78,13 +91,15 @@ const AdminOtp = () => {
             renderInput={(props) => <input {...props} />}
             inputStyle="otp-input-field"
           />
-          <button onClick={handleVerifyClick} className="verify-otp-button">
+          {otp.length>3 && <button onClick={handleVerifyClick} className="verify-otp-button">
             Verify OTP
           </button>
+}
           <p style={{ cursor: "pointer" }} onClick={staffresendotp}>
             Didn't get the OTP? Resend
           </p>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -28,8 +28,8 @@
     margin:2px;
 }
 .admin-home-page-active-product-tab-color{
-    background-color: #ffc03d;
-    color:#212d45;
+    background-color: #212d45;
+    color:#fff;
 }
 @media (max-width:768px){
     .admin-home-page-product-tabs-container{
