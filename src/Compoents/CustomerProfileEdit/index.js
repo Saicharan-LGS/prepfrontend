@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
-
+import { countriesCode } from "../Countries";
+import Toast from "../utlis/toast";
 function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -9,7 +10,10 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const [profilePic, setProfilePic] = useState(null);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const token = sessionStorage.getItem("token");
-
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const handleCountryChange = (e) => {
+    setSelectedCountry(e.target.value);
+  };
   const fetchCustomerData = async () => {
     try {
       const response = await fetch(`${FETCH_URL}getspecificcustomerdetails`, {
@@ -23,8 +27,9 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         const customerData = await response.json();
         console.log(customerData.customer);
         setName(customerData.customer.name);
-        setMobileNumber(customerData.customer.mobile_number);
-        setAddress(customerData.customer.Address);
+        setSelectedCountry(customerData.customer.mobile_number.split(" ")[0]);
+        setMobileNumber(customerData.customer.mobile_number.split(" ")[1]);
+       setAddress(customerData.customer.Address);
       } else {
         // Handle non-OK response, e.g., unauthorized access
         console.error("Error fetching customer data:", response.statusText);
@@ -44,8 +49,8 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
     const formData = new FormData();
     console.log(name, mobileNumber, address, profilePic);
     formData.append("name", name);
-    formData.append("mobile_number", mobileNumber);
-    formData.append("Address", address);
+    const combinedMobile = `${selectedCountry} ${mobileNumber}`;
+    formData.append("mobile_number", combinedMobile);formData.append("Address", address);
     if (profilePic) {
       formData.append("profile", profilePic);
     }
@@ -61,7 +66,10 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
       });
 
       if (response.ok) {
-        console.log("Profile updated successfully");
+        Toast.fire({
+          icon: "success",
+          title:"Profile updated successfully",
+        });
         fetchCustomerData();
         onClose();
         fetchProducts();
@@ -109,15 +117,33 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
             />
           </div>
           <div className="customer-profile-edit-input-container">
-            <label className="customer-profile-edit-name">Mobile No</label>
-            <input
-              type="number"
-              name="number"
-              className="customer-profile-edit-input-field"
-              placeholder="Enter Mobile Number"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-            />
+            <div>
+              <label htmlFor="country">Mobile No</label>
+              <select
+                id="country"
+                required
+                value={selectedCountry}
+                onChange={handleCountryChange}
+              >
+                <option value="">Select a country</option>
+                {countriesCode.map((country) => (
+                  <option key={country.code} value={country.dial_code}>
+                    {country.name} ({country.dial_code})
+                  </option>
+                ))}
+              </select>
+           
+              <input
+                type="number"
+                name="number"
+                className="customer-profile-edit-input-field"
+                placeholder="Enter Mobile Number"
+                value={mobileNumber}
+                onChange={(e) => {
+                  const inputNumber = e.target.value.replace(/\D/g, '').slice(0, 10);
+                  setMobileNumber(inputNumber);
+                }}              />
+            </div>
           </div>
           <div className="customer-profile-edit-input-container">
             <label className="customer-profile-edit-name">Address</label>
