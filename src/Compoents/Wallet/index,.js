@@ -107,7 +107,7 @@ function Wallet({ totalAmount }) {
         </select>
       </div>
       <div className="admin-order-accepted-table-container">
-        <div className="admin-order-accepted-category-types">
+        <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
           <p className="customer-list-table-row">Transaction Id</p>
           <p className="customer-list-table-row">Order IDs</p>
           <p className="customer-list-table-row">Amount</p>

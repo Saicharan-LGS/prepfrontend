@@ -29,6 +29,8 @@ import CreatePassword from "./Compoents/CustomerCreatePassword";
 import StaffForgotPassword from "./Compoents/StaffForgotPassword";
 import AdminOtp from "./Compoents/AdminOtp";
 import AdminResetPassword from "./Compoents/AdminResetPassword";
+import SideBar from "./Compoents/StaffNavbar";
+import CustomerSideBar from "./Compoents/CustomerSideBar";
 
 function App() {
   const role = localStorage.getItem("role");
@@ -68,6 +70,7 @@ function App() {
         path="/CustomerOtpVerification"
         element={<CustomerOtpVerification />}
       />
+      
       <Route path="/createpassword/:email" element={<CreatePassword />} />
       <Route
         path="/CustomerOtpVerification2"
@@ -182,7 +185,7 @@ function App() {
         path="/admin"
         element={
           <ProtectedRoute allowedRoles={["Admin"]}>
-            <Navbar />
+            <SideBar />
           </ProtectedRoute>
         }
       />
@@ -207,7 +210,7 @@ function App() {
         path="/customernavbar"
         element={
           <ProtectedRoute allowedRoles={["Customer"]}>
-            <CustomerNavbar
+            <CustomerSideBar
               totalAmount={totalAmount}
               fetchTotalAmount={fetchTotalAmount}
             />

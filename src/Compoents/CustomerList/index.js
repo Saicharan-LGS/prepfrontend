@@ -151,7 +151,7 @@ function CustomerList() {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-            <div className="admin-order-accepted-category-types">
+            <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
               <p className="customer-list-table-row">Customer Id</p>
               <p className="customer-list-table-row">Customer Name</p>
               <p className="customer-list-table-row">Email</p>

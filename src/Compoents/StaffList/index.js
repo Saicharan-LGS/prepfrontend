@@ -7,6 +7,7 @@ import Toast from "../utlis/toast";
 import { TiEdit } from "react-icons/ti";
 import { Box, Modal } from "@mui/material";
 import EditStaffDetails from "../EditStaffDetails";
+import { RiEditBoxLine } from "react-icons/ri";
 
 function StaffList() {
   const [products, setProducts] = useState([]);
@@ -153,11 +154,11 @@ function StaffList() {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-            <div className="admin-order-accepted-category-types">
-              <p className="customer-list-table-row">Staff Id</p>
+            <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
+              <p className="customer-list-table-row" style={{width:"10%"}}>Staff Id</p>
               <p className="customer-list-table-row">Name</p>
               <p className="customer-list-table-row">Role</p>
-              <p className="customer-list-table-row">Email</p>
+              <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
               <p className="customer-list-table-row">Status</p>
               <p className="customer-list-table-row">Edit</p>
             </div>
@@ -170,7 +171,7 @@ function StaffList() {
                       className="admin-order-accepted-display-of-products-container"
                       key={eachProduct.id}
                     >
-                      <p className="customer-list-table-row">
+                      <p className="customer-list-table-row" style={{width:"10%"}}>
                         {eachProduct.id}
                       </p>
                       <p className="customer-list-table-row">
@@ -179,7 +180,7 @@ function StaffList() {
                       <p className="customer-list-table-row">
                         {eachProduct.role}
                       </p>
-                      <p className="customer-list-table-row">
+                      <p className="customer-list-table-row" style={{width:"30%"}}>
                         {eachProduct.email}
                       </p>
                       <div className="customer-list-table-row">
@@ -197,7 +198,7 @@ function StaffList() {
                         />
                       </div>
                       <div className="customer-list-table-row">
-                        <TiEdit onClick={()=>handleEdit(eachProduct)}  style={{fontSize:"28px",color:"#ff0000",cursor:"pointer"}}/>
+                        <RiEditBoxLine onClick={()=>handleEdit(eachProduct)} className="customer-list-view-icon"/>
                       </div>
                       
                     </div>
