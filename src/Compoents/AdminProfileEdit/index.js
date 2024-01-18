@@ -117,16 +117,18 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
           <div className="customer-profile-edit-input-container">
             <div>
               <label htmlFor="country">Mobile No</label>
+              <div className="customer-country-code">
               <select
                 required
                 id="country"
                 value={selectedCountry}
                 onChange={handleCountryChange}
+                className="customer-profile-edit-input-field-select"
               >
-                <option value="">Select a country</option>
+                <option value="">Country code</option>
                 {countriesCode.map((country) => (
                   <option key={country.code} value={country.dial_code}>
-                    {country.code} ({country.dial_code})
+                    ({country.dial_code}) {country.name} 
                   </option>
                 ))}
               </select>
@@ -143,6 +145,7 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
                   setMobileNumber(inputNumber);
                 }}
               />
+              </div>
             </div>
           </div>
           <div className="customer-profile-edit-input-container">

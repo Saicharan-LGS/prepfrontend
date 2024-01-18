@@ -112,16 +112,18 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
           <div className="customer-profile-edit-input-container">
             <div>
               <label htmlFor="country">Mobile No</label>
+              <div className="customer-country-code">
               <select
                 id="country"
                 required
                 value={selectedCountry}
                 onChange={handleCountryChange}
+                className="customer-profile-edit-input-field-select"
               >
-                <option value="">Select a country</option>
+                <option value="">Country code</option>
                 {countriesCode.map((country) => (
                   <option key={country.code} value={country.dial_code}>
-                    {country.code} ({country.dial_code})
+                    ({country.dial_code}) {country.name} 
                   </option>
                 ))}
               </select>
@@ -135,7 +137,9 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
                 onChange={(e) => {
                   const inputNumber = e.target.value.replace(/\D/g, '').slice(0, 10);
                   setMobileNumber(inputNumber);
-                }}              />
+                }} 
+                />
+                  </div>
             </div>
           </div>
           <div className="customer-profile-edit-input-container">
