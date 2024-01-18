@@ -54,7 +54,8 @@ function LabelOrders({ openDetailPageComponent }) {
     if (role === "Admin") {
       openDetailPageComponent(productId);
     } else {
-      navigate(`/viewDetailedorder/${productId}`);
+      navigate(`/labeldetailpage/${productId}`);
+
     }
   };
 
@@ -86,10 +87,8 @@ function LabelOrders({ openDetailPageComponent }) {
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link
             </p>
-            {/* <p className="admin-order-accepted-decline-category">Decline</p>
-        <p className="admin-order-accepted-accept-category">Accept</p> */}
-            {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
-        <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
+            <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
+            <p className="admin-order-accepted-box-label-category">Box Label</p>
             <p className="admin-order-accepted-fnsku-category">Label Done</p>
             <p className="admin-order-accepted-view-in-detail-category">
               Update
@@ -132,14 +131,24 @@ function LabelOrders({ openDetailPageComponent }) {
                         " "
                       )}
                     </p>
-                    {/* <button className="admin-order-accepted-received-button">Received</button>
-          <button className="admin-order-accepted-declined-button">Decline</button> */}
-                    {/* <div className="admin-order-accepted-fnsku-sub-category">
-          <input type="checkbox" checked={eachProduct.fnsku_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
-          </div>
-          <div className="admin-order-accepted-box-label-sub-category">
-        <input type="checkbox" checked={eachProduct.label_status=="1" ? true : false} className="admin-order-accepted-checkbox"/>
-          </div> */}
+                    <div className="admin-order-accepted-fnsku-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.fnsku_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+                      <div className="admin-order-accepted-box-label-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.label_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
                     <LabelPost
                       id={eachProduct.id}
                       fetchProducts={fetchProducts}

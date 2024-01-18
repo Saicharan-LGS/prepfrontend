@@ -13,11 +13,6 @@ const EditStaffDetails = ({ staff,onClose}) => {
     role: "Admin",
   });
 
-  const [errorMessages, setErrorMessages] = useState({
-    name: "",
-    email: "",
-  });
-
   useEffect(() => {
     // Fetch staff details when the component mounts
     getStaffDetails(staffId);
@@ -60,11 +55,12 @@ const EditStaffDetails = ({ staff,onClose}) => {
   };
 
 
-  const updateStaffDetails = () => {
+  const updateStaffDetails = (e) => {
+    e.preventDefault();
     const token = sessionStorage.getItem("token");
-
+  
     const url = `${process.env.REACT_APP_FETCH_URL}updateStaffDetailsById/${id}`;
-
+  
     fetch(url, {
       method: "PUT",
       headers: {
@@ -74,10 +70,13 @@ const EditStaffDetails = ({ staff,onClose}) => {
       body: JSON.stringify(formData),
     })
       .then((response) => {
+        onClose()
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error("Failed to update staff details");
+          return response.json().then((data) => {
+            throw new Error(data.message || "Failed to update staff details");
+          });
         }
       })
       .then((data) => {
@@ -94,6 +93,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
         });
       });
   };
+  
 
   return (
     <>
@@ -107,13 +107,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
         }}
       />
     <div className="signup-div-container" style={{maxHeight:"500px",minHeight:"400px"}}>
-      {/* <div className="login-image-container">
-        <img
-          src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
-          className="Login-image"
-          alt=""
-        />
-      </div> */}
+  
       <div className="signup-main-form-container" style={{width:"300px"}}>
         <center>
           <h2 className="signup-form-heading-container">Edit Staff</h2>
@@ -140,16 +134,6 @@ const EditStaffDetails = ({ staff,onClose}) => {
               readOnly
             />
           </div>
-          {/* <div className="signup-whole-form-contaner">
-            <label className="signup-form-lable-container">Password:</label>
-            <input
-              type="password"
-              name="password"
-              className="signin-input-text"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-          </div> */}
           <div className="signup-whole-form-contaner">
             <label className="signup-form-lable-container">Role:</label>
             <select
@@ -170,17 +154,6 @@ const EditStaffDetails = ({ staff,onClose}) => {
               Update
             </button>
           </center>
-          <div>
-            {errorMessages.name && (
-              <p className="signup-error-messages">{errorMessages.name}</p>
-            )}
-            {errorMessages.password && (
-              <p className="signup-error-messages">{errorMessages.password}</p>
-            )}
-            {errorMessages.email && (
-              <p className="signup-error-messages">{errorMessages.email}</p>
-            )}
-          </div>
         </form>
       </div>
     </div>

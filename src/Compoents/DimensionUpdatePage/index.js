@@ -9,7 +9,6 @@ import "./index.css";
 import { ImCancelCircle } from "react-icons/im";
 
 function DimensionUpdatePage({
-  openDetailPageComponent,
   updateId,
   fetchProducts,
   onClose,
@@ -30,14 +29,6 @@ function DimensionUpdatePage({
   const navigate = useNavigate();
 
   const role = sessionStorage.getItem("role");
-
-  // const openDetailPage = (productId) => {
-  //   if (role === "Admin") {
-  //     openDetailPageComponent(productId);
-  //   } else {
-  //     navigate(`/viewDetailedorder/${productId}`);
-  //   }
-  // };
 
   const id = updateId;
   const token = sessionStorage.getItem("token");

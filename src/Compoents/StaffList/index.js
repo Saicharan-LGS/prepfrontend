@@ -8,7 +8,7 @@ import { TiEdit } from "react-icons/ti";
 import { Box, Modal } from "@mui/material";
 import EditStaffDetails from "../EditStaffDetails";
 
-function StaffList({ openDetailPageComponent }) {
+function StaffList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,6 @@ function StaffList({ openDetailPageComponent }) {
       });
 
       if (response.ok) {
-        // Handle success, maybe update the local state
 
         response.json().then((data) => {
           Toast.fire({
@@ -226,6 +225,7 @@ function StaffList({ openDetailPageComponent }) {
         
       )}
        <Modal
+       setIsModelOpen={setIsModelOpen}
         open={isModelOpen}
         onClose={handleCloseModal}
         style={{ width: "100%" }}

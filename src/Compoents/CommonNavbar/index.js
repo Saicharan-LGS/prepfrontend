@@ -16,7 +16,7 @@ function CommonNavbar() {
     sessionStorage.removeItem("token");
     localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    navigate("/login");
+    navigate("/stafflogin");
   };
 
   const role = sessionStorage.getItem("role");

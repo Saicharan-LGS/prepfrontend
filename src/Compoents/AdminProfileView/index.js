@@ -67,7 +67,6 @@ function AdminProfileView({ fetchProducts1 }) {
             >
               Edit
             </button>
-            {/* <button className="logout-button">Logout</button> */}
           </div>
           <div className="customer-profile-view-details-display-flex">
             <div className="customer-profile-view-profile-image-container">
