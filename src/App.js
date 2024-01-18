@@ -100,11 +100,11 @@ function App() {
       <Route path="*" element={<NotFound />} />
 
       <Route path="/" element={<CustomerLogin />} />
-      <Route path="/login" element={<StaffSigninPage />} />
+      <Route path="/stafflogin" element={<StaffSigninPage />} />
       <Route
-        path="/dimensiondetailpage/:id"
+        path="/labeldetailpage/:id"
         element={
-          <ProtectedRoute allowedRoles={["Dimension"]}>
+          <ProtectedRoute allowedRoles={["Label"]}>
             <DimensionNewDetailPage />
           </ProtectedRoute>
         }

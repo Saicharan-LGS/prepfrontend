@@ -174,7 +174,10 @@ function ViewAllOrders({ openDetailPageComponent }) {
                 Order Tracking Link
               </p>
               <p className="admin-order-accepted-fnsku-category">Status</p>
-              <p className="admin-order-accepted-fnsku-category">Amount</p>
+              <p className="admin-order-accepted-fnsku-category">FNSKU</p>
+              <p className="admin-order-accepted-box-label-category">
+                Box Label
+              </p>
               <p className="admin-order-accepted-view-in-detail-category">
                 View In Detail
               </p>
@@ -211,9 +214,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
                             Order Link
                           </a>
                         ) : (
-                          <p className="" tracking_url>
-                            {" "}
-                          </p>
+                          <p className="" tracking_url></p>
                         )}
                       </p>
                       <p
@@ -241,9 +242,28 @@ function ViewAllOrders({ openDetailPageComponent }) {
                       >
                         {statusLabels[eachProduct.status] || "Unknown Status"}
                       </p>
-                      <p className="admin-order-accepted-quantity-sub-category">
+                      {/* <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.amount}
-                      </p>
+                      </p> */}
+                      <div className="admin-order-accepted-fnsku-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.fnsku_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+                      <div className="admin-order-accepted-box-label-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.label_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}

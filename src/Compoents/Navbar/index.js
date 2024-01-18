@@ -52,7 +52,7 @@ function Navbar() {
     sessionStorage.removeItem("sname");
     localStorage.removeItem("prevStatus");
     localStorage.removeItem("status");
-    navigate("/login");
+    navigate("/stafflogin");
   };
   const openDetailPageComponent = (id) => {
     if (id) {

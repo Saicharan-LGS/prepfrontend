@@ -165,9 +165,7 @@ function ProductList({ openDetailPageComponent }) {
                         unit={eachProduct.unit}
                         fetchProducts={fetchProducts}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      <div className="admin-order-accepted-fnsku-sub-category">
+                  <div className="admin-order-accepted-fnsku-sub-category">
                         <input
                           type="checkbox"
                           checked={

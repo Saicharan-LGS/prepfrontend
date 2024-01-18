@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import "../AdminDetailPage/index.css";
 import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import EmptyOrder from "../EmptyOrder";
 import CommonNavbar from "../CommonNavbar";
-import DimensionsUpdate from "../DimensionsUpdate";
 import DimensionUpdatePage from "../DimensionUpdatePage";
 function DimensionOrderList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
@@ -77,8 +74,7 @@ function DimensionOrderList({ openDetailPageComponent }) {
     if (role === "Admin") {
       openDetailPageComponent(productId);
     } else {
-      navigate(`/dimensiondetailpage/${productId}`);
-    }
+      navigate(`/viewDetailedorder/${productId}`);    }
   };
 
   const NextButton =
@@ -109,10 +105,10 @@ function DimensionOrderList({ openDetailPageComponent }) {
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link
             </p>
-            {/* <p className="admin-order-accepted-decline-category">Decline</p>
-        <p className="admin-order-accepted-accept-category">Accept</p> */}
-            {/* <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
-        <p className="admin-order-accepted-box-label-category">Box Label Status</p> */}
+        <p className="admin-order-accepted-fnsku-category">FNSKU Status</p>
+            <p className="admin-order-accepted-box-label-category">
+              Box Label
+            </p>
             <p className="admin-order-accepted-view-in-detail-category">
               Update
             </p>
@@ -149,32 +145,27 @@ function DimensionOrderList({ openDetailPageComponent }) {
                       </a>
                     ) : (
                       <p className="" tracking_url>
-                        {" "}
                       </p>
                     )}
                   </p>
-                  {/* <button className="admin-order-accepted-received-button">Received</button>
-          <button className="admin-order-accepted-declined-button">Decline</button> */}
-                  {/* <div className="admin-order-accepted-fnsku-sub-category">
-            {eachProduct.fnsku_status==="0"?<input type="checkbox" className="admin-order-accepted-checkbox"/>:<input type="checkbox" checked className="admin-order-accepted-checkbox"/>}
-          </div>
-          <div className="admin-order-accepted-box-label-sub-category">
-          {eachProduct.label_status==="0"?<input type="checkbox" className="admin-order-accepted-checkbox"/>:<input type="checkbox" checked className="admin-order-accepted-checkbox"/>}
-          </div> */}
-                  {/* <button
-                className="admin-order-accepted-received-button"
-                onClick={() => dimensionUpadate(eachProduct.id)}
-              >
-                Update
-              </button> */}
-                  {/* <Popup contentStyle={{ width: '400px', padding: '20px' }}  trigger={<button onClick={() => dimensionUpadate(eachProduct.id)}  className="admin-order-accepted-received-button"> Update</button>} position="left center">
-                <DimensionsUpdate id={eachProduct.id} fetchProducts={fetchProducts} />
-              </Popup> */}
+                  <div className="admin-order-accepted-fnsku-sub-category">
+                    <input
+                      type="checkbox"
+                      checked={eachProduct.fnsku_status === 1 ? true : false}
+                      className="admin-order-accepted-checkbox"
+                    />
+                  </div>
+                  <div className="admin-order-accepted-box-label-sub-category">
+                    <input
+                      type="checkbox"
+                      checked={eachProduct.label_status === 1 ? true : false}
+                      className="admin-order-accepted-checkbox"
+                    />
+                  </div>
                   <button
                     onClick={() => dimensionUpadate(eachProduct.id)}
                     className="admin-order-accepted-received-button"
                   >
-                    {" "}
                     Update
                   </button>
                   <BsFillArrowRightCircleFill

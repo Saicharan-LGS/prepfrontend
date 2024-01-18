@@ -48,7 +48,7 @@ const AdminResetPassword = () => {
           title: data.message,
         });
 
-        navigate("/login");
+        navigate("/stafflogin");
       } else {
         const data = await response.json();
         Toast.fire({

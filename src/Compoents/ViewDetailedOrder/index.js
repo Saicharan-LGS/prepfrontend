@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { Box, Modal } from "@mui/material";
 import { IoArrowBackCircle } from "react-icons/io5";
-function ViewDetailedOrder({setStatus}) {
+import DimensionUpdatePage from "../DimensionUpdatePage";
+function ViewDetailedOrder({ setStatus }) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     date: "",
@@ -33,7 +34,7 @@ function ViewDetailedOrder({setStatus}) {
   });
   const [isModalOpen, setModalOpen] = React.useState(false);
   const token = sessionStorage.getItem("token");
-  const role = sessionStorage.getItem("role")
+  const role = sessionStorage.getItem("role");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
@@ -50,7 +51,7 @@ function ViewDetailedOrder({setStatus}) {
         });
         if (response.ok) {
           const data1 = await response.json();
-          
+
           const data = data1.order;
 
           const fnskuFiles =
@@ -58,8 +59,6 @@ function ViewDetailedOrder({setStatus}) {
 
           const labelFiles =
             data1.files.filter((file) => file.type === "labelSend") || [];
-
-          
 
           setFormData({
             ...formData,
@@ -118,26 +117,24 @@ function ViewDetailedOrder({setStatus}) {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
- 
-  const navigate = useNavigate()
+
+  const navigate = useNavigate();
 
   const handleBackClick = () => {
-    if(role==="Label"){
-      navigate('/labelorders')
-    }else if(role==="Dimension"){
-      navigate('/dimensionorders')
-    }else if(role==="Accountant"){
-      navigate('/accountOrders')
+    if (role === "Label") {
+      navigate("/labelorders");
+    } else if (role === "Dimension") {
+      navigate("/dimensionorders");
+    } else if (role === "Accountant") {
+      navigate("/accountOrders");
     }
-    
   };
- 
 
   return (
     <>
       <CommonNavbar />
       <div className="order-customer-container">
-      <button
+        <button
           className="order-customer-backward-button"
           onClick={handleBackClick}
         >
@@ -174,60 +171,9 @@ function ViewDetailedOrder({setStatus}) {
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
             >
-              See Dimensions
+              { role==="Dimension" ? "Update Dimensions" : "See Dimensions" }
             </p>
-            {/* <div className="order-customer-input-feild">
-            <label className="order-customer-label-name">Amount</label>
-            <input
-              className="order-customer-lable-container"
-              type="number"
-              name="customerName"
-              value={customerName}
-              onChange={handleChange}
-              required
-              readOnly
-            />
-          </div> */}
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Length</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={length}
-                readOnly
-              />
-            </div> */}
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Width</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={width}
-                readOnly
-              />
-            </div> */}
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Height</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={height}
-                readOnly
-              />
-            </div> */}
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Weight</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={weight}
-                readOnly
-              />
-            </div> */}
+           
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -251,87 +197,6 @@ function ViewDetailedOrder({setStatus}) {
                 value={productName}
                 readOnly
               />
-            </div>
-            {/* <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
-              type="checkbox"
-              name="trackingURL"
-              checked={fnsku_status === 1 ? true : false}
-              readOnly
-            />
-            <label className="order-customer-label-name">FNSKU Status</label>
-          </div> */}
-            <div className="order-customer-input-feild">
-              {/* <label className="order-customer-label-name">FNSKU Send:</label>
-            <input
-              className="order-customer-lable-container order-customer-label-file"
-              type="file"
-              name="fnskuSend"
-              onChange={handleFnskuFileData}
-            /> */}
-              {/* {fnsku_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(fnskuSend1)}
-                  disabled={fnskuSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View FNSKU File
-                </button>
-              )} */}
-            </div>
-
-            {/* <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="trackingURL"
-              checked={label_status === 1 ? true : false}
-              readOnly
-            />
-            <label className="order-customer-label-name">Label Status</label>
-          </div> */}
-            <div className="order-customer-input-feild">
-              {/* <label className="order-customer-label-name">Box Label Send:</label>
-            <input
-              className="order-customer-lable-container order-customer-label-file"
-              type="file"
-              name="labelSend"
-              onChange={handleLabelFileData}
-            /> */}
-              {/* {label_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(labelSend1)}
-                  disabled={labelSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View Box Label File
-                </button>
-              )} */}
-              {/* <div className="order-customer-input-feild-fnsku-status">
-              <input
-                className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
-                type="checkbox"
-                name="trackingURL"
-                checked={label_status === 1 ? true : false}
-                readOnly
-              />
-              <label className="order-customer-label-name">
-                Payment Status
-              </label>
-            </div> */}
-              {/* <div className="order-customer-input-feild-fnsku-status">
-              <input
-                className="order-customer-lable-container-checkbox admin-order-accepted-readonly"
-                type="checkbox"
-                name="trackingURL"
-                checked={fnsku_label_printed === 1 ? true : false}
-                readOnly
-              />
-              <label className="order-customer-label-name">Labelling</label>
-            </div> */}
             </div>
           </div>
           <div className="order-customer-field3-container">
@@ -423,10 +288,14 @@ function ViewDetailedOrder({setStatus}) {
             p: 3,
           }}
         >
-          <CustomerDimensionView
-            updateId={id}
-            onClose={handleCloseModal}
-          />
+          {role === "Dimension" ? (
+            <DimensionUpdatePage
+              updateId={id}
+              onClose={handleCloseModal}
+            />
+          ) : (
+            <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
+          )}
         </Box>
       </Modal>
     </>

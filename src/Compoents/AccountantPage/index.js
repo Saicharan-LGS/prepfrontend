@@ -219,6 +219,10 @@ function AccountOrders({ openDetailPageComponent }) {
             <p className="admin-order-accepted-order-tracking-category">
               Order Tracking Link
             </p>
+            <p className="admin-order-accepted-fnsku-category">FNSKU</p>
+              <p className="admin-order-accepted-box-label-category">
+                Box Label
+              </p>
             <p className="admin-order-accepted-service-category">
               Enter Invoice
             </p>
@@ -259,6 +263,24 @@ function AccountOrders({ openDetailPageComponent }) {
                       <p className="" tracking_url></p>
                     )}
                   </p>
+                  <div className="admin-order-accepted-fnsku-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.fnsku_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
+                      <div className="admin-order-accepted-box-label-sub-category">
+                        <input
+                          type="checkbox"
+                          checked={
+                            eachProduct.label_status === 1 ? true : false
+                          }
+                          className="admin-order-accepted-checkbox"
+                        />
+                      </div>
                   <div className="admin-order-accepted-order-enter-amount">
                     <input
                       type="checkbox"

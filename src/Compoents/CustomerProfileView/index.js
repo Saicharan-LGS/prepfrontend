@@ -57,8 +57,6 @@ function CustomerProfileView({ fetchProducts1 }) {
       <div className="customer-profile-view-main-container">
         <div className="customer-profile-view-sub-container">
           <div className="customer-profile-view-top-container">
-            {/* <button className="logout-button">Logout</button> */}
-
             <div className="customer-profile-view-details-display-flex">
               <div className="customer-profile-view-profile-image-container">
                 <img

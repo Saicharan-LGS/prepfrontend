@@ -6,12 +6,14 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
-import DimensionUpdatePage from "../DimensionUpdatePage";
+
+import CustomerDimensionView from "../CustomerDimensionView";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
 
 function DimensionNewDetailPage() {
   const { id } = useParams();
+  const orderId = id;
   const [formData, setFormData] = useState({
     date: "",
     name: "",
@@ -65,7 +67,7 @@ function DimensionNewDetailPage() {
       });
       if (response.ok) {
         const data1 = await response.json();
-       
+
         const data = data1.order;
         const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
         const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
@@ -84,7 +86,6 @@ function DimensionNewDetailPage() {
         setSelectedServices(productServicesIds);
 
         data1.services.Products.forEach((item) => {
-          
           productQuantities[item.services] = item.quantity;
         });
 
@@ -212,15 +213,15 @@ function DimensionNewDetailPage() {
       id: productId,
       quantity: 1,
     }));
-    const selectedProductsWithQuantity = Object.keys(productQuantities).map(
-      (productId) => ({
+    const selectedProductsWithQuantity = Object.keys(productQuantities)
+      .map((productId) => ({
         id: productId,
         quantity: productQuantities[productId] || 0,
-      })
-    );
+      }))
+      .filter((product) => product.quantity > 0);
 
     const formDataToSend = new FormData();
-    formDataToSend.append("orderId", id);
+    formDataToSend.append("orderId", orderId);
     formDataToSend.append("date", date || "");
     formDataToSend.append("name", name || "");
     formDataToSend.append("service", service);
@@ -358,10 +359,11 @@ function DimensionNewDetailPage() {
       console.error("Error deleting file:", error);
     }
   };
+
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/dimensionorders");
+    navigate("/labelorders");
   };
 
   const handleDimensionUpdate = () => {
@@ -388,28 +390,26 @@ function DimensionNewDetailPage() {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="date"
                 name="date"
-                readOnly
                 value={date}
-                onChange={handleChange}
                 required
+                readOnly
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Customer Name:</label>
+              <label className="order-customer-label-name">Order Name:</label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
-                name="Name"
+                name="name"
                 readOnly
                 value={name}
-                onChange={handleChange}
               />
             </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
             >
-              Update Dimensions
+              See Dimensions
             </p>
             <div className="order-customer-service-container">
               <p className="order-customer-service-name">Services :</p>
@@ -417,13 +417,13 @@ function DimensionNewDetailPage() {
                 <div
                   key={service.id}
                   className="order-customer-service-input-container"
-                  >
+                >
                   <input
                     type="checkbox"
                     id={service.id}
                     name="selectedServices"
-                    readOnly
                     value={service.id}
+                    readOnly
                     checked={selectedServices.includes(service.id)}
                     onChange={(e) => handleServiceSelection(e, service.id)}
                     className="order-customer-input-checkbox"
@@ -443,7 +443,6 @@ function DimensionNewDetailPage() {
               <label className="order-customer-label-name">Service:</label>
               <select
                 className="order-customer-lable-container admin-order-accepted-readonly"
-                onChange={handleChange}
                 required
                 readOnly
                 value={service}
@@ -457,10 +456,33 @@ function DimensionNewDetailPage() {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 name="product"
-                value={product}
                 readOnly
-                onChange={handleChange}
+                value={product}
                 required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                FNSKU ({fnskuSendFiles.length} files selected):
+              </label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="fnskuSend"
+                onChange={handleFnskuSendChange}
+                multiple
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Label ({labelSendFiles.length} files selected) :
+              </label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="labelSend"
+                onChange={handleLabelSendChange}
+                multiple
               />
             </div>
           </div>
@@ -471,9 +493,8 @@ function DimensionNewDetailPage() {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="number"
                 name="unit"
-                readOnly
                 value={unit}
-                onChange={handleChange}
+                readOnly
                 required
               />
             </div>
@@ -485,7 +506,6 @@ function DimensionNewDetailPage() {
                 name="tracking_url"
                 readOnly
                 value={tracking_url}
-                onChange={handleChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -496,7 +516,6 @@ function DimensionNewDetailPage() {
                 name="instructions"
                 value={instructions}
                 readOnly
-                onChange={handleChange}
               />
             </div>
             <div className="order-customer-input-feild">
@@ -547,26 +566,6 @@ function DimensionNewDetailPage() {
                 </div>
               ))}
             </div>
-
-
-            {/* <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="tracking_url"
-              checked={fnsku_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">FNSKU Status</label>
-          </div>
-          <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="tracking_url"
-              checked={label_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">Label Status</label>
-          </div>*/}
           </div>
         </form>
         <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
@@ -583,10 +582,10 @@ function DimensionNewDetailPage() {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                {/* <MdDeleteOutline
+                <MdDeleteOutline
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
-                /> */}
+                />
               </div>
             ))}
           </div>
@@ -642,11 +641,13 @@ function DimensionNewDetailPage() {
             p: 3,
           }}
         >
-          <DimensionUpdatePage updateId={id} onClose={handleCloseModal} />
+          <CustomerDimensionView
+            updateId={orderId}
+            onClose={handleCloseModal}
+          />
         </Box>
       </Modal>
     </>
   );
 }
-
 export default DimensionNewDetailPage;

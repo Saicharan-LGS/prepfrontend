@@ -51,16 +51,32 @@ const DimensionsUpdate = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (dimensions.length > 25) {
-      alert("Length is greater than 25. Enter a value below 25");
+      Toast.fire({
+        icon: "error",
+        title:"Length is greater than 25. Enter a value below 25",
+      });
       return;
     }
     if (dimensions.width > 25) {
-      alert("Width is greater than 25. Enter a value below 25");
+      Toast.fire({
+        icon: "error",
+        title:"Width is greater than 25. Enter a value below 25",
+      });
       return;
     }
     if (dimensions.height > 25) {
-      alert("Height is greater than 25. Enter a value below 25");
-      return;
+      Toast.fire({
+        icon: "error",
+        title:"Height is greater than 25. Enter a value below 25",
+      });
+      return;  
+    }
+    if (dimensions.weight > 50) {
+      Toast.fire({
+        icon: "error",
+        title:"Weight is greater than 50. Enter a value below 50",
+      });
+      return;    
     }
     try {
       const dimensionsWithUnits = {
@@ -163,6 +179,7 @@ const DimensionsUpdate = ({
               type="number"
               value={dimensions.itemNo}
               name="itemNo"
+              required
               onChange={handleInputChange}
               placeholder="Enter the quantity"
               className="dimensions-input"
