@@ -16,9 +16,9 @@ function StaffTopNavbar() {
     sessionStorage.removeItem("token");
     localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    localStorage.removeItem("prevStatus");
-    localStorage.removeItem("status");
-    navigate("/login");
+    sessionStorage.removeItem("prevStatus");
+    sessionStorage.removeItem("status");
+    navigate("/stafflogin");
   };
 
   const handleCloseClick=()=>{

@@ -152,9 +152,9 @@ function CustomerList() {
           />
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
-              <p className="customer-list-table-row">Customer Id</p>
+              <p className="customer-list-table-row" style={{width:"10%"}}>Customer Id</p>
               <p className="customer-list-table-row">Customer Name</p>
-              <p className="customer-list-table-row">Email</p>
+              <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
               <p className="customer-list-table-row">Status</p>
               <p className="customer-list-table-row">Amount</p>
             </div>
@@ -167,13 +167,13 @@ function CustomerList() {
                       className="admin-order-accepted-display-of-products-container"
                       key={eachProduct.id}
                     >
-                      <p className="customer-list-table-row">
+                      <p className="customer-list-table-row" style={{width:"10%"}}>
                         {eachProduct.id}
                       </p>
                       <p className="customer-list-table-row">
                         {eachProduct.name}
                       </p>
-                      <p className="customer-list-table-row">
+                      <p className="customer-list-table-row" style={{width:"30%"}}>
                         {eachProduct.email}
                       </p>
                       <div className="customer-list-table-row">

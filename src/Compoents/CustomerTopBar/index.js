@@ -17,7 +17,7 @@ function CustomerTopNavbar() {
     sessionStorage.removeItem("sname");
     localStorage.removeItem("prevStatus");
     localStorage.removeItem("status");
-    navigate("/login");
+    navigate("/");
   };
 
   const handleCloseClick=()=>{

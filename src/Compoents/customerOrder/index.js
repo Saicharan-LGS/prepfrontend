@@ -365,7 +365,7 @@ const CustomerOrder = () => {
                       onChange={(e) =>
                         handleQuantityChange(product.id, e.target.value)
                       }
-                      placeholder="Enter Quantity"
+                      placeholder="Quantity"
                       className="order-customer-service-input"
                     />
                   </div>
