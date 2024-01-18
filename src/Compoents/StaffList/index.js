@@ -159,7 +159,7 @@ function StaffList() {
               <p className="customer-list-table-row">Name</p>
               <p className="customer-list-table-row">Role</p>
               <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
-              <p className="customer-list-table-row">Status</p>
+              <p className="customer-list-table-row">Enable / Disable</p>
               <p className="customer-list-table-row">Edit</p>
             </div>
 
@@ -234,7 +234,7 @@ function StaffList() {
         <Box
           sx={{
             position: "absolute",
-            width: "550px",
+            width:"260px",
             top: "50%",
             left: "50%",
             

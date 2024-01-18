@@ -24,12 +24,25 @@
     font-size:18px;
     color:#000;
 }
+.customer-country-code{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
 .customer-profile-edit-input-field{
     border:1px solid #ccc;
     border-radius:5px;
     padding:8px 10px;
     font-size:16px;
     outline:none;
+}
+.customer-profile-edit-input-field-select{
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:8px 10px;
+    font-size:16px;
+    outline:none;
+    width:100px;
 }
 .customer-profile-edit-file::file-selector-button{
     width:max-content;

@@ -155,7 +155,7 @@ function CustomerList() {
               <p className="customer-list-table-row" style={{width:"10%"}}>Customer Id</p>
               <p className="customer-list-table-row">Customer Name</p>
               <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
-              <p className="customer-list-table-row">Status</p>
+              <p className="customer-list-table-row">Enable / Disable</p>
               <p className="customer-list-table-row">Amount</p>
             </div>
 
