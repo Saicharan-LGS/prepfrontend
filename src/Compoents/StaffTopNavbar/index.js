@@ -18,7 +18,7 @@ function StaffTopNavbar() {
     sessionStorage.removeItem("sname");
     sessionStorage.removeItem("prevStatus");
     sessionStorage.removeItem("status");
-    navigate("/login");
+    navigate("/stafflogin");
   };
 
   const handleCloseClick=()=>{
