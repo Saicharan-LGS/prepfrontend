@@ -37,10 +37,10 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    localStorage.removeItem("prevStatus");
-    localStorage.removeItem("status");
+    sessionStorage.removeItem("prevStatus");
+    sessionStorage.removeItem("status");
     navigate("/");
   };
 
@@ -68,8 +68,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   const openDetailPage = (id) => {
     if (id) {
       setPrevStatus(status);
-      localStorage.setItem("prevStatus", status);
-      localStorage.setItem("status", 10);
+      sessionStorage.setItem("prevStatus", status);
+      sessionStorage.setItem("status", 10);
       setStatus(10);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);

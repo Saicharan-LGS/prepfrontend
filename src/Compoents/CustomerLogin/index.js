@@ -69,7 +69,6 @@ const CustomerLogin = () => {
               title: data.message,
             });
             sessionStorage.setItem("token", data.token);
-            localStorage.setItem("role", "Customer");
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
 

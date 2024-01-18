@@ -53,10 +53,10 @@ function SideBar() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    localStorage.removeItem("prevStatus");
-    localStorage.removeItem("status");
+    sessionStorage.removeItem("prevStatus");
+    sessionStorage.removeItem("status");
     navigate("/login");
   };
 
@@ -84,8 +84,7 @@ function SideBar() {
   const openDetailPageComponent = (id) => {
     if (id) {
       setPrevStatus(status);
-      localStorage.setItem("prevStatus", status);
-      // localStorage.setItem("status", 12);
+      sessionStorage.setItem("prevStatus", status);
       setStatus(12);
       setOrderId(id);
       setActiveTab(id)

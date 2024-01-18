@@ -40,25 +40,24 @@ function Navbar() {
   };
   useEffect(() => {
     handleSidebarItemClick(status);
-    localStorage.setItem("status", status);
-    localStorage.setItem("prevStatus", prevStatus);
+    sessionStorage.setItem("status", status);
+    sessionStorage.setItem("prevStatus", prevStatus);
   }, [status]);
  
   const navigate = useNavigate();
  
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    localStorage.removeItem("prevStatus");
-    localStorage.removeItem("status");
+    sessionStorage.removeItem("prevStatus");
+    sessionStorage.removeItem("status");
     navigate("/stafflogin");
   };
   const openDetailPageComponent = (id) => {
     if (id) {
       setPrevStatus(status);
-      localStorage.setItem("prevStatus", status);
-      // localStorage.setItem("status", 12);
+      sessionStorage.setItem("prevStatus", status);
       setStatus(12);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);

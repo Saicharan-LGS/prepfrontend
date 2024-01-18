@@ -14,7 +14,7 @@ function CommonNavbar() {
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("role");
     sessionStorage.removeItem("sname");
     navigate("/stafflogin");
   };
