@@ -62,7 +62,9 @@ function StaffTopNavbar() {
             closeOnDocumentClick={false}
             open={isPopupOpen}
             onClose={handleCloseClick}
-            contentStyle={{ width: "370px", padding: "20px" }}
+            contentStyle={{minWidth: "400px",
+            maxWidth: "650px",
+            padding: "20px", }}
             trigger={
               <img
                 src={`${REACT_APP_PDF_URL}${
