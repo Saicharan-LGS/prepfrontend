@@ -36,13 +36,9 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
         onClose();
         fetchProducts();
       } else {
-        console.error("Failed to update order status and quantity_received");
       }
     } catch (error) {
-      console.error(
-        "Error updating order status and quantity_received:",
-        error
-      );
+      
     }
   };
 

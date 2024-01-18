@@ -52,7 +52,6 @@ function CustomerPendingList({ openDetailPageComponent }) {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data.customers,"data.customersdata.customers")
         setProducts(data.customers);
         setLoading(false);
       } else {

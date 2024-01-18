@@ -61,7 +61,6 @@ const AdminUpdatePassword = ({ onClose }) => {
         });
       }
     } catch (error) {
-      console.error("Error updating password:", error);
       alert("An error occurred while updating the password.");
     }
   };

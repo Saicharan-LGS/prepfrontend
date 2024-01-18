@@ -104,7 +104,6 @@ function Dispatch() {
     setModalOpen(false);
   };
   const setStatus = (status, id) => {
-    // console.log(status, "staus", id)
     if (status === "5") {
       return (
         <p className="admin-order-accepted-quantity-sub-category">

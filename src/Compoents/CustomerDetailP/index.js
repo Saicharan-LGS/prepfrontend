@@ -132,7 +132,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         setProducts(productsData.products);
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
       });
 
     // Fetch services
@@ -153,7 +152,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         setServices(servicesData.services);
       })
       .catch((error) => {
-        console.error("Error fetching services:", error);
       });
     fetchData();
   }, [orderId]);
@@ -222,10 +220,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
-        console.error("Error deleting file:", errorData);
       }
     } catch (error) {
-      console.error("Error deleting file:", error);
     }
   };
 

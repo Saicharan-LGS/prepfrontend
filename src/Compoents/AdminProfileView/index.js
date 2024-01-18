@@ -16,7 +16,6 @@ function AdminProfileView({ fetchProducts1 }) {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
   const fetchProducts = async () => {
-    console.log("admin clladedc fetcg")
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
@@ -28,7 +27,6 @@ function AdminProfileView({ fetchProducts1 }) {
       if (response.ok) {
         const data = await response.json();
         setUserDetails(data.staff);
-        console.log(data.staff,"data.staffdata.staff")
       } else {
         setUserDetails("");
       }
@@ -53,7 +51,6 @@ function AdminProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-  console.log(userDetatils.name, "userDetatilsuserDetatils");
 
   return (
     <>

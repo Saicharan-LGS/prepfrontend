@@ -57,7 +57,6 @@ export const ProductServiceList = () => {
       const data = await response.json();
       setProductServices(data.productServices);
     } catch (error) {
-      console.error("Error fetching product/services:", error.message);
       // Handle error or display a message to the user
     }
   };
@@ -97,10 +96,8 @@ export const ProductServiceList = () => {
             title: data.message,
           });
         });
-        console.error("Failed to update user status");
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   };
 
@@ -194,39 +191,7 @@ export const ProductServiceList = () => {
 
             </div>
           
-      {/* <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Date & Time</th>
-            <th>Status</th> 
-          </tr>
-        </thead>
-        <tbody>
-          {productServices.map((service) => (
-            <tr key={service.id}>
-              <td>{service.id}</td>
-              <td>{service.name}</td>
-              <td>{service.category}</td>
-              <td>{service.price}</td>
-              <td>{new Date(service.data_time).toLocaleString()}</td>
-              <td>
-                {console.log(service.status)}
-                <input
-                  type="checkbox"
-                  checked={service.status === 1 ? true : false}
-                  onChange={() =>
-                    handleToggle(service.id, service.status === 1)
-                  }
-                />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+  
     </div>
   );
 };

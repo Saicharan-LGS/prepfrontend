@@ -16,21 +16,15 @@ function Wallet({ totalAmount }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    console.log(products);
     const filtered = products.filter((product) => {
-      console.log(invoiceStatusFilter);
       const statusMatch = product.type === invoiceStatusFilter;
-      console.log(statusMatch);
       const productIdMatch =
         product.order_ids && product.order_ids.toString().includes(orderId);
-      console.log(productIdMatch);
       return productIdMatch && statusMatch;
-      // return statusMatch;
     });
 
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter]);
-  console.log(filteredProducts, "filtered");
 
   const fetchProducts = async () => {
     try {
@@ -67,7 +61,6 @@ function Wallet({ totalAmount }) {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  console.log(currentProducts, filteredProducts);
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`

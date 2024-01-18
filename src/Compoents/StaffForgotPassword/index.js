@@ -47,7 +47,6 @@ const StaffForgotPassword = () => {
       }
     } catch (error) {
       setShowLoader(false)
-      console.error("An error occurred while sending OTP", error);
     }
   };
   return (

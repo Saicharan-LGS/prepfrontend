@@ -16,8 +16,6 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
     });
   };
 
- 
-
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleSubmit = async (e) => {
@@ -51,9 +49,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
       });
       fetchProductServices();
       onClose();
-      
     } catch (error) {
-      console.error("Error adding product/service:", error.message);
       // Handle error or display a message to the user
     }
   };
@@ -76,15 +72,13 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
         }
 
         const data = await response.json();
-        
+
         setFormData({
           category: data.data.category,
           name: data.data.name,
           price: data.data.price,
         });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+      } catch (error) {}
     };
 
     fetchData();

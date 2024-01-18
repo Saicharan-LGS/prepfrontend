@@ -144,7 +144,6 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
           height: "inches",
           weight: "lb",
         });
-        console.log("fetchData1 callings ....");
         fetchData1();
       } else {
         response.json().then((data) => {

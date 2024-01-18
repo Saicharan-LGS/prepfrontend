@@ -5,7 +5,6 @@ const CustomerAddButton = (props) => {
 const [status, setStatus] = useState("");
 
   const handleSubmit = async (id, id1) => {
-    console.log("called submit", id1);
     const requestData = {
       admin: id1,
     };

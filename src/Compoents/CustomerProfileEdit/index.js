@@ -25,17 +25,14 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
       if (response.ok) {
         const customerData = await response.json();
-        console.log(customerData.customer);
         setName(customerData.customer.name);
         setSelectedCountry(customerData.customer.mobile_number.split(" ")[0]);
         setMobileNumber(customerData.customer.mobile_number.split(" ")[1]);
        setAddress(customerData.customer.Address);
       } else {
         // Handle non-OK response, e.g., unauthorized access
-        console.error("Error fetching customer data:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching customer data:", error);
     }
   };
   useEffect(() => {
@@ -47,7 +44,6 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   // Function to handle profile update
   const handleUpdateProfile = async () => {
     const formData = new FormData();
-    console.log(name, mobileNumber, address, profilePic);
     formData.append("name", name);
     const combinedMobile = `${selectedCountry} ${mobileNumber}`;
     formData.append("mobile_number", combinedMobile);formData.append("Address", address);
@@ -77,16 +73,13 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
         // You can add a success message or update the UI accordingly
       } else {
-        console.error("Error updating profile:", response.statusText);
         // Handle error and show appropriate message
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
       // Handle error and show appropriate message
     }
   };
 
-  console.log(mobileNumber, address);
 
   return (
     <>

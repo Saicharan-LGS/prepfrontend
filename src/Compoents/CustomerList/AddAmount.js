@@ -28,9 +28,7 @@ const AddAmountCustomer = ({ id,onClose }) => {
       alert("Amount added successfully");
       onClose();
       // Handle success, if needed
-      console.log("Amount added successfully");
     } catch (error) {
-      console.error("Error adding amount:", error.message);
     }
   };
 

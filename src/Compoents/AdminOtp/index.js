@@ -27,12 +27,10 @@ const AdminOtp = () => {
         title: data.message,
       });
     } catch (error) {
-      console.error("Error:", error);
     }
   };
   const handleVerifyClick = async (e) => {
     e.preventDefault();
-    console.log("called verify", otp, email);
     if(otp){
     try {
       const response = await fetch(`${FETCH_URL}staffcustomerotpverfiysend`, {
@@ -54,10 +52,8 @@ const AdminOtp = () => {
         });
         navigate("/AdminResetPassword");
       } else {
-        console.error("Failed to send data to the backend");
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   }
   };

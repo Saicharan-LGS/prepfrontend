@@ -57,7 +57,7 @@ function SideBar() {
     sessionStorage.removeItem("sname");
     sessionStorage.removeItem("prevStatus");
     sessionStorage.removeItem("status");
-    navigate("/login");
+    navigate("/stafflogin");
   };
 
   const handleMouseEnter=()=>{
@@ -69,7 +69,6 @@ function SideBar() {
   }
 
   const handleSidebarItemClick = async (id) => {
-    console.log(id,"id")
     setPrevStatus(status);
     await setStatus(id);
     setActiveTab(id)
@@ -94,7 +93,6 @@ function SideBar() {
     }
   };
 
-  console.log(status,activeTab,"kapil")
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>

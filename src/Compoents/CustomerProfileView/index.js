@@ -49,7 +49,6 @@ function CustomerProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-  console.log(userDetatils, "userDetatilsuserDetatils");
 
   return (
     <>

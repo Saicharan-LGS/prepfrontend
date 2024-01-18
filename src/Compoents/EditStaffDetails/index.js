@@ -3,10 +3,9 @@ import "./index.css";
 import Toast from "../utlis/toast";
 import { ImCancelCircle } from "react-icons/im";
 
-const EditStaffDetails = ({ staff,onClose}) => {
+const EditStaffDetails = ({ staff,onClose,fetchProducts}) => {
   const staffId = staff;
   const id = staffId.id
-  console.log(staffId,"kkkkkkkkkkkk")
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,7 +49,6 @@ const EditStaffDetails = ({ staff,onClose}) => {
         });
       })
       .catch((error) => {
-        console.error("Error:", error);
       });
   };
 
@@ -73,6 +71,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
         onClose()
         if (response.ok) {
           return response.json();
+          fetchProducts()
         } else {
           return response.json().then((data) => {
             throw new Error(data.message || "Failed to update staff details");
@@ -81,6 +80,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
       })
       .then((data) => {
         // Handle the response data
+        fetchProducts()
         Toast.fire({
           icon: "success",
           title: data.message,

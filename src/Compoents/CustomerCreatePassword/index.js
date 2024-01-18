@@ -64,7 +64,6 @@ const CreatePassword = () => {
         });
       }
     } catch (error) {
-      console.error("Error resetting password:", error);
     }
   };
  

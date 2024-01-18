@@ -90,7 +90,6 @@ function CustomerDimensionView({
       setDimensionList(data.dimensions);
       
     } catch (error) {
-      console.error("Error fetching data:", error);
     }
   };
   useEffect(() => {

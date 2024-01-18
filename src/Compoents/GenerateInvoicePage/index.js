@@ -63,7 +63,6 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
       fetchProducts()
      
     } catch (error) {
-      console.error("Error generating invoice:", error.message);
     }
   };
 
