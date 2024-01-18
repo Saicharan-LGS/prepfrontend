@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ImCancelCircle } from "react-icons/im";
-
-
+import { countriesCode } from "../Countries";
+import Toast from "../utlis/toast";
 function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const [name, setName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -9,7 +9,17 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const [profilePic, setProfilePic] = useState(null);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const token = sessionStorage.getItem("token");
+  const [selectedCountry, setSelectedCountry] = useState("");
 
+  const handleCountryChange = (e) => {
+    setSelectedCountry(e.target.value);
+  };
+
+  // const filterCountries = (searchTerm) => {
+  //   return countriesCode.filter((country) =>
+  //     country.name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  // };
   const fetchCustomerData = async () => {
     try {
       const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
@@ -23,7 +33,8 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         const customerData = await response.json();
         console.log(customerData.staff, "stafffff");
         setName(customerData.staff.name);
-        setMobileNumber(customerData.staff.mobile_number);
+        setSelectedCountry(customerData.staff.mobile_number.split(" ")[0]);
+        setMobileNumber(customerData.staff.mobile_number.split(" ")[1]);
         setAddress(customerData.staff.Address);
       } else {
         // Handle non-OK response, e.g., unauthorized access
@@ -38,13 +49,15 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
     fetchCustomerData();
   }, []);
+  console.log(selectedCountry, "selectedCountry");
 
   // Function to handle profile update
   const handleUpdateProfile = async () => {
     const formData = new FormData();
     console.log(name, mobileNumber, address, profilePic);
     formData.append("name", name);
-    formData.append("mobile_number", mobileNumber);
+    const combinedMobile = `${selectedCountry} ${mobileNumber}`;
+    formData.append("mobile_number", combinedMobile);
     formData.append("Address", address);
     if (profilePic) {
       formData.append("profile", profilePic);
@@ -55,13 +68,15 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
-          // Add other headers if needed
         },
         body: formData,
       });
 
       if (response.ok) {
-        console.log("Profile updated successfully");
+        Toast.fire({
+          icon: "success",
+          title:"Profile updated successfully",
+        });
         fetchCustomerData();
         onClose();
         fetchProducts();
@@ -78,7 +93,7 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
     }
   };
 
-  console.log(mobileNumber, address);
+  console.log(mobileNumber, address, mobileNumber);
 
   return (
     <>
@@ -109,15 +124,35 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
             />
           </div>
           <div className="customer-profile-edit-input-container">
-            <label className="customer-profile-edit-name">Mobile No</label>
-            <input
-              type="number"
-              name="number"
-              className="customer-profile-edit-input-field"
-              placeholder="Enter Mobile Number"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-            />
+            <div>
+              <label htmlFor="country">Mobile No</label>
+              <select
+                required
+                id="country"
+                value={selectedCountry}
+                onChange={handleCountryChange}
+              >
+                <option value="">Select a country</option>
+                {countriesCode.map((country) => (
+                  <option key={country.code} value={country.dial_code}>
+                    {country.code} ({country.dial_code})
+                  </option>
+                ))}
+              </select>
+              <input
+                type="number"
+                name="number"
+                className="customer-profile-edit-input-field"
+                placeholder="Enter Mobile Number"
+                value={mobileNumber}
+                onChange={(e) => {
+                  const inputNumber = e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+                  setMobileNumber(inputNumber);
+                }}
+              />
+            </div>
           </div>
           <div className="customer-profile-edit-input-container">
             <label className="customer-profile-edit-name">Address</label>

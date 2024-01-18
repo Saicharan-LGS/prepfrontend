@@ -159,9 +159,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   }, [orderId]);
 
   const handleBackClick = () => {
-    const prevStatus = localStorage.getItem("prevStatus");
+    const prevStatus = sessionStorage.getItem("prevStatus");
     setStatus(prevStatus);
-    localStorage.setItem("status", prevStatus);
+    sessionStorage.setItem("status", prevStatus);
   };
 
   const handleChange = (e) => {
@@ -334,7 +334,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           <IoArrowBackCircle className="order-customer-backward-icon" />
         </button>
         <center>
-          <h1 className="order-customer-main-heading">Customer Orders</h1>
+          <h1 className="order-customer-main-heading">Order In Detail</h1>
         </center>
         <form className="order-customer-from-container">
           <div className="order-customer-field1-container">

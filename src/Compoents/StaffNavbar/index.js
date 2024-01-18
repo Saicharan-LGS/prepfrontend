@@ -13,10 +13,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import Logo from "../../Images/logo123.png";
-import Navbar from "../Navbar";
 import "./index.css";
-import Cookies from "js-cookie";
 import { FaListAlt } from "react-icons/fa";
 import { IoIosNotifications } from "react-icons/io";
 
@@ -36,12 +33,23 @@ import StaffTopNavbar from "../StaffTopNavbar";
 
 function SideBar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [status, setStatus] = useState(1);
+  
   const [prevStatus, setPrevStatus] = useState(null);
   const [orderId, setOrderId] = useState("");
   const [activeTab, setActiveTab] = useState(1);
 
   const navigate = useNavigate();
+
+  const [status, setStatus] = useState(() => {
+    const storedStatus = sessionStorage.getItem("status");
+    if (storedStatus === "12") {
+      return sessionStorage.getItem("prevStatus");
+    } else if (storedStatus === "") {
+      return 9;
+    } else {
+      return parseInt(storedStatus);
+    }
+  });
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -69,8 +77,8 @@ function SideBar() {
 
   useEffect(() => {
     handleSidebarItemClick(status);
-    localStorage.setItem("status", status);
-    localStorage.setItem("prevStatus", prevStatus);
+    sessionStorage.setItem("status", status);
+    sessionStorage.setItem("prevStatus", prevStatus);
   }, [status]);
 
   const openDetailPageComponent = (id) => {

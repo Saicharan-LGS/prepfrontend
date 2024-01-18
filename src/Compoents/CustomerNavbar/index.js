@@ -14,7 +14,6 @@ import TransactionSummary from "./Amount.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import { IoMdLogOut } from "react-icons/io";
 import Wallet from "../Wallet/index,.js";
-import { CgProfile } from "react-icons/cg";
 import Popup from "reactjs-popup";
 import CustomerProfileView from "../CustomerProfileView/index.js";
 
@@ -22,9 +21,18 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [sidebar, setSidebar] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [userDetatils, setUserDetails] = useState([]);
-  const [status, setStatus] = useState(9);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [status, setStatus] = useState(() => {
+    const storedStatus = sessionStorage.getItem("status");
+    if (storedStatus === "10") {
+      return 8;
+    } else if (storedStatus === "") {
+      return 9;
+    } else {
+      return parseInt(storedStatus);
+    }
+  });
 
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
@@ -36,18 +44,17 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   useEffect(() => {
     fetchTotalAmount();
     handleSidebarItemClick(status);
-    localStorage.setItem("status", status);
-    localStorage.setItem("prevStatus", prevStatus);
+    sessionStorage.setItem("status", status);
+    sessionStorage.setItem("prevStatus", prevStatus);
   }, [status]);
 
   const navigate = useNavigate();
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
-    localStorage.removeItem("role");
     sessionStorage.removeItem("sname");
-    localStorage.removeItem("prevStatus");
-    localStorage.removeItem("status");
+    sessionStorage.removeItem("prevStatus");
+    sessionStorage.removeItem("status");
     navigate("/");
   };
 
@@ -57,8 +64,8 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const openDetailPage = (id) => {
     if (id) {
       setPrevStatus(status);
-      localStorage.setItem("prevStatus", status);
-      localStorage.setItem("status", 10);
+      sessionStorage.setItem("prevStatus", status);
+      sessionStorage.setItem("status", 10);
       setStatus(10);
       setOrderId(id);
       // navigate(`/CustomerOrderViewDetail/${id}`);
@@ -76,7 +83,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
       const response = await fetch(`${FETCH_URL}getspecificcustomerdetails`, {
         method: "GET",
         headers: {
-          Authorization: ` Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }); // Replace with your API endpoint
       if (response.ok) {
@@ -95,7 +102,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-container">
-      {/* <IconContext.Provider value={{ color: "#000" }}> */}
       <div className={`navbar ${sidebar ? "shifted" : ""}`}>
         <Link to="#" className={activeToggle}>
           <FaIcons.FaBars onClick={showSidebar} />
@@ -126,7 +132,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
               fetchProducts1={fetchProducts}
             />
           </Popup>
-          {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>

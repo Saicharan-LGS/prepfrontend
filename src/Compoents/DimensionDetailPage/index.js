@@ -425,7 +425,6 @@ function DimensionNewDetailPage() {
                     value={service.id}
                     readOnly
                     checked={selectedServices.includes(service.id)}
-                    onChange={(e) => handleServiceSelection(e, service.id)}
                     className="order-customer-input-checkbox"
                   />
                   <label
@@ -557,9 +556,7 @@ function DimensionNewDetailPage() {
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
                     value={getQuantityById(product.id)}
-                    onChange={(e) =>
-                      handleQuantityChange(product.id, e.target.value)
-                    }
+                   readOnly
                     placeholder="Enter Quantity"
                     className="order-customer-service-input"
                   />

@@ -157,7 +157,7 @@ function Wallet({ totalAmount }) {
             </div>
           </>
         ) : (
-          <h4>No Data</h4>
+          <h4>No Transactions</h4>
         )}
       </div>
     </div>
