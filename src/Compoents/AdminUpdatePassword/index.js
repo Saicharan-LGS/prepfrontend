@@ -68,6 +68,8 @@ const AdminUpdatePassword = ({ onClose }) => {
 
   return (
     <>
+    <div style={{display:"flex",justifyContent:"space-between"}}>
+    <h2 className="customer-update-password-heading">Password Update</h2>
       <ImCancelCircle
         onClick={onClose}
         style={{
@@ -76,10 +78,12 @@ const AdminUpdatePassword = ({ onClose }) => {
           cursor: "pointer",
           marginBottom: "10px",
         }}
+        
       />
+      </div>
       <div className="customer-update-password-main-container">
         <form className="customer-update-password-form-container">
-          <h2 className="customer-update-password-heading">Password Update</h2>
+          
           <div className="customer-update-password-input-container">
             <label
               htmlFor="oldPassword"

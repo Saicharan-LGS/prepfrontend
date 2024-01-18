@@ -103,7 +103,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-            <div className="admin-order-accepted-category-types">
+            <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
               {/* <p className="admin-order-accepted-order-id-category">Order Id</p> */}
               <p className="customer-list-table-row">
                 Customer Name

@@ -61,54 +61,60 @@ function AdminProfileView({ fetchProducts1 }) {
       <div className="customer-profile-view-main-container">
         <div className="customer-profile-view-sub-container">
           <div className="customer-profile-view-top-container">
-            <button
-              className="customer-profile-view-edit-button"
-              onClick={handleEdit}
-            >
-              Edit
-            </button>
             {/* <button className="logout-button">Logout</button> */}
-          </div>
-          <div className="customer-profile-view-details-display-flex">
-            <div className="customer-profile-view-profile-image-container">
-              <img
-                src={`${REACT_APP_PDF_URL}${
-                  userDetatils && userDetatils.profile
-                }`}
-                alt=""
-                className="customer-profile-view-profile-image"
-              />
-              {/* <input type="file" className="customer-profile-view-file-upload"/> */}
-            </div>
-            <div>
-              <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.name}
-                </p>
+
+            <div className="customer-profile-view-details-display-flex">
+              <div className="customer-profile-view-profile-image-container">
+                <img
+                  src={`${REACT_APP_PDF_URL}${
+                    userDetatils && userDetatils.profile
+                  }`}
+                  alt=""
+                  className="customer-profile-view-profile-image"
+                />
+                {/* <input type="file" className="customer-profile-view-file-upload"/> */}
               </div>
-              <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.email}
-                </p>
-              </div>
-              <div className="customer-profile-view-detail-container">
+              <div>
+                <div className="customer-profile-view-detail-container">
+                  <p className="customer-profile-view-detail-container-name">
+                    {userDetatils && userDetatils.name}
+                  </p>
+                </div>
+                <div className="customer-profile-view-detail-container">
+                  <p className="customer-profile-view-detail-container-name">
+                    {userDetatils && userDetatils.email}
+                  </p>
+                </div>
+                <div className="customer-profile-view-detail-container">
+                  <p
+                    className="customer-profile-view-update-password"
+                    onClick={handlePassword}
+                  >
+                    Update Password
+                  </p>
+                </div>
+                {/* <div className="customer-profile-view-detail-container">
                 <p className="customer-profile-view-detail-container-name">
                   {userDetatils && userDetatils.mobile_number}
                 </p>
-              </div>
-              {/* <div className="customer-profile-view-detail-container">
+              </div> */}
+                {/* <div className="customer-profile-view-detail-container">
                 <p className="customer-profile-view-detail-container-name">
                   {userDetatils && userDetatils.Address}
                 </p>
               </div> */}
+              </div>
+              
             </div>
+            <div>
+            <button
+                className="customer-profile-view-edit-button"
+                onClick={handleEdit}
+              >
+                Edit
+              </button>
+              </div>
           </div>
-          <p
-            className="customer-profile-view-update-password"
-            onClick={handlePassword}
-          >
-            Update Password
-          </p>
         </div>
       </div>
       <Modal
@@ -122,7 +128,7 @@ function AdminProfileView({ fetchProducts1 }) {
             width: "300px",
             top: "50%",
             left: "50%",
-            height: "450px",
+            
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",
