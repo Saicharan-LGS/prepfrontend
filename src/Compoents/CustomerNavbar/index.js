@@ -23,7 +23,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
   const [userDetatils, setUserDetails] = useState([]);
   const [status, setStatus] = useState(() => {
     const storedStatus = sessionStorage.getItem("status");
-  
     if (storedStatus === "10") {
       return 8;
     } else if (storedStatus === "") {
@@ -31,7 +30,9 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
     } else {
       return parseInt(storedStatus);
     }
-  });  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  });
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [prevStatus, setPrevStatus] = useState(null);
   const showSidebar = () => setSidebar(!sidebar);
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
@@ -131,7 +132,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
               fetchProducts1={fetchProducts}
             />
           </Popup>
-          {/* <p className="customer-navbar-nav-item-name">{role}</p> */}
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>

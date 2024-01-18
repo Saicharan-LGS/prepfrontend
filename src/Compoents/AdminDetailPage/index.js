@@ -358,9 +358,9 @@ function OrderViewDetail({ orderId, setStatus }) {
   };
 
   const handleBackClick = () => {
-    const prevStatus = localStorage.getItem("prevStatus");
+    const prevStatus = sessionStorage.getItem("prevStatus");
     setStatus(prevStatus);
-    localStorage.setItem("status", prevStatus);
+    sessionStorage.setItem("status", prevStatus);
   };
 
   const handleDimensionUpdate = () => {

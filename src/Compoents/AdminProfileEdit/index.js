@@ -135,7 +135,7 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
                 <option value="">Select a country</option>
                 {countriesCode.map((country) => (
                   <option key={country.code} value={country.dial_code}>
-                    {country.name} ({country.dial_code})
+                    {country.code} ({country.dial_code})
                   </option>
                 ))}
               </select>

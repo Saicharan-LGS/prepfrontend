@@ -1,15 +1,10 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { BsFillBoxSeamFill, BsXOctagonFill } from "react-icons/bs";
-
-
 import { IoLogOut,  } from "react-icons/io5";
 import {  RiVerifiedBadgeFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import Logo from "../../Images/logo123.png";
-
-
 
 import { FaIcons } from "react-icons/fa";
 import { IoWalletSharp } from "react-icons/io5";
@@ -21,13 +16,21 @@ import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import { ImUpload } from "react-icons/im";
-import StaffTopNavbar from "../StaffTopNavbar/index.js";
 import Wallet from "../Wallet/index,.js";
 import CustomerTopNavbar from "../CustomerTopBar/index.js";
 
 function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [status, setStatus] = useState(9);
+  const [status, setStatus] = useState(() => {
+    const storedStatus = sessionStorage.getItem("status");
+    if (storedStatus === "10") {
+      return 8;
+    } else if (storedStatus === "") {
+      return 9;
+    } else {
+      return parseInt(storedStatus);
+    }
+  });
   const [prevStatus, setPrevStatus] = useState(null);
   const [orderId, setOrderId] = useState("");
   const navigate = useNavigate();
@@ -57,8 +60,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   useEffect(() => {
     fetchTotalAmount();
     handleSidebarItemClick(status);
-    localStorage.setItem("status", status);
-    localStorage.setItem("prevStatus", prevStatus);
+    sessionStorage.setItem("status", status);
+    sessionStorage.setItem("prevStatus", prevStatus);
   }, [status]);
 
 
