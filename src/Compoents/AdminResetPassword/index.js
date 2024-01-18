@@ -66,7 +66,6 @@ const AdminResetPassword = () => {
     <div className="update-password-main-container">
     <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""

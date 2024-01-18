@@ -130,7 +130,6 @@ const Customersignup2 = () => {
       
       <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""
@@ -213,12 +212,7 @@ const Customersignup2 = () => {
               disabled={showLoader}
             />
             </center>
-            {/* <button
-              className="customer-signin-form-button-container"
-              type="submit"
-            >
-              Sign Up
-            </button> */}
+           
             <center>
             <Link to="/" style={{ textDecoration: 'none' }}>
               <p style={{fontSize:"17px",color:"#212d45",fontWeight:"600"}}><span style={{color:"#b3b3b3",fontSize:"14px",fontWeight:"500"}}>Do you have account Already?</span> Login</p>

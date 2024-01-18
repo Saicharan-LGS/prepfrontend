@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
 import CustomerProfileView from "../CustomerProfileView";
-function CustomerTopNavbar() {
+import TransactionSummary from "../CustomerNavbar/Amount";
+function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
   const [userDetatils, setUserDetails] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -17,6 +18,7 @@ function CustomerTopNavbar() {
     navigate("/");
   };
 
+  console.log(totalAmount, "totalAmount");
   const handleCloseClick = () => {
     setIsPopupOpen(false);
   };
@@ -53,13 +55,13 @@ function CustomerTopNavbar() {
     fetchProducts();
   }, []);
 
-
   return (
     <div className="navbar-main-container">
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
+          <TransactionSummary totalAmount={totalAmount} />
           <p className="navbar-nav-item-name">{name}</p>
-          <p className="navbar-nav-item-name">{role}</p>
+
           <Popup
             closeOnDocumentClick={false}
             open={isPopupOpen}

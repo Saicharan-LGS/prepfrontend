@@ -122,14 +122,7 @@ const StaffSigninPage = () => {
           />
         </div>
         <div className="signin-form-main-container">
-          {/* <div className="signin-staff-customer-button-container">
-            <button className={activeStaffButton} onClick={onClickStaff}>
-              Staff Signin
-            </button>
-            <button className={activeCustomerButton} onClick={onClickCustomer}>
-              Customer Signin
-            </button>
-          </div> */}
+          
                 <img className='logo-image-axxpress' src={axxpress} alt=''/>
 
           
@@ -170,7 +163,6 @@ const StaffSigninPage = () => {
                     Sign In
                   </button>
                   {error && <p className="error-message">{error}</p>}{" "}
-                  {/* Display error message */}
                 </center>
                 <Link
                     to="/StaffForgotPassword"

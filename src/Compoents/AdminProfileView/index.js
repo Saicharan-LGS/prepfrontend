@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-
 import "./index.css";
-import { ImCancelCircle } from "react-icons/im";
 import { Box, Modal } from "@mui/material";
-import CustomerProfileEdit from "../CustomerProfileEdit";
-import CustomerUpdatePassword from "../CustomerUpdatePassword";
 import AdminUpdatePassword from "../AdminUpdatePassword";
 import AdminProfileEdit from "../AdminProfileEdit";
 
@@ -90,18 +86,7 @@ function AdminProfileView({ fetchProducts1 }) {
                     Update Password
                   </p>
                 </div>
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.mobile_number}
-                </p>
-              </div> */}
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.Address}
-                </p>
-              </div> */}
               </div>
-              
             </div>
             <div>
             <button

@@ -72,7 +72,6 @@ const CustomerLogin = () => {
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
 
-            // navigate("/customernavbar"); // Navigate to the home page on successful login
             setTimeout(() => {
               navigate("/customernavbar");
             }, 100);
@@ -104,19 +103,13 @@ const CustomerLogin = () => {
     <div className="customer-signin-div-container">
       <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""
         />
       </div>
       <div className="signin-form-main-container">
-        {/* <div className="customer-staff-customer-button-container">
-          <button className="customer-staff-button" onClick={onClickStaff}>
-            Staff Signin
-          </button>
-          <button className="customer-customer-button">Customer Signin</button>
-        </div> */}
+       
         <img className="logo-image-axxpress" src={axxpress} alt="" />
 
         <center>

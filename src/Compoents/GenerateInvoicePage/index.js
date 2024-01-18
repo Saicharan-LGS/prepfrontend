@@ -135,19 +135,5 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   );
   
 }
-// const GenerateInvoicePage = ({data,onClose,fetchProducts}) => {
-//   const contentRef = useRef();
-
-//   const handlePrint = useReactToPrint({
-//     content: () => contentRef.current,
-//   });
-
-//   return (
-//     <div>
-//       <Download contentRef={contentRef} data={data} onClose={onClose} fetchProducts={fetchProducts} />
-//       <button onClick={handlePrint}>Download PDF</button>
-//     </div>
-//   );
-// };
 
 export default GenerateInvoicePage;

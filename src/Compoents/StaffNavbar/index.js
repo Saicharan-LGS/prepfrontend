@@ -88,7 +88,6 @@ function SideBar() {
       setOrderId(id);
       setActiveTab(id)
   
-      // navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
     }
   };
@@ -217,11 +216,7 @@ function SideBar() {
           </MenuItem>
         </Menu>
         <div>
-          {/* <img
-            src={Logo}
-            alt="OrganizeWise Logo"
-            className="organizeWise-logo"
-          /> */}
+          
         </div>
       </Sidebar>
       <div

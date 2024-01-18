@@ -408,45 +408,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 </div>
               ))}
             </div>
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Length</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={length}
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Width</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={width}
-                readOnly
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Height</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={height}
-                readOnly
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Weight</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={weight}
-                readOnly
-              />
-            </div> */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">

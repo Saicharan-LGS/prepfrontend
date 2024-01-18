@@ -212,13 +212,7 @@ function Dispatch() {
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      {/* <p className="admin-order-accepted-fnsku-sub-category">
-                        {eachProduct.amount}
-                      </p>
- 
-                       */}
+                      
                     </div>
                   );
                 })}

@@ -1,5 +1,5 @@
 import Toast from "../utlis/toast";
-import React from 'react'
+import React from "react";
 import ReceivedQuantity from "../ReceivedQuantity";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -44,13 +44,11 @@ const DisplayAdminButton = (props) => {
 
   const onClickReceived = (e) => {
     setModalOpen(true);
-    const status = "2"; // Set the status here
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
 
   return (
     <>
@@ -87,10 +85,10 @@ const DisplayAdminButton = (props) => {
           }}
         >
           <ReceivedQuantity
-          fetchProducts={props.fetchProducts}
+            fetchProducts={props.fetchProducts}
             onClose={handleCloseModal}
             orderId={props.id}
-            unit = {props.unit}
+            unit={props.unit}
           />
         </Box>
       </Modal>
@@ -99,7 +97,3 @@ const DisplayAdminButton = (props) => {
 };
 
 export default DisplayAdminButton;
-
-
-
-

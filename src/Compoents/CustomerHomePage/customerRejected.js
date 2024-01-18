@@ -89,10 +89,7 @@ function CustomerRejected({ openDetailPage }) {
     fetchProducts();
   }, []);
 
-  // const refreshpage=()=>{
-  //   window.location.reload()
-  // }
-
+ 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -144,14 +141,7 @@ function CustomerRejected({ openDetailPage }) {
               <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-              {/* <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
-              </p>
-
-              
-              <p className="admin-order-accepted-fnsku-category">Amount</p>
-
-              */}
+             
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -177,13 +167,7 @@ function CustomerRejected({ openDetailPage }) {
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={()=>handleView(eachProduct)}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      {/* <p className="admin-order-accepted-fnsku-sub-category">
-                        {eachProduct.amount}
-                      </p>
-
-                       */}
+                      
                     </div>
                   );
                 })}

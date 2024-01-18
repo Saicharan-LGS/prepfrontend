@@ -137,30 +137,7 @@ const Customersignup = () => {
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          {/* <div className="customer-signin-form-group-container">
-            <label className="customer-singnin-form-lable-container">
-              Password:
-            </label>
-            <input
-              type="password"
-              name="password"
-              className="customer-signin-input-container"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
-            )}
-          </div>
-          {backendError && <p className="error-message">{backendError}</p>} */}
-          
-            {/* <button
-              className="customer-signin-form-button-container"
-              type="submit"
-            >
-              Sign Up
-
-            </button> */}
+         
             <div className="customer-signin-form-group-container">
             <Button
               text="Register"

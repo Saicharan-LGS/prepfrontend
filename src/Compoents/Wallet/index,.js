@@ -5,22 +5,26 @@ import {
   BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
 
-function Wallet({ totalAmount }) {
+function Wallet() {
   const [products, setProducts] = useState([]);
   const [productsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("credit");
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("all");
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     const filtered = products.filter((product) => {
-      const statusMatch = product.type === invoiceStatusFilter;
-      const productIdMatch =
-        product.order_ids && product.order_ids.toString().includes(orderId);
-      return productIdMatch && statusMatch;
+      if (invoiceStatusFilter === "all") {
+        return products;
+      } else {
+        const statusMatch = product.type === invoiceStatusFilter;
+        const productIdMatch =
+          statusMatch && statusMatch.toString().includes(orderId);
+        return productIdMatch || statusMatch;
+      }
     });
 
     setFilteredProducts(filtered);
@@ -95,12 +99,17 @@ function Wallet({ totalAmount }) {
           onChange={(e) => setInvoiceStatusFilter(e.target.value)}
           className="admin-order-accepted-search-filter-input"
         >
+          <option value="all">All</option>
+
           <option value="debit">Debited</option>
           <option value="credit">Credited</option>
         </select>
       </div>
       <div className="admin-order-accepted-table-container">
-        <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
+        <div
+          className="admin-order-accepted-category-types"
+          style={{ fontWeight: "600" }}
+        >
           <p className="customer-list-table-row">Transaction Id</p>
           <p className="customer-list-table-row">Order IDs</p>
           <p className="customer-list-table-row">Amount</p>
@@ -117,7 +126,8 @@ function Wallet({ totalAmount }) {
               >
                 <p className="customer-list-table-row">{eachProduct.id}</p>
                 <p className="customer-list-table-row">
-                  {JSON.parse(eachProduct.order_ids).join(", ")}
+                  {eachProduct.order_ids &&
+                    JSON.parse(eachProduct.order_ids).join(", ")}
                 </p>
                 <p className="customer-list-table-row">{eachProduct.amount}</p>
 

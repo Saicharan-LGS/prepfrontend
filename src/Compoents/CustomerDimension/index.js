@@ -10,29 +10,11 @@ function CustomerDimension({ dimensionData, index }) {
                 {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
               </label>
               <div className="dimension-detail-select-container">
-                {/* <input
-                  className="dimensions-details-input"
-                  type="text"
-                  name={dimension}
-                  value={dimensions[dimension]}
-                  onChange={handleInputChange}
-                  readOnly
-                /> */}
+               
                 <p className="customer-dimension-length">
                   {dimensionData.length}
                 </p>
-                {/* <select
-                  className="dimensions-details-select"
-                  value={selectedUnits[dimension]}
-                  onChange={(e) => handleUnitChange(e, dimension)}
-                  readOnly
-                >
-                  {unitOptions[dimension].map((unit) => (
-                    <option key={unit} value={unit} readOnly>
-                      {unit}
-                    </option>
-                  ))}
-                </select> */}
+                
               </div>
             </div>
           ))}
@@ -59,11 +41,7 @@ function CustomerDimension({ dimensionData, index }) {
           </div>
         </div>
 
-        {/* <center>
-          <button className="dimensions-details-button" type="submit">
-            Update
-          </button>
-        </center> */}
+        
       </form>
     </div>
   );

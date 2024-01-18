@@ -242,9 +242,6 @@ function ViewAllOrders({ openDetailPageComponent }) {
                       >
                         {statusLabels[eachProduct.status] || "Unknown Status"}
                       </p>
-                      {/* <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.amount}
-                      </p> */}
                       <div className="admin-order-accepted-fnsku-sub-category">
                         <input
                           type="checkbox"

@@ -14,12 +14,6 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
   };
-
-  // const filterCountries = (searchTerm) => {
-  //   return countriesCode.filter((country) =>
-  //     country.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  // };
   const fetchCustomerData = async () => {
     try {
       const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
