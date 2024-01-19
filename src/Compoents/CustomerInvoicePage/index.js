@@ -107,7 +107,6 @@ function CustomerInvoicePage({onClose,selectedOrders,totalAmount,discount,discou
       <p className="generate-invoice-total-amount-text" style={{fontWeight:700,color:"#212d45",fontSize:"20px"}}>{discountedAmount}</p>
       </div>
       
-      {/* <button onClick={generateInvoice}>Generate Invoice</button> */}
       </div>
       </div>
       

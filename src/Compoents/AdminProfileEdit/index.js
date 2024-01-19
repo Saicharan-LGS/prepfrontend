@@ -14,12 +14,6 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
   };
-
-  // const filterCountries = (searchTerm) => {
-  //   return countriesCode.filter((country) =>
-  //     country.name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  // };
   const fetchCustomerData = async () => {
     try {
       const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
@@ -31,17 +25,13 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
       if (response.ok) {
         const customerData = await response.json();
-        console.log(customerData.staff, "stafffff");
         setName(customerData.staff.name);
         setSelectedCountry(customerData.staff.mobile_number.split(" ")[0]);
         setMobileNumber(customerData.staff.mobile_number.split(" ")[1]);
         setAddress(customerData.staff.Address);
       } else {
-        // Handle non-OK response, e.g., unauthorized access
-        console.error("Error fetching customer data:", response.statusText);
       }
     } catch (error) {
-      console.error("Error fetching customer data:", error);
     }
   };
   useEffect(() => {
@@ -49,12 +39,10 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
     fetchCustomerData();
   }, []);
-  console.log(selectedCountry, "selectedCountry");
 
   // Function to handle profile update
   const handleUpdateProfile = async () => {
     const formData = new FormData();
-    console.log(name, mobileNumber, address, profilePic);
     formData.append("name", name);
     const combinedMobile = `${selectedCountry} ${mobileNumber}`;
     formData.append("mobile_number", combinedMobile);
@@ -84,16 +72,13 @@ function AdminProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
 
         // You can add a success message or update the UI accordingly
       } else {
-        console.error("Error updating profile:", response.statusText);
         // Handle error and show appropriate message
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
       // Handle error and show appropriate message
     }
   };
 
-  console.log(mobileNumber, address, mobileNumber);
 
   return (
     <>

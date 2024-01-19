@@ -57,7 +57,7 @@ function SideBar() {
     sessionStorage.removeItem("sname");
     sessionStorage.removeItem("prevStatus");
     sessionStorage.removeItem("status");
-    navigate("/login");
+    navigate("/stafflogin");
   };
 
   const handleMouseEnter=()=>{
@@ -69,7 +69,6 @@ function SideBar() {
   }
 
   const handleSidebarItemClick = async (id) => {
-    console.log(id,"id")
     setPrevStatus(status);
     await setStatus(id);
     setActiveTab(id)
@@ -89,12 +88,10 @@ function SideBar() {
       setOrderId(id);
       setActiveTab(id)
   
-      // navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
     }
   };
 
-  console.log(status,activeTab,"kapil")
 
   return (
     <div style={{ display: "flex", minHeight: "120vh" }}>
@@ -219,11 +216,7 @@ function SideBar() {
           </MenuItem>
         </Menu>
         <div>
-          {/* <img
-            src={Logo}
-            alt="OrganizeWise Logo"
-            className="organizeWise-logo"
-          /> */}
+          
         </div>
       </Sidebar>
       <div

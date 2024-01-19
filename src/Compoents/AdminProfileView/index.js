@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-
 import "./index.css";
-import { ImCancelCircle } from "react-icons/im";
 import { Box, Modal } from "@mui/material";
-import CustomerProfileEdit from "../CustomerProfileEdit";
-import CustomerUpdatePassword from "../CustomerUpdatePassword";
 import AdminUpdatePassword from "../AdminUpdatePassword";
 import AdminProfileEdit from "../AdminProfileEdit";
 
@@ -16,7 +12,6 @@ function AdminProfileView({ fetchProducts1 }) {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
   const fetchProducts = async () => {
-    console.log("admin clladedc fetcg")
     try {
       const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}getSpecificStaffDetails`, {
@@ -28,7 +23,6 @@ function AdminProfileView({ fetchProducts1 }) {
       if (response.ok) {
         const data = await response.json();
         setUserDetails(data.staff);
-        console.log(data.staff,"data.staffdata.staff")
       } else {
         setUserDetails("");
       }
@@ -53,7 +47,6 @@ function AdminProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-  console.log(userDetatils.name, "userDetatilsuserDetatils");
 
   return (
     <>
@@ -93,18 +86,7 @@ function AdminProfileView({ fetchProducts1 }) {
                     Update Password
                   </p>
                 </div>
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.mobile_number}
-                </p>
-              </div> */}
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.Address}
-                </p>
-              </div> */}
               </div>
-              
             </div>
             <div>
             <button

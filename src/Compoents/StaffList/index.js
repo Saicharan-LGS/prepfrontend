@@ -52,10 +52,8 @@ function StaffList() {
             title: data.message,
           });
         });
-        console.error("Failed to update user status");
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   };
 
@@ -123,14 +121,11 @@ function StaffList() {
       : `pagination-arrow-container`;
 
   const handleEdit=(staffData)=>{
-    console.log(staffData,"staffDatastaffData")
     setSelectedStaff(staffData)
     setIsModelOpen(true)
   }
 
   const handleCloseModal = () => {
-    
-    
     setIsModelOpen(false);
   };
 
@@ -244,12 +239,8 @@ function StaffList() {
             p: 3,
           }}
         >
-          {/* <DimensionUpdatePage
-                updateId={updateId}
-                onClose={handleCloseModal}
-                fetchProducts={fetchProducts}
-              /> */}
-          <EditStaffDetails onClose={handleCloseModal} staff = {selectedStaff} />
+          
+          <EditStaffDetails fetchProducts={fetchProducts} onClose={handleCloseModal} staff = {selectedStaff} />
         </Box>
       </Modal>
     </>

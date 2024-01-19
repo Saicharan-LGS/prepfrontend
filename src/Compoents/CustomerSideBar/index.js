@@ -1,7 +1,7 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { BsFillBoxSeamFill, BsXOctagonFill } from "react-icons/bs";
-import { IoLogOut,  } from "react-icons/io5";
-import {  RiVerifiedBadgeFill } from "react-icons/ri";
+import { IoLogOut } from "react-icons/io5";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,16 +45,16 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
     navigate("/");
   };
 
-  const handleMouseEnter=()=>{
-    setIsCollapsed(false)
-  }
+  const handleMouseEnter = () => {
+    setIsCollapsed(false);
+  };
 
-  const handleMouseLeave=()=>{
-    setIsCollapsed(true)
-  }
+  const handleMouseLeave = () => {
+    setIsCollapsed(true);
+  };
 
   const handleSidebarItemClick = async (id) => {
-    setPrevStatus(status);;
+    setPrevStatus(status);
     await setStatus(id);
   };
 
@@ -64,7 +64,6 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
     sessionStorage.setItem("status", status);
     sessionStorage.setItem("prevStatus", prevStatus);
   }, [status]);
-
 
   const openDetailPage = (id) => {
     if (id) {
@@ -102,70 +101,89 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           }}
         >
           <div className="hamburger-icon">
-            <GiHamburgerMenu style={{color:"#212d45"}} onMouseEnter={handleMouseEnter}
-             onClick={() => setIsCollapsed(!isCollapsed)} />
+            <GiHamburgerMenu
+              style={{ color: "#212d45" }}
+              onMouseEnter={handleMouseEnter}
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            />
           </div>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<ImUpload fontSize="20px" />}
             onClick={() => handleSidebarItemClick(9)}
-            style={status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Post Order
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<FaClipboardList  fontSize="24px" />}
             onClick={() => setStatus(8)}
-            style={status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Orders
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<BsFillBoxSeamFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(5)}
-            style={status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
-           Invoice Pending
+            Invoice Pending
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<RiVerifiedBadgeFill fontSize="24px" />}
             onClick={() => handleSidebarItemClick(6)}
-            style={status ===6 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 6 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Invoice Accepted
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<BsXOctagonFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(7)}
-            style={status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Invoice Rejected
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<IoWalletSharp fontSize="20px" />}
             onClick={() => handleSidebarItemClick(4)}
-            style={status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Wallet
           </MenuItem>
-          
-          <MenuItem onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave} icon={<IoLogOut fontSize="24px" />} onClick={handleLogout}>
+
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            icon={<IoLogOut fontSize="24px" />}
+            onClick={handleLogout}
+          >
             Logout
           </MenuItem>
         </Menu>
-        <div>
-          {/* <img
-            src={Logo}
-            alt="OrganizeWise Logo"
-            className="organizeWise-logo"
-          /> */}
-        </div>
+        <div></div>
       </Sidebar>
       <div
         style={{
@@ -176,11 +194,13 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           height:"100vh",
           overflow:"scroll"
         }}
-      > 
+      >
+        <CustomerTopNavbar
+          totalAmount={totalAmount}
+          fetchTotalAmount={fetchTotalAmount}
+        />
 
-      <CustomerTopNavbar/>
-        
-      {parseInt(status) === 5 ? (
+        {parseInt(status) === 5 ? (
           <CustomerHomePage
             fetchTotalAmount={fetchTotalAmount}
             openDetailPage={openDetailPage}
@@ -202,14 +222,9 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
         ) : (
           <CustomerOrder />
         )}
-
-       
       </div>
     </div>
   );
 }
 
 export default CustomerSideBar;
-
-
-

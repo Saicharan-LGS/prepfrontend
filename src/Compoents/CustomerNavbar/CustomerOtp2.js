@@ -29,15 +29,11 @@ const CustomerOtpVerification2 = () => {
         title: data.message,
       });
     } catch (error) {
-      console.error("Error:", error);
     }
   };
   const handleVerifyClick = async (e) => {
     e.preventDefault();
-    console.log("called verify", otp, email);
     if(otp){
-
-    
     try {
       const response = await fetch(`${FETCH_URL}customerotpverfiysend`, {
         method: "POST",
@@ -49,19 +45,21 @@ const CustomerOtpVerification2 = () => {
           otp: parseInt(otp),
         }),
       });
+      const data = await response.json();
 
       if (response.ok) {
-        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
         });
         navigate("/CustomerResetPasswordUpdate");
       } else {
-        console.error("Failed to send data to the backend");
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   }
   };
@@ -71,7 +69,6 @@ const CustomerOtpVerification2 = () => {
     <div className="otp-input-form-container">
     <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""
@@ -109,36 +106,3 @@ const CustomerOtpVerification2 = () => {
 };
 
 export default CustomerOtpVerification2;
-
-// import React, { useState } from "react";
-// import "./CustomerOtp.css";
-// import OtpInput from "react-otp-input";
-
-// function CustomerOtpVerification() {
-//   const [otp, setOtp] = useState("");
-
-//   console.log(otp);
-
-//   return (
-//     <div className="otp-input-form-container">
-//       <p>{otp}</p>
-//       <div className="otp-input-sub-container">
-//         <div className="otp-input-display-container">
-//           <h1 className="enter-your-otp-heading">Enter Your OTP</h1>
-//           <OtpInput
-//             value={otp}
-//             onChange={setOtp}
-//             numInputs={4}
-//             renderSeparator={<span></span>}
-//             shouldAutoFocus={true}
-//             renderInput={(props) => <input {...props} />}
-//             inputStyle="otp-input-field"
-//           />
-//           <button className="verify-otp-button">Verify OTP</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default CustomerOtpVerification;

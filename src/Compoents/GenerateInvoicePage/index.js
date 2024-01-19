@@ -26,6 +26,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
     setDiscountAmount(totalAmount)
   },[])
 
+  console.log(data, "saicharan data")
   
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -47,7 +48,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          customer_id: data[0].customer_id, // Replace with the actual customer ID
+          customer_id: data[0].customer_id,
           orders: JSON.stringify(orderIds),
           discount: discount,
           totalamount: totalAmount,
@@ -63,7 +64,6 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
       fetchProducts()
      
     } catch (error) {
-      console.error("Error generating invoice:", error.message);
     }
   };
 
@@ -136,19 +136,5 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
   );
   
 }
-// const GenerateInvoicePage = ({data,onClose,fetchProducts}) => {
-//   const contentRef = useRef();
-
-//   const handlePrint = useReactToPrint({
-//     content: () => contentRef.current,
-//   });
-
-//   return (
-//     <div>
-//       <Download contentRef={contentRef} data={data} onClose={onClose} fetchProducts={fetchProducts} />
-//       <button onClick={handlePrint}>Download PDF</button>
-//     </div>
-//   );
-// };
 
 export default GenerateInvoicePage;

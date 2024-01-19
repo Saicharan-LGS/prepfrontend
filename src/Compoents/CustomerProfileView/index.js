@@ -49,7 +49,6 @@ function CustomerProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-  console.log(userDetatils, "userDetatilsuserDetatils");
 
   return (
     <>
@@ -66,7 +65,6 @@ function CustomerProfileView({ fetchProducts1 }) {
                   alt=""
                   className="customer-profile-view-profile-image"
                 />
-                {/* <input type="file" className="customer-profile-view-file-upload"/> */}
               </div>
               <div>
                 <div className="customer-profile-view-detail-container">
@@ -87,16 +85,7 @@ function CustomerProfileView({ fetchProducts1 }) {
                     Update Password
                   </p>
                 </div>
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.mobile_number}
-                </p>
-              </div> */}
-                {/* <div className="customer-profile-view-detail-container">
-                <p className="customer-profile-view-detail-container-name">
-                  {userDetatils && userDetatils.Address}
-                </p>
-              </div> */}
+              
               </div>
               
             </div>
@@ -129,11 +118,7 @@ function CustomerProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          {/* <DimensionUpdatePage
-                updateId={updateId}
-                onClose={handleCloseModal}
-                fetchProducts={fetchProducts}
-              /> */}
+          
           <CustomerProfileEdit
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
@@ -158,11 +143,7 @@ function CustomerProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          {/* <DimensionUpdatePage
-                updateId={updateId}
-                onClose={handleCloseModal}
-                fetchProducts={fetchProducts}
-              /> */}
+          
           <CustomerUpdatePassword onClose={handleCloseModal} />
         </Box>
       </Modal>

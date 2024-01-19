@@ -6,10 +6,8 @@ import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
 function StaffTopNavbar() {
-
-    const [userDetatils, setUserDetails] = useState([]);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
- 
+  const [userDetatils, setUserDetails] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -21,13 +19,12 @@ function StaffTopNavbar() {
     navigate("/stafflogin");
   };
 
-  const handleCloseClick=()=>{
-    setIsPopupOpen(false)
-  }
+  const handleCloseClick = () => {
+    setIsPopupOpen(false);
+  };
 
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
- 
 
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
 
@@ -58,14 +55,16 @@ function StaffTopNavbar() {
   return (
     <div className="navbar-main-container">
       <div className="navbar-sub-container">
-      <div className="navbar-logout-button-container">
+        <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>
           <p className="navbar-nav-item-name">{role}</p>
           <Popup
             closeOnDocumentClick={false}
             open={isPopupOpen}
             onClose={handleCloseClick}
-            contentStyle={{ width: "370px", padding: "20px" }}
+            contentStyle={{minWidth: "400px",
+            maxWidth: "650px",
+            padding: "20px", }}
             trigger={
               <img
                 src={`${REACT_APP_PDF_URL}${
@@ -86,7 +85,10 @@ function StaffTopNavbar() {
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
-          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
+          <IoMdLogOut
+            className="navbar-logout-button-icon"
+            onClick={handleLogout}
+          />
         </div>
       </div>
     </div>

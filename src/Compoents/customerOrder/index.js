@@ -78,7 +78,6 @@ const CustomerOrder = () => {
         setProducts(productsData.products);
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
       });
 
     // Fetch services
@@ -99,7 +98,6 @@ const CustomerOrder = () => {
         setServices(servicesData.services);
       })
       .catch((error) => {
-        console.error("Error fetching services:", error);
       });
 
     const currentDate = new Date();
@@ -227,7 +225,6 @@ const CustomerOrder = () => {
         });
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   };
 

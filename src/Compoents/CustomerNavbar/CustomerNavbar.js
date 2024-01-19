@@ -53,15 +53,4 @@ export const CustomerNavbarData = [
     component: <Wallet />,
   },
   
-  //   {
-  //     title: 'Accountant',
-  //     icon: <IoIcons.IoMdPeople />,
-  //     cName: 'nav-text',
-  //     component:<AccountOrders/>
-  //   },
-  //   {
-  //     title: 'Customer',
-  //     icon: <FaIcons.FaEnvelopeOpenText />,
-  //     cName: 'nav-text'
-  //   },
 ];

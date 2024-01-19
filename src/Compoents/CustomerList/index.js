@@ -58,7 +58,6 @@ function CustomerList() {
         });
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   };
 
@@ -127,7 +126,6 @@ function CustomerList() {
       : `pagination-arrow-container`;
 
   const onclickaddamount = (e) => {
-    console.log(e.target.value);
     setAmountId(e.target.value);
     setModalOpen(true);
   };

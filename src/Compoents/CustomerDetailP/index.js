@@ -132,7 +132,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         setProducts(productsData.products);
       })
       .catch((error) => {
-        console.error("Error fetching products:", error);
       });
 
     // Fetch services
@@ -153,7 +152,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         setServices(servicesData.services);
       })
       .catch((error) => {
-        console.error("Error fetching services:", error);
       });
     fetchData();
   }, [orderId]);
@@ -222,10 +220,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
-        console.error("Error deleting file:", errorData);
       }
     } catch (error) {
-      console.error("Error deleting file:", error);
     }
   };
 
@@ -412,45 +408,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 </div>
               ))}
             </div>
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Length</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={length}
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Width</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={width}
-                readOnly
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Height</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={height}
-                readOnly
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Weight</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="customerName"
-                value={weight}
-                readOnly
-              />
-            </div> */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">

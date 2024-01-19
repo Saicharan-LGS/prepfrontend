@@ -47,7 +47,6 @@ const CustomerForgotPassword = () => {
       }
     } catch (error) {
       setShowLoader(false)
-      console.error("An error occurred while sending OTP", error);
     }
   };
   return (
@@ -55,7 +54,6 @@ const CustomerForgotPassword = () => {
     <div className="forgot-password-main-container">
     <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""

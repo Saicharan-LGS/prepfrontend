@@ -3,10 +3,9 @@ import "./index.css";
 import Toast from "../utlis/toast";
 import { ImCancelCircle } from "react-icons/im";
 
-const EditStaffDetails = ({ staff,onClose}) => {
+const EditStaffDetails = ({ staff,onClose,fetchProducts}) => {
   const staffId = staff;
   const id = staffId.id
-  console.log(staffId,"kkkkkkkkkkkk")
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,7 +49,6 @@ const EditStaffDetails = ({ staff,onClose}) => {
         });
       })
       .catch((error) => {
-        console.error("Error:", error);
       });
   };
 
@@ -73,6 +71,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
         onClose()
         if (response.ok) {
           return response.json();
+          fetchProducts()
         } else {
           return response.json().then((data) => {
             throw new Error(data.message || "Failed to update staff details");
@@ -81,6 +80,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
       })
       .then((data) => {
         // Handle the response data
+        fetchProducts()
         Toast.fire({
           icon: "success",
           title: data.message,
@@ -96,68 +96,7 @@ const EditStaffDetails = ({ staff,onClose}) => {
   
 
   return (
-    // <>
-    // <ImCancelCircle
-    //     onClick={onClose}
-    //     style={{
-    //       fontSize: "24px",
-    //       color: "#212d45",
-    //       cursor: "pointer",
-    //       marginBottom: "10px",
-    //     }}
-    //   />
-    // <div className="signup-div-container" style={{maxHeight:"500px",minHeight:"400px"}}>
-  
-    //   <div className="signup-main-form-container" style={{width:"300px"}}>
-    //     <center>
-    //       <h2 className="signup-form-heading-container">Edit Staff</h2>
-    //     </center>
-    //     <form onSubmit={updateStaffDetails} className="signup-form-container">
-    //       <div className="signup-whole-form-contaner">
-    //         <label className="signup-form-lable-container">Name:</label>
-    //         <input
-    //           type="text"
-    //           name="name"
-    //           className="signin-input-text"
-    //           value={formData.name}
-    //           onChange={handleInputChange}
-    //         />
-    //       </div>
-
-    //       <div className="signup-whole-form-contaner">
-    //         <label className="signup-form-lable-container">Email:</label>
-    //         <input
-    //           type="email"
-    //           name="email"
-    //           className="signin-input-text"
-    //           value={formData.email}
-    //           readOnly
-    //         />
-    //       </div>
-    //       <div className="signup-whole-form-contaner">
-    //         <label className="signup-form-lable-container">Role:</label>
-    //         <select
-    //           name="role"
-    //           className="signin-input-text"
-    //           value={formData.role}
-    //           onChange={handleInputChange}
-    //         >
-    //           <option value="Admin">Admin</option>
-    //           <option value="Dimension">Dimension</option>
-    //           <option value="Label">Label</option>
-    //           <option value="Accountant">Accountant</option>
-    //           <option value="Dispatch">Dispatch</option>
-    //         </select>
-    //       </div>
-    //       <center>
-    //         <button className="signup-form-button-container" style={{width:"100%"}} type="submit">
-    //           Update
-    //         </button>
-    //       </center>
-    //     </form>
-    //   </div>
-    // </div>
-    // </>
+   
     <>
     <div style={{display:"flex",justifyContent:"space-between"}}>
     <h2 className="customer-update-password-heading">Password Update</h2>

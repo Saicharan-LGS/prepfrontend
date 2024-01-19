@@ -1,14 +1,12 @@
-
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
 import CustomerProfileView from "../CustomerProfileView";
-function CustomerTopNavbar() {
-
-    const [userDetatils, setUserDetails] = useState([]);
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
- 
+import TransactionSummary from "../CustomerNavbar/Amount";
+function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
+  const [userDetatils, setUserDetails] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -17,16 +15,16 @@ function CustomerTopNavbar() {
     sessionStorage.removeItem("sname");
     sessionStorage.removeItem("prevStatus");
     sessionStorage.removeItem("status");
-    navigate("/login");
+    navigate("/");
   };
 
-  const handleCloseClick=()=>{
-    setIsPopupOpen(false)
-  }
+  console.log(totalAmount, "totalAmount");
+  const handleCloseClick = () => {
+    setIsPopupOpen(false);
+  };
 
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
- 
 
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
 
@@ -42,7 +40,10 @@ function CustomerTopNavbar() {
       }); // Replace with your API endpoint
       if (response.ok) {
         const data = await response.json();
-        setUserDetails(data.customer, "stafffffffffffffffffffffffffffffffffffff");
+        setUserDetails(
+          data.customer,
+          "stafffffffffffffffffffffffffffffffffffff"
+        );
       } else {
         setUserDetails("");
       }
@@ -54,19 +55,22 @@ function CustomerTopNavbar() {
     fetchProducts();
   }, []);
 
-  console.log(userDetatils,"user")
-
   return (
     <div className="navbar-main-container">
       <div className="navbar-sub-container">
-      <div className="navbar-logout-button-container">
+        <div className="navbar-logout-button-container">
+          <TransactionSummary totalAmount={totalAmount} />
           <p className="navbar-nav-item-name">{name}</p>
-          <p className="navbar-nav-item-name">{role}</p>
+
           <Popup
             closeOnDocumentClick={false}
             open={isPopupOpen}
             onClose={handleCloseClick}
-            contentStyle={{ width: "370px", padding: "20px" }}
+            contentStyle={{
+              minWidth: "400px",
+              maxWidth: "650px",
+              padding: "20px",
+            }}
             trigger={
               <img
                 src={`${REACT_APP_PDF_URL}${
@@ -87,7 +91,10 @@ function CustomerTopNavbar() {
           <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
-          <IoMdLogOut className="navbar-logout-button-icon" onClick={handleLogout}/>
+          <IoMdLogOut
+            className="navbar-logout-button-icon"
+            onClick={handleLogout}
+          />
         </div>
       </div>
     </div>

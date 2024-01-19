@@ -52,7 +52,6 @@ function CustomerPendingList({ openDetailPageComponent }) {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data.customers,"data.customersdata.customers")
         setProducts(data.customers);
         setLoading(false);
       } else {
@@ -109,23 +108,10 @@ function CustomerPendingList({ openDetailPageComponent }) {
                 Customer Name
               </p>
               <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
-              {/* <p className="admin-order-accepted-service-category">
-                Product Name
-              </p>
-              <p className="admin-order-accepted-quantity-category">Quantity</p>
-              <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
-              </p> */}
-
+            
               <p className="admin-order-accepted-accept-category">Accept</p>
               <p className="admin-order-accepted-accept-category">Decline</p>
-              {/* <p className="admin-order-accepted-fnsku-category">FNSKU</p>
-              <p className="admin-order-accepted-box-label-category">
-                Box Label
-              </p>
-              <p className="admin-order-accepted-view-in-detail-category">
-                View
-              </p>*/}
+            
             </div> 
 
             {filteredProducts.length > 0 ? (
@@ -133,66 +119,19 @@ function CustomerPendingList({ openDetailPageComponent }) {
                 {currentProducts.map((eachProduct) => {
                   return (
                     <div className="admin-order-accepted-display-of-products-container">
-                      {/* <p className="admin-order-accepted-order-id-sub-category">
-                        {eachProduct.id}
-                      </p> */}
+                     
                       <p className="customer-list-table-row">
                         {eachProduct.name}
                       </p>
                       <p className="customer-list-table-row" style={{width:"30%"}}>
                         {eachProduct.email}
                       </p>
-                      {/* <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.product}
-                      </p>
-                      <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.unit}
-                      </p>
-                      <p className="admin-order-accepted-order-tracking-sub-category">
-                        {eachProduct.tracking_url ? (
-                          <a
-                            href={eachProduct.tracking_url}
-                            rel="noreferrer"
-                            target="_blank"
-                            className="tracking-url"
-                          >
-                            Order Link
-                          </a>
-                        ) : (
-                          <p className="tracking_url"> </p>
-                        )}
-                      </p> */}
+                      
                       <CustomerAddButton
                         id={eachProduct.id}
                         unit={eachProduct.unit}
                         fetchProducts={fetchProducts}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      {/* <div className="admin-order-accepted-fnsku-sub-category">
-                        <input
-                          type="checkbox"
-                          checked={
-                            eachProduct.fnsku_status === 1 ? true : false
-                          }
-                          className="admin-order-accepted-checkbox"
-                        />
-                      </div>
-                      <div className="admin-order-accepted-box-label-sub-category">
-                        <input
-                          type="checkbox"
-                          checked={
-                            eachProduct.label_status === 1 ? true : false
-                          }
-                          className="admin-order-accepted-checkbox"
-                        />
-                      </div>
-                      <BsFillArrowRightCircleFill
-                        id={eachProduct.id}
-                        value={eachProduct.id}
-                        onClick={() => openDetailPageComponent(eachProduct.id)}
-                        className="admin-order-accepted-view-in-detail-sub-category"
-                      /> */}
                     </div>
                   );
                 })}

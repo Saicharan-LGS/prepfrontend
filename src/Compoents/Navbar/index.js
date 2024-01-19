@@ -60,7 +60,6 @@ function Navbar() {
       sessionStorage.setItem("prevStatus", status);
       setStatus(12);
       setOrderId(id);
-      // navigate(`/CustomerOrderViewDetail/${id}`);
     } else {
     }
   };
@@ -162,9 +161,7 @@ function Navbar() {
           })}
         </ul>
       </nav>
-      {/* <div className={`content-container ${sidebar ? "shifted" : ""}`}>
-        {currentComponent}
-      </div> */}
+      
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {parseInt(status) === 1 ? (
           <AdminHomePage openDetailPageComponent={openDetailPageComponent} />

@@ -27,12 +27,10 @@ const AdminOtp = () => {
         title: data.message,
       });
     } catch (error) {
-      console.error("Error:", error);
     }
   };
   const handleVerifyClick = async (e) => {
     e.preventDefault();
-    console.log("called verify", otp, email);
     if(otp){
     try {
       const response = await fetch(`${FETCH_URL}staffcustomerotpverfiysend`, {
@@ -45,19 +43,21 @@ const AdminOtp = () => {
           otp: parseInt(otp),
         }),
       });
+      const data = await response.json();
 
       if (response.ok) {
-        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
         });
         navigate("/AdminResetPassword");
       } else {
-        console.error("Failed to send data to the backend");
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
       }
     } catch (error) {
-      console.error("Error:", error);
     }
   }
   };

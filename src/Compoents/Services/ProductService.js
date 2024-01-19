@@ -50,7 +50,6 @@ const ProductService = ({ fetchProductServices }) => {
       fetchProductServices();
       
     } catch (error) {
-      console.error("Error adding product/service:", error.message);
       // Handle error or display a message to the user
     }
   };

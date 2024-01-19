@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
@@ -133,19 +132,10 @@ function CustomerAccepted({ openDetailPage }) {
               <p className="admin-order-accepted-name-category">Total Amount</p>
               <p className="admin-order-accepted-service-category">Discount(%)</p>
               <p className="admin-order-accepted-quantity-category">Final Amount</p>
-              {/* <p className="admin-order-accepted-accept-category">Received</p>
-              <p className="admin-order-accepted-decline-category">Decline</p> */}
-              <p className="admin-order-accepted-view-in-detail-category">
+             <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-              {/* <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
-              </p>
-
-              
-              <p className="admin-order-accepted-fnsku-category">Amount</p>
-
-              */}
+             
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -171,13 +161,6 @@ function CustomerAccepted({ openDetailPage }) {
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={()=>handleView(eachProduct)}
                       />
-                      {/* <button className="admin-order-accepted-received-button" onClick={refreshpage}>Received</button>
-          <button className="admin-order-accepted-declined-button" onClick={refreshpage}>Decline</button> */}
-                      {/* <p className="admin-order-accepted-fnsku-sub-category">
-                        {eachProduct.amount}
-                      </p>
-
-                       */}
                     </div>
                   );
                 })}

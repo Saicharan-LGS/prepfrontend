@@ -23,7 +23,6 @@ const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
     };
 
     try {
-      console.log(id, "idsssssssssssssssssssssssss");
       const response = await fetch(
         `${process.env.REACT_APP_FETCH_URL}dispatch/${id}`,
         {

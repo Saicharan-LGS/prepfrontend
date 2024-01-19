@@ -27,9 +27,7 @@ const AdminResetPassword = () => {
         );
         return;
       }
-
       const email = localStorage.getItem("email");
-
       const response = await fetch(`${FETCH_URL}staffresetpassword`, {
         method: "POST",
         headers: {
@@ -57,7 +55,6 @@ const AdminResetPassword = () => {
         });
       }
     } catch (error) {
-      console.error("Error updating password:", error);
       alert("An error occurred while updating the password.");
     }
   };
@@ -67,7 +64,6 @@ const AdminResetPassword = () => {
     <div className="update-password-main-container">
     <div className="login-image-container">
         <img
-          // src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
           src={signup}
           className="Login-image"
           alt=""

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
@@ -92,49 +91,6 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  //   return (
-  //     <div>
-  //       <h2>Orders List</h2>
-  //       {/* <ul>
-  //         {products.map((product) => (
-  //           <div>
-  //             <p>1</p>
-  //             <p>soap 5GB Free online</p>
-  //             <p>label</p>
-  //             <p>2</p>
-  //             <p>http://localhost:3000/get</p>
-  //             <button>Accept</button>
-  //             <button>decline</button>
-  //           </div>
-  //         ))}
-  //       </ul> */}
-  //       <div className="admin-orders-product-container">
-  //         <p className="admin-orders-product-id">Order ID</p>
-  //         <p className="admin-orders-product-name">Name</p>
-  //         <p className="admin-orders-product-service">Service</p>
-  //         <p className="admin-orders-product-quantity">Quantity</p>
-  //         <p className="admin-orders-product-url">Order Tracking Link</p>
-  //         <div className="admin-orders-product-buttons-container">
-  //           {/* <button className="admin-orders-product-accept-button">Accept</button>
-  //             <button className="admin-orders-product-decline-button">decline</button> */}
-  //         </div>
-  //         <div>View in Detail</div>
-  //       </div>
-  //       {products.map(eachProduct=>(
-  //         <div className="admin-orders-product-container">
-  //         <p className="admin-orders-product-id">{eachProduct.id}</p>
-  //         <p className="admin-orders-product-name">{eachProduct.name}</p>
-  //         <p className="admin-orders-product-service">{eachProduct.service}</p>
-  //         <p className="admin-orders-product-quantity">{eachProduct.unit}</p>
-  //         <p className="admin-orders-product-url">{eachProduct.tacking_url}</p>
-
-  //         <AiFillCaretRight id={eachProduct.id} value={eachProduct.id} onClick={openDetailPage} />
-  //       </div>
-  //       ))
-  //       }
-
-  //     </div>
-  // );
   return (
     <>
       {loading ? (
