@@ -1,19 +1,28 @@
 import Toast from "../utlis/toast";
 const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
   // Set the initial value as a string '1'
- 
+
   const token = sessionStorage.getItem("token");
   const handleSubmit = async () => {
     // Create an object with the data you want to send
     if (status === "5") {
-      alert("Invoice is not accepted. You can't dispatch order");
+      Toast.fire({
+        icon: "error",
+        title: "Invoice is not accepted. You can't dispatch order",
+      });
+
       return;
     } else if (status === "7") {
-      alert("Invoice is Rejected by customer. You can't dispatch order");
+      Toast.fire({
+        icon: "error",
+        title: "Invoice is Rejected by customer. You can't dispatch order",
+      });
       return;
-    
     } else if (status === "8") {
-      alert("Order is already dispatched");
+      Toast.fire({
+        icon: "success",
+        title: "Order is already dispatched",
+      });
       return;
     }
 

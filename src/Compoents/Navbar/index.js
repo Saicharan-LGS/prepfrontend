@@ -15,9 +15,6 @@ import OrderViewDetail from "../AdminDetailPage";
 import StaffList from "../StaffList";
 import CustomerList from "../CustomerList";
 import { IoMdLogOut } from "react-icons/io";
-import CustomerProfileView from '../CustomerProfileView'
-
-
 import { ProductServiceList } from "../Services";
 import Dispatch from "../Dispatch";
 import CustomerPendingList from "../CustomerPending";
@@ -70,11 +67,8 @@ function Navbar() {
 
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
- 
   const activeToggle = sidebar ? "menu-bars toggle" : `menu-bars`;
-
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
-
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const fetchProducts = async () => {
     try {
@@ -87,7 +81,7 @@ function Navbar() {
       }); // Replace with your API endpoint
       if (response.ok) {
         const data = await response.json();
-        setUserDetails(data.staff, "stafffffffffffffffffffffffffffffffffffff");
+        setUserDetails(data.staff);
       } else {
         setUserDetails("");
       }
@@ -161,7 +155,6 @@ function Navbar() {
           })}
         </ul>
       </nav>
-      
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {parseInt(status) === 1 ? (
           <AdminHomePage openDetailPageComponent={openDetailPageComponent} />

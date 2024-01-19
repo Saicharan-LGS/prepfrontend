@@ -67,7 +67,6 @@ function App() {
         path="/CustomerOtpVerification"
         element={<CustomerOtpVerification />}
       />
-      
       <Route path="/createpassword/:email" element={<CreatePassword />} />
       <Route
         path="/CustomerOtpVerification2"

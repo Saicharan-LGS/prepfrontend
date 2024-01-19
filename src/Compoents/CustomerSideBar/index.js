@@ -5,10 +5,7 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { FaIcons } from "react-icons/fa";
 import { IoWalletSharp } from "react-icons/io5";
-
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
 import CustomerRejected from "../CustomerHomePage/customerRejected.js";

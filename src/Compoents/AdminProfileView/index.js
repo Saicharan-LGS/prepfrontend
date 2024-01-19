@@ -50,12 +50,9 @@ function AdminProfileView({ fetchProducts1 }) {
 
   return (
     <>
-      {/* <ImCancelCircle onClick={onClose} style={{fontSize:"24px", color:"#212d45",cursor:"pointer",marginBottom:"10px"}}/> */}
       <div className="customer-profile-view-main-container">
         <div className="customer-profile-view-sub-container">
           <div className="customer-profile-view-top-container">
-            {/* <button className="logout-button">Logout</button> */}
-
             <div className="customer-profile-view-details-display-flex">
               <div className="customer-profile-view-profile-image-container">
                 <img
@@ -65,7 +62,6 @@ function AdminProfileView({ fetchProducts1 }) {
                   alt=""
                   className="customer-profile-view-profile-image"
                 />
-                {/* <input type="file" className="customer-profile-view-file-upload"/> */}
               </div>
               <div>
                 <div className="customer-profile-view-detail-container">
@@ -117,11 +113,6 @@ function AdminProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          {/* <DimensionUpdatePage
-                updateId={updateId}
-                onClose={handleCloseModal}
-                fetchProducts={fetchProducts}
-              /> */}
           <AdminProfileEdit
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
@@ -147,11 +138,6 @@ function AdminProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          {/* <DimensionUpdatePage
-                updateId={updateId}
-                onClose={handleCloseModal}
-                fetchProducts={fetchProducts}
-              /> */}
           <AdminUpdatePassword onClose={handleCloseModal} />
         </Box>
       </Modal>

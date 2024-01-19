@@ -8,7 +8,6 @@ import { IoMdLogOut } from "react-icons/io";
 function StaffTopNavbar() {
   const [userDetatils, setUserDetails] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const navigate = useNavigate();
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -40,7 +39,7 @@ function StaffTopNavbar() {
       }); // Replace with your API endpoint
       if (response.ok) {
         const data = await response.json();
-        setUserDetails(data.staff, "stafffffffffffffffffffffffffffffffffffff");
+        setUserDetails(data.staff);
       } else {
         setUserDetails("");
       }

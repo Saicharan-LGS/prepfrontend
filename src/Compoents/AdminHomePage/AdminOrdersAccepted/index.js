@@ -123,9 +123,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
               <p className="admin-order-accepted-order-tracking-category">
                 Order Tracking Link
               </p>
-              {/* <p className="admin-order-accepted-decline-category">Decline</p>
-        <p className="admin-order-accepted-accept-category">Accept</p> */}
-              <p className="admin-order-accepted-fnsku-category">
+            <p className="admin-order-accepted-fnsku-category">
                 FNSKU Status
               </p>
               <p className="admin-order-accepted-box-label-category">

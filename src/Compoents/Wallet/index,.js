@@ -100,7 +100,6 @@ function Wallet() {
           className="admin-order-accepted-search-filter-input"
         >
           <option value="all">All</option>
-
           <option value="debit">Debited</option>
           <option value="credit">Credited</option>
         </select>

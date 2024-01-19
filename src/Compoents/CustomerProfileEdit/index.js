@@ -19,7 +19,6 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
       const response = await fetch(`${FETCH_URL}getspecificcustomerdetails`, {
         headers: {
           Authorization: `Bearer ${token}`,
-          // Add other headers if needed
         },
       });
 
@@ -30,18 +29,14 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         setMobileNumber(customerData.customer.mobile_number.split(" ")[1]);
        setAddress(customerData.customer.Address);
       } else {
-        // Handle non-OK response, e.g., unauthorized access
       }
     } catch (error) {
     }
   };
   useEffect(() => {
-    // Fetch customer data by ID when component mounts
-
     fetchCustomerData();
   }, []);
 
-  // Function to handle profile update
   const handleUpdateProfile = async () => {
     const formData = new FormData();
     formData.append("name", name);
@@ -56,11 +51,9 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
-          // Add other headers if needed
         },
         body: formData,
       });
-
       if (response.ok) {
         Toast.fire({
           icon: "success",
@@ -70,13 +63,9 @@ function CustomerProfileEdit({ onClose, fetchProducts, fetchProducts1 }) {
         onClose();
         fetchProducts();
         fetchProducts1();
-
-        // You can add a success message or update the UI accordingly
       } else {
-        // Handle error and show appropriate message
       }
     } catch (error) {
-      // Handle error and show appropriate message
     }
   };
 

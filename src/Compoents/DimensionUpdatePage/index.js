@@ -26,16 +26,12 @@ function DimensionUpdatePage({
     weight: "",
     instructions: "",
   });
-  const navigate = useNavigate();
-
-  const role = sessionStorage.getItem("role");
 
   const id = updateId;
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   useEffect(() => {
-    // Fetch data using the id passed as a prop
     async function fetchData() {
       try {
         const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
@@ -47,7 +43,6 @@ function DimensionUpdatePage({
         if (response.ok) {
           const data1 = await response.json();
           const data = data1.order;
-
           setFormData({
             ...formData,
             customerName: data.name,

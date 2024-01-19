@@ -103,7 +103,6 @@ function AccountOrders({ openDetailPageComponent }) {
           });
         }
       } catch (error) {
-        // Handle error
       }
     };
 
@@ -121,7 +120,6 @@ function AccountOrders({ openDetailPageComponent }) {
             onChange={onChangeInput}
           />
         </div>
-
         <button
           onClick={onSubmitFunction}
           id={id}
@@ -175,8 +173,6 @@ function AccountOrders({ openDetailPageComponent }) {
             title: data.message,
           });
           setInvoiceOrders(data.orders);
-
-          // fetchProducts();
           setModalOpen(true);
         } else {
           const data = await response.json();
@@ -186,7 +182,6 @@ function AccountOrders({ openDetailPageComponent }) {
           });
         }
       } catch (error) {
-        // Handle error
       }
     }
   };

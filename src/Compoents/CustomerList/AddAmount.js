@@ -20,13 +20,10 @@ const AddAmountCustomer = ({ id, onClose }) => {
     }
   
     try {
-      // Retrieve the token from sessionStorage
       const token = sessionStorage.getItem("token");
-  
       if (!token) {
         throw new Error("Token is missing");
       }
-  
       const response = await fetch(`${FETCH_URL}addAmountTransaction/${id}`, {
         method: "POST",
         headers: {
@@ -35,27 +32,21 @@ const AddAmountCustomer = ({ id, onClose }) => {
         },
         body: JSON.stringify({ amount }),
       });
-  
       if (!response.ok) {
         throw new Error("Failed to add amount");
       }
-  
       const data = await response.json();
       Toast.fire({
         icon: "success",
         title: data.message,
       });
-  
       onClose();
       // Handle success, if needed
     } catch (error) {
-      console.error("Error adding amount:", error.message);
       // Handle the error, if needed
     }
   };
   
-  
-
   return (
     <>
       <ImCancelCircle

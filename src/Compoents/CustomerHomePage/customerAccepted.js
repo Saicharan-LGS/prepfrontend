@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 import EmptyOrder from "../EmptyOrder";
 import { Box, Modal } from "@mui/material";
 import CustomerInvoicePage from "../CustomerInvoicePage";
-function CustomerAccepted({ openDetailPage }) {
+function CustomerAccepted() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,25 +16,22 @@ function CustomerAccepted({ openDetailPage }) {
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const [isModalOpen,setModalOpen] = useState(false)
-  const [selectedOrders,setSelectedOrders] = useState()
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState();
 
-  const [totalAmount,setTotalAmount] = useState("")
-  const [discount,setDiscount] = useState("")
-  const [discountedAmount,setDiscountedAmount] = useState("")
-
+  const [totalAmount, setTotalAmount] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [discountedAmount, setDiscountedAmount] = useState("");
+  const [date, setDate] = useState("");
   useEffect(() => {
     const filtered = products.filter((product) => {
       const productIdMatch = product.orders.toString().includes(orderId);
-     
-      return productIdMatch
-  });
-
+      return productIdMatch;
+    });
 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
 
-  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -51,42 +48,39 @@ function CustomerAccepted({ openDetailPage }) {
     setCurrentPage(pageNumber);
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
-  
-    const fetchProducts = async () => {
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await fetch(
-          `${FETCH_URL}invoicepending/${6}`,
-          // Replace with your API endpoint
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setProducts(data);
-          setLoading(false);
-        } else {
-          setTimeout(() => {
-            setLoading(false);
-          }, 3000);
-          
+  const fetchProducts = async () => {
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `${FETCH_URL}invoicepending/${6}`,
+        // Replace with your API endpoint
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } else {
         setTimeout(() => {
           setLoading(false);
-        }, 1000);
+        }, 3000);
       }
-    };
-    useEffect(() => {
+    } catch (error) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
+  };
+  useEffect(() => {
     fetchProducts();
   }, []);
-
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
@@ -97,27 +91,29 @@ function CustomerAccepted({ openDetailPage }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-      const handleView=(each)=>{
-        setSelectedOrders(each.orders)
-        
-        setDiscount(each.discount)
-        setDiscountedAmount(each.discounted_amount)
-        setTotalAmount(each.totalamount)
-        setModalOpen(true)
-      }
+  const handleView = (each) => {
+    setSelectedOrders(each.orders);
+    setDate(each.data_time);
+    setDiscount(each.discount);
+    setDiscountedAmount(each.discounted_amount);
+    setTotalAmount(each.totalamount);
+    setModalOpen(true);
+  };
 
-      const handleCloseModal = () => {
-        setModalOpen(false);
-      };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
-    {loading?<Spinner/>:
-    <div className="admin-order-accepted-product-list">
-      <h2 className="admin-order-accepted-order-list-heading">
-        Invoice Accepted Order List
-      </h2>
-      <input
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="admin-order-accepted-product-list">
+          <h2 className="admin-order-accepted-order-list-heading">
+            Invoice Accepted Order List
+          </h2>
+          <input
             type="text"
             name="orderid"
             value={orderId}
@@ -126,16 +122,21 @@ function CustomerAccepted({ openDetailPage }) {
             required
             className="admin-order-accepted-search-filter-input"
           />
-      <div className="admin-order-accepted-table-container">
+          <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
-              <p className="admin-order-accepted-order-id-category">Order Id's</p>
+              <p className="admin-order-accepted-order-id-category">
+                Order Id's
+              </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-service-category">Discount(%)</p>
-              <p className="admin-order-accepted-quantity-category">Final Amount</p>
-             <p className="admin-order-accepted-view-in-detail-category">
+              <p className="admin-order-accepted-service-category">
+                Discount(%)
+              </p>
+              <p className="admin-order-accepted-quantity-category">
+                Final Amount
+              </p>
+              <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-             
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -154,39 +155,39 @@ function CustomerAccepted({ openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-  
+
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
                         className="admin-order-accepted-view-in-detail-sub-category"
-                        onClick={()=>handleView(eachProduct)}
+                        onClick={() => handleView(eachProduct)}
                       />
                     </div>
                   );
                 })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={previousButton}
-                />
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={previousButton}
+                  />
 
-                <span>Page {currentPage}</span>
+                  <span>Page {currentPage}</span>
 
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= products.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyOrder />
-          )}
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= products.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyOrder />
+            )}
+          </div>
         </div>
-        </div>
-      }
-         <Modal
+      )}
+      <Modal
         open={isModalOpen}
         onClose={handleCloseModal}
         style={{ width: "100%" }}
@@ -206,11 +207,12 @@ function CustomerAccepted({ openDetailPage }) {
           }}
         >
           <CustomerInvoicePage
-            selectedOrders = {selectedOrders}
+            selectedOrders={selectedOrders}
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
-            discount ={discount}
+            discount={discount}
+            date={date}
             discountedAmount={discountedAmount}
           />
         </Box>

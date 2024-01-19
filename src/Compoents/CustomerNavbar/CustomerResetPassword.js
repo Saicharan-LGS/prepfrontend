@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CustomerResetPassword.css";
 import Toast from "../utlis/toast";
 import { useNavigate } from "react-router";
-import signup from '../utlis/signup-img-2.png'
+import signup from "../utlis/signup-img-2.png";
 
 const CustomerResetPasswordUpdate = () => {
   const [password, setPassword] = useState("");
@@ -23,9 +23,12 @@ const CustomerResetPasswordUpdate = () => {
   const updatePassword = async () => {
     try {
       if (password !== confirmPassword) {
-        alert(
-          "Passwords do not match. Please make sure both passwords are the same."
-        );
+        Toast.fire({
+          icon: "error",
+          title:
+            "Passwords do not match. Please make sure both passwords are the same.",
+        });
+
         return;
       }
 
@@ -64,58 +67,54 @@ const CustomerResetPasswordUpdate = () => {
 
   return (
     <div className="update-password-background-container">
-    <div className="update-password-main-container">
-    <div className="login-image-container">
-        <img
-          src={signup}
-          className="Login-image"
-          alt=""
-        />
-      </div>
-      <div className="update-password-sub-container">
-        <h2 className="update-password-heading"> Reset Password</h2>
-        <form>
-          <label
-            htmlFor="oldPassword"
-            className="update-password-lable-container"
-          >
-            New Password
-          </label>
-          <input
-            type="password"
-            id="oldPassword"
-            value={password}
-            onChange={handlePasswordChange}
-            required
-            placeholder="Enter New Password"
-            className="update-password-input-container"
-          />
-          <label
-            htmlFor="newPassword"
-            className="update-password-lable-container"
-          >
-            Confirm New Password
-          </label>
-          <input
-            type="password"
-            id="newPassword"
-            placeholder="Enter Confirm Password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            required
-            className="update-password-input-container"
-          />
+      <div className="update-password-main-container">
+        <div className="login-image-container">
+          <img src={signup} className="Login-image" alt="" />
+        </div>
+        <div className="update-password-sub-container">
+          <h2 className="update-password-heading"> Reset Password</h2>
+          <form>
+            <label
+              htmlFor="oldPassword"
+              className="update-password-lable-container"
+            >
+              New Password
+            </label>
+            <input
+              type="password"
+              id="oldPassword"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+              placeholder="Enter New Password"
+              className="update-password-input-container"
+            />
+            <label
+              htmlFor="newPassword"
+              className="update-password-lable-container"
+            >
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              id="newPassword"
+              placeholder="Enter Confirm Password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
+              className="update-password-input-container"
+            />
 
-          <button
-            type="button"
-            onClick={updatePassword}
-            className="update-password-button"
-          >
-            Reset Password
-          </button>
-        </form>
+            <button
+              type="button"
+              onClick={updatePassword}
+              className="update-password-button"
+            >
+              Reset Password
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

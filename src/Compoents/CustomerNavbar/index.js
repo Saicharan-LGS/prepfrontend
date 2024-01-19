@@ -167,8 +167,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
           })}
         </ul>
       </nav>
-      {/* </IconContext.Provider> */}
-
       <div className={`content-container ${sidebar ? "shifted" : ""}`}>
         {parseInt(status) === 5 ? (
           <CustomerHomePage

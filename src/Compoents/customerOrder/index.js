@@ -12,22 +12,10 @@ const CustomerOrder = () => {
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
   const [products, setProducts] = useState([]);
-  const [services, setServices] = useState([]);
   const [customerId, setCustomerId] = useState("");
   const [instructions, setInstructions] = useState("");
-  const [selectedServices, setSelectedServices] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
 
-  const [productQuantities, setProductQuantities] = useState({});
-
-  const getQuantityById = (productId) => {
-    return productQuantities[productId] || "";
-  };
-  const handleQuantityChange = (productId, quantity) => {
-    const updatedQuantities = { ...productQuantities };
-    updatedQuantities[productId] = quantity;
-    setProductQuantities(updatedQuantities);
-  };
 
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
@@ -83,25 +71,7 @@ const CustomerOrder = () => {
       });
 
     // Fetch services
-    fetch(`${FETCH_URL}getprep-servicelist`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((servicesResponse) => {
-        if (servicesResponse.ok) {
-          return servicesResponse.json();
-        } else {
-          throw new Error("Failed to fetch services");
-        }
-      })
-      .then((servicesData) => {
-        setServices(servicesData.services);
-      })
-      .catch((error) => {
-      });
-
+   
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
@@ -151,26 +121,14 @@ const CustomerOrder = () => {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
-  // const selectedServiceWithQunatity = selectedServices.map((productId) => ({
-  //   id: productId,
-  //   quantity: 1,
-  // }));
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const selectedProductsWithQuantity = selectedProducts.map((productId) => ({
       id: productId,
       quantity: 0,
     }));
-    console.log(selectedProductsWithQuantity)
 
-    // const selectedProductsWithQuantity = Object.keys(productQuantities)
-    //   .map((productId) => ({
-    //     id: productId,
-    //     quantity: productQuantities[productId] || 0,
-    //   }))
-    //   .filter((product) => product.quantity > 0);
-
+  
     try {
       const token = sessionStorage.getItem("token");
       const formData = new FormData();
@@ -192,10 +150,6 @@ const CustomerOrder = () => {
 
       formData.append("customer_id", customerId);
       formData.append("instructions", instructions);
-      // formData.append(
-      //   "selectedServices",
-      //   JSON.stringify(selectedServiceWithQunatity)
-      // );
       formData.append(
         "selectedProducts",
         JSON.stringify(selectedProductsWithQuantity)
@@ -221,9 +175,8 @@ const CustomerOrder = () => {
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
         setInstructions("");
-        setSelectedServices([]);
-        setProductQuantities({});
         setCustomerName("");
+        setSelectedProducts([]);
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -235,8 +188,6 @@ const CustomerOrder = () => {
     } catch (error) {
     }
   };
-
-  console.log(selectedProducts, "selectedProducts")
 
   return (
     <>
@@ -282,7 +233,6 @@ const CustomerOrder = () => {
                   multiple
                 />
               </div>
-  
             </div>
             <div className="order-customer-field2-container">
               <div className="order-customer-input-feild">
@@ -312,7 +262,6 @@ const CustomerOrder = () => {
                   required
                 />
               </div>
-
               <div className="order-customer-input-feild">
                 <label className="order-customer-label-name">
                   Label ({labelSendFiles.length} files selected):
@@ -348,18 +297,6 @@ const CustomerOrder = () => {
                       checked={selectedProducts.includes(product.id)}
                       onChange={(e) => handleProductSelection(e, product.id)}
                       className="order-customer-input-checkbox"
-                    />
-                    <input
-                      type="number"
-                      id={`product-${product.id}`}
-                      name={`product-${product.id}`}
-                      value={getQuantityById(product.id)}
-                      readonly
-                      onChange={(e) =>
-                        handleQuantityChange(product.id, e.target.value)
-                      }
-                      placeholder="Quantity"
-                      className="order-customer-service-input"
                     />
                   </div>
                 ))}

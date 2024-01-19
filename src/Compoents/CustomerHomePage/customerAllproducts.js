@@ -172,8 +172,6 @@ function CustomerAllProducts({ openDetailPage }) {
                 Order Tracking Link
               </p>
               <p className="admin-order-accepted-fnsku-category">Status</p>
-              {/* <p className="admin-order-accepted-fnsku-category">Amount</p> */}
-
               <p className="admin-order-accepted-view-in-detail-category">
                 View In Detail
               </p>

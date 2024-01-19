@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
-
 import DispatchButton from "./DispatchButton";
 import EmptyOrder from "../EmptyOrder";
 import { Box, Modal } from "@mui/material";
@@ -212,7 +210,6 @@ function Dispatch() {
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />
-                      
                     </div>
                   );
                 })}
@@ -222,9 +219,7 @@ function Dispatch() {
                     disabled={currentPage === 1}
                     className={previousButton}
                   />
-
                   <span>Page {currentPage}</span>
-
                   <BsFillArrowRightCircleFill
                     onClick={() => paginate(currentPage + 1)}
                     disabled={indexOfLastProduct >= products.length}

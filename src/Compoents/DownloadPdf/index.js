@@ -3,11 +3,9 @@ import { useReactToPrint } from 'react-to-print';
 import GenerateInvoicePage from '../GenerateInvoicePage';
 const DownloadPDF = () => {
     const contentRef = useRef();
-  
     const handlePrint = useReactToPrint({
       content: () => contentRef.current,
     });
-  
     return (
       <div>
         <GenerateInvoicePage contentRef={contentRef} />
@@ -15,5 +13,5 @@ const DownloadPDF = () => {
       </div>
     );
   };
-  
-  export default DownloadPDF;
+
+export default DownloadPDF;

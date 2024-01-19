@@ -4,8 +4,6 @@ import Toast from "../utlis/toast";
 
 function DimensionDetailPage({ dimensionData, fetchData1, index }) {
   const id = dimensionData.id;
-
-
   const [dimensions, setDimensions] = useState({
     length: "",
     width: "",
@@ -204,7 +202,6 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
         onSubmit={handleSubmit}
       >
               <h3>Box No: {index + 1}</h3>
-
         <div className="dimension-flex">
           {["length", "width", "height", "weight"].map((dimension) => (
             <div key={dimension} className="dimensions-details-input-container">
@@ -257,7 +254,6 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
             </select>
           </div>
         </div>
-
         <center style={{display:"flex",justifyContent:"center",gap:"20px"}}>
           <button className="dimensions-details-button" type="submit">
             Update
