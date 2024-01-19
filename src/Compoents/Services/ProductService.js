@@ -67,7 +67,6 @@ const ProductService = ({ fetchProductServices }) => {
             className="product-service-input-field"
           >
             <option value="Product">Product</option>
-            <option value="Service">Service</option>
           </select>
         </div>
         <div className="product-service-input-container">

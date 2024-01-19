@@ -16,6 +16,8 @@ const CustomerOrder = () => {
   const [customerId, setCustomerId] = useState("");
   const [instructions, setInstructions] = useState("");
   const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
   const [productQuantities, setProductQuantities] = useState({});
 
   const getQuantityById = (productId) => {
@@ -27,13 +29,13 @@ const CustomerOrder = () => {
     setProductQuantities(updatedQuantities);
   };
 
-  const handleServiceSelection = (e, serviceId) => {
+  const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      setSelectedServices([...selectedServices, serviceId]);
+      setSelectedProducts([...selectedProducts, productId]);
     } else {
-      const updatedServices = selectedServices.filter((id) => id !== serviceId);
-      setSelectedServices(updatedServices);
+      const updatedProducts = selectedProducts.filter((id) => id !== productId);
+      setSelectedProducts(updatedProducts);
     }
   };
 
@@ -149,19 +151,25 @@ const CustomerOrder = () => {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
-  const selectedServiceWithQunatity = selectedServices.map((productId) => ({
-    id: productId,
-    quantity: 1,
-  }));
+  // const selectedServiceWithQunatity = selectedServices.map((productId) => ({
+  //   id: productId,
+  //   quantity: 1,
+  // }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const selectedProductsWithQuantity = Object.keys(productQuantities)
-      .map((productId) => ({
-        id: productId,
-        quantity: productQuantities[productId] || 0,
-      }))
-      .filter((product) => product.quantity > 0);
+    const selectedProductsWithQuantity = selectedProducts.map((productId) => ({
+      id: productId,
+      quantity: 0,
+    }));
+    console.log(selectedProductsWithQuantity)
+
+    // const selectedProductsWithQuantity = Object.keys(productQuantities)
+    //   .map((productId) => ({
+    //     id: productId,
+    //     quantity: productQuantities[productId] || 0,
+    //   }))
+    //   .filter((product) => product.quantity > 0);
 
     try {
       const token = sessionStorage.getItem("token");
@@ -184,10 +192,10 @@ const CustomerOrder = () => {
 
       formData.append("customer_id", customerId);
       formData.append("instructions", instructions);
-      formData.append(
-        "selectedServices",
-        JSON.stringify(selectedServiceWithQunatity)
-      );
+      // formData.append(
+      //   "selectedServices",
+      //   JSON.stringify(selectedServiceWithQunatity)
+      // );
       formData.append(
         "selectedProducts",
         JSON.stringify(selectedProductsWithQuantity)
@@ -227,6 +235,8 @@ const CustomerOrder = () => {
     } catch (error) {
     }
   };
+
+  console.log(selectedProducts, "selectedProducts")
 
   return (
     <>
@@ -285,7 +295,7 @@ const CustomerOrder = () => {
                       name="selectedServices"
                       value={service.id}
                       checked={selectedServices.includes(service.id)}
-                      onChange={(e) => handleServiceSelection(e, service.id)}
+                      // onChange={(e) => handleServiceSelection(e, service.id)}
                       className="order-customer-input-checkbox"
                     />
                     <label
@@ -355,10 +365,20 @@ const CustomerOrder = () => {
                       {product.name} :
                     </label>
                     <input
+                      type="checkbox"
+                      id={product.id}
+                      name="selectedProducts"
+                      value={product.id}
+                      checked={selectedProducts.includes(product.id)}
+                      onChange={(e) => handleProductSelection(e, product.id)}
+                      className="order-customer-input-checkbox"
+                    />
+                    <input
                       type="number"
                       id={`product-${product.id}`}
                       name={`product-${product.id}`}
                       value={getQuantityById(product.id)}
+                      readonly
                       onChange={(e) =>
                         handleQuantityChange(product.id, e.target.value)
                       }

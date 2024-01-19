@@ -33,7 +33,7 @@ import StaffTopNavbar from "../StaffTopNavbar";
 
 function SideBar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  
+
   const [prevStatus, setPrevStatus] = useState(null);
   const [orderId, setOrderId] = useState("");
   const [activeTab, setActiveTab] = useState(1);
@@ -42,10 +42,13 @@ function SideBar() {
 
   const [status, setStatus] = useState(() => {
     const storedStatus = sessionStorage.getItem("status");
+    console.log(storedStatus, "storedstatus");
     if (storedStatus === "12") {
       return sessionStorage.getItem("prevStatus");
     } else if (storedStatus === "") {
-      return 9;
+      return 1;
+    } else if (storedStatus === null ) {
+      return 1;
     } else {
       return parseInt(storedStatus);
     }
@@ -60,18 +63,18 @@ function SideBar() {
     navigate("/stafflogin");
   };
 
-  const handleMouseEnter=()=>{
-    setIsCollapsed(false)
-  }
+  const handleMouseEnter = () => {
+    setIsCollapsed(false);
+  };
 
-  const handleMouseLeave=()=>{
-    setIsCollapsed(true)
-  }
+  const handleMouseLeave = () => {
+    setIsCollapsed(true);
+  };
 
   const handleSidebarItemClick = async (id) => {
     setPrevStatus(status);
     await setStatus(id);
-    setActiveTab(id)
+    setActiveTab(id);
   };
 
   useEffect(() => {
@@ -86,12 +89,10 @@ function SideBar() {
       sessionStorage.setItem("prevStatus", status);
       setStatus(12);
       setOrderId(id);
-      setActiveTab(id)
-  
+      setActiveTab(id);
     } else {
     }
   };
-
 
   return (
     <div style={{ display: "flex", minHeight: "120vh" }}>
@@ -118,106 +119,143 @@ function SideBar() {
           }}
         >
           <div className="hamburger-icon">
-            <GiHamburgerMenu style={{color:"#212d45"}} onMouseEnter={handleMouseEnter}
-             onClick={() => setIsCollapsed(!isCollapsed)} />
+            <GiHamburgerMenu
+              style={{ color: "#212d45" }}
+              onMouseEnter={handleMouseEnter}
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            />
           </div>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<MdProductionQuantityLimits fontSize="25px" />}
             onClick={() => handleSidebarItemClick(1)}
-            style={status === 1 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 1 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Receiving
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<MdOutlinePinch fontSize="25px" />}
             onClick={() => handleSidebarItemClick(4)}
-            style={status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
-            
+            style={
+              status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Dimensions
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<MdLabelImportant fontSize="25px" />}
             onClick={() => handleSidebarItemClick(5)}
-            style={status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
-           Label Orders
+            Label Orders
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<RiAccountCircleFill fontSize="25px" />}
             onClick={() => handleSidebarItemClick(6)}
-            style={status === 6 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 6 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Accountant
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<IoPaperPlane fontSize="20px" />}
             onClick={() => handleSidebarItemClick(10)}
-            style={status === 10 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 10 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Dispatch
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<BsFillPersonFill fontSize="25px" />}
             onClick={() => handleSidebarItemClick(2)}
-            style={status === 2 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 2 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Add Customer
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             icon={<MdPeopleAlt fontSize="25px" />}
             onClick={() => handleSidebarItemClick(8)}
-            style={status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Customers List
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<AiOutlineTeam fontSize="25px"  />}
+            icon={<AiOutlineTeam fontSize="25px" />}
             onClick={() => handleSidebarItemClick(3)}
-            style={status === 3 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 3 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Add Staff
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<MdOutlinePeopleAlt fontSize="25px"  />}
+            icon={<MdOutlinePeopleAlt fontSize="25px" />}
             onClick={() => handleSidebarItemClick(7)}
-            style={status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Staff List
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<FaListAlt fontSize="20px"  />}
+            icon={<FaListAlt fontSize="20px" />}
             onClick={() => handleSidebarItemClick(9)}
-            style={status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Product & Services
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<IoIosNotifications fontSize="25px"  />}
+            icon={<IoIosNotifications fontSize="25px" />}
             onClick={() => handleSidebarItemClick(11)}
-            style={status === 11 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
+            style={
+              status === 11 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+            }
           >
             Customer Requests
           </MenuItem>
-          <MenuItem onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave} icon={<IoLogOut />} onClick={handleLogout}>
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            icon={<IoLogOut />}
+            onClick={handleLogout}
+          >
             Logout
           </MenuItem>
         </Menu>
-        <div>
-          
-        </div>
+        <div></div>
       </Sidebar>
       <div
         style={{
@@ -225,14 +263,13 @@ function SideBar() {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          height:"100vh",
-          overflow:"scroll"
+          height: "100vh",
+          overflow: "scroll",
         }}
-      > 
+      >
+        <StaffTopNavbar />
 
-      <StaffTopNavbar/>
-        
-       {parseInt(status) === 1 ? (
+        {parseInt(status) === 1 ? (
           <AdminHomePage openDetailPageComponent={openDetailPageComponent} />
         ) : parseInt(status) === 2 ? (
           <Customersignup openDetailPageComponent={openDetailPageComponent} />
@@ -254,20 +291,14 @@ function SideBar() {
           <ProductServiceList />
         ) : parseInt(status) === 10 ? (
           <Dispatch />
-        ): parseInt(status) === 11 ? (
+        ) : parseInt(status) === 11 ? (
           <CustomerPendingList />
         ) : (
           <OrderViewDetail orderId={orderId} setStatus={setStatus} />
         )}
-     
-
-       
       </div>
     </div>
   );
 }
 
 export default SideBar;
-
-
-
