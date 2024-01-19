@@ -1,5 +1,5 @@
 .common-navbar {
-  background-color: #ffc03d;
+  background-image: linear-gradient(to Right,#ff9f00,#fedc00,#ffc500);
   height: 80px;
   display: flex;
   justify-content: flex-end;
