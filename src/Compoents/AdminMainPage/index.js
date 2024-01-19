@@ -1,19 +1,14 @@
 import { useNavigate } from "react-router-dom"
 
 import './index.css'
-
-
 function AdminMainPage(){
-
     const navigate = useNavigate()
     const addCustomer=()=>{
         navigate("/Customersignup")
     }
-
     const addStaff=()=>{
         navigate("/staffsignup")
     }
-
     const viewOrder=()=>{
         navigate("/adminhomepage")
     }

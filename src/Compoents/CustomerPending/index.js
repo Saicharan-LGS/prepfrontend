@@ -103,17 +103,13 @@ function CustomerPendingList({ openDetailPageComponent }) {
           />
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
-              {/* <p className="admin-order-accepted-order-id-category">Order Id</p> */}
               <p className="customer-list-table-row">
                 Customer Name
               </p>
               <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
-            
               <p className="admin-order-accepted-accept-category">Accept</p>
               <p className="admin-order-accepted-accept-category">Decline</p>
-            
             </div> 
-
             {filteredProducts.length > 0 ? (
               <>
                 {currentProducts.map((eachProduct) => {

@@ -6,11 +6,16 @@ const CustomerButton = ({
   fetchTotalAmount,
   orderIds,
 }) => {
-  // Set the initial value as a string '1'
  
   const token = sessionStorage.getItem("token");
   const handleSubmit = async (id) => {
-    // Create an object with the data you want to send
+    const isConfirmed = window.confirm(
+      "Are you sure you want to reject this Invoice?"
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
     const requestData = {
       status: 7,
       orderIds: orderIds,
@@ -47,6 +52,13 @@ const CustomerButton = ({
   };
 
   const handleSubmit1 = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to accept this Invoice?"
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
     try {
       const amount2 = {
         amount: discounted_amount,

@@ -182,9 +182,7 @@ function DimensionOrderList({ openDetailPageComponent }) {
                   disabled={currentPage === 1}
                   className={previousButton}
                 />
-
                 <span>Page {currentPage}</span>
-
                 <BsFillArrowRightCircleFill
                   onClick={() => paginate(currentPage + 1)}
                   disabled={indexOfLastProduct >= products.length}

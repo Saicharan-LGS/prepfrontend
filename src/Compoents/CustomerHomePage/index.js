@@ -17,14 +17,13 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [productsPerPage] = useState(10); // Number of products to display per page
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [isModalOpen,setModalOpen] = useState(false)
-  const [selectedOrders,setSelectedOrders] = useState()
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState();
 
-  const [totalAmount,setTotalAmount] = useState("")
-  const [discount,setDiscount] = useState("")
-  const [discountedAmount,setDiscountedAmount] = useState("")
-
-
+  const [totalAmount, setTotalAmount] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [discountedAmount, setDiscountedAmount] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     // Filter products based on orderId
@@ -69,7 +68,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
-        
+
         setProducts(data);
         setLoading(false);
       } else {
@@ -98,19 +97,18 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  const handleView=(each)=>{
-    setSelectedOrders(each.orders)
-
-    setDiscount(each.discount)
-    setDiscountedAmount(each.discounted_amount)
-    setTotalAmount(each.totalamount)
-    setModalOpen(true)
-  }
+  const handleView = (each) => {
+    setSelectedOrders(each.orders);
+    setDate(each.data_time);
+    setDiscount(each.discount);
+    setDiscountedAmount(each.discounted_amount);
+    setTotalAmount(each.totalamount);
+    setModalOpen(true);
+  };
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
 
   return (
     <>
@@ -132,16 +130,21 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           />
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
-              <p className="admin-order-accepted-order-id-category">Order Id's</p>
+              <p className="admin-order-accepted-order-id-category">
+                Order Id's
+              </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-service-category">Discount(%)</p>
-              <p className="admin-order-accepted-quantity-category">Final Amount</p>
+              <p className="admin-order-accepted-service-category">
+                Discount(%)
+              </p>
+              <p className="admin-order-accepted-quantity-category">
+                Final Amount
+              </p>
               <p className="admin-order-accepted-accept-category">Received</p>
               <p className="admin-order-accepted-decline-category">Decline</p>
               <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-           
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -171,9 +174,8 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                         id={eachProduct.id}
                         value={eachProduct.id}
                         className="admin-order-accepted-view-in-detail-sub-category"
-                        onClick={()=>handleView(eachProduct)}
+                        onClick={() => handleView(eachProduct)}
                       />
-                    
                     </div>
                   );
                 })}
@@ -199,7 +201,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           </div>
         </div>
       )}
-       <Modal
+      <Modal
         open={isModalOpen}
         onClose={handleCloseModal}
         style={{ width: "100%" }}
@@ -219,11 +221,12 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
           }}
         >
           <CustomerInvoicePage
-            selectedOrders = {selectedOrders}
+            selectedOrders={selectedOrders}
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
-            discount ={discount}
+            discount={discount}
+            date={date}
             discountedAmount={discountedAmount}
           />
         </Box>

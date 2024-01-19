@@ -18,14 +18,11 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
     navigate("/");
   };
 
-  console.log(totalAmount, "totalAmount");
   const handleCloseClick = () => {
     setIsPopupOpen(false);
   };
 
-  const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
-
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -42,7 +39,6 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
         const data = await response.json();
         setUserDetails(
           data.customer,
-          "stafffffffffffffffffffffffffffffffffffff"
         );
       } else {
         setUserDetails("");
@@ -61,7 +57,6 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
         <div className="navbar-logout-button-container">
           <TransactionSummary totalAmount={totalAmount} />
           <p className="navbar-nav-item-name">{name}</p>
-
           <Popup
             closeOnDocumentClick={false}
             open={isPopupOpen}

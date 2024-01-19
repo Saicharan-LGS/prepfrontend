@@ -36,34 +36,11 @@ function ViewDetailedOrder({ setStatus }) {
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
-  const handleProductSelection = (e, productId) => {
-    const isChecked = e.target.checked;
-    console.log(isChecked, ...selectedProducts, productId);
-    if (isChecked) {
-      setSelectedProducts([...selectedProducts, productId]);
-      const updatedQuantities = { ...productQuantities };
-      updatedQuantities[productId] = 0;
-      setProductQuantities(updatedQuantities);
-    } else {
-      const updatedProducts = selectedProducts.filter((id) => id !== productId);
-      setSelectedProducts(updatedProducts);
-    }
-  };
+ 
   const getQuantityById = (productId) => {
     return productQuantities[productId];
   };
-  const handleQuantityChange = (productId, quantity) => {
-    if (selectedProducts.includes(productId)) {
-      const updatedQuantities = { ...productQuantities };
-      updatedQuantities[productId] = quantity;
-      setProductQuantities(updatedQuantities);
-    } else {
-      Toast.fire({
-        icon: "error",
-        title: "Select Checkbox first",
-      });
-    }
-  };
+ 
 
   const fetchData = async () => {
     try {
@@ -75,15 +52,12 @@ function ViewDetailedOrder({ setStatus }) {
       });
       if (response.ok) {
         const data1 = await response.json();
-
         const data = data1.order;
-
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-        console.log(data1.services.Products, "products");
 
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
@@ -94,7 +68,6 @@ function ViewDetailedOrder({ setStatus }) {
         );
         setSelectedProducts(fetchedSelectedProducts);
 
-        console.log(productQuantities, "saiiiiiiii");
 
         setFormData({
           date: data.date,
@@ -218,7 +191,7 @@ function ViewDetailedOrder({ setStatus }) {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-                Qunatity Recieved
+              Quantity Recieved
               </label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"

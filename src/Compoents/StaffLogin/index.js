@@ -14,9 +14,7 @@ const StaffSigninPage = () => {
   sessionStorage.removeItem("role");
   sessionStorage.removeItem("token")
   sessionStorage.removeItem("sname")
-
   const [staff, setStaff] = useState(false);
-
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history
 
@@ -30,17 +28,12 @@ const StaffSigninPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(""); // Clear any previous error messages
-
-    // Define the URL of your server's login endpoint
     const url = `${FETCH_URL}stafflogin`;
-
-    // Create a JSON object with the form data
     const jsonData = {
       email: formData.email,
       password: formData.password,
     };
 
-    // Make a POST request using the fetch API with JSON data
     fetch(url, {
       method: "POST",
       headers: {
@@ -50,7 +43,6 @@ const StaffSigninPage = () => {
     })
       .then((response) => {
         if (response.status === 200) {
-          // Login successful
           response.json().then((data) => {
             Toast.fire({
               icon: "success",
@@ -75,7 +67,6 @@ const StaffSigninPage = () => {
             }, 100);
           });
         } else if (response.status === 400) {
-          // Password required or incorrect
           response.json().then((data) => {
             Toast.fire({
               icon: "error",
@@ -96,20 +87,9 @@ const StaffSigninPage = () => {
       });
   };
 
-  const onClickCustomer = () => {
-    setStaff(false);
-  };
-  const onClickStaff = () => {
-    setStaff(true);
-  };
+  
 
-  const activeStaffButton = staff
-    ? `signin-staff-button`
-    : `signin-customer-button`;
-  const activeCustomerButton = staff
-    ? `signin-customer-button`
-    : `signin-staff-button`;
-
+ 
   return (
     <>
     <div className="customer-signin-sub-container">
@@ -122,14 +102,10 @@ const StaffSigninPage = () => {
           />
         </div>
         <div className="signin-form-main-container">
-          
                 <img className='logo-image-axxpress' src={axxpress} alt=''/>
-
-          
               <center>
                 <h2 className="signin-form-heading-container">Staff Login</h2>
               </center>
-
               <form onSubmit={handleSubmit} className="signin-form-container">
                 <div className="signin-form-group-container">
                   <label className="signin-form-label-container">Email ID</label>
@@ -173,7 +149,6 @@ const StaffSigninPage = () => {
                     <p>Forgot Password</p>
             </Link>
               </form>
-            
         </div>
       </div>
       </div>

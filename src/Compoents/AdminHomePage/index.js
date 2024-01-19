@@ -40,7 +40,6 @@ class AdminHomePage extends Component {
     return (
       <>
         <div className="admin-home-page-main-container">
-          {/* <h1 className="admin-home-page-order-heading">Orders</h1> */}
           <ul className="admin-home-page-product-tabs-container">
             {tabList.map((eachProduct) => {
               const activeProductTabColor =

@@ -55,9 +55,7 @@ function CommonNavbar() {
 
   return (
     <div className="common-navbar">
-      {/* <FaIcons.FaBars className='common-menu-bars' disable /> */}
-
-      <div className="common-navbar-logout-button-container">
+   <div className="common-navbar-logout-button-container">
         <p className="common-navbar-nav-item-name">{name}</p>
         <p className="common-navbar-nav-item-name">{role}</p>
         <Popup

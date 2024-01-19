@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import Modal from "react-modal";
 import ProductService from "./ProductService";
 import Toast from "../utlis/toast";
@@ -27,7 +26,6 @@ export const ProductServiceList = () => {
   const subtitleRef = useRef(null);
   const [productServices, setProductServices] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editId, setEditId] = useState();
 
@@ -46,7 +44,6 @@ export const ProductServiceList = () => {
   }
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-
   const fetchProductServices = async () => {
     try {
       const response = await fetch(`${FETCH_URL}productservicelist`);
@@ -56,7 +53,6 @@ export const ProductServiceList = () => {
       const data = await response.json();
       setProductServices(data.productServices);
     } catch (error) {
-      // Handle error or display a message to the user
     }
   };
 
@@ -77,8 +73,6 @@ export const ProductServiceList = () => {
       });
 
       if (response.ok) {
-        // Handle success, maybe update the local state
-
         response.json().then((data) => {
           Toast.fire({
             icon: "success",
@@ -86,7 +80,6 @@ export const ProductServiceList = () => {
           });
         });
         fetchProductServices();
-        // You may want to update the local state here if needed
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -152,10 +145,9 @@ export const ProductServiceList = () => {
           <p className="customer-list-table-row">Category</p>
           <p className="customer-list-table-row">Price</p>
           <p className="customer-list-table-row">Date & Time</p>
-          <p className="customer-list-table-row">Status</p>
+          <p className="customer-list-table-row">Enable/Disable</p>
           <p className="customer-list-table-row">Edit</p>
         </div>
-
         {productServices.map((eachProduct) => {
           return (
             <div

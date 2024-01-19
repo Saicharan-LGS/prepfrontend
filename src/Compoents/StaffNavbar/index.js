@@ -32,17 +32,14 @@ import OrderViewDetail from "../AdminDetailPage";
 import StaffTopNavbar from "../StaffTopNavbar";
 
 function SideBar() {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const [prevStatus, setPrevStatus] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(true) 
+   const [prevStatus, setPrevStatus] = useState(null);
   const [orderId, setOrderId] = useState("");
   const [activeTab, setActiveTab] = useState(1);
-
   const navigate = useNavigate();
 
   const [status, setStatus] = useState(() => {
     const storedStatus = sessionStorage.getItem("status");
-    console.log(storedStatus, "storedstatus");
     if (storedStatus === "12") {
       return sessionStorage.getItem("prevStatus");
     } else if (storedStatus === "") {

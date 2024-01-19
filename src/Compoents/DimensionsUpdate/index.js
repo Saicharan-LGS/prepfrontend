@@ -53,30 +53,30 @@ const DimensionsUpdate = ({
     if (dimensions.length > 25) {
       Toast.fire({
         icon: "error",
-        title:"Length is greater than 25. Enter a value below 25",
+        title: "Length is greater than 25. Enter a value below 25",
       });
       return;
     }
     if (dimensions.width > 25) {
       Toast.fire({
         icon: "error",
-        title:"Width is greater than 25. Enter a value below 25",
+        title: "Width is greater than 25. Enter a value below 25",
       });
       return;
     }
     if (dimensions.height > 25) {
       Toast.fire({
         icon: "error",
-        title:"Height is greater than 25. Enter a value below 25",
+        title: "Height is greater than 25. Enter a value below 25",
       });
-      return;  
+      return;
     }
     if (dimensions.weight > 50) {
       Toast.fire({
         icon: "error",
-        title:"Weight is greater than 50. Enter a value below 50",
+        title: "Weight is greater than 50. Enter a value below 50",
       });
-      return;    
+      return;
     }
     try {
       const dimensionsWithUnits = {

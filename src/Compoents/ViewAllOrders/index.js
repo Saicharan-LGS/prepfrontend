@@ -95,11 +95,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
       }
     };
     fetchProducts();
-  }, []);
-
-  // const openDetailPage = (e, productId) => {
-  //   navigate(`/adminViewDetail/${productId}`);
-  // };
+  }, []);;
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length

@@ -20,9 +20,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const token = sessionStorage.getItem("token"); // Assuming token is stored in sessionStorage
-
     try {
       const response = await fetch(`${FETCH_URL}product-service/${id}`, {
         method: "PUT",
@@ -50,7 +48,6 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
       fetchProductServices();
       onClose();
     } catch (error) {
-      // Handle error or display a message to the user
     }
   };
 
@@ -66,13 +63,10 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
       const api = `${FETCH_URL}product-service/${id}`;
       try {
         const response = await fetch(api, options);
-
         if (!response.ok) {
           throw new Error(`Request failed with status: ${response.status}`);
         }
-
         const data = await response.json();
-
         setFormData({
           category: data.data.category,
           name: data.data.name,
@@ -80,7 +74,6 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
         });
       } catch (error) {}
     };
-
     fetchData();
   }, []);
 

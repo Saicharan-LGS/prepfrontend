@@ -38,7 +38,6 @@ function OrderViewDetail({ orderId, setStatus }) {
 
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
-    console.log(isChecked, ...selectedProducts, productId);
     if (isChecked) {
       setSelectedProducts([...selectedProducts, productId]);
       const updatedQuantities = { ...productQuantities };
@@ -49,7 +48,6 @@ function OrderViewDetail({ orderId, setStatus }) {
       setSelectedProducts(updatedProducts);
     }
   };
-  console.log(selectedProducts, "vvvvvvvvvvvvvvv");
 
   const fetchData = async () => {
     try {
@@ -61,16 +59,11 @@ function OrderViewDetail({ orderId, setStatus }) {
       });
       if (response.ok) {
         const data1 = await response.json();
-
         const data = data1.order;
-
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
-
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-        console.log(data1.services.Products, "products");
-
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
@@ -80,7 +73,6 @@ function OrderViewDetail({ orderId, setStatus }) {
         );
         setSelectedProducts(fetchedSelectedProducts);
 
-        console.log(productQuantities, "saiiiiiiii");
 
         setFormData({
           date: data.date,
@@ -137,7 +129,6 @@ function OrderViewDetail({ orderId, setStatus }) {
         id: parseInt(productId),
         quantity: Number(productQuantities[productId]) || 0,
       }));
-    console.log(selectedProductsWithQuantity, "saiiiiiiii");
 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
@@ -225,11 +216,10 @@ function OrderViewDetail({ orderId, setStatus }) {
     } else {
       Toast.fire({
         icon: "error",
-        title: "Select Checkbox first",
+        title: "Select Checkbox first to update quantity.",
       });
     }
   };
-  console.log(productQuantities, "productQuantities");
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -309,7 +299,7 @@ function OrderViewDetail({ orderId, setStatus }) {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-                Qunatity Recieved
+                Quantity Recieved
               </label>
               <input
                 className="order-customer-lable-container"

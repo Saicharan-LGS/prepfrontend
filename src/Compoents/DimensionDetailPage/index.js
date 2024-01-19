@@ -40,7 +40,6 @@ function DimensionNewDetailPage() {
   
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
-    console.log(isChecked, ...selectedProducts, productId);
     if (isChecked) {
       setSelectedProducts([...selectedProducts, productId]);
       const updatedQuantities = { ...productQuantities };
@@ -51,7 +50,6 @@ function DimensionNewDetailPage() {
       setSelectedProducts(updatedProducts);
     }
   };
-  console.log(selectedProducts, "vvvvvvvvvvvvvvv");
 
   
   const token = sessionStorage.getItem("token");
@@ -68,27 +66,18 @@ function DimensionNewDetailPage() {
       });
       if (response.ok) {
         const data1 = await response.json();
-
         const data = data1.order;
-   
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
-
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-
-       
           data1.services.Products.forEach((item) => {
             productQuantities[item.services] = item.quantity;
           });
-  
           const fetchedSelectedProducts = data1.services.Products.map(
             (productService) => productService.services
           );
           setSelectedProducts(fetchedSelectedProducts);
-  
-          console.log(productQuantities, "saiiiiiiii");
-  
         setFormData({
           date: data.date,
           name: data.name,
@@ -103,9 +92,6 @@ function DimensionNewDetailPage() {
           status: data.status,
           instructions: data.instructions,
         });
-
-
-       
       } else {
       }
     } catch (error) {}
@@ -128,9 +114,8 @@ function DimensionNewDetailPage() {
       .then((productsData) => {
         setProducts(productsData.products);
       })
-      .catch((error) => {
+      .catch(() => {
       });
-
     fetchData();
   }, []);
 
@@ -146,7 +131,6 @@ function DimensionNewDetailPage() {
       id: parseInt(productId),
       quantity: Number(productQuantities[productId]) || 0,
     }));
-  console.log(selectedProductsWithQuantity, "saiiiiiiii");
 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
@@ -325,7 +309,7 @@ function DimensionNewDetailPage() {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-                Qunatity Recieved
+              Quantity Recieved
               </label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"

@@ -24,10 +24,6 @@ const StaffSignupPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Define the URL of your server's registration endpoint
-
-    // Create a JSON object with the form data
-
     let isValid = true;
     const newErrorMessages = { name: "", password: "", email: "" };
 
@@ -49,10 +45,7 @@ const StaffSignupPage = () => {
     setErrorMessages(newErrorMessages);
 
     if (isValid) {
-      // Define the URL of your server's registration endpoint
       const url = `${process.env.REACT_APP_FETCH_URL}staffregistration`;
-
-      // Create a JSON object with the form data
       const jsonData = {
         name: formData.name,
         password: formData.password,
@@ -60,7 +53,6 @@ const StaffSignupPage = () => {
         role: formData.role,
       };
       const token = sessionStorage.getItem("token");
-      // Make a POST request using the fetch API with JSON data
       fetch(url, {
         method: "POST",
         headers: {
@@ -71,7 +63,6 @@ const StaffSignupPage = () => {
       })
         .then((response) => {
           if (response.status === 201) {
-            // Registration successful
             response.json().then((data) => {
               Toast.fire({
                 icon: "success",
@@ -84,7 +75,6 @@ const StaffSignupPage = () => {
                 role: "Admin",
               });
             });
-            // Navigate to the signin page
           } else {
             response.json().then((data) => {
               Toast.fire({
@@ -136,7 +126,6 @@ const StaffSignupPage = () => {
               onChange={handleInputChange}
             />
           </div>
-
           <div className="signup-whole-form-contaner">
             <label className="signup-form-lable-container">Email ID</label>
             <input

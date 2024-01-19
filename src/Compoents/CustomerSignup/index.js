@@ -6,10 +6,8 @@ const Customersignup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    
   });
   const [errors, setErrors] = useState({});
-  const [backendError, setBackendError] = useState(null);
   const [showLoader, setShowLoader] = useState(false);
 
   const handleInputChange = (e) => {
@@ -20,9 +18,6 @@ const Customersignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowLoader(true)
-    setBackendError(null); // Clear any previous backend errors
-
-    // Validate the form data
     const validationErrors = {};
     if (!formData.name.trim()) {
       validationErrors.name = "Name is required";
@@ -84,14 +79,12 @@ const Customersignup = () => {
       .then((data) => {})
       .catch(() => {
         setShowLoader(false)
-        setBackendError("An error occurred while processing your request.");
       });
   };
 
   return (
     <div className="customer-signin-sub-container">
     <div className="customer-signin-div-container">
-      
       <div className="login-image-container">
         <img
           src="https://www.ascarii.com/hubfs/Optimised-Customer-Service-v4.png"
@@ -137,7 +130,6 @@ const Customersignup = () => {
             />
             {errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-         
             <div className="customer-signin-form-group-container">
             <Button
               text="Register"
@@ -147,7 +139,6 @@ const Customersignup = () => {
               disabled={showLoader}
             />
             </div>
-          
         </form>
       </div>
       </div>

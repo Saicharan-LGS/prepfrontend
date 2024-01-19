@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import "./index.css";
-import { ImCancelCircle } from "react-icons/im";
 import { Box, Modal } from "@mui/material";
 import CustomerProfileEdit from "../CustomerProfileEdit";
 import CustomerUpdatePassword from "../CustomerUpdatePassword";
@@ -49,10 +48,8 @@ function CustomerProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-
   return (
     <>
-      {/* <ImCancelCircle onClick={onClose} style={{fontSize:"24px", color:"#212d45",cursor:"pointer",marginBottom:"10px"}}/> */}
       <div className="customer-profile-view-main-container">
         <div className="customer-profile-view-sub-container">
           <div className="customer-profile-view-top-container">
@@ -85,9 +82,7 @@ function CustomerProfileView({ fetchProducts1 }) {
                     Update Password
                   </p>
                 </div>
-              
               </div>
-              
             </div>
             <div>
             <button
@@ -118,7 +113,6 @@ function CustomerProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          
           <CustomerProfileEdit
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
@@ -143,7 +137,6 @@ function CustomerProfileView({ fetchProducts1 }) {
             p: 3,
           }}
         >
-          
           <CustomerUpdatePassword onClose={handleCloseModal} />
         </Box>
       </Modal>

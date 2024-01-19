@@ -4,7 +4,6 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
-import { TiEdit } from "react-icons/ti";
 import { Box, Modal } from "@mui/material";
 import EditStaffDetails from "../EditStaffDetails";
 import { RiEditBoxLine } from "react-icons/ri";
@@ -16,11 +15,8 @@ function StaffList() {
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const [selectedStaff, setSelectedStaff] = useState(null);
-
-  const [isModelOpen,setIsModelOpen] = useState(false)
-
+  const [isModelOpen, setIsModelOpen] = useState(false);
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleToggle = async (id, currentStatus, role1) => {
@@ -36,7 +32,6 @@ function StaffList() {
       });
 
       if (response.ok) {
-
         response.json().then((data) => {
           Toast.fire({
             icon: "success",
@@ -44,7 +39,6 @@ function StaffList() {
           });
         });
         fetchProducts();
-        // You may want to update the local state here if needed
       } else {
         response.json().then((data) => {
           Toast.fire({
@@ -53,8 +47,7 @@ function StaffList() {
           });
         });
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const paginate = (pageNumber) => {
@@ -120,15 +113,14 @@ function StaffList() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  const handleEdit=(staffData)=>{
-    setSelectedStaff(staffData)
-    setIsModelOpen(true)
-  }
+  const handleEdit = (staffData) => {
+    setSelectedStaff(staffData);
+    setIsModelOpen(true);
+  };
 
   const handleCloseModal = () => {
     setIsModelOpen(false);
   };
-
 
   return (
     <>
@@ -150,15 +142,21 @@ function StaffList() {
             style={{padding:"10px"}}
           />
           <div className="admin-order-accepted-table-container">
-            <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
-              <p className="customer-list-table-row" style={{width:"10%"}}>Staff Id</p>
+            <div
+              className="admin-order-accepted-category-types"
+              style={{ fontWeight: "600" }}
+            >
+              <p className="customer-list-table-row" style={{ width: "10%" }}>
+                Staff Id
+              </p>
               <p className="customer-list-table-row">Name</p>
               <p className="customer-list-table-row">Role</p>
-              <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
+              <p className="customer-list-table-row" style={{ width: "30%" }}>
+                Email
+              </p>
               <p className="customer-list-table-row">Enable / Disable</p>
               <p className="customer-list-table-row">Edit</p>
             </div>
-
             {filteredProducts.length > 0 ? (
               <>
                 {currentProducts.map((eachProduct) => {
@@ -167,7 +165,10 @@ function StaffList() {
                       className="admin-order-accepted-display-of-products-container"
                       key={eachProduct.id}
                     >
-                      <p className="customer-list-table-row" style={{width:"10%"}}>
+                      <p
+                        className="customer-list-table-row"
+                        style={{ width: "10%" }}
+                      >
                         {eachProduct.id}
                       </p>
                       <p className="customer-list-table-row">
@@ -176,7 +177,10 @@ function StaffList() {
                       <p className="customer-list-table-row">
                         {eachProduct.role}
                       </p>
-                      <p className="customer-list-table-row" style={{width:"30%"}}>
+                      <p
+                        className="customer-list-table-row"
+                        style={{ width: "30%" }}
+                      >
                         {eachProduct.email}
                       </p>
                       <div className="customer-list-table-row">
@@ -194,9 +198,11 @@ function StaffList() {
                         />
                       </div>
                       <div className="customer-list-table-row">
-                        <RiEditBoxLine onClick={()=>handleEdit(eachProduct)} className="customer-list-view-icon"/>
+                        <RiEditBoxLine
+                          onClick={() => handleEdit(eachProduct)}
+                          className="customer-list-view-icon"
+                        />
                       </div>
-                      
                     </div>
                   );
                 })}
@@ -219,10 +225,9 @@ function StaffList() {
             )}
           </div>
         </div>
-        
       )}
-       <Modal
-       setIsModelOpen={setIsModelOpen}
+      <Modal
+        setIsModelOpen={setIsModelOpen}
         open={isModelOpen}
         onClose={handleCloseModal}
         style={{ width: "100%" }}
@@ -230,18 +235,21 @@ function StaffList() {
         <Box
           sx={{
             position: "absolute",
-            width:"260px",
+            width: "260px",
             top: "50%",
             left: "50%",
-            
+
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",
             p: 3,
           }}
         >
-          
-          <EditStaffDetails fetchProducts={fetchProducts} onClose={handleCloseModal} staff = {selectedStaff} />
+          <EditStaffDetails
+            fetchProducts={fetchProducts}
+            onClose={handleCloseModal}
+            staff={selectedStaff}
+          />
         </Box>
       </Modal>
     </>

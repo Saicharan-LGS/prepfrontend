@@ -43,7 +43,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
-    console.log(isChecked, ...selectedProducts, productId);
     if (isChecked) {
       setSelectedProducts([...selectedProducts, productId]);
       const updatedQuantities = { ...productQuantities };
@@ -180,7 +179,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     } catch (error) {
     }
   };
-  console.log(productQuantities, selectedProducts)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -190,7 +188,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
         id: parseInt(productId),
         quantity: Number(productQuantities[productId]) || 0,
       }));
-      console.log(selectedProductsWithQuantity, "saiiiiiiii");
 
     const formDataToSend = new FormData();
     formDataToSend.append("date", date);

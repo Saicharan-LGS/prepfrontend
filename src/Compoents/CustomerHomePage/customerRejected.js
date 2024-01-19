@@ -25,6 +25,7 @@ function CustomerRejected({ openDetailPage }) {
   const [totalAmount,setTotalAmount] = useState("")
   const [discount,setDiscount] = useState("")
   const [discountedAmount,setDiscountedAmount] = useState("")
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     // Filter products based on orderId
@@ -101,7 +102,7 @@ function CustomerRejected({ openDetailPage }) {
 
       const handleView=(each)=>{
         setSelectedOrders(each.orders)
-       
+        setDate(each.data_time);
         setDiscount(each.discount)
         setDiscountedAmount(each.discounted_amount)
         setTotalAmount(each.totalamount)
@@ -136,9 +137,7 @@ function CustomerRejected({ openDetailPage }) {
               <p className="admin-order-accepted-name-category">Total Amount</p>
               <p className="admin-order-accepted-service-category">Discount(%)</p>
               <p className="admin-order-accepted-quantity-category">Final Amount</p>
-              {/* <p className="admin-order-accepted-accept-category">Received</p>
-              <p className="admin-order-accepted-decline-category">Decline</p> */}
-              <p className="admin-order-accepted-view-in-detail-category">
+             <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
              
@@ -218,6 +217,7 @@ function CustomerRejected({ openDetailPage }) {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount ={discount}
+            date={date}
             discountedAmount={discountedAmount}
           />
         </Box>
