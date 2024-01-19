@@ -1,6 +1,6 @@
 .sidebar-container {
     opacity: 1;
-    color: #fff;
+    background-image:linear-gradient(to bottom,#ff9f00,#fedc00,#ffc500) !important;
   }
   .hamburger-icon {
     display: flex;
@@ -23,4 +23,6 @@
     background-color: #212d45 !important;
     color:#fff !important;
   }
-  
+  .ps-sidebar-container{
+    background-color: transparent !important;
+  }

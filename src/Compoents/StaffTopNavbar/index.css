@@ -1,8 +1,11 @@
 .navbar-main-container {
     display: flex;
-    height: 64px;
+    
     align-items: center;
-    background-color: #ffc03d;
+    /* background-color: #ffc03d; */
+  /* background-image: url('https://img.freepik.com/free-photo/vivid-blurred-colorful-wallpaper-background_58702-5949.jpg?w=740&t=st=1705670338~exp=1705670938~hmac=bac0c0e7e16e235e33d6c11879a880833ee1138d6136aa4502ec17acc021da29');
+    background-size:cover; */
+    background-image: linear-gradient(to Right,#ff9f00,#fedc00,#ffc500);
     width: 100%;
   }
   .navbar-sub-container {
@@ -10,6 +13,7 @@
     width: 100%;
     justify-content: flex-end;
     padding: 0px 70px;
+    height: 80px;
   }
   .navbar-company-name {
     font-size: 24px;

@@ -79,7 +79,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   return (
     <div style={{ display: "flex", minHeight:"100vh", maxHeight:"max-content" }}>
       <Sidebar
-        backgroundColor="#ffc03d"
+        style={{backgroundImage:"linear-gradient(to bottom,#ff9f00 10%,#fedc00,#ffc500)"}}
         className="sidebar-container"
         collapsed={isCollapsed}
         collapsedWidth="60px"
@@ -91,11 +91,10 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
                 backgroundColor: "#13395e",
                 color: "#b6c8d9",
               },
-              backgroundColor: "#ffc03d", // Background color for menu items
-              color: "#212d45", // Default text color for menu items
+               // Default text color for menu items
               "&:hover": {
-                backgroundColor: "#212d45", // Background color on hover
-                color: "#ffffff", // Text color on hover
+                backgroundColor: "#fff", // Background color on hover
+                color: "#212d45", // Text color on hover
               },
             },
           }}
@@ -113,7 +112,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<ImUpload fontSize="20px" />}
             onClick={() => handleSidebarItemClick(9)}
             style={
-              status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 9 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Post Order
@@ -124,7 +123,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<FaClipboardList  fontSize="24px" />}
             onClick={() => setStatus(8)}
             style={
-              status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 8 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Orders
@@ -135,7 +134,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<BsFillBoxSeamFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(5)}
             style={
-              status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 5 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Invoice Pending
@@ -146,7 +145,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<RiVerifiedBadgeFill fontSize="24px" />}
             onClick={() => handleSidebarItemClick(6)}
             style={
-              status === 6 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 6 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Invoice Accepted
@@ -157,7 +156,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<BsXOctagonFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(7)}
             style={
-              status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 7 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Invoice Rejected
@@ -168,7 +167,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<IoWalletSharp fontSize="20px" />}
             onClick={() => handleSidebarItemClick(4)}
             style={
-              status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 4 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Wallet

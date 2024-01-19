@@ -147,6 +147,7 @@ function CustomerList() {
             placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
+            style={{padding:"10px"}}
           />
           <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>

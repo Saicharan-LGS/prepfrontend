@@ -97,7 +97,9 @@ function SideBar() {
   return (
     <div style={{ display: "flex", minHeight: "120vh" }}>
       <Sidebar
-        backgroundColor="#ffc03d"
+      style={{backgroundImage:"linear-gradient(to bottom,#ff9f00 10%,#fedc00,#ffc500)"}}
+ 
+        zIndex="999"
         className="sidebar-container"
         collapsed={isCollapsed}
         collapsedWidth="60px"
@@ -106,21 +108,19 @@ function SideBar() {
           menuItemStyles={{
             button: {
               "&.active": {
-                backgroundColor: "#212d45",
+                backgroundColor: "#fff",
                 color: "#fff",
               },
-              backgroundColor: "#ffc03d", // Background color for menu items
-              color: "#212d45", // Default text color for menu items
               "&:hover": {
-                backgroundColor: "#212d45", // Background color on hover
-                color: "#ffffff", // Text color on hover
+                backgroundColor: "#fff", // Background color on hover
+                color: "#212d45", // Text color on hover
               },
             },
           }}
         >
           <div className="hamburger-icon">
             <GiHamburgerMenu
-              style={{ color: "#212d45" }}
+              style={{ color: "#fff" }}
               onMouseEnter={handleMouseEnter}
               onClick={() => setIsCollapsed(!isCollapsed)}
             />
@@ -131,7 +131,7 @@ function SideBar() {
             icon={<MdProductionQuantityLimits fontSize="25px" />}
             onClick={() => handleSidebarItemClick(1)}
             style={
-              status === 1 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 1 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Receiving
@@ -142,7 +142,7 @@ function SideBar() {
             icon={<MdOutlinePinch fontSize="25px" />}
             onClick={() => handleSidebarItemClick(4)}
             style={
-              status === 4 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 4 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Dimensions
@@ -153,7 +153,7 @@ function SideBar() {
             icon={<MdLabelImportant fontSize="25px" />}
             onClick={() => handleSidebarItemClick(5)}
             style={
-              status === 5 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 5 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Label Orders
@@ -164,7 +164,7 @@ function SideBar() {
             icon={<RiAccountCircleFill fontSize="25px" />}
             onClick={() => handleSidebarItemClick(6)}
             style={
-              status === 6 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 6 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Accountant
@@ -175,7 +175,7 @@ function SideBar() {
             icon={<IoPaperPlane fontSize="20px" />}
             onClick={() => handleSidebarItemClick(10)}
             style={
-              status === 10 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 10 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Dispatch
@@ -186,7 +186,7 @@ function SideBar() {
             icon={<BsFillPersonFill fontSize="25px" />}
             onClick={() => handleSidebarItemClick(2)}
             style={
-              status === 2 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 2 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Add Customer
@@ -197,7 +197,7 @@ function SideBar() {
             icon={<MdPeopleAlt fontSize="25px" />}
             onClick={() => handleSidebarItemClick(8)}
             style={
-              status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 8 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Customers List
@@ -208,7 +208,7 @@ function SideBar() {
             icon={<AiOutlineTeam fontSize="25px" />}
             onClick={() => handleSidebarItemClick(3)}
             style={
-              status === 3 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 3 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Add Staff
@@ -219,7 +219,7 @@ function SideBar() {
             icon={<MdOutlinePeopleAlt fontSize="25px" />}
             onClick={() => handleSidebarItemClick(7)}
             style={
-              status === 7 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 7 ? { backgroundColor: "#fff", color: "#212d45",} : {}
             }
           >
             Staff List
@@ -230,7 +230,7 @@ function SideBar() {
             icon={<FaListAlt fontSize="20px" />}
             onClick={() => handleSidebarItemClick(9)}
             style={
-              status === 9 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 9 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Product & Services
@@ -241,7 +241,7 @@ function SideBar() {
             icon={<IoIosNotifications fontSize="25px" />}
             onClick={() => handleSidebarItemClick(11)}
             style={
-              status === 11 ? { backgroundColor: "#212d45", color: "#fff" } : {}
+              status === 11 ? { backgroundColor: "#fff", color: "#212d45", } : {}
             }
           >
             Customer Requests
@@ -249,7 +249,7 @@ function SideBar() {
           <MenuItem
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<IoLogOut />}
+            icon={<IoLogOut style={{fontSize:"25px"}}/>}
             onClick={handleLogout}
           >
             Logout
