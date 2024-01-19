@@ -102,8 +102,7 @@ function AccountOrders({ openDetailPageComponent }) {
             title: data.message,
           });
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     const onSubmitFunction = () => {
@@ -154,7 +153,10 @@ function AccountOrders({ openDetailPageComponent }) {
 
   const generateInvoice = async () => {
     if (selectedIds < 1) {
-      alert("Please Select atleast one order");
+      Toast.fire({
+        icon: "success",
+        title: "Please Select atleast one order",
+      });
     } else {
       try {
         const token = sessionStorage.getItem("token");
@@ -181,8 +183,7 @@ function AccountOrders({ openDetailPageComponent }) {
             title: data.message,
           });
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
   };
 
@@ -215,9 +216,7 @@ function AccountOrders({ openDetailPageComponent }) {
               Order Tracking Link
             </p>
             <p className="admin-order-accepted-fnsku-category">FNSKU</p>
-              <p className="admin-order-accepted-box-label-category">
-                Box Label
-              </p>
+            <p className="admin-order-accepted-box-label-category">Box Label</p>
             <p className="admin-order-accepted-service-category">
               Enter Invoice
             </p>
@@ -259,23 +258,19 @@ function AccountOrders({ openDetailPageComponent }) {
                     )}
                   </p>
                   <div className="admin-order-accepted-fnsku-sub-category">
-                        <input
-                          type="checkbox"
-                          checked={
-                            eachProduct.fnsku_status === 1 ? true : false
-                          }
-                          className="admin-order-accepted-checkbox"
-                        />
-                      </div>
-                      <div className="admin-order-accepted-box-label-sub-category">
-                        <input
-                          type="checkbox"
-                          checked={
-                            eachProduct.label_status === 1 ? true : false
-                          }
-                          className="admin-order-accepted-checkbox"
-                        />
-                      </div>
+                    <input
+                      type="checkbox"
+                      checked={eachProduct.fnsku_status === 1 ? true : false}
+                      className="admin-order-accepted-checkbox"
+                    />
+                  </div>
+                  <div className="admin-order-accepted-box-label-sub-category">
+                    <input
+                      type="checkbox"
+                      checked={eachProduct.label_status === 1 ? true : false}
+                      className="admin-order-accepted-checkbox"
+                    />
+                  </div>
                   <div className="admin-order-accepted-order-enter-amount">
                     <input
                       type="checkbox"
