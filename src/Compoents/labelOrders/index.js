@@ -54,7 +54,7 @@ function LabelOrders({ openDetailPageComponent }) {
     if (role === "Admin") {
       openDetailPageComponent(productId);
     } else {
-      navigate(`/labeldetailpage/${productId}`);
+      navigate(`/stafforderdetailpage/${productId}`);
 
     }
   };

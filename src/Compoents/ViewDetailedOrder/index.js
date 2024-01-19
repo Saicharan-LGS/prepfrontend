@@ -6,7 +6,8 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { Box, Modal } from "@mui/material";
 import { IoArrowBackCircle } from "react-icons/io5";
-import DimensionUpdatePage from "../DimensionUpdatePage";
+import Toast from "../utlis/toast";
+
 function ViewDetailedOrder({ setStatus }) {
   const { id } = useParams();
   const [formData, setFormData] = useState({
@@ -21,73 +22,120 @@ function ViewDetailedOrder({ setStatus }) {
     fnskuSend1: null,
     labelSend1: null,
     status: "",
-    fnsku_status: "",
-    label_status: "",
-    fnskuButton: "",
-    labelButton: "",
-    fnsku_label_printed: null,
-    length: "",
-    height: "",
-    width: "",
-    weight: "",
+   quantity_received: "",
+   
     instructions: "",
   });
+  const [products, setProducts] = useState([]);
+  const [productQuantities, setProductQuantities] = useState({});
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
   const [isModalOpen, setModalOpen] = React.useState(false);
   const token = sessionStorage.getItem("token");
   const role = sessionStorage.getItem("role");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
+  const handleProductSelection = (e, productId) => {
+    const isChecked = e.target.checked;
+    console.log(isChecked, ...selectedProducts, productId);
+    if (isChecked) {
+      setSelectedProducts([...selectedProducts, productId]);
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = 0;
+      setProductQuantities(updatedQuantities);
+    } else {
+      const updatedProducts = selectedProducts.filter((id) => id !== productId);
+      setSelectedProducts(updatedProducts);
+    }
+  };
+  const getQuantityById = (productId) => {
+    return productQuantities[productId];
+  };
+  const handleQuantityChange = (productId, quantity) => {
+    if (selectedProducts.includes(productId)) {
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = quantity;
+      setProductQuantities(updatedQuantities);
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: "Select Checkbox first",
+      });
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data1 = await response.json();
+
+        const data = data1.order;
+
+        const fnskuFiles =
+          data1.files.filter((file) => file.type === "fnskuSend") || [];
+
+        const labelFiles =
+          data1.files.filter((file) => file.type === "labelSend") || [];
+        console.log(data1.services.Products, "products");
+
+        data1.services.Products.forEach((item) => {
+          productQuantities[item.services] = item.quantity;
+        });
+
+        const fetchedSelectedProducts = data1.services.Products.map(
+          (productService) => productService.services
+        );
+        setSelectedProducts(fetchedSelectedProducts);
+
+        console.log(productQuantities, "saiiiiiiii");
+
+        setFormData({
+          date: data.date,
+          name: data.name,
+          service: data.service,
+          product: data.product,
+          unit: data.unit,
+          tracking_url: data.tracking_url,
+          fnskuSend1: fnskuFiles,
+          labelSend1: labelFiles,
+          fnskuSend: null,
+          labelSend: null,
+          status: data.status,
+          instructions: data.instructions,
+          quantity_received: data.quantity_received,
+        });
+      } else {
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     // Fetch data using the id passed as a prop
-    async function fetchData() {
-      try {
-        const response = await fetch(`${FETCH_URL}getAdminOrderDetails/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: ` Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const data1 = await response.json();
-
-          const data = data1.order;
-
-          const fnskuFiles =
-            data1.files.filter((file) => file.type === "fnskuSend") || [];
-
-          const labelFiles =
-            data1.files.filter((file) => file.type === "labelSend") || [];
-
-          setFormData({
-            ...formData,
-            date: data.date,
-            customerName: data.name,
-            servicesReq: data.service,
-            productName: data.product,
-            units: data.unit,
-            trackingURL: data.tracking_url,
-            fnskuSend1: fnskuFiles,
-            labelSend1: labelFiles,
-
-            fnskuButton: data.fnsku_status,
-            labelButton: data.label_status,
-            fnsku_status: data.fnsku_status,
-            label_status: data.label_status,
-            fnskuSend: null,
-            labelSend: null,
-            fnsku_label_printed: data.fnsku_label_printed,
-            length: data.length,
-            width: data.width,
-            height: data.height,
-            weight: data.weight,
-            instructions: data.instructions,
-          });
+    fetch(`${FETCH_URL}getprep-productlist`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((productsResponse) => {
+        if (productsResponse.ok) {
+          return productsResponse.json();
         } else {
+          throw new Error("Failed to fetch products");
         }
-      } catch (error) {}
-    }
+      })
+      .then((productsData) => {
+        setProducts(productsData.products);
+      })
+      .catch((error) => {});
+
 
     fetchData();
   }, [id]);
@@ -108,6 +156,7 @@ function ViewDetailedOrder({ setStatus }) {
     fnskuSend1,
     labelSend1,
     instructions,
+    quantity_received
   } = formData;
 
   const handleDimensionUpdate = () => {
@@ -167,11 +216,23 @@ function ViewDetailedOrder({ setStatus }) {
                 readOnly
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Qunatity Recieved
+              </label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="number"
+                name="quantity_received"
+                value={quantity_received}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
             >
-              { role==="Dimension" ? "Update Dimensions" : "See Dimensions" }
+              See Dimensions
             </p>
            
           </div>
@@ -197,6 +258,40 @@ function ViewDetailedOrder({ setStatus }) {
                 value={productName}
                 readOnly
               />
+            </div>
+            <div className="order-customer-service-container">
+              <label className="order-customer-service-name">Products :</label>
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="order-customer-service-input-container"
+                >
+                  <label
+                    htmlFor={`product-${product.id}`}
+                    className="order-customer-label-name"
+                  >
+                    {product.name} :
+                  </label>
+                  <input
+                    type="checkbox"
+                    id={product.id}
+                    name="selectedProducts"
+                    value={product.id}
+                    readOnly
+                    checked={selectedProducts.includes(product.id)}
+                    className="order-customer-input-checkbox"
+                  />
+                  <input
+                    type="number"
+                    id={`product-${product.id}`}
+                    name={`product-${product.id}`}
+                    value={getQuantityById(product.id)}
+                   readOnly
+                    placeholder="Enter Quantity"
+                    className="order-customer-service-input"
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="order-customer-field3-container">
@@ -288,14 +383,7 @@ function ViewDetailedOrder({ setStatus }) {
             p: 3,
           }}
         >
-          {role === "Dimension" ? (
-            <DimensionUpdatePage
-              updateId={id}
-              onClose={handleCloseModal}
-            />
-          ) : (
             <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
-          )}
         </Box>
       </Modal>
     </>

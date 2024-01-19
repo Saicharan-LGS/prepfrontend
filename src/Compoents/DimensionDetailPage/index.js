@@ -10,6 +10,7 @@ import { Box } from "@mui/material";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonNavbar from "../CommonNavbar";
+import DimensionUpdatePage from "../DimensionUpdatePage";
 
 function DimensionNewDetailPage() {
   const { id } = useParams();
@@ -26,33 +27,33 @@ function DimensionNewDetailPage() {
     fnskuSend1: null,
     labelSend1: null,
     status: "",
-    fnsku_status: "",
-    label_status: "",
-    fnskuButton: "",
-    labelButton: "",
+   quantity_received: "",
     instructions: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
-  const [services, setServices] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
-  // Define separate state for dimensions and selected units
-  const [dimensions, setDimensions] = useState({
-    length: "",
-    width: "",
-    height: "",
-    weight: "",
-  });
-  const [selectedUnits, setSelectedUnits] = useState({
-    length: "inches",
-    width: "inches",
-    height: "inches",
-    weight: "lb",
-  });
+  
+  const handleProductSelection = (e, productId) => {
+    const isChecked = e.target.checked;
+    console.log(isChecked, ...selectedProducts, productId);
+    if (isChecked) {
+      setSelectedProducts([...selectedProducts, productId]);
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = 0;
+      setProductQuantities(updatedQuantities);
+    } else {
+      const updatedProducts = selectedProducts.filter((id) => id !== productId);
+      setSelectedProducts(updatedProducts);
+    }
+  };
+  console.log(selectedProducts, "vvvvvvvvvvvvvvv");
+
+  
   const token = sessionStorage.getItem("token");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -69,26 +70,25 @@ function DimensionNewDetailPage() {
         const data1 = await response.json();
 
         const data = data1.order;
-        const lengthParts = (data.length || "").match(/([\d.]+)([a-zA-Z]+)/);
-        const widthParts = (data.width || "").match(/([\d.]+)([a-zA-Z]+)/);
-        const heightParts = (data.height || "").match(/([\d.]+)([a-zA-Z]+)/);
-        const weightParts = (data.weight || "").match(/([\d.]+)([a-zA-Z]+)/);
-
+   
         const fnskuFiles =
           data1.files.filter((file) => file.type === "fnskuSend") || [];
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
 
-        const productServicesIds = data1.services.Services.map(
-          (productService) => productService.services
-        );
-        setSelectedServices(productServicesIds);
-
-        data1.services.Products.forEach((item) => {
-          productQuantities[item.services] = item.quantity;
-        });
-
+       
+          data1.services.Products.forEach((item) => {
+            productQuantities[item.services] = item.quantity;
+          });
+  
+          const fetchedSelectedProducts = data1.services.Products.map(
+            (productService) => productService.services
+          );
+          setSelectedProducts(fetchedSelectedProducts);
+  
+          console.log(productQuantities, "saiiiiiiii");
+  
         setFormData({
           date: data.date,
           name: data.name,
@@ -96,43 +96,16 @@ function DimensionNewDetailPage() {
           product: data.product,
           unit: data.unit,
           tracking_url: data.tracking_url,
-          fnskuButton: data.fnsku_status,
-          labelButton: data.label_status,
           fnskuSend1: fnskuFiles,
           labelSend1: labelFiles,
-          fnsku_status: data.fnsku_status,
-          label_status: data.label_status,
           fnskuSend: null,
           labelSend: null,
           status: data.status,
           instructions: data.instructions,
         });
 
-        const newDimensions = {};
 
-        if (lengthParts && lengthParts[1] !== null) {
-          newDimensions.length = parseFloat(lengthParts[1]);
-        }
-
-        if (widthParts && widthParts[1] !== null) {
-          newDimensions.width = parseFloat(widthParts[1]);
-        }
-
-        if (heightParts && heightParts[1] !== null) {
-          newDimensions.height = parseFloat(heightParts[1]);
-        }
-
-        if (weightParts && weightParts[1] !== null) {
-          newDimensions.weight = parseFloat(weightParts[1]);
-        }
-        setDimensions(newDimensions);
-        // Set selected units
-        setSelectedUnits({
-          length: lengthParts ? lengthParts[2] : "inches",
-          width: widthParts ? widthParts[2] : "inches",
-          height: heightParts ? heightParts[2] : "inches",
-          weight: weightParts ? weightParts[2] : "lb",
-        });
+       
       } else {
       }
     } catch (error) {}
@@ -158,25 +131,6 @@ function DimensionNewDetailPage() {
       .catch((error) => {
       });
 
-    // Fetch services
-    fetch(`${FETCH_URL}getprep-servicelist`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((servicesResponse) => {
-        if (servicesResponse.ok) {
-          return servicesResponse.json();
-        } else {
-          throw new Error("Failed to fetch services");
-        }
-      })
-      .then((servicesData) => {
-        setServices(servicesData.services);
-      })
-      .catch((error) => {
-      });
     fetchData();
   }, []);
 
@@ -186,37 +140,13 @@ function DimensionNewDetailPage() {
   };
 
   const handleSubmit = (e) => {
-    const length1 =
-      length !== undefined ? dimensions.length + selectedUnits.length : "";
-    const width1 =
-      width !== undefined ? dimensions.width + selectedUnits.width : "";
-    const height1 =
-      height !== undefined ? dimensions.height + selectedUnits.height : "";
-    const weight1 =
-      weight !== undefined ? dimensions.weight + selectedUnits.weight : "";
-    if (dimensions.length > 25) {
-      alert("Length is greater than 25. Enter a value below 25");
-      return;
-    }
-    if (dimensions.width > 25) {
-      alert("Width is greater than 25. Enter a value below 25");
-      return;
-    }
-    if (dimensions.height > 25) {
-      alert("Height is greater than 25. Enter a value below 25");
-      return;
-    }
-
-    const selectedServiceWithQunatity = selectedServices.map((productId) => ({
-      id: productId,
-      quantity: 1,
-    }));
     const selectedProductsWithQuantity = Object.keys(productQuantities)
-      .map((productId) => ({
-        id: productId,
-        quantity: productQuantities[productId] || 0,
-      }))
-      .filter((product) => product.quantity > 0);
+    .filter((productId) => selectedProducts.includes(parseInt(productId)))
+    .map((productId) => ({
+      id: parseInt(productId),
+      quantity: Number(productQuantities[productId]) || 0,
+    }));
+  console.log(selectedProductsWithQuantity, "saiiiiiiii");
 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
@@ -226,10 +156,6 @@ function DimensionNewDetailPage() {
     formDataToSend.append("product", product || "");
     formDataToSend.append("unit", unit || "");
     formDataToSend.append("tracking_url", tracking_url || "");
-    formDataToSend.append("length", length1);
-    formDataToSend.append("width", width1);
-    formDataToSend.append("weight", weight1);
-    formDataToSend.append("height", height1);
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
 
@@ -237,10 +163,6 @@ function DimensionNewDetailPage() {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
 
-    formDataToSend.append(
-      "selectedServices",
-      JSON.stringify(selectedServiceWithQunatity)
-    );
     formDataToSend.append(
       "selectedProducts",
       JSON.stringify(selectedProductsWithQuantity)
@@ -269,6 +191,7 @@ function DimensionNewDetailPage() {
       })
       .catch((error) => {});
   };
+  const role = sessionStorage.getItem("role");
 
   const PDF_URL = process.env.REACT_APP_PDF_URL;
 
@@ -299,31 +222,30 @@ function DimensionNewDetailPage() {
     labelSend1,
     status,
     instructions,
+    quantity_received
   } = formData;
-  const { length, width, height, weight } = dimensions;
 
   const getQuantityById = (productId) => {
     return productQuantities[productId] || "";
   };
   const handleQuantityChange = (productId, quantity) => {
-    const updatedQuantities = { ...productQuantities };
-    updatedQuantities[productId] = quantity;
-    setProductQuantities(updatedQuantities);
+    if (selectedProducts.includes(productId)) {
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = quantity;
+      setProductQuantities(updatedQuantities);
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: "Select Checkbox first",
+      });
+    }
   };
 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
-  const handleServiceSelection = (e, serviceId) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      setSelectedServices([...selectedServices, serviceId]);
-    } else {
-      const updatedServices = selectedServices.filter((id) => id !== serviceId);
-      setSelectedServices(updatedServices);
-    }
-  };
+
 
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
@@ -401,37 +323,26 @@ function DimensionNewDetailPage() {
                 value={name}
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Qunatity Recieved
+              </label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="number"
+                name="quantity_received"
+                value={quantity_received}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
             >
-              See Dimensions
+              { role==="Dimension" ? "Update Dimensions" : "See Dimensions" }
             </p>
-            <div className="order-customer-service-container">
-              <p className="order-customer-service-name">Services :</p>
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="order-customer-service-input-container"
-                >
-                  <input
-                    type="checkbox"
-                    id={service.id}
-                    name="selectedServices"
-                    value={service.id}
-                    readOnly
-                    checked={selectedServices.includes(service.id)}
-                    className="order-customer-input-checkbox"
-                  />
-                  <label
-                    htmlFor={service.id}
-                    className="order-customer-label-name"
-                  >
-                    {service.name}
-                  </label>
-                </div>
-              ))}
-            </div>
+           
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -533,7 +444,6 @@ function DimensionNewDetailPage() {
                 <option value="8">Dispatched</option>
               </select>
             </div>
-
             <div className="order-customer-service-container">
               <label className="order-customer-service-name">Products :</label>
               {products.map((product) => (
@@ -548,11 +458,22 @@ function DimensionNewDetailPage() {
                     {product.name} :
                   </label>
                   <input
+                    type="checkbox"
+                    id={product.id}
+                    name="selectedProducts"
+                    value={product.id}
+                    checked={selectedProducts.includes(product.id)}
+                    onChange={(e) => handleProductSelection(e, product.id)}
+                    className="order-customer-input-checkbox"
+                  />
+                  <input
                     type="number"
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
                     value={getQuantityById(product.id)}
-                   readOnly
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
                     placeholder="Enter Quantity"
                     className="order-customer-service-input"
                   />
@@ -634,10 +555,14 @@ function DimensionNewDetailPage() {
             p: 3,
           }}
         >
-          <CustomerDimensionView
-            updateId={orderId}
-            onClose={handleCloseModal}
-          />
+          {role === "Dimension" ? (
+            <DimensionUpdatePage
+              updateId={id}
+              onClose={handleCloseModal}
+            />
+          ) : (
+            <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
+          )}
         </Box>
       </Modal>
     </>

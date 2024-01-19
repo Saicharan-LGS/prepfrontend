@@ -282,31 +282,7 @@ const CustomerOrder = () => {
                   multiple
                 />
               </div>
-              <div className="order-customer-service-container">
-                <p className="order-customer-service-name">Services :</p>
-                {services.map((service) => (
-                  <div
-                    key={service.id}
-                    className="order-customer-service-input-container"
-                  >
-                    <input
-                      type="checkbox"
-                      id={service.id}
-                      name="selectedServices"
-                      value={service.id}
-                      checked={selectedServices.includes(service.id)}
-                      // onChange={(e) => handleServiceSelection(e, service.id)}
-                      className="order-customer-input-checkbox"
-                    />
-                    <label
-                      htmlFor={service.id}
-                      className="order-customer-label-name"
-                    >
-                      {service.name}
-                    </label>
-                  </div>
-                ))}
-              </div>
+  
             </div>
             <div className="order-customer-field2-container">
               <div className="order-customer-input-feild">
