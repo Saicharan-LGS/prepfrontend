@@ -27,9 +27,7 @@ const AdminResetPassword = () => {
         );
         return;
       }
-
       const email = localStorage.getItem("email");
-
       const response = await fetch(`${FETCH_URL}staffresetpassword`, {
         method: "POST",
         headers: {

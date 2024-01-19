@@ -26,6 +26,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
     setDiscountAmount(totalAmount)
   },[])
 
+  console.log(data, "saicharan data")
   
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -47,7 +48,7 @@ function GenerateInvoicePage({ data,onClose,fetchProducts }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          customer_id: data[0].customer_id, // Replace with the actual customer ID
+          customer_id: data[0].customer_id,
           orders: JSON.stringify(orderIds),
           discount: discount,
           totalamount: totalAmount,

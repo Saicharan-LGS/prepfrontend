@@ -28,6 +28,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     fnskuButton: "",
     labelButton: "",
     instructions: "",
+    quantity_received: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
@@ -103,6 +104,7 @@ function OrderViewDetail({ orderId, setStatus }) {
           labelSend: null,
           status: data.status,
           instructions: data.instructions,
+          quantity_received: data.quantity_received,
         });
 
         const newDimensions = {};
@@ -229,7 +231,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("height", height1);
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
-
+formDataToSend.append("quantity_received", quantity_received)
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
@@ -296,6 +298,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     labelSend1,
     status,
     instructions,
+    quantity_received
   } = formData;
   const { length, width, height, weight } = dimensions;
 
@@ -344,7 +347,6 @@ function OrderViewDetail({ orderId, setStatus }) {
       });
 
       if (response.ok) {
-        // File deleted successfully
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
@@ -398,6 +400,17 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Qunatity Recieved</label>
+              <input
+                className="order-customer-lable-container"
+                type="number"
+                name="quantity_received"
+                value={quantity_received}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
@@ -429,33 +442,6 @@ function OrderViewDetail({ orderId, setStatus }) {
                 </div>
               ))}
             </div>
-            {/* {["length", "width", "height", "weight"].map((dimension) => (
-              <div key={dimension} className="dimensions-input-container">
-                <label className="dimensions-label-text">
-                  {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
-                </label>
-                <div className="dimension-select-container">
-                  <input
-                    className="dimensions-input"
-                    type="text"
-                    name={dimension}
-                    value={dimensions[dimension]}
-                    onChange={(e) => handleDimensionsChange(e, dimension)}
-                  />
-                  <select
-                    className="dimensions-select"
-                    value={selectedUnits[dimension]}
-                    onChange={(e) => handleUnitChange(e, dimension)}
-                  >
-                    {unitOptions[dimension].map((unit) => (
-                      <option key={unit} value={unit}>
-                        {unit}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            ))} */}
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">

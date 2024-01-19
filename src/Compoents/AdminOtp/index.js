@@ -43,15 +43,19 @@ const AdminOtp = () => {
           otp: parseInt(otp),
         }),
       });
+      const data = await response.json();
 
       if (response.ok) {
-        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
         });
         navigate("/AdminResetPassword");
       } else {
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
       }
     } catch (error) {
     }
