@@ -15,20 +15,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     product: "",
     unit: "",
     tracking_url: "",
-    fnskuSend: null,
-    labelSend: null,
-    fnskuSend1: null,
-    labelSend1: null,
     status: "",
-    fnsku_status: "",
-    label_status: "",
-    fnskuButton: "",
-    labelButton: "",
-    length: "",
-    height: "",
-    width: "",
-    weight: "",
-    amount: "",
     instructions: "",
     quantity_received: "",
   });
@@ -36,9 +23,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const [labelSendFiles, setLabelSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
-  const [services, setServices] = useState([]);
-  const [selectedServices, setSelectedServices] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   const statusLabels = {
     0: "Pending",
@@ -54,6 +40,20 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const token = sessionStorage.getItem("token");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
+
+  const handleProductSelection = (e, productId) => {
+    const isChecked = e.target.checked;
+    console.log(isChecked, ...selectedProducts, productId);
+    if (isChecked) {
+      setSelectedProducts([...selectedProducts, productId]);
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = 0;
+      setProductQuantities(updatedQuantities);
+    } else {
+      const updatedProducts = selectedProducts.filter((id) => id !== productId);
+      setSelectedProducts(updatedProducts);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -76,15 +76,15 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-
-        const productServicesIds = data1.services.Services.map(
-          (productService) => productService.services
-        );
-        setSelectedServices(productServicesIds);
-
-        data1.services.Products.forEach((item) => {
-          productQuantities[item.services] = item.quantity;
-        });
+          data1.services.Products.forEach((item) => {
+            productQuantities[item.services] = item.quantity;
+          });
+  
+          const fetchedSelectedProducts = data1.services.Products.map(
+            (productService) => productService.services
+          );
+          setSelectedProducts(fetchedSelectedProducts);
+  
 
         setFormData({
           ...formData,
@@ -96,17 +96,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           tracking_url: data.tracking_url,
           fnskuSend1: fnskuFiles,
           labelSend1: labelFiles,
-          fnskuButton: data.fnsku_status,
-          labelButton: data.label_status,
-          fnsku_status: data.fnsku_status,
-          label_status: data.label_status,
-          fnskuSend: null,
-          labelSend: null,
-          length: data.length,
-          width: data.width,
-          height: data.height,
-          weight: data.weight,
-          amount: data.amount,
           status: data.status,
           instructions: data.instructions,
           quantity_received: data.quantity_received,
@@ -134,26 +123,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       })
       .catch((error) => {
       });
-
-    // Fetch services
-    fetch(`${FETCH_URL}getprep-servicelist`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((servicesResponse) => {
-        if (servicesResponse.ok) {
-          return servicesResponse.json();
-        } else {
-          throw new Error("Failed to fetch services");
-        }
-      })
-      .then((servicesData) => {
-        setServices(servicesData.services);
-      })
-      .catch((error) => {
-      });
     fetchData();
   }, [orderId]);
 
@@ -178,23 +147,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   };
 
   const getQuantityById = (productId) => {
-    return productQuantities[productId] || "";
+    return productQuantities[productId] || 0;
   };
-  const handleQuantityChange = (productId, quantity) => {
-    const updatedQuantities = { ...productQuantities };
-    updatedQuantities[productId] = quantity;
-    setProductQuantities(updatedQuantities);
-  };
-
-  const handleServiceSelection = (e, serviceId) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      setSelectedServices([...selectedServices, serviceId]);
-    } else {
-      const updatedServices = selectedServices.filter((id) => id !== serviceId);
-      setSelectedServices(updatedServices);
-    }
-  };
+ 
 
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
@@ -225,19 +180,17 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     } catch (error) {
     }
   };
+  console.log(productQuantities, selectedProducts)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const selectedServiceWithQunatity = selectedServices.map((productId) => ({
-      id: productId,
-      quantity: 1,
-    }));
     const selectedProductsWithQuantity = Object.keys(productQuantities)
+      .filter((productId) => selectedProducts.includes(parseInt(productId)))
       .map((productId) => ({
-        id: productId,
-        quantity: productQuantities[productId] || 0,
-      }))
-      .filter((product) => product.quantity > 0);
+        id: parseInt(productId),
+        quantity: Number(productQuantities[productId]) || 0,
+      }));
+      console.log(selectedProductsWithQuantity, "saiiiiiiii");
 
     const formDataToSend = new FormData();
     formDataToSend.append("date", date);
@@ -246,19 +199,12 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("product", product);
     formDataToSend.append("unit", unit);
     formDataToSend.append("tracking_url", tracking_url);
-    // formDataToSend.append("fnskuSend", fnskuSend);
-    // formDataToSend.append("labelSend", labelSend);
     formDataToSend.append("instructions", instructions);
     formDataToSend.append("orderId", orderId);
-    // Add any other fields you want to update
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
     });
 
-    formDataToSend.append(
-      "selectedServices",
-      JSON.stringify(selectedServiceWithQunatity)
-    );
     formDataToSend.append(
       "selectedProducts",
       JSON.stringify(selectedProductsWithQuantity)
@@ -373,41 +319,14 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 readOnly
               />
             </div>
-            <p
-              className="order-customer-dimension-update-button-container"
-              onClick={handleDimensionUpdate}
-            >
-              See Dimensions
-            </p>
-            <div className="order-customer-service-container">
-              <p className="order-customer-service-name">Services :</p>
-              {services.map((service) => (
-                <div
-                  key={service.id}
-                  className="order-customer-service-input-container"
-                >
-                  <input
-                    type="checkbox"
-                    id={service.id}
-                    name="selectedServices"
-                    value={service.id}
-                    // readOnly={status === "0" ? false : true}
-                    checked={selectedServices.includes(service.id)}
-                    onChange={(e) =>
-                      status === "0"
-                        ? handleServiceSelection(e, service.id)
-                        : null
-                    }
-                    className="order-customer-input-checkbox"
-                  />
-                  <label
-                    htmlFor={service.id}
-                    className="order-customer-label-name"
-                  >
-                    {service.name}
-                  </label>
-                </div>
-              ))}
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Received Quantity</label>
+              <input
+                className="order-customer-lable-container admin-order-accepted-readonly"
+                type="text"
+                value={quantity_received}
+                readOnly
+              />
             </div>
           </div>
           <div className="order-customer-field2-container">
@@ -445,16 +364,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleFnskuSendChange}
                 multiple
               />
-              {/* {fnsku_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(fnskuSend1)}
-                  disabled={fnskuSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View FNSKU File
-                </button>
-              )} */}
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
@@ -467,17 +376,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleLabelSendChange}
                 multiple
               />
-
-              {/* {label_status === 1 && (
-                <button
-                  type="button"
-                  onClick={() => openFileInNewTab(labelSend1)}
-                  disabled={labelSend1 === null}
-                  className="order-customer-view-file-button-container"
-                >
-                  View Box Label File
-                </button>
-              )} */}
             </div>
             <div className="order-customer-service-container">
               <label className="order-customer-service-name">Products :</label>
@@ -493,13 +391,20 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                     {product.name} :
                   </label>
                   <input
+                    type="checkbox"
+                    id={product.id}
+                    name="selectedProducts"
+                    value={product.id}
+                    checked={selectedProducts.includes(product.id)}
+                    onChange={(e) => status === "0" ?   handleProductSelection(e, product.id): null }
+                    className="order-customer-input-checkbox"
+                  />
+                  <input
                     type="number"
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
-                    value={getQuantityById(product.id)}
-                    onChange={(e) =>
-                      handleQuantityChange(product.id, e.target.value)
-                    }
+                    value={getQuantityById(product.id)} 
+                    readOnly
                     placeholder="Enter Quantity"
                     className="order-customer-service-input"
                   />
@@ -530,16 +435,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            {/* <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Amount</label>
-              <input
-                className="order-customer-lable-container admin-order-accepted-readonly"
-                type="text"
-                name="tracking_url"
-                value={amount}
-                onChange={handleChange}
-              />
-            </div> */}
+            
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Instructions</label>
               <input
@@ -560,37 +456,12 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Received Quantity</label>
-              <input
-                className="order-customer-lable-container"
-                type="text"
-                
-                value={quantity_received}
-                
-                readOnly
-              />
-            </div>
-           
-            
-            {/* <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="tracking_url"
-              checked={fnsku_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">FNSKU Status</label>
-          </div>
-          <div className="order-customer-input-feild-fnsku-status">
-            <input
-              className="order-customer-lable-container-checkbox"
-              type="checkbox"
-              name="tracking_url"
-              checked={label_status === 1 ? true : false}
-            />
-            <label className="order-customer-label-name">Label Status</label>
-          </div> */}
+            <p
+              className="order-customer-dimension-update-button-container"
+              onClick={handleDimensionUpdate}
+            >
+              See Dimensions
+            </p>
           </div>
         </form>
         <p style={{ marginLeft: "30px",marginTop:"20px",fontWeight:"600" }} className="order-customer-label-name">

@@ -38,13 +38,18 @@ function OrderViewDetail({ orderId, setStatus }) {
 
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
+    console.log(isChecked, ...selectedProducts, productId);
     if (isChecked) {
       setSelectedProducts([...selectedProducts, productId]);
+      const updatedQuantities = { ...productQuantities };
+      updatedQuantities[productId] = 0;
+      setProductQuantities(updatedQuantities);
     } else {
       const updatedProducts = selectedProducts.filter((id) => id !== productId);
       setSelectedProducts(updatedProducts);
     }
   };
+  console.log(selectedProducts, "vvvvvvvvvvvvvvv");
 
   const fetchData = async () => {
     try {
