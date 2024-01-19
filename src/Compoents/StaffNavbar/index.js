@@ -97,7 +97,7 @@ function SideBar() {
   console.log(status,activeTab,"kapil")
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div style={{ display: "flex", minHeight: "120vh" }}>
       <Sidebar
         backgroundColor="#ffc03d"
         className="sidebar-container"
@@ -232,6 +232,8 @@ function SideBar() {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
+          height:"100vh",
+          overflow:"scroll"
         }}
       > 
 

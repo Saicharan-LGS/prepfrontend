@@ -15,6 +15,7 @@ import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
 import CustomerOrder from "../customerOrder/index.js";
 import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
+import { FaClipboardList } from "react-icons/fa";
 import { ImUpload } from "react-icons/im";
 import Wallet from "../Wallet/index,.js";
 import CustomerTopNavbar from "../CustomerTopBar/index.js";
@@ -77,7 +78,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
+    <div style={{ display: "flex", minHeight:"100vh", maxHeight:"max-content" }}>
       <Sidebar
         backgroundColor="#ffc03d"
         className="sidebar-container"
@@ -114,7 +115,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           </MenuItem>
           <MenuItem onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<FaIcons  fontSize="20px" />}
+            icon={<FaClipboardList  fontSize="24px" />}
             onClick={() => setStatus(8)}
             style={status === 8 ? { backgroundColor: "#212d45", color: "#fff" } : {}}
           >
@@ -172,6 +173,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
+          height:"100vh",
+          overflow:"scroll"
         }}
       > 
 

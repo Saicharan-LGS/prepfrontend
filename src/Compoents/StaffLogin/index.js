@@ -147,6 +147,7 @@ const StaffSigninPage = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    placeholder="Enter Your Email"
                   />
                 </div>
                 <div className="signin-form-group-container">
@@ -160,6 +161,7 @@ const StaffSigninPage = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     required
+                    placeholder="Enter Your Password"
                   />
                 </div>
                 <center>

@@ -17,4 +17,8 @@
     color: #fff;
     margin: 0px;
   }
-  
+  @media (max-width:768px){
+    .navbar-sub-container{
+      padding:0px 10px 0px 0px;
+    }
+  }

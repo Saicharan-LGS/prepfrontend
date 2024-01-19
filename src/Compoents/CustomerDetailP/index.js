@@ -602,6 +602,17 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Received Quantity</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                
+                value={quantity_received}
+                
+                readOnly
+              />
+            </div>
            
             
             {/* <div className="order-customer-input-feild-fnsku-status">
