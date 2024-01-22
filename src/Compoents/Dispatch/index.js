@@ -193,7 +193,7 @@ function Dispatch() {
               <>
                 {currentProducts.map((eachProduct) => {
                   return (
-                    <div className="admin-order-accepted-display-of-products-container">
+                    <div className="admin-order-accepted-display-of-products-container" style={{height:"max-content"}}>
                       <p className="admin-order-accepted-order-id-sub-category">
                         {JSON.parse(eachProduct.dispatch.orders).join(", ")}
                       </p>
