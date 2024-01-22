@@ -135,7 +135,6 @@ function CustomerRejected({ openDetailPage }) {
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">Order Id's</p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-service-category">Discount(%)</p>
               <p className="admin-order-accepted-quantity-category">Final Amount</p>
              <p className="admin-order-accepted-view-in-detail-category">
                 View
@@ -152,9 +151,6 @@ function CustomerRejected({ openDetailPage }) {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.totalamount}
-                      </p>
-                      <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.discount}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}

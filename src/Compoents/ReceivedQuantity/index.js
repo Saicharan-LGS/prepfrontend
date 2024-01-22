@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
 const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
-  const [status, setStatus] = useState("");
   const [quantityReceived, setQuantityReceived] = useState("");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-
+  const token = sessionStorage.getItem("token");
   const handleUpdate = async () => {
+    console.log("satys", quantityReceived, unit);
     try {
       const response = await fetch(
         `${FETCH_URL}updateOrderQuantity/${orderId}`,
         {
           method: "PUT",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status,
             quantity_received: quantityReceived,
             unit: unit,
           }),
@@ -24,7 +24,6 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
       );
 
       if (response.ok) {
-       
         // Add any additional logic you want to perform after a successful update
         response.json().then((data) => {
           Toast.fire({
@@ -35,10 +34,9 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
         onClose();
         fetchProducts();
       } else {
+        console.log(response);
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (

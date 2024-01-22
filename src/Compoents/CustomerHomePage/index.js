@@ -19,7 +19,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState();
-
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
@@ -29,7 +28,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
     // Filter products based on orderId
     const filtered = products.filter((product) => {
       const productIdMatch = product.orders.toString().includes(orderId);
-
       return productIdMatch;
     });
 
@@ -134,9 +132,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                 Order Id's
               </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-service-category">
-                Discount(%)
-              </p>
+             
               <p className="admin-order-accepted-quantity-category">
                 Final Amount
               </p>
@@ -157,9 +153,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.totalamount}
                       </p>
-                      <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.discount}
-                      </p>
+                     
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
