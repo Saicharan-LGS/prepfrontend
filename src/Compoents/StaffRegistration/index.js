@@ -102,7 +102,7 @@ const StaffSignupPage = () => {
   };
 
   return (
-    <div className="customer-signin-sub-container">
+    <div className="">
     <div className="signup-div-container">
       <div className="login-image-container">
         <img

@@ -83,7 +83,7 @@ const Customersignup = () => {
   };
 
   return (
-    <div className="customer-signin-sub-container">
+    <div className="">
     <div className="customer-signin-div-container">
       <div className="login-image-container">
         <img
