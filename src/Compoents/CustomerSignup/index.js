@@ -134,7 +134,7 @@ const Customersignup = () => {
             <Button
               text="Register"
               type="Submit"
-              style={{color:"#212d45",backgroundColor:"#ffc03d"}}
+              style={{color:"#fff",backgroundColor:"#212d45"}}
               loading={showLoader}
               disabled={showLoader}
             />

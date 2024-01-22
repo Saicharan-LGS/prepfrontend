@@ -47,8 +47,8 @@
 .customer-profile-edit-file::file-selector-button{
     width:max-content;
     padding: 6px 20px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none !important;
     border-radius: 4px;
     cursor: pointer;

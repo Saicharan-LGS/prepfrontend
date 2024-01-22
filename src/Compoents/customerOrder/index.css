@@ -77,12 +77,14 @@
 }
 
 .order-customer-label-file::file-selector-button {
-  padding: 2px 8px;
+  padding: 6px 8px;
   border-radius: 4px;
   background-color: #212d45;
   transition: 1s;
   color:#fff;
   border:none;
+  cursor:pointer;
+  font-size:14px;
 }
 .order-customer-service-container{
   display:flex;

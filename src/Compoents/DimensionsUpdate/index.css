@@ -55,13 +55,13 @@
 .dimensions-button {
   height: 40px;
   width: 150px;
-  color: #212d45;
+  color: #fff;
   font-weight: 600;
   font-size: 15px;
   border-radius: 20px;
   outline: none;
   border-width: 0px;
-  background-color: #ffc03d;
+  background-color: #212d45;
   cursor:pointer;
 }
 .dimension-input-container-1{
