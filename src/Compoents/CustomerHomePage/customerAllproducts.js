@@ -81,7 +81,6 @@ function CustomerAllProducts({ openDetailPage }) {
         if (response.ok) {
           const data = await response.json();
           setProducts(data.results);
-          console.log(data.results,"data.resultsdata.results")
           setLoading(false);
         } else {
           setTimeout(() => {

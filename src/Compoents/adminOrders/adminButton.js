@@ -33,6 +33,12 @@ const DisplayAdminButton = (props) => {
         });
         props.fetchProducts();
       } else {
+        const data = await response.json();
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
+        props.fetchProducts();
       }
     } catch (error) {}
   };

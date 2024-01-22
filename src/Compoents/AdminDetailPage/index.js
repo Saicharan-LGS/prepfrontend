@@ -234,17 +234,24 @@ function OrderViewDetail({ orderId, setStatus }) {
     }
 
     try {
+      const requestData = {
+        orderId: id,
+      };
       const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: {
-          orderId: id,
-        },
+        body: JSON.stringify(requestData)
       });
 
       if (response.ok) {
+        Toast.fire({
+          icon: "success",
+          title: "File deleted successfully.",
+        });
+      
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();

@@ -15,7 +15,7 @@ function ViewDetailedOrder({ setStatus }) {
     customerName: "",
     servicesReq: "Prep Service",
     productName: "",
-    units: "",
+    unit: "",
     trackingURL: "",
     fnskuSend: null,
     labelSend: null,
@@ -71,11 +71,11 @@ function ViewDetailedOrder({ setStatus }) {
 
         setFormData({
           date: data.date,
-          name: data.name,
+          customerName: data.customer_name,
           service: data.service,
-          product: data.product,
+          productName: data.product,
           unit: data.unit,
-          tracking_url: data.tracking_url,
+          trackingURL: data.tracking_url,
           fnskuSend1: fnskuFiles,
           labelSend1: labelFiles,
           fnskuSend: null,
@@ -124,7 +124,7 @@ function ViewDetailedOrder({ setStatus }) {
     customerName,
     servicesReq,
     productName,
-    units,
+    unit,
     trackingURL,
     fnskuSend1,
     labelSend1,
@@ -274,7 +274,7 @@ function ViewDetailedOrder({ setStatus }) {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="number"
                 name="units"
-                value={units}
+                value={unit}
                 readOnly
               />
             </div>

@@ -21,7 +21,7 @@ function Dispatch() {
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
-
+  const [customerName, setCustomerName] = useState("");
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
@@ -63,10 +63,7 @@ function Dispatch() {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        console.log(data[0].dispatch);
         setProducts(data);
-        console.log(data,"kapoilll")
         setLoading(false);
       } else {
         setTimeout(() => {
@@ -94,13 +91,14 @@ function Dispatch() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  const handleView = (each) => {
-    setSelectedOrders(each.orders);
-    setDiscount(each.discount);
-    setDiscountedAmount(each.discounted_amount);
-    setTotalAmount(each.totalamount);
-    setModalOpen(true);
-  };
+      const handleView = (each) => {
+        setSelectedOrders((each.dispatch.orders ));
+        setDiscount(each.dispatch.discount);
+        setDiscountedAmount(each.dispatch.discounted_amount);
+        setTotalAmount(each.dispatch.totalamount);
+        setCustomerName(each.orders[0].customer_name)
+        setModalOpen(true);
+      };
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -193,7 +191,10 @@ function Dispatch() {
               <>
                 {currentProducts.map((eachProduct) => {
                   return (
-                    <div className="admin-order-accepted-display-of-products-container" style={{height:"max-content"}}>
+                    <div
+                      className="admin-order-accepted-display-of-products-container"
+                      style={{ height: "max-content" }}
+                    >
                       <p className="admin-order-accepted-order-id-sub-category">
                         {JSON.parse(eachProduct.dispatch.orders).join(", ")}
                       </p>
@@ -203,14 +204,13 @@ function Dispatch() {
                       <p className="admin-order-accepted-order-id-category">
                         {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
-                        
                             {order.name}
                             {index < eachProduct.orders.length - 1 && <br />}
                           </React.Fragment>
                         ))}
                       </p>
                       <p className="admin-order-accepted-order-id-category">
-                      {eachProduct.orders.map((order, index) => (
+                        {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
                             {order.product}
                             {index < eachProduct.orders.length - 1 && <br />}
@@ -233,8 +233,8 @@ function Dispatch() {
 
                       <DispatchButton
                         status={eachProduct.dispatch.invoice_status}
-                        orderIds={eachProduct.orders}
-                        id={eachProduct.id}
+                        orderIds={eachProduct.dispatch.orders}
+                        id={eachProduct.dispatch.id}
                         fetchProducts={fetchProducts}
                       />
                       <BsFillArrowRightCircleFill
@@ -291,6 +291,7 @@ function Dispatch() {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
+            customerName={customerName}
             discountedAmount={discountedAmount}
           />
         </Box>

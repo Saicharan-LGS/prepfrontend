@@ -12,10 +12,10 @@ function CustomerInvoicePage({
   totalAmount,
   discount,
   discountedAmount,
+  customerName,
   date,
 }) {
   const [invoiceOrders, setInvoiceOrders] = useState([]);
-  const [customerName, setCustomerName] = useState("");
   const contentRef = useRef();
 
   const handleModel = () => {
@@ -26,19 +26,17 @@ function CustomerInvoicePage({
 
   const fetchData = async () => {
     try {
-      const token = sessionStorage.getItem("token");
       const response = await fetch(`${FETCH_URL}generateInvoices`, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ selectedIds: JSON.parse(selectedOrders) }),
       });
       if (response.ok) {
         const data = await response.json();
+
         setInvoiceOrders(data.orders);
-        setCustomerName(data.orders[0].customer_name);
       } else {
         const data = await response.json();
         Toast.fire({

@@ -75,15 +75,14 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-          data1.services.Products.forEach((item) => {
-            productQuantities[item.services] = item.quantity;
-          });
-  
-          const fetchedSelectedProducts = data1.services.Products.map(
-            (productService) => productService.services
-          );
-          setSelectedProducts(fetchedSelectedProducts);
-  
+        data1.services.Products.forEach((item) => {
+          productQuantities[item.services] = item.quantity;
+        });
+
+        const fetchedSelectedProducts = data1.services.Products.map(
+          (productService) => productService.services
+        );
+        setSelectedProducts(fetchedSelectedProducts);
 
         setFormData({
           ...formData,
@@ -120,8 +119,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       .then((productsData) => {
         setProducts(productsData.products);
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
     fetchData();
   }, [orderId]);
 
@@ -148,7 +146,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
   const getQuantityById = (productId) => {
     return productQuantities[productId] || 0;
   };
- 
+
 
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
@@ -157,28 +155,36 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     );
 
     if (!isConfirmed) {
-      return; // User canceled the deletion
+      return;
     }
+
     try {
+      const requestData = {
+        orderId: orderId,
+      };
       const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: {
-          orderId: orderId,
-        },
+        body: JSON.stringify(requestData)
       });
 
       if (response.ok) {
-        // File deleted successfully
+        Toast.fire({
+          icon: "success",
+          title: "File deleted successfully.",
+        });
+      
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
+
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -317,7 +323,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Received Quantity</label>
+              <label className="order-customer-label-name">
+                Received Quantity
+              </label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
@@ -352,28 +360,34 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">FNSKU Send:</label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="fnskuSend"
-                onChange={handleFnskuSendChange}
-                multiple
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Box Label Send:
-              </label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="labelSend"
-                onChange={handleLabelSendChange}
-                multiple
-              />
-            </div>
+            {status === "0" && (
+              <>
+                <div className="order-customer-input-feild">
+                  <label className="order-customer-label-name">
+                    FNSKU Send:
+                  </label>
+                  <input
+                    className="order-customer-lable-container order-customer-label-file"
+                    type="file"
+                    name="fnskuSend"
+                    onChange={handleFnskuSendChange}
+                    multiple
+                  />
+                </div>
+                <div className="order-customer-input-feild">
+                  <label className="order-customer-label-name">
+                    Box Label Send:
+                  </label>
+                  <input
+                    className="order-customer-lable-container order-customer-label-file"
+                    type="file"
+                    name="labelSend"
+                    onChange={handleLabelSendChange}
+                    multiple
+                  />
+                </div>
+              </>
+            )}
             <div className="order-customer-service-container">
               <label className="order-customer-service-name">Products :</label>
               {products.map((product) => (
@@ -393,14 +407,18 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                     name="selectedProducts"
                     value={product.id}
                     checked={selectedProducts.includes(product.id)}
-                    onChange={(e) => status === "0" ?   handleProductSelection(e, product.id): null }
+                    onChange={(e) =>
+                      status === "0"
+                        ? handleProductSelection(e, product.id)
+                        : null
+                    }
                     className="order-customer-input-checkbox"
                   />
                   <input
                     type="number"
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
-                    value={getQuantityById(product.id)} 
+                    value={getQuantityById(product.id)}
                     readOnly
                     placeholder="Enter Quantity"
                     className="order-customer-service-input"
@@ -432,7 +450,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            
+
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Instructions</label>
               <input
@@ -448,7 +466,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               <input
                 className="order-customer-lable-container"
                 type="text"
-                name="tracking_url"
                 value={statusLabels[status] || "Unknown Status"}
                 onChange={handleChange}
               />
@@ -461,7 +478,10 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             </p>
           </div>
         </form>
-        <p style={{ marginLeft: "30px",marginTop:"20px",fontWeight:"600" }} className="order-customer-label-name">
+        <p
+          style={{ marginLeft: "30px", marginTop: "20px", fontWeight: "600" }}
+          className="order-customer-label-name"
+        >
           Fnsku Files
         </p>
         {fnskuSend1 && (
@@ -475,7 +495,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                <MdDeleteOutline style={{cursor:"pointer"}}
+                <MdDeleteOutline
+                  style={{ cursor: "pointer" }}
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
                 />
@@ -483,7 +504,10 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             ))}
           </div>
         )}
-        <p style={{ marginLeft: "30px",marginTop:"10px",fontWeight:"600" }} className="order-customer-label-name">
+        <p
+          style={{ marginLeft: "30px", marginTop: "10px", fontWeight: "600" }}
+          className="order-customer-label-name"
+        >
           Label Files
         </p>
         {labelSend1 && (
@@ -497,7 +521,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
-                <MdDeleteOutline style={{cursor:"pointer"}}
+                <MdDeleteOutline
+                  style={{ cursor: "pointer" }}
                   key={each}
                   onClick={(e) => onClickDeleteFile(e, each.id)}
                 />

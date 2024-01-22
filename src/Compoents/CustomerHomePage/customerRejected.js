@@ -18,6 +18,7 @@ function CustomerRejected({ openDetailPage }) {
 
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [customerName, setCustomerName]=useState("")
 
   const [isModalOpen,setModalOpen] = useState(false)
   const [selectedOrders,setSelectedOrders] = useState()
@@ -100,14 +101,15 @@ function CustomerRejected({ openDetailPage }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-      const handleView=(each)=>{
-        setSelectedOrders(each.orders)
-        setDate(each.data_time);
-        setDiscount(each.discount)
-        setDiscountedAmount(each.discounted_amount)
-        setTotalAmount(each.totalamount)
-        setModalOpen(true)
-      }
+      const handleView = (each) => {
+        setSelectedOrders(each.orders);
+        setDiscount(each.discount);
+        setDiscountedAmount(each.discounted_amount);
+        setTotalAmount(each.totalamount);
+        setCustomerName(sessionStorage.getItem("sname"));
+        setModalOpen(true);
+      };
+    
 
       const handleCloseModal = () => {
         setModalOpen(false);
@@ -208,12 +210,12 @@ function CustomerRejected({ openDetailPage }) {
           }}
         >
           <CustomerInvoicePage
-            selectedOrders = {selectedOrders}
+            selectedOrders={selectedOrders}
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
-            discount ={discount}
-            date={date}
+            discount={discount}
+            customerName={customerName}
             discountedAmount={discountedAmount}
           />
         </Box>

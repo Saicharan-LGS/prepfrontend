@@ -89,6 +89,7 @@ function DimensionNewDetailPage() {
           labelSend1: labelFiles,
           fnskuSend: null,
           labelSend: null,
+          quantity_received: data.quantity_received,
           status: data.status,
           instructions: data.instructions,
         });
@@ -242,24 +243,29 @@ function DimensionNewDetailPage() {
     }
 
     try {
+      const requestData = {
+        orderId: orderId,
+      };
       const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
-        body: {
-          orderId: id,
-        },
+        body: JSON.stringify(requestData)
       });
 
       if (response.ok) {
-        // File deleted successfully
+        Toast.fire({
+          icon: "success",
+          title: "File deleted successfully.",
+        });
+      
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const navigate = useNavigate();

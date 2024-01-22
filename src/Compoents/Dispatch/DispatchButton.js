@@ -1,7 +1,6 @@
 import Toast from "../utlis/toast";
 const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
   // Set the initial value as a string '1'
-
   const token = sessionStorage.getItem("token");
   const handleSubmit = async () => {
     // Create an object with the data you want to send
@@ -38,7 +37,6 @@ const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(requestData), // Stringify the data

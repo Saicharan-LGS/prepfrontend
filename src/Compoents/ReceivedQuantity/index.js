@@ -6,7 +6,6 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const token = sessionStorage.getItem("token");
   const handleUpdate = async () => {
-    console.log("satys", quantityReceived, unit);
     try {
       const response = await fetch(
         `${FETCH_URL}updateOrderQuantity/${orderId}`,
@@ -34,7 +33,6 @@ const ReceivedQuantity = ({ orderId, unit, onClose, fetchProducts }) => {
         onClose();
         fetchProducts();
       } else {
-        console.log(response);
       }
     } catch (error) {}
   };

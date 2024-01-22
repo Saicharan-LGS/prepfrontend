@@ -15,6 +15,7 @@ function CustomerAccepted() {
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [customerName, setCustomerName] = useState("");
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState();
@@ -91,14 +92,14 @@ function CustomerAccepted() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  const handleView = (each) => {
-    setSelectedOrders(each.orders);
-    setDate(each.data_time);
-    setDiscount(each.discount);
-    setDiscountedAmount(each.discounted_amount);
-    setTotalAmount(each.totalamount);
-    setModalOpen(true);
-  };
+      const handleView = (each) => {
+        setSelectedOrders(each.orders);
+        setDiscount(each.discount);
+        setDiscountedAmount(each.discounted_amount);
+        setTotalAmount(each.totalamount);
+        setCustomerName(sessionStorage.getItem("sname"));
+        setModalOpen(true);
+      };
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -128,7 +129,7 @@ function CustomerAccepted() {
                 Order Id's
               </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              
+
               <p className="admin-order-accepted-quantity-category">
                 Final Amount
               </p>
@@ -207,7 +208,7 @@ function CustomerAccepted() {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
-            date={date}
+            customerName={customerName}
             discountedAmount={discountedAmount}
           />
         </Box>

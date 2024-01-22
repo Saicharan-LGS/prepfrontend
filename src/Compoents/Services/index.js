@@ -141,7 +141,7 @@ export const ProductServiceList = () => {
           style={{ fontWeight: "600" }}
         >
           <p className="customer-list-table-row">ID</p>
-          <p className="customer-list-table-row">Customer Name</p>
+          <p className="customer-list-table-row">Product Name</p>
           <p className="customer-list-table-row">Category</p>
           <p className="customer-list-table-row">Price</p>
           <p className="customer-list-table-row">Date & Time</p>

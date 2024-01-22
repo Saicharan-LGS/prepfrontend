@@ -22,7 +22,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
-  const [date, setDate] = useState("");
+  const [customerName, setCustomerName] = useState("");
 
   useEffect(() => {
     // Filter products based on orderId
@@ -66,7 +66,6 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
-
         setProducts(data);
         setLoading(false);
       } else {
@@ -97,10 +96,10 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
 
   const handleView = (each) => {
     setSelectedOrders(each.orders);
-    setDate(each.data_time);
     setDiscount(each.discount);
     setDiscountedAmount(each.discounted_amount);
     setTotalAmount(each.totalamount);
+    setCustomerName(sessionStorage.getItem("sname"));
     setModalOpen(true);
   };
 
@@ -132,7 +131,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                 Order Id's
               </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-             
+
               <p className="admin-order-accepted-quantity-category">
                 Final Amount
               </p>
@@ -153,7 +152,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.totalamount}
                       </p>
-                     
+
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
@@ -220,7 +219,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
-            date={date}
+            customerName={customerName}
             discountedAmount={discountedAmount}
           />
         </Box>
