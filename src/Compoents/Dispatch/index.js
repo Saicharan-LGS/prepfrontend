@@ -20,8 +20,8 @@ function Dispatch() {
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
-  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
- 
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
+
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
@@ -31,17 +31,17 @@ function Dispatch() {
         .includes(orderId);
       return productIdMatch && statusMatch;
     });
- 
+
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter, currentPage]);
- 
+
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
- 
+
   const handleSearch = (e) => {
     setOrderId(e.target.value);
     setCurrentPage(1); // Reset pagination when changing search filter
@@ -49,7 +49,7 @@ function Dispatch() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
- 
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const role = sessionStorage.getItem("role");
   const fetchProducts = async () => {
@@ -83,7 +83,7 @@ function Dispatch() {
   useEffect(() => {
     fetchProducts();
   }, []);
- 
+
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -92,7 +92,7 @@ function Dispatch() {
     currentPage === 1
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
- 
+
   const handleView = (each) => {
     setSelectedOrders(each.orders);
     setDiscount(each.discount);
@@ -100,7 +100,7 @@ function Dispatch() {
     setTotalAmount(each.totalamount);
     setModalOpen(true);
   };
- 
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -129,7 +129,7 @@ function Dispatch() {
       );
     }
   };
- 
+
   return (
     <>
       {role === "Dispatch" && <CommonNavbar />}
@@ -200,14 +200,21 @@ function Dispatch() {
                         {eachProduct.orders[0].customer_name}
                       </p>
                       <p className="admin-order-accepted-order-id-category">
-                        {eachProduct.orders
-                          .map((order) => order.name)
-                          .join(", ")}
+                        {eachProduct.orders.map((order, index) => (
+                          <React.Fragment key={order.id}>
+                        
+                            {order.name}
+                            {index < eachProduct.orders.length - 1 && <br />}
+                          </React.Fragment>
+                        ))}
                       </p>
                       <p className="admin-order-accepted-order-id-category">
-                        {eachProduct.orders
-                          .map((order) => order.product)
-                          .join(", ")}
+                      {eachProduct.orders.map((order, index) => (
+                          <React.Fragment key={order.id}>
+                            {order.product}
+                            {index < eachProduct.orders.length - 1 && <br />}
+                          </React.Fragment>
+                        ))}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.dispatch.totalamount}
@@ -222,7 +229,7 @@ function Dispatch() {
                         eachProduct.dispatch.invoice_status,
                         eachProduct.dispatch.orders
                       )}
- 
+
                       <DispatchButton
                         status={eachProduct.dispatch.invoice_status}
                         orderIds={eachProduct.orders}
@@ -290,6 +297,5 @@ function Dispatch() {
     </>
   );
 }
- 
+
 export default Dispatch;
- 
