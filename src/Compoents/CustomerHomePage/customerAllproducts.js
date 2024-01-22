@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
@@ -9,7 +7,6 @@ import EmptyOrder from "../EmptyOrder";
 function CustomerAllProducts({ openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10); // Number of products to display per page
   const [selectedFilter, setSelectedFilter] = useState("");
@@ -23,7 +20,7 @@ function CustomerAllProducts({ openDetailPage }) {
       2: "Received",
       3: "Dimension",
       4: "Label",
-      5: "Invoice",
+      5: "Invoice Generated",
       6: "Invoice Accepted",
       7: "Invoice Rejected",
       8: "Dispatched",
@@ -106,7 +103,7 @@ function CustomerAllProducts({ openDetailPage }) {
     2: "Received",
     3: "Dimension",
     4: "Label",
-    5: "Invoice",
+    5: "Invoice Generated",
     6: "Invoice Accepted",
     7: "Invoice Rejected",
     8: "Dispatched",
@@ -152,7 +149,7 @@ function CustomerAllProducts({ openDetailPage }) {
               <option value="Received">Received</option>
               <option value="Dimension">Dimension</option>
               <option value="Label">Label</option>
-              <option value="Invoice">Invoice</option>
+              <option value="Invoice Generated">Invoice Generated</option>
               <option value="Invoice Accepted">Invoice Accepted</option>
               <option value="Invoice Rejected">Invoice Rejected</option>
               <option value="Dispatched">Dispatched</option>
