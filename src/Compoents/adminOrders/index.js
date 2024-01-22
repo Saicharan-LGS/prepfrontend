@@ -110,7 +110,15 @@ function ProductList({ openDetailPageComponent }) {
               <p className="admin-order-accepted-service-category">
                 Product Name
               </p>
-              <p className="admin-order-accepted-quantity-category">Quantity</p>
+              <p className="admin-order-accepted-quantity-category">
+                Pending
+              </p>
+              <p className="admin-order-accepted-quantity-category">
+                Received
+              </p>
+              <p className="admin-order-accepted-quantity-category">
+               Total Quantity
+              </p>
               <p className="admin-order-accepted-order-tracking-category">
                 Order Tracking Link
               </p>
@@ -144,8 +152,13 @@ function ProductList({ openDetailPageComponent }) {
                         {eachProduct.product}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.unit}
+                       {eachProduct.unit - eachProduct.quantity_received}
+                      
                       </p>
+                      <p className="admin-order-accepted-quantity-sub-category"> {eachProduct.quantity_received}</p>
+
+                      <p className="admin-order-accepted-quantity-sub-category"> {eachProduct.unit}</p>
+
                       <p className="admin-order-accepted-order-tracking-sub-category">
                         {eachProduct.tracking_url ? (
                           <a
@@ -165,7 +178,7 @@ function ProductList({ openDetailPageComponent }) {
                         unit={eachProduct.unit}
                         fetchProducts={fetchProducts}
                       />
-                  <div className="admin-order-accepted-fnsku-sub-category">
+                      <div className="admin-order-accepted-fnsku-sub-category">
                         <input
                           type="checkbox"
                           checked={

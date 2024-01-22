@@ -18,7 +18,6 @@ function CustomerInvoicePage({
   const [customerName, setCustomerName] = useState("");
   const contentRef = useRef();
 
-
   const handleModel = () => {
     onClose();
   };
@@ -112,10 +111,12 @@ function CustomerInvoicePage({
             <p className="generate-invoice-total-amount">Total Amount</p>
             <p className="generate-invoice-total-amount-text">{totalAmount}</p>
           </div>
-          <div className="generate-invoice-discount-container">
-            <p className="generate-invoice-total-amount">Discount(%)</p>
-            <p className="generate-invoice-total-amount-text">{discount}</p>
-          </div>
+          {discount > 0 && (
+            <div className="generate-invoice-discount-container">
+              <p className="generate-invoice-total-amount">Discount(%)</p>
+              <p className="generate-invoice-total-amount-text">{discount}</p>
+            </div>
+          )}
           <div className="generate-invoice-discount-container">
             <p
               className="generate-invoice-total-amount"

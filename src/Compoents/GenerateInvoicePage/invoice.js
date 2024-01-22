@@ -45,8 +45,8 @@ function Invoice({ data }) {
           {service.map((eachProduct) => {
             total =
               total +
-              parseInt(eachProduct.serviceQuantity) *
-                parseInt(eachProduct.productPrice);
+              parseFloat(eachProduct.serviceQuantity) *
+                parseFloat(eachProduct.productPrice);
             return (
               <div
                 className="generate-invoice-table-display-container"
@@ -65,8 +65,8 @@ function Invoice({ data }) {
                   {eachProduct.productPrice}
                 </p>
                 <p className="generate-invoice-table-header-1">
-                  {parseInt(eachProduct.serviceQuantity) *
-                    parseInt(eachProduct.productPrice)}
+                  {parseFloat(eachProduct.serviceQuantity) *
+                    parseFloat(eachProduct.productPrice)}
                 </p>
               </div>
             );

@@ -128,9 +128,7 @@ function CustomerAccepted() {
                 Order Id's
               </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-service-category">
-                Discount(%)
-              </p>
+              
               <p className="admin-order-accepted-quantity-category">
                 Final Amount
               </p>
@@ -148,9 +146,6 @@ function CustomerAccepted() {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.totalamount}
-                      </p>
-                      <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.discount}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}

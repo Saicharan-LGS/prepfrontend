@@ -21,25 +21,27 @@ function Dispatch() {
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
-
+ 
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
-        product.invoice_status === invoiceStatusFilter.toString();
-      const productIdMatch = product.orders.toString().includes(orderId);
+        product.dispatch.invoice_status === invoiceStatusFilter.toString();
+      const productIdMatch = product.dispatch.orders
+        .toString()
+        .includes(orderId);
       return productIdMatch && statusMatch;
     });
-
+ 
     setFilteredProducts(filtered);
   }, [products, orderId, invoiceStatusFilter, currentPage]);
-
+ 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
+ 
   const handleSearch = (e) => {
     setOrderId(e.target.value);
     setCurrentPage(1); // Reset pagination when changing search filter
@@ -47,7 +49,7 @@ function Dispatch() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+ 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const role = sessionStorage.getItem("role");
   const fetchProducts = async () => {
@@ -61,7 +63,8 @@ function Dispatch() {
       });
       if (response.ok) {
         const data = await response.json();
-
+        console.log(data);
+        console.log(data[0].dispatch);
         setProducts(data);
         setLoading(false);
       } else {
@@ -80,7 +83,7 @@ function Dispatch() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
+ 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -89,7 +92,7 @@ function Dispatch() {
     currentPage === 1
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
-
+ 
   const handleView = (each) => {
     setSelectedOrders(each.orders);
     setDiscount(each.discount);
@@ -97,7 +100,7 @@ function Dispatch() {
     setTotalAmount(each.totalamount);
     setModalOpen(true);
   };
-
+ 
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -126,7 +129,7 @@ function Dispatch() {
       );
     }
   };
-
+ 
   return (
     <>
       {role === "Dispatch" && <CommonNavbar />}
@@ -163,6 +166,15 @@ function Dispatch() {
               <p className="admin-order-accepted-order-id-category">
                 Order Id's
               </p>
+              <p className="admin-order-accepted-order-id-category">
+                custome Name
+              </p>
+              <p className="admin-order-accepted-order-id-category">
+                Order Names
+              </p>
+              <p className="admin-order-accepted-order-id-category">
+                Product Names
+              </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
               <p className="admin-order-accepted-service-category">
                 Discount(%)
@@ -182,31 +194,44 @@ function Dispatch() {
                   return (
                     <div className="admin-order-accepted-display-of-products-container">
                       <p className="admin-order-accepted-order-id-sub-category">
-                        {JSON.parse(eachProduct.orders).join(", ")}
+                        {JSON.parse(eachProduct.dispatch.orders).join(", ")}
+                      </p>
+                      <p className="admin-order-accepted-order-id-category">
+                        {eachProduct.orders[0].customer_name}
+                      </p>
+                      <p className="admin-order-accepted-order-id-category">
+                        {eachProduct.orders
+                          .map((order) => order.name)
+                          .join(", ")}
+                      </p>
+                      <p className="admin-order-accepted-order-id-category">
+                        {eachProduct.orders
+                          .map((order) => order.product)
+                          .join(", ")}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.totalamount}
+                        {eachProduct.dispatch.totalamount}
                       </p>
                       <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.discount}
+                        {eachProduct.dispatch.discount}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.discounted_amount}
+                        {eachProduct.dispatch.discounted_amount}
                       </p>
                       {setStatus(
-                        eachProduct.invoice_status,
-                        eachProduct.orders
+                        eachProduct.dispatch.invoice_status,
+                        eachProduct.dispatch.orders
                       )}
-
+ 
                       <DispatchButton
-                        status={eachProduct.invoice_status}
+                        status={eachProduct.dispatch.invoice_status}
                         orderIds={eachProduct.orders}
                         id={eachProduct.id}
                         fetchProducts={fetchProducts}
                       />
                       <BsFillArrowRightCircleFill
-                        id={eachProduct.id}
-                        value={eachProduct.id}
+                        id={eachProduct.dispatch.id}
+                        value={eachProduct.dispatch.id}
                         className="admin-order-accepted-view-in-detail-sub-category"
                         onClick={() => handleView(eachProduct)}
                       />
@@ -265,5 +290,6 @@ function Dispatch() {
     </>
   );
 }
-
+ 
 export default Dispatch;
+ 

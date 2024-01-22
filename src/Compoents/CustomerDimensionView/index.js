@@ -77,10 +77,7 @@ function CustomerDimensionView({
         <h2 className="admin-order-accepted-order-list-heading">
           Dimensions Order List 
         </h2>
-
-  
       </div>
-
       {(role === "Customer" || role==="Label") &&
         dimensionList.length > 0 ?
         dimensionList.map((each, index) => (
