@@ -63,6 +63,7 @@ function Dispatch() {
         const data = await response.json();
 
         setProducts(data);
+        console.log(data,"kapoilll")
         setLoading(false);
       } else {
         setTimeout(() => {

@@ -1,10 +1,11 @@
 .common-navbar {
-  background-image: linear-gradient(to Right,#ff9f00,#fedc00,#ffc500);
+  /* background-image: linear-gradient(to Right,#ff9f00,#fedc00,#ffc500); */
   height: 80px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   opacity: 0.7;
+  background-color: #2884a1;
 }
 
 .common-menu-bars {
@@ -29,7 +30,7 @@
   background-color: #fff;
   border-radius: 20px;
   padding: 4px 12px;
-  color: #000;
+  color: #212d45;
   margin-right: 20px;
   font-size: 16px;
   cursor: pointer;

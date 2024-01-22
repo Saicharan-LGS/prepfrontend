@@ -92,7 +92,7 @@ const EditStaffDetails = ({ staff, onClose, fetchProducts }) => {
   return (
     <>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <h2 className="customer-update-password-heading">Password Update</h2>
+        <h2 className="customer-update-password-heading">Staff Edit</h2>
         <ImCancelCircle
           onClick={onClose}
           style={{

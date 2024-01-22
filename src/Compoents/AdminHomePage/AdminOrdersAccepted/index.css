@@ -162,7 +162,7 @@
 .admin-order-accepted-order-id-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     height:100%;
     overflow: hidden;
@@ -175,7 +175,7 @@
 .admin-order-accepted-name-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color: #212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -187,7 +187,7 @@
 .admin-order-accepted-service-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -198,7 +198,7 @@
 .admin-order-accepted-quantity-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -211,7 +211,7 @@
 .admin-order-accepted-order-tracking-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:20%;
     overflow: hidden;
     height:100%;
@@ -224,7 +224,7 @@
 .admin-order-accepted-fnsku-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -240,7 +240,7 @@
 .admin-order-accepted-box-label-sub-category{
     font-size:16px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     overflow: hidden;
     height:100%;
@@ -297,7 +297,7 @@
 .admin-order-accepted-enter-amount{
     font-size:18px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     height:100%;
     overflow: hidden;
@@ -306,7 +306,7 @@
 .admin-order-accepted-enter-amount-input-container{
     font-size:18px;
     margin:0px;
-    color:#000;
+    color:#212d45;
     width:10%;
     height:100%;
     overflow: hidden;

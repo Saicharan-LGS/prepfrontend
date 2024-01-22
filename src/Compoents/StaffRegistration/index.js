@@ -124,6 +124,7 @@ const StaffSignupPage = () => {
               className="signin-input-text"
               value={formData.name}
               onChange={handleInputChange}
+              placeholder="Enter your Name"
             />
           </div>
           <div className="signup-whole-form-contaner">
@@ -134,6 +135,7 @@ const StaffSignupPage = () => {
               className="signin-input-text"
               value={formData.email}
               onChange={handleInputChange}
+              placeholder="Enter your Email"
             />
           </div>
           <div className="signup-whole-form-contaner">
@@ -144,6 +146,7 @@ const StaffSignupPage = () => {
               className="signin-input-text"
               value={formData.password}
               onChange={handleInputChange}
+              placeholder="Enter your Password"
             />
           </div>
           <div className="signup-whole-form-contaner">
@@ -153,6 +156,7 @@ const StaffSignupPage = () => {
               className="signin-input-text"
               value={formData.role}
               onChange={handleInputChange}
+              
             >
               <option value="Admin">Admin</option>
               <option value="Dimension">Dimension</option>
