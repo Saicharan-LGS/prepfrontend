@@ -109,7 +109,7 @@ function CustomerInvoicePage({
         <div className="generate-invoice-billing-container">
           <div className="generate-invoice-discount-container">
             <p className="generate-invoice-total-amount">Total Amount</p>
-            <p className="generate-invoice-total-amount-text">{totalAmount}</p>
+            <p className="generate-invoice-total-amount-text">{totalAmount === 0 ?"0" : totalAmount}</p>
           </div>
           {discount > 0 && (
             <div className="generate-invoice-discount-container">

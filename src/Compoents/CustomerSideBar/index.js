@@ -74,12 +74,13 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   };
 
   return (
-    <div style={{ display: "flex", minHeight:"100vh", maxHeight:"max-content" }}>
+    <div style={{ display: "flex", minHeight:"100vh" }}>
       <Sidebar
-        style={{backgroundImage:"linear-gradient(to bottom,#ff9f00 10%,#fedc00,#ffc500)"}}
+       
         className="sidebar-container"
         collapsed={isCollapsed}
         collapsedWidth="60px"
+        backgroundColor="#2884a1"
       >
         <Menu
           menuItemStyles={{
@@ -88,6 +89,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
                 backgroundColor: "#13395e",
                 color: "#b6c8d9",
               },
+              background:"#2884a1",
+              color:"#fff",
                // Default text color for menu items
               "&:hover": {
                 backgroundColor: "#fff", // Background color on hover
@@ -98,7 +101,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
         >
           <div className="hamburger-icon">
             <GiHamburgerMenu
-              style={{ color: "#212d45" }}
+              style={{ color: "#fff" }}
               onMouseEnter={handleMouseEnter}
               onClick={() => setIsCollapsed(!isCollapsed)}
             />
@@ -187,8 +190,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          height:"100vh",
-          overflow:"scroll"
+          minHeight:"100vh",
+          
         }}
       >
         <CustomerTopNavbar

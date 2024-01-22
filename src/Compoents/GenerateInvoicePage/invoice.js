@@ -65,8 +65,8 @@ function Invoice({ data }) {
                   {eachProduct.productPrice}
                 </p>
                 <p className="generate-invoice-table-header-1">
-                  {parseFloat(eachProduct.serviceQuantity) *
-                    parseFloat(eachProduct.productPrice)}
+                  {eachProduct.serviceQuantity ? parseFloat(eachProduct.serviceQuantity) *
+                    parseFloat(eachProduct.productPrice) : 0}
                 </p>
               </div>
             );
@@ -79,7 +79,7 @@ function Invoice({ data }) {
             marginRight: "10px",
           }}
         >
-          <p className="generate-invoice-total-amount">Grand Total : {total}</p>
+          <p className="generate-invoice-total-amount">Grand Total : {total ? total : 0}</p>
         </div>
       </div>
     </>

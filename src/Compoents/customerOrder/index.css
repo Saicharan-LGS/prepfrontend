@@ -2,13 +2,12 @@
   border-radius: 10px;
   padding:20px;
   width:97%;
-  height:90vh;
   background-color: #fff;
 }
 .order-customer-main-heading{
   font-size:32px;
   font-weight:600;
-  color:#000;
+  color:#212d45;
 }
 .order-customer-from-container{
   display: flex;  
@@ -47,7 +46,7 @@
 .order-customer-label-name{
   font-size:18px;
   margin:0px;
-  color:#000;
+  color:#212d45;
   font-weight:500;
 }
 .order-customer-lable-container{

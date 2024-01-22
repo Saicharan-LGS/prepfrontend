@@ -92,14 +92,15 @@ function SideBar() {
   };
 
   return (
-    <div style={{ display: "flex", minHeight: "120vh" }}>
+    <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar
-      style={{backgroundImage:"linear-gradient(to bottom,#ff9f00 10%,#fedc00,#ffc500)"}}
+      
  
         zIndex="999"
         className="sidebar-container"
         collapsed={isCollapsed}
         collapsedWidth="60px"
+        backgroundColor="#2884a1"
       >
         <Menu
           menuItemStyles={{
@@ -108,6 +109,8 @@ function SideBar() {
                 backgroundColor: "#fff",
                 color: "#fff",
               },
+              backgroundColor:"#2884a1",
+              color:"#fff",
               "&:hover": {
                 backgroundColor: "#fff", // Background color on hover
                 color: "#212d45", // Text color on hover
@@ -260,8 +263,8 @@ function SideBar() {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          height: "100vh",
-          overflow: "scroll",
+          minHeight: "100vh",
+          
         }}
       >
         <StaffTopNavbar />
