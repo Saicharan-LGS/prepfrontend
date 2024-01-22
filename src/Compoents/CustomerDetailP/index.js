@@ -118,6 +118,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       })
       .then((productsData) => {
         setProducts(productsData.products);
+        console.log(productsData.products,"productsData.products")
       })
       .catch((error) => {});
     fetchData();
@@ -308,7 +309,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
-            <div className="order-customer-input-feild">
+            {/* <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
                 Received Quantity:
               </label>
@@ -321,7 +322,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
                 readOnly
               />
-            </div>
+            </div> */}
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
                 Received Quantity
@@ -329,7 +330,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
-                value={quantity_received}
+                value={quantity_received?quantity_received:0}
                 readOnly
               />
             </div>

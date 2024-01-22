@@ -49,15 +49,9 @@ const AddAmountCustomer = ({ id, onClose }) => {
   
   return (
     <>
-      <ImCancelCircle
-        onClick={onClose}
-        style={{
-          fontSize: "24px",
-          color: "#212d45",
-          cursor: "pointer",
-          marginBottom: "10px",
-        }}
-      />
+      <div className="model-close-icon-container">
+      <ImCancelCircle className="model-close-icon" onClick={onClose}/>
+      </div>
       <div className="customer-list-add-amount-container">
         <h1 className="customer-list-add-amount-heading">Enter Amount</h1>
         <input

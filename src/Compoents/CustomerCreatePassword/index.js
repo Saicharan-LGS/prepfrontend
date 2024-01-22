@@ -71,7 +71,7 @@ const CreatePassword = () => {
     <div className="customer-create-password-main-container">
     <div className="customer-update-password-main-container" >
       
-      <form onSubmit={handleSubmit}  className="customer-update-password-form-container" style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",padding:"20px"}}>
+      <form onSubmit={handleSubmit}  className="customer-update-password-form-container" style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",padding:"30px", borderRadius:"10px"}}>
         <h2 className="customer-update-password-heading">Create Password</h2>
         <div className="customer-update-password-input-container">
           <label className="customer-update-password-label-name">Password:</label>
@@ -81,6 +81,7 @@ const CreatePassword = () => {
             className="customer-update-password-input-field"
             value={formData.password}
             onChange={handleInputChange}
+            placeholder="Create your Password"
           />
           {errors.password && (
             <p className="error-message">{errors.password}</p>
@@ -94,6 +95,7 @@ const CreatePassword = () => {
             value={formData.confirmPassword}
             onChange={handleInputChange}
             className="customer-update-password-input-field"
+            placeholder="Confirm your Password"
           />
           {errors.confirmPassword && (
             <p className="error-message">{errors.confirmPassword}</p>

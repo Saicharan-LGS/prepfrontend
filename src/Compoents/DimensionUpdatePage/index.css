@@ -9,15 +9,20 @@
 }
 .dimension-update-page-button{
     padding:8px 20px;
-    color: #212d45;
+    color: #fff;
     font-weight: 500;
     font-size: 15px;
     border-radius: 20px;
     outline: none;
     border-width: 0px;
-    background-color: #ffc03d;
+    background-color: #212d45;
     cursor:pointer;
     margin-top:10px;
+}
+.model-close-icon-container{
+    display:flex;
+    justify-content: flex-end;
+    width:100%;
 }
 .model-close-icon{
     font-size:24px;

@@ -55,13 +55,13 @@
 }
 .dimensions-details-button{
   padding:8px 20px;
-  color: #212d45;
+  color: #fff;
   font-weight: 500;
   font-size: 15px;
   border-radius: 20px;
   outline: none;
   border-width: 0px;
-  background-color: #ffc03d;
+  background-color: #212d45;
   cursor:pointer;
   margin-top:10px;
 }

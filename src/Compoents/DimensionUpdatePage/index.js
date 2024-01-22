@@ -126,7 +126,9 @@ function DimensionUpdatePage({
 
   return (
     <div className="admin-order-accepted-product-list">
-      <ImCancelCircle className="model-close-icon" onClick={handleModel} />
+     <div className="model-close-icon-container">
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
+      </div>
       <div className="dimension-update-page-heading-flex">
         <h2 className="admin-order-accepted-order-list-heading">
           Dimensions Order List

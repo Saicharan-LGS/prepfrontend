@@ -56,8 +56,8 @@
   .order-customer-button-container{
     margin: 10px;
     padding: 8px 22px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none;
     border-radius: 20px;
     cursor: pointer;
@@ -88,8 +88,8 @@
     margin: 10px;
     width:max-content;
     padding: 10px 12px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none;
     border-radius: 20px;
     cursor: pointer;

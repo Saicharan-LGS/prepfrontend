@@ -3,6 +3,9 @@ import Toast from "../utlis/toast";
 import { useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import "./CustomerOtp.css";
+import signup from '../utlis/signup-img-2.png'
+
+
 const CustomerOtpVerification = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
@@ -63,7 +66,15 @@ const CustomerOtpVerification = () => {
   };
 
   return (
+    <div className="otp-input-background-container">
     <div className="otp-input-form-container">
+    <div className="login-image-container">
+        <img
+          src={signup}
+          className="Login-image"
+          alt=""
+        />
+      </div>
       <div className="otp-input-sub-container">
         <div className="otp-input-display-container">
           <p>
@@ -89,6 +100,7 @@ const CustomerOtpVerification = () => {
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

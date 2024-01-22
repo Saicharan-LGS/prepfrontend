@@ -84,7 +84,9 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
 
   return (
     <div>
-      <ImCancelCircle className="model-close-icon" onClick={handleModel} />
+      <div className="model-close-icon-container">
+      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
+      </div>
       <h1 className="genearte-invoice-heading">Invoice Generation</h1>
       {data.map((each) => (
         <Invoice key={each.id} data={each} />

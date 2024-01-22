@@ -17,8 +17,8 @@
 .customer-profile-view-edit-button{
     width:max-content;
     padding: 6px 20px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none !important;
     border-radius: 4px;
     cursor: pointer;
@@ -41,8 +41,8 @@
 .customer-profile-view-file-upload::file-selector-button{
     width:max-content;
     padding: 6px 20px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none !important;
     border-radius: 4px;
     cursor: pointer;
@@ -77,8 +77,8 @@
 .logout-button{
     width:max-content;
     padding: 6px 20px;
-    background-color: #ffc03d;
-    color: #212d45;
+    background-color: #212d45;
+    color: #fff;
     border: none !important;
     border-radius: 20px;
     cursor: pointer;
