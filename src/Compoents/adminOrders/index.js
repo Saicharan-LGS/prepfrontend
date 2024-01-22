@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
-//import { AiFillCaretRight } from "react-icons/ai";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
@@ -12,7 +10,6 @@ function ProductList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
   const [productsPerPage] = useState(10); // Number of products to display per page
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
