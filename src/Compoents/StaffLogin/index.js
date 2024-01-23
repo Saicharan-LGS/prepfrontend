@@ -15,7 +15,6 @@ const StaffSigninPage = () => {
   sessionStorage.removeItem("sname");
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -46,7 +45,6 @@ const StaffSigninPage = () => {
               icon: "success",
               title: data.message,
             });
-
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);

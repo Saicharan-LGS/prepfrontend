@@ -54,6 +54,10 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
     setPrevStatus(status);
     await setStatus(id);
   };
+  useEffect(() => {
+    console.log("fetch called customer");
+    fetchTotalAmount();
+  }, []);
 
   useEffect(() => {
     fetchTotalAmount();
@@ -74,9 +78,8 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   };
 
   return (
-    <div style={{ display: "flex", minHeight:"100vh" }}>
+    <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar
-       
         className="sidebar-container"
         collapsed={isCollapsed}
         collapsedWidth="60px"
@@ -89,9 +92,9 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
                 backgroundColor: "#13395e",
                 color: "#b6c8d9",
               },
-              background:"#2884a1",
-              color:"#fff",
-               // Default text color for menu items
+              background: "#2884a1",
+              color: "#fff",
+              // Default text color for menu items
               "&:hover": {
                 backgroundColor: "#fff", // Background color on hover
                 color: "#212d45", // Text color on hover
@@ -112,7 +115,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<ImUpload fontSize="20px" />}
             onClick={() => handleSidebarItemClick(9)}
             style={
-              status === 9 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 9 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Post Order
@@ -120,10 +123,10 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           <MenuItem
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            icon={<FaClipboardList  fontSize="24px" />}
+            icon={<FaClipboardList fontSize="24px" />}
             onClick={() => setStatus(8)}
             style={
-              status === 8 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 8 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Orders
@@ -134,7 +137,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<BsFillBoxSeamFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(5)}
             style={
-              status === 5 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 5 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Invoice Pending
@@ -145,7 +148,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<RiVerifiedBadgeFill fontSize="24px" />}
             onClick={() => handleSidebarItemClick(6)}
             style={
-              status === 6 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 6 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Invoice Accepted
@@ -156,7 +159,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<BsXOctagonFill fontSize="20px" />}
             onClick={() => handleSidebarItemClick(7)}
             style={
-              status === 7 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 7 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Invoice Rejected
@@ -167,7 +170,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
             icon={<IoWalletSharp fontSize="20px" />}
             onClick={() => handleSidebarItemClick(4)}
             style={
-              status === 4 ? { backgroundColor: "#fff", color: "#212d45", } : {}
+              status === 4 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
             Wallet
@@ -190,8 +193,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           display: "flex",
           flexDirection: "column",
           gap: "30px",
-          minHeight:"100vh",
-          
+          minHeight: "100vh",
         }}
       >
         <CustomerTopNavbar

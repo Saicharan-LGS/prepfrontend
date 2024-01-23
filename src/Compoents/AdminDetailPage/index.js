@@ -24,6 +24,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     status: "",
     instructions: "",
     quantity_received: "",
+    status1: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
@@ -31,7 +32,6 @@ function OrderViewDetail({ orderId, setStatus }) {
   const [products, setProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
   const [selectedProducts, setSelectedProducts] = useState([]);
-
   const token = sessionStorage.getItem("token");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -87,6 +87,7 @@ function OrderViewDetail({ orderId, setStatus }) {
           status: data.status,
           instructions: data.instructions,
           quantity_received: data.quantity_received,
+          status1: data.status,
         });
       } else {
       }
@@ -201,6 +202,7 @@ function OrderViewDetail({ orderId, setStatus }) {
     labelSend1,
     status,
     instructions,
+    status1,
     quantity_received,
   } = formData;
 
@@ -424,7 +426,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
-            {parseInt(status) < 5 ? (
+            {parseInt(status1) < 5 ? (
               <div className="order-customer-input-feild">
                 <label className="order-customer-label-name">Status</label>
                 <select
@@ -439,10 +441,10 @@ function OrderViewDetail({ orderId, setStatus }) {
                   <option value="2">Received</option>
                   <option value="3">Dimension Done</option>
                   <option value="4">Labelling Done</option>
-                  <option value="5">Invoice Generated</option>
+                  {/* <option value="5">Invoice Generated</option>
                   <option value="6">Invoice Accepted</option>
                   <option value="7">Invoice Rejected</option>
-                  <option value="8">Dispatched</option>
+                  <option value="8">Dispatched</option> */}
                 </select>
               </div>
             ) : (

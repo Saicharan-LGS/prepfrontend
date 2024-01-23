@@ -11,7 +11,6 @@ function CustomerInvoicePage({
   selectedOrders,
   totalAmount,
   discount,
-  discountedAmount,
   customerName,
   fetchProducts,
   date,
@@ -31,22 +30,21 @@ function CustomerInvoicePage({
   };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-
+  const token = sessionStorage.getItem("token");
   const fetchData = async () => {
     try {
       const response = await fetch(`${FETCH_URL}generateInvoices`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ selectedIds: JSON.parse(selectedOrders) }),
       });
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
-
         setInvoiceOrders(data.orders);
       } else {
-        const data = await response.json();
         Toast.fire({
           icon: "error",
           title: data.message,

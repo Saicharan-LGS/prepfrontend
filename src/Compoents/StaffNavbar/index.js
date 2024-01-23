@@ -94,8 +94,6 @@ function SideBar() {
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <Sidebar
-      
- 
         zIndex="999"
         className="sidebar-container"
         collapsed={isCollapsed}
@@ -268,7 +266,6 @@ function SideBar() {
         }}
       >
         <StaffTopNavbar />
-
         {parseInt(status) === 1 ? (
           <AdminHomePage openDetailPageComponent={openDetailPageComponent} />
         ) : parseInt(status) === 2 ? (

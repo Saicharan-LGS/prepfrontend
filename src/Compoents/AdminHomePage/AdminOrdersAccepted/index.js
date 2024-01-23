@@ -71,17 +71,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
     };
     fetchProducts();
   }, []);
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1; // Month is zero-based, so add 1
-  const day = date.getDate();
-  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
-    .toString()
-    .padStart(2, "0")}`;
-  const openDetailPage = (e, productId) => {
-    navigate(`/adminViewDetail/${productId}`);
-  };
-
+ 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`

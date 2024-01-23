@@ -68,7 +68,6 @@ const AmountPost = ({ id, fetchProducts, setupdatepage }) => {
           onChange={onChangeInput}
         />
       </div>
-
       <button
         onClick={onSubmitFunction}
         id={id}
