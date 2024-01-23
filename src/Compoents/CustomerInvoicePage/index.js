@@ -177,7 +177,7 @@ function CustomerInvoicePage({
               </button>
             </div>
           )}
-          {role === "Customer" && discount > 0 && (
+          {role !== "Admin" && discount > 0 && (
             <div className="generate-invoice-discount-container">
               <p className="generate-invoice-total-amount">Discount(%)</p>
               <p
