@@ -73,7 +73,6 @@ function OrderViewDetail({ orderId, setStatus }) {
         );
         setSelectedProducts(fetchedSelectedProducts);
 
-
         setFormData({
           date: data.date,
           name: data.name,
@@ -243,7 +242,7 @@ function OrderViewDetail({ orderId, setStatus }) {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
 
       if (response.ok) {
@@ -251,14 +250,24 @@ function OrderViewDetail({ orderId, setStatus }) {
           icon: "success",
           title: "File deleted successfully.",
         });
-      
+
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
       }
     } catch (error) {}
   };
-
+  const statusLabels = {
+    0: "Pending",
+    1: "Rejected",
+    2: "Received",
+    3: "Dimension Done",
+    4: "Labelling Done",
+    5: "Invoice Generated",
+    6: "Invoice Accepted",
+    7: "Invoice Rejected",
+    8: "Dispatched",
+  };
   const handleBackClick = () => {
     const prevStatus = sessionStorage.getItem("prevStatus");
     setStatus(prevStatus);
@@ -301,6 +310,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="name"
                 value={name}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
               />
             </div>
@@ -313,6 +323,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="number"
                 name="quantity_received"
                 value={quantity_received}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
                 required
               />
@@ -323,7 +334,6 @@ function OrderViewDetail({ orderId, setStatus }) {
             >
               Update Dimensions
             </p>
-           
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -332,6 +342,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 className="order-customer-lable-container"
                 onChange={handleChange}
                 required
+                readOnly={parseInt(status) >= 5 ? true : false}
                 value={service}
               >
                 <option value="Prep Service">Prep Service</option>
@@ -344,34 +355,39 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="product"
                 value={product}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
                 required
               />
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                FNSKU ({fnskuSendFiles.length} files selected):
-              </label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="fnskuSend"
-                onChange={handleFnskuSendChange}
-                multiple
-              />
-            </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">
-                Label ({labelSendFiles.length} files selected) :
-              </label>
-              <input
-                className="order-customer-lable-container order-customer-label-file"
-                type="file"
-                name="labelSend"
-                onChange={handleLabelSendChange}
-                multiple
-              />
-            </div>
+            {parseInt(status) < 5 ? (
+              <>
+                <div className="order-customer-input-feild">
+                  <label className="order-customer-label-name">
+                    FNSKU ({fnskuSendFiles.length} files selected):
+                  </label>
+                  <input
+                    className="order-customer-lable-container order-customer-label-file"
+                    type="file"
+                    name="fnskuSend"
+                    onChange={handleFnskuSendChange}
+                    multiple
+                  />
+                </div>
+                <div className="order-customer-input-feild">
+                  <label className="order-customer-label-name">
+                    Label ({labelSendFiles.length} files selected) :
+                  </label>
+                  <input
+                    className="order-customer-lable-container order-customer-label-file"
+                    type="file"
+                    name="labelSend"
+                    onChange={handleLabelSendChange}
+                    multiple
+                  />
+                </div>
+              </>
+            ) : null}
           </div>
           <div className="order-customer-field3-container">
             <div className="order-customer-input-feild">
@@ -381,6 +397,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="number"
                 name="unit"
                 value={unit}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
                 required
               />
@@ -392,6 +409,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="tracking_url"
                 value={tracking_url}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
               />
             </div>
@@ -402,29 +420,42 @@ function OrderViewDetail({ orderId, setStatus }) {
                 type="text"
                 name="instructions"
                 value={instructions}
+                readOnly={parseInt(status) >= 5 ? true : false}
                 onChange={handleChange}
               />
             </div>
-            <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Status</label>
-              <select
-                className="order-customer-lable-container"
-                type="text"
-                name="status"
-                value={status || "Unknown Status"}
-                onChange={handleChange}
-              >
-                <option value="0">Pending</option>
-                <option value="1">Rejected</option>
-                <option value="2">Received</option>
-                <option value="3">Dimension Done</option>
-                <option value="4">Labelling Done</option>
-                <option value="5">Invoice Generated</option>
-                <option value="6">Invoice Accepted</option>
-                <option value="7">Invoice Rejected</option>
-                <option value="8">Dispatched</option>
-              </select>
-            </div>
+            {parseInt(status) < 5 ? (
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Status</label>
+                <select
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="status"
+                  value={status || "Unknown Status"}
+                  onChange={handleChange}
+                >
+                  <option value="0">Pending</option>
+                  <option value="1">Rejected</option>
+                  <option value="2">Received</option>
+                  <option value="3">Dimension Done</option>
+                  <option value="4">Labelling Done</option>
+                  <option value="5">Invoice Generated</option>
+                  <option value="6">Invoice Accepted</option>
+                  <option value="7">Invoice Rejected</option>
+                  <option value="8">Dispatched</option>
+                </select>
+              </div>
+            ) : (
+              <div className="order-customer-input-feild">
+                <label className="order-customer-label-name">Status</label>
+                <input
+                  className="order-customer-lable-container"
+                  type="text"
+                  name="status"
+                  value={statusLabels[status] || "Unknown Status"}
+                ></input>
+              </div>
+            )}
 
             <div className="order-customer-service-container">
               <label className="order-customer-service-name">Products :</label>
@@ -452,6 +483,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                     type="number"
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
+                    readOnly={parseInt(status) >= 5 ? true : false}
                     value={getQuantityById(product.id)}
                     onChange={(e) =>
                       handleQuantityChange(product.id, e.target.value)

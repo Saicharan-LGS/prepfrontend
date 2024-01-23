@@ -118,7 +118,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
       })
       .then((productsData) => {
         setProducts(productsData.products);
-        console.log(productsData.products,"productsData.products")
       })
       .catch((error) => {});
     fetchData();
@@ -148,7 +147,6 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     return productQuantities[productId] || 0;
   };
 
-
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
@@ -169,7 +167,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
 
       if (response.ok) {
@@ -177,15 +175,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           icon: "success",
           title: "File deleted successfully.",
         });
-      
+
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
       }
     } catch (error) {}
   };
-
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -330,7 +326,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
-                value={quantity_received?quantity_received:0}
+                value={quantity_received ? quantity_received : 0}
                 readOnly
               />
             </div>

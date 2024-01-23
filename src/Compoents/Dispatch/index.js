@@ -22,6 +22,7 @@ function Dispatch() {
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
   const [customerName, setCustomerName] = useState("");
+  const [date, setDate] = useState("");
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
@@ -91,15 +92,15 @@ function Dispatch() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-      const handleView = (each) => {
-        setSelectedOrders((each.dispatch.orders ));
-        setDiscount(each.dispatch.discount);
-        setDiscountedAmount(each.dispatch.discounted_amount);
-        setTotalAmount(each.dispatch.totalamount);
-        setCustomerName(each.orders[0].customer_name)
-        setModalOpen(true);
-      };
-
+  const handleView = (each) => {
+    setSelectedOrders(each.dispatch.orders);
+    setDiscount(each.dispatch.discount);
+    setDate(each.dispatch.data_time);
+    setDiscountedAmount(each.dispatch.discounted_amount);
+    setTotalAmount(each.dispatch.totalamount);
+    setCustomerName(each.orders[0].customer_name);
+    setModalOpen(true);
+  };
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -290,6 +291,7 @@ function Dispatch() {
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
+            date={date}
             discount={discount}
             customerName={customerName}
             discountedAmount={discountedAmount}
