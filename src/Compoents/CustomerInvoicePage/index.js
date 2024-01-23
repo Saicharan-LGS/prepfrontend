@@ -13,13 +13,21 @@ function CustomerInvoicePage({
   discount,
   discountedAmount,
   customerName,
+  fetchProducts,
   date,
+  invoiceId,
 }) {
   const [invoiceOrders, setInvoiceOrders] = useState([]);
+  const [discountValue, setDiscountValue] = useState(discount);
   const contentRef = useRef();
 
   const handleModel = () => {
     onClose();
+  };
+
+  const calculateFinalPrice = (amount, discountPercentage) => {
+    const discountAmount = (amount * discountPercentage) / 100;
+    return amount - discountAmount;
   };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -49,6 +57,37 @@ function CustomerInvoicePage({
     }
   };
 
+  const role = sessionStorage.getItem("role");
+  const addDiscount = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await fetch(`${FETCH_URL}updatediscount/${invoiceId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ discount: parseInt(discountValue) }),
+      });
+
+      if (response.ok) {
+        Toast.fire({
+          icon: "success",
+          title: "Discount updated successfully!",
+        });
+        onClose();
+        fetchProducts();
+      } else {
+        const data = await response.json();
+        Toast.fire({
+          icon: "error",
+          title: data.message,
+        });
+      }
+    } catch (error) {
+      // Handle error
+    }
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -109,12 +148,47 @@ function CustomerInvoicePage({
             <p className="generate-invoice-total-amount">Total Amount</p>
             <p className="generate-invoice-total-amount-text">{totalAmount}</p>
           </div>
-          {discount > 0 && (
+          {role === "Admin" && (
             <div className="generate-invoice-discount-container">
-              <p className="generate-invoice-total-amount">Discount(%)</p>
-              <p className="generate-invoice-total-amount-text">{discount}</p>
+              <p
+                className="generate-invoice-total-amount"
+                style={{ width: "140px" }}
+              >
+                Discount(%)
+              </p>
+              <input
+                type="text"
+                value={discountValue}
+                onChange={(e) => setDiscountValue(e.target.value)}
+                style={{
+                  border: "0.5px solid #212d45",
+                  outline: "none",
+                  width: "30px",
+                  textAlign: "center",
+                  borderRadius: "4px",
+                }}
+              />
+              <button
+                onClick={addDiscount}
+                className="service-add-button"
+                style={{ margin: "0px" }}
+              >
+                Add
+              </button>
             </div>
           )}
+          {role !== "Admin" && discount > 0 && (
+            <div className="generate-invoice-discount-container">
+              <p className="generate-invoice-total-amount">Discount(%)</p>
+              <p
+                className="generate-invoice-total-amount-text"
+                style={{ fontWeight: 700, color: "#212d45", fontSize: "20px" }}
+              >
+                {discount}
+              </p>
+            </div>
+          )}
+
           <div className="generate-invoice-discount-container">
             <p
               className="generate-invoice-total-amount"
@@ -126,7 +200,7 @@ function CustomerInvoicePage({
               className="generate-invoice-total-amount-text"
               style={{ fontWeight: 700, color: "#212d45", fontSize: "20px" }}
             >
-              {discountedAmount}
+              {calculateFinalPrice(totalAmount, discountValue)}
             </p>
           </div>
         </div>

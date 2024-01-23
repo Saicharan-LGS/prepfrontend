@@ -23,6 +23,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const [date, setDate] = useState("");
 
   useEffect(() => {
     // Filter products based on orderId
@@ -101,6 +102,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
     setTotalAmount(each.totalamount);
     setCustomerName(sessionStorage.getItem("sname"));
     setModalOpen(true);
+    setDate(each.data_time);
   };
 
   const handleCloseModal = () => {
@@ -219,6 +221,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
+            date={date}
             customerName={customerName}
             discountedAmount={discountedAmount}
           />

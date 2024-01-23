@@ -172,7 +172,7 @@ function DimensionDetailPage({ dimensionData, fetchData1, index }) {
       response.json().then((data) => {
         Toast.fire({
           icon: "success",
-          title: data.message,
+          title: "Dimension deleted Successfully",
         });
       });
     }

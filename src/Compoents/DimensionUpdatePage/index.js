@@ -1,11 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import DimensionsUpdate from "../DimensionsUpdate";
 import Toast from "../utlis/toast";
 import DimensionDetailPage from "../DimensionsDetailPage";
 import "./index.css";
-
 import { ImCancelCircle } from "react-icons/im";
 
 function DimensionUpdatePage({
@@ -116,8 +114,10 @@ function DimensionUpdatePage({
         fetchProducts();
         onClose();
       } else {
+        const data = await response.json();
       }
-    } catch (error) {}
+    } catch (error) {
+    }
   };
 
   const handleModel = () => {
