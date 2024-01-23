@@ -79,7 +79,7 @@ function Invoice({ data }) {
             marginRight: "10px",
           }}
         >
-          <p className="generate-invoice-total-amount">Grand Total : {total ? total : 0}</p>
+          <p className="generate-invoice-total-amount" style={{textAlign:"center"}}>Grand Total : {total ? total : 0}</p>
         </div>
       </div>
     </>

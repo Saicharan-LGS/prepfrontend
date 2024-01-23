@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Toast from "../utlis/toast";
+import Button from "../Button";
 
 const CustomerOrder = () => {
   const [date, setDate] = useState("");
@@ -15,6 +16,7 @@ const CustomerOrder = () => {
   const [customerId, setCustomerId] = useState("");
   const [instructions, setInstructions] = useState("");
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [showLoader, setShowLoader] = useState(false);
 
 
   const handleProductSelection = (e, productId) => {
@@ -122,6 +124,7 @@ const CustomerOrder = () => {
   };
 
   const handleSubmit = async (e) => {
+    setShowLoader(true)
     e.preventDefault();
     const selectedProductsWithQuantity = selectedProducts.map((productId) => ({
       id: productId,
@@ -168,6 +171,7 @@ const CustomerOrder = () => {
             icon: "success",
             title: data.message,
           });
+          setShowLoader(false)
         });
         setProductName("");
         setUnits("");
@@ -184,8 +188,10 @@ const CustomerOrder = () => {
             title: data.message,
           });
         });
+        setShowLoader(false)
       }
     } catch (error) {
+      setShowLoader(false)
     }
   };
 
@@ -340,10 +346,16 @@ const CustomerOrder = () => {
               </div>
             </div>
           </div>
-          <div className="order-customer-submit-button-container">
-            <button className="order-customer-button-container" type="submit">
-              Submit
-            </button>
+          <div className="order-customer-submit-button-container" >
+            <div style={{width:"200px",textAlign:"center",marginTop:"10px"}}>
+          <Button
+              text="Submit"
+              type="Submit"
+              loading={showLoader}
+              disabled={showLoader}
+              
+            />
+            </div>
           </div>
         </form>
       </div>
