@@ -95,7 +95,6 @@ function Dispatch() {
 
   const handleView = (each) => {
     setDate(each.dispatch.data_time);
-
     setInvoiceId(each.dispatch.id);
     setSelectedOrders(each.dispatch.orders);
     setDiscount(each.dispatch.discount);
