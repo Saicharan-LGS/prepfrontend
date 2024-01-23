@@ -7,7 +7,6 @@ import EmptyOrder from "../EmptyOrder";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
 
-
 import CustomerAddButton from "./CustomerAddButton";
 function CustomerPendingList({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
@@ -90,7 +89,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
       ) : (
         <div className="admin-order-accepted-product-list">
           <h2 className="admin-order-accepted-order-list-heading">
-           Customer Pending List
+            Customer Requests Lists
           </h2>
           <input
             type="text"
@@ -102,27 +101,32 @@ function CustomerPendingList({ openDetailPageComponent }) {
             className="admin-order-accepted-search-filter-input"
           />
           <div className="admin-order-accepted-table-container">
-            <div className="admin-order-accepted-category-types" style={{fontWeight:"600"}}>
-              <p className="customer-list-table-row">
-                Customer Name
+            <div
+              className="admin-order-accepted-category-types"
+              style={{ fontWeight: "600" }}
+            >
+              <p className="customer-list-table-row">Customer Name</p>
+              <p className="customer-list-table-row" style={{ width: "30%" }}>
+                Email
               </p>
-              <p className="customer-list-table-row" style={{width:"30%"}}>Email</p>
               <p className="admin-order-accepted-accept-category">Accept</p>
               <p className="admin-order-accepted-accept-category">Decline</p>
-            </div> 
+            </div>
             {filteredProducts.length > 0 ? (
               <>
                 {currentProducts.map((eachProduct) => {
                   return (
                     <div className="admin-order-accepted-display-of-products-container">
-                     
                       <p className="customer-list-table-row">
                         {eachProduct.name}
                       </p>
-                      <p className="customer-list-table-row" style={{width:"30%"}}>
+                      <p
+                        className="customer-list-table-row"
+                        style={{ width: "30%" }}
+                      >
                         {eachProduct.email}
                       </p>
-                      
+
                       <CustomerAddButton
                         id={eachProduct.id}
                         unit={eachProduct.unit}
@@ -146,7 +150,7 @@ function CustomerPendingList({ openDetailPageComponent }) {
                 </div>
               </>
             ) : (
-              <EmptyOrder />
+              <h3>No Customer Requests</h3>
             )}
           </div>
         </div>

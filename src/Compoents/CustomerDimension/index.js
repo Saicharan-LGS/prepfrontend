@@ -10,11 +10,9 @@ function CustomerDimension({ dimensionData, index }) {
                 {dimension.charAt(0).toUpperCase() + dimension.slice(1)}:
               </label>
               <div className="dimension-detail-select-container">
-               
-                <p className="customer-dimension-length">
-                  {dimensionData.length}
+                <p className={`customer-dimension-${dimension}`}>
+                  {dimensionData[dimension]}
                 </p>
-                
               </div>
             </div>
           ))}
@@ -40,8 +38,6 @@ function CustomerDimension({ dimensionData, index }) {
             </select>
           </div>
         </div>
-
-        
       </form>
     </div>
   );

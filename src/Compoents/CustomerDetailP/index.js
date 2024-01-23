@@ -227,6 +227,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           icon: "success",
           title: data.message,
         });
+        setFnskuSendFiles([]);
+        setLabelSendFiles([]);
         fetchData();
       })
       .catch((error) => {
@@ -357,7 +359,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
-            {status === "0" && (
+            {parseInt(status) <= 3 && (
               <>
                 <div className="order-customer-input-feild">
                   <label className="order-customer-label-name">

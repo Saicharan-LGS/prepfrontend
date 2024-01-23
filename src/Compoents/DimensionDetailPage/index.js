@@ -27,7 +27,7 @@ function DimensionNewDetailPage() {
     fnskuSend1: null,
     labelSend1: null,
     status: "",
-   quantity_received: "",
+    quantity_received: "",
     instructions: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
@@ -37,7 +37,6 @@ function DimensionNewDetailPage() {
   const [productQuantities, setProductQuantities] = useState({});
   const [selectedProducts, setSelectedProducts] = useState([]);
 
-  
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -51,8 +50,8 @@ function DimensionNewDetailPage() {
     }
   };
 
-  
   const token = sessionStorage.getItem("token");
+  const role = sessionStorage.getItem("role");
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -71,13 +70,13 @@ function DimensionNewDetailPage() {
           data1.files.filter((file) => file.type === "fnskuSend") || [];
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
-          data1.services.Products.forEach((item) => {
-            productQuantities[item.services] = item.quantity;
-          });
-          const fetchedSelectedProducts = data1.services.Products.map(
-            (productService) => productService.services
-          );
-          setSelectedProducts(fetchedSelectedProducts);
+        data1.services.Products.forEach((item) => {
+          productQuantities[item.services] = item.quantity;
+        });
+        const fetchedSelectedProducts = data1.services.Products.map(
+          (productService) => productService.services
+        );
+        setSelectedProducts(fetchedSelectedProducts);
         setFormData({
           date: data.date,
           name: data.name,
@@ -115,8 +114,7 @@ function DimensionNewDetailPage() {
       .then((productsData) => {
         setProducts(productsData.products);
       })
-      .catch(() => {
-      });
+      .catch(() => {});
     fetchData();
   }, []);
 
@@ -127,11 +125,11 @@ function DimensionNewDetailPage() {
 
   const handleSubmit = (e) => {
     const selectedProductsWithQuantity = Object.keys(productQuantities)
-    .filter((productId) => selectedProducts.includes(parseInt(productId)))
-    .map((productId) => ({
-      id: parseInt(productId),
-      quantity: Number(productQuantities[productId]) || 0,
-    }));
+      .filter((productId) => selectedProducts.includes(parseInt(productId)))
+      .map((productId) => ({
+        id: parseInt(productId),
+        quantity: Number(productQuantities[productId]) || 0,
+      }));
 
     const formDataToSend = new FormData();
     formDataToSend.append("orderId", orderId);
@@ -176,7 +174,6 @@ function DimensionNewDetailPage() {
       })
       .catch((error) => {});
   };
-  const role = sessionStorage.getItem("role");
 
   const PDF_URL = process.env.REACT_APP_PDF_URL;
 
@@ -207,7 +204,7 @@ function DimensionNewDetailPage() {
     labelSend1,
     status,
     instructions,
-    quantity_received
+    quantity_received,
   } = formData;
 
   const getQuantityById = (productId) => {
@@ -230,8 +227,6 @@ function DimensionNewDetailPage() {
     setModalOpen(false);
   };
 
-
-
   const onClickDeleteFile = async (e, fileId) => {
     e.preventDefault();
     const isConfirmed = window.confirm(
@@ -252,7 +247,7 @@ function DimensionNewDetailPage() {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify(requestData),
       });
 
       if (response.ok) {
@@ -260,7 +255,7 @@ function DimensionNewDetailPage() {
           icon: "success",
           title: "File deleted successfully.",
         });
-      
+
         fetchData(); // Update your component state or UI as needed
       } else {
         const errorData = await response.json();
@@ -271,7 +266,11 @@ function DimensionNewDetailPage() {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/labelorders");
+    if (role === "Dimension") {
+      navigate("/dimensionorders");
+    } else {
+      navigate("/labelOrders");
+    }
   };
 
   const handleDimensionUpdate = () => {
@@ -315,7 +314,7 @@ function DimensionNewDetailPage() {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-              Quantity Recieved
+                Quantity Recieved
               </label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -330,9 +329,8 @@ function DimensionNewDetailPage() {
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
             >
-              { role==="Dimension" ? "Update Dimensions" : "See Dimensions" }
+              {role === "Dimension" ? "Update Dimensions" : "See Dimensions"}
             </p>
-           
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -546,10 +544,7 @@ function DimensionNewDetailPage() {
           }}
         >
           {role === "Dimension" ? (
-            <DimensionUpdatePage
-              updateId={id}
-              onClose={handleCloseModal}
-            />
+            <DimensionUpdatePage updateId={id} onClose={handleCloseModal} />
           ) : (
             <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
           )}
