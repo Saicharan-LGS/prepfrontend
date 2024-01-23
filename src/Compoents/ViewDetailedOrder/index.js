@@ -6,7 +6,6 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { Box, Modal } from "@mui/material";
 import { IoArrowBackCircle } from "react-icons/io5";
-import Toast from "../utlis/toast";
 
 function ViewDetailedOrder({ setStatus }) {
   const { id } = useParams();
@@ -23,7 +22,6 @@ function ViewDetailedOrder({ setStatus }) {
     labelSend1: null,
     status: "",
    quantity_received: "",
-   
     instructions: "",
   });
   const [products, setProducts] = useState([]);

@@ -23,6 +23,7 @@ function Dispatch() {
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
   const [customerName, setCustomerName] = useState("");
+  const [date, setDate] = useState("");
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
@@ -93,6 +94,7 @@ function Dispatch() {
       : `pagination-arrow-container`;
 
   const handleView = (each) => {
+    setDate(each.dispatch.data_time);
     setInvoiceId(each.dispatch.id);
     setSelectedOrders(each.dispatch.orders);
     setDiscount(each.dispatch.discount);
@@ -101,6 +103,7 @@ function Dispatch() {
     setCustomerName(each.orders[0].customer_name);
     setModalOpen(true);
   };
+
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -200,10 +203,10 @@ function Dispatch() {
                       <p className="admin-order-accepted-order-id-sub-category">
                         {JSON.parse(eachProduct.dispatch.orders).join(", ")}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders[0].customer_name}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
                             {order.name}
@@ -211,7 +214,7 @@ function Dispatch() {
                           </React.Fragment>
                         ))}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
                             {order.product}
@@ -293,6 +296,7 @@ function Dispatch() {
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
+            date={date}
             discount={discount}
             customerName={customerName}
             discountedAmount={discountedAmount}

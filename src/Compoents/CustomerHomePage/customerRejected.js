@@ -18,28 +18,27 @@ function CustomerRejected({ openDetailPage }) {
 
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [customerName, setCustomerName]=useState("")
+  const [customerName, setCustomerName] = useState("");
 
-  const [isModalOpen,setModalOpen] = useState(false)
-  const [selectedOrders,setSelectedOrders] = useState()
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState();
 
-  const [totalAmount,setTotalAmount] = useState("")
-  const [discount,setDiscount] = useState("")
-  const [discountedAmount,setDiscountedAmount] = useState("")
+  const [totalAmount, setTotalAmount] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [discountedAmount, setDiscountedAmount] = useState("");
   const [date, setDate] = useState("");
 
   useEffect(() => {
     // Filter products based on orderId
     const filtered = products.filter((product) => {
       const productIdMatch = product.orders.toString().includes(orderId);
-      
-      return productIdMatch
-  });
+
+      return productIdMatch;
+    });
 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
 
-  
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
@@ -56,42 +55,40 @@ function CustomerRejected({ openDetailPage }) {
     setCurrentPage(pageNumber);
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
-  
-    const fetchProducts = async () => {
-      const token = sessionStorage.getItem("token");
-      try {
-        const response = await fetch(
-          `${FETCH_URL}invoicepending/${7}`,
-          // Replace with your API endpoint
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setLoading(false);
-          setProducts(data);
-        } else {
-          setTimeout(() => {
-            setLoading(false);
-          }, 3000);
+  const fetchProducts = async () => {
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await fetch(
+        `${FETCH_URL}invoicepending/${7}`,
+        // Replace with your API endpoint
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setLoading(false);
+        setProducts(data);
+      } else {
         setTimeout(() => {
           setLoading(false);
         }, 3000);
       }
-    };
+    } catch (error) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
+  };
   useEffect(() => {
     fetchProducts();
   }, []);
 
- 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -101,19 +98,19 @@ function CustomerRejected({ openDetailPage }) {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-      const handleView = (each) => {
-        setSelectedOrders(each.orders);
-        setDiscount(each.discount);
-        setDiscountedAmount(each.discounted_amount);
-        setTotalAmount(each.totalamount);
-        setCustomerName(sessionStorage.getItem("sname"));
-        setModalOpen(true);
-      };
-    
+  const handleView = (each) => {
+    setSelectedOrders(each.orders);
+    setDiscount(each.discount);
+    setDate(each.data_time);
+    setDiscountedAmount(each.discounted_amount);
+    setTotalAmount(each.totalamount);
+    setCustomerName(sessionStorage.getItem("sname"));
+    setModalOpen(true);
+  };
 
-      const handleCloseModal = () => {
-        setModalOpen(false);
-      };
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -133,15 +130,18 @@ function CustomerRejected({ openDetailPage }) {
             required
             className="admin-order-accepted-search-filter-input"
           />
-       <div className="admin-order-accepted-table-container">
+          <div className="admin-order-accepted-table-container">
             <div className="admin-order-accepted-category-types">
-              <p className="admin-order-accepted-order-id-category">Order Id's</p>
+              <p className="admin-order-accepted-order-id-category">
+                Order Id's
+              </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-              <p className="admin-order-accepted-quantity-category">Final Amount</p>
-             <p className="admin-order-accepted-view-in-detail-category">
+              <p className="admin-order-accepted-quantity-category">
+                Final Amount
+              </p>
+              <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
-             
             </div>
             {filteredProducts.length > 0 ? (
               <>
@@ -157,40 +157,39 @@ function CustomerRejected({ openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount}
                       </p>
-                     
+
                       <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
                         className="admin-order-accepted-view-in-detail-sub-category"
-                        onClick={()=>handleView(eachProduct)}
+                        onClick={() => handleView(eachProduct)}
                       />
-                      
                     </div>
                   );
                 })}
-              <div className="pagination-button-container">
-                <BsFillArrowLeftCircleFill
-                  onClick={() => paginate(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className={previousButton}
-                />
+                <div className="pagination-button-container">
+                  <BsFillArrowLeftCircleFill
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className={previousButton}
+                  />
 
-                <span>Page {currentPage}</span>
+                  <span>Page {currentPage}</span>
 
-                <BsFillArrowRightCircleFill
-                  onClick={() => paginate(currentPage + 1)}
-                  disabled={indexOfLastProduct >= products.length}
-                  className={NextButton}
-                />
-              </div>
-            </>
-          ) : (
-            <EmptyOrder />
-          )}
-        </div>
+                  <BsFillArrowRightCircleFill
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastProduct >= products.length}
+                    className={NextButton}
+                  />
+                </div>
+              </>
+            ) : (
+              <EmptyOrder />
+            )}
+          </div>
         </div>
       )}
-         <Modal
+      <Modal
         open={isModalOpen}
         onClose={handleCloseModal}
         style={{ width: "100%" }}
@@ -215,6 +214,7 @@ function CustomerRejected({ openDetailPage }) {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
+            date={date}
             customerName={customerName}
             discountedAmount={discountedAmount}
           />

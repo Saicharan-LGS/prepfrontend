@@ -10,7 +10,6 @@ import CustomerInvoicePage from "../CustomerInvoicePage";
 function CustomerAccepted() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
@@ -92,14 +91,16 @@ function CustomerAccepted() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-      const handleView = (each) => {
-        setSelectedOrders(each.orders);
-        setDiscount(each.discount);
-        setDiscountedAmount(each.discounted_amount);
-        setTotalAmount(each.totalamount);
-        setCustomerName(sessionStorage.getItem("sname"));
-        setModalOpen(true);
-      };
+  const handleView = (each) => {
+    setSelectedOrders(each.orders);
+    setDiscount(each.discount);
+    setDate(each.data_time);
+
+    setDiscountedAmount(each.discounted_amount);
+    setTotalAmount(each.totalamount);
+    setCustomerName(sessionStorage.getItem("sname"));
+    setModalOpen(true);
+  };
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -208,6 +209,7 @@ function CustomerAccepted() {
             fetchProducts={fetchProducts}
             totalAmount={totalAmount}
             discount={discount}
+            date={date}
             customerName={customerName}
             discountedAmount={discountedAmount}
           />

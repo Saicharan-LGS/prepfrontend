@@ -49,17 +49,15 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setTotalAmount(data.total_amount || 0);
-            })
-      .catch((error) => {
+      })
+      .catch(() => {
         setTotalAmount(0);
       });
   };
 
   useEffect(() => {
-    if (role === "Customer") {
-      fetchTotalAmount();
-    }
-  }, [role]);
+    fetchTotalAmount();
+  }, []);
 
   return (
     <Routes>
@@ -72,27 +70,18 @@ function App() {
         path="/CustomerOtpVerification2"
         element={<CustomerOtpVerification2 />}
       />
-      <Route
-        path="/AdminOtp"
-        element={<AdminOtp />}
-      />
+      <Route path="/AdminOtp" element={<AdminOtp />} />
       <Route
         path="/CustomerForgotPassword"
         element={<CustomerForgotPassword />}
       />
-      <Route
-        path="/StaffForgotPassword"
-        element={<StaffForgotPassword />}
-      />
+      <Route path="/StaffForgotPassword" element={<StaffForgotPassword />} />
       <Route path="/signup" element={<Customersignup2 />} />
       <Route
         path="/CustomerResetPasswordUpdate"
         element={<CustomerResetPasswordUpdate />}
       />
-      <Route
-        path="/AdminResetPassword"
-        element={<AdminResetPassword />}
-      />
+      <Route path="/AdminResetPassword" element={<AdminResetPassword />} />
       <Route path="*" element={<NotFound />} />
 
       <Route path="/" element={<CustomerLogin />} />

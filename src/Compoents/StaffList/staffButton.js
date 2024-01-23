@@ -1,9 +1,6 @@
 import Toast from "../utlis/toast";
 const DisplayStaffButton = (props) => {
   const handleSubmit = async (id, status) => {
-    
-
-
     const requestData = {
       status: status,
     };
