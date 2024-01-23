@@ -203,10 +203,10 @@ function Dispatch() {
                       <p className="admin-order-accepted-order-id-sub-category">
                         {JSON.parse(eachProduct.dispatch.orders).join(", ")}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders[0].customer_name}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
                             {order.name}
@@ -214,7 +214,7 @@ function Dispatch() {
                           </React.Fragment>
                         ))}
                       </p>
-                      <p className="admin-order-accepted-order-id-category">
+                      <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders.map((order, index) => (
                           <React.Fragment key={order.id}>
                             {order.product}
