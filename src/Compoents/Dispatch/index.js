@@ -19,6 +19,7 @@ function Dispatch() {
   const [selectedOrders, setSelectedOrders] = useState();
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
+  const [invoiceId, setInvoiceId] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
   const [customerName, setCustomerName] = useState("");
@@ -93,14 +94,18 @@ function Dispatch() {
       : `pagination-arrow-container`;
 
   const handleView = (each) => {
+    setDate(each.dispatch.data_time);
+
+    setInvoiceId(each.dispatch.id);
     setSelectedOrders(each.dispatch.orders);
     setDiscount(each.dispatch.discount);
-    setDate(each.dispatch.data_time);
     setDiscountedAmount(each.dispatch.discounted_amount);
     setTotalAmount(each.dispatch.totalamount);
     setCustomerName(each.orders[0].customer_name);
     setModalOpen(true);
   };
+
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -287,6 +292,7 @@ function Dispatch() {
           }}
         >
           <CustomerInvoicePage
+            invoiceId={invoiceId}
             selectedOrders={selectedOrders}
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
