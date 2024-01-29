@@ -35,7 +35,7 @@ function Invoice({ data }) {
         <h5>Calculations</h5>
         <div className="generate-invoice-table-container-1">
           <div className="generate-invoice-header-table-container">
-          <p className="generate-invoice-table-header">Activity</p>
+            <p className="generate-invoice-table-header">Activity</p>
 
             {/* <p className="generate-invoice-table-header">Category</p> */}
             <p className="generate-invoice-table-header">Quantity</p>
@@ -52,7 +52,7 @@ function Invoice({ data }) {
                 className="generate-invoice-table-display-container"
                 key={eachProduct.serviceId}
               >
-                  <p className="generate-invoice-table-header">
+                <p className="generate-invoice-table-header">
                   {eachProduct.productName}
                 </p>
                 {/* <p className="generate-invoice-table-header">
@@ -65,8 +65,14 @@ function Invoice({ data }) {
                   {eachProduct.productPrice}
                 </p>
                 <p className="generate-invoice-table-header-1">
-                  {eachProduct.serviceQuantity ? parseFloat(eachProduct.serviceQuantity) *
-                    parseFloat(eachProduct.productPrice) : 0}
+                  {parseFloat(
+                    eachProduct.serviceQuantity
+                      ? (
+                          parseFloat(eachProduct.serviceQuantity) *
+                          parseFloat(eachProduct.productPrice)
+                        ).toFixed(2)
+                      : 0
+                  )}
                 </p>
               </div>
             );
@@ -79,7 +85,12 @@ function Invoice({ data }) {
             marginRight: "10px",
           }}
         >
-          <p className="generate-invoice-total-amount" style={{textAlign:"center"}}>Grand Total : {total ? total : 0}</p>
+          <p
+            className="generate-invoice-total-amount"
+            style={{ textAlign: "center" }}
+          >
+            Grand Total : {total ? total.toFixed(2) : 0}
+          </p>
         </div>
       </div>
     </>

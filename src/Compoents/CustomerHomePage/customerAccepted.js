@@ -15,10 +15,8 @@ function CustomerAccepted() {
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [customerName, setCustomerName] = useState("");
-
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedOrders, setSelectedOrders] = useState();
-
   const [totalAmount, setTotalAmount] = useState("");
   const [discount, setDiscount] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
@@ -54,7 +52,7 @@ function CustomerAccepted() {
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
-        `${FETCH_URL}invoicepending/${6}`,
+        `${FETCH_URL}invoicepending/${8}`,
         // Replace with your API endpoint
         {
           method: "GET",
@@ -113,7 +111,7 @@ function CustomerAccepted() {
       ) : (
         <div className="admin-order-accepted-product-list">
           <h2 className="admin-order-accepted-order-list-heading">
-            Invoice Accepted Order List
+            Dispatched Orders
           </h2>
           <input
             type="text"
@@ -147,10 +145,10 @@ function CustomerAccepted() {
                         {JSON.parse(eachProduct.orders).join(", ")}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.totalamount}
+                        {eachProduct.totalamount.toFixed(2)}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.discounted_amount}
+                        {eachProduct.discounted_amount.toFixed(2)}
                       </p>
 
                       <BsFillArrowRightCircleFill

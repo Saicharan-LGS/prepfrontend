@@ -94,7 +94,7 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
       <div className="generate-invoice-billing-container">
         <div className="generate-invoice-discount-container">
           <p className="generate-invoice-total-amount">Total Amount</p>
-          <p className="generate-invoice-total-amount-text">{totalAmount}</p>
+          <p className="generate-invoice-total-amount-text">{totalAmount.toFixed(2)}</p>
         </div>
         <div className="generate-invoice-discount-container">
           <p className="generate-invoice-total-amount">Discount(%)</p>
@@ -120,7 +120,7 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
             className="generate-invoice-total-amount-text"
             style={{ fontWeight: 700, color: "#212d45", fontSize: "20px" }}
           >
-            {discountAmount}
+            {discountAmount && discountAmount.toFixed(2)}
           </p>
         </div>
       </div>

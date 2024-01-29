@@ -26,7 +26,9 @@ function CustomerInvoicePage({
 
   const calculateFinalPrice = (amount, discountPercentage) => {
     const discountAmount = (amount * discountPercentage) / 100;
-    return amount - discountAmount;
+    const discountedPrice = amount - discountAmount;
+    const roundedFinalPrice = Math.round(discountedPrice * 100) / 100; // Round to two decimal places
+    return roundedFinalPrice.toFixed(2);
   };
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
@@ -144,7 +146,9 @@ function CustomerInvoicePage({
         <div className="generate-invoice-billing-container">
           <div className="generate-invoice-discount-container">
             <p className="generate-invoice-total-amount">Total Amount</p>
-            <p className="generate-invoice-total-amount-text">{totalAmount}</p>
+            <p className="generate-invoice-total-amount-text">
+              {totalAmount.toFixed(2)}
+            </p>
           </div>
           {role === "Admin" && (
             <div className="generate-invoice-discount-container">

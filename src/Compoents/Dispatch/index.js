@@ -21,7 +21,7 @@ function Dispatch() {
   const [discount, setDiscount] = useState("");
   const [invoiceId, setInvoiceId] = useState("");
   const [discountedAmount, setDiscountedAmount] = useState("");
-  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(5);
+  const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
   const [customerName, setCustomerName] = useState("");
   const [date, setDate] = useState("");
   useEffect(() => {
@@ -159,7 +159,6 @@ function Dispatch() {
               onChange={(e) => setInvoiceStatusFilter(e.target.value)}
               className="admin-order-accepted-search-filter-input"
             >
-              <option value={8}>Dispatched</option>
               <option value={5}>Invoice Generated</option>
               <option value={6}>Invoice Accepted</option>
               <option value={7}>Invoice Rejected</option>
@@ -223,13 +222,13 @@ function Dispatch() {
                         ))}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.dispatch.totalamount}
+                        {eachProduct.dispatch.totalamount.toFixed(2)}
                       </p>
                       <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.dispatch.discount}
+                        {eachProduct.dispatch.discount.toFixed(2)}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.dispatch.discounted_amount}
+                        {eachProduct.dispatch.discounted_amount.toFixed(2)}
                       </p>
                       {setStatus(
                         eachProduct.dispatch.invoice_status,

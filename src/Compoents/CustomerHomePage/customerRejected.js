@@ -152,10 +152,10 @@ function CustomerRejected({ openDetailPage }) {
                         {JSON.parse(eachProduct.orders).join(", ")}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.totalamount}
+                        {eachProduct.totalamount.toFixed(2)}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.discounted_amount}
+                        {eachProduct.discounted_amount.toFixed(2)}
                       </p>
 
                       <BsFillArrowRightCircleFill

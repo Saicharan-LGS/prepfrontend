@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./index.css";
 
-function Customerinvoicedata({ data , date}) {
+function Customerinvoicedata({ data, date }) {
   const eachProduct = data;
   const [service, setServices] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -45,19 +45,17 @@ function Customerinvoicedata({ data , date}) {
             <p className="generate-invoice-table-header">Date</p>
             <p className="generate-invoice-table-header">Order Name</p>
             <p className="generate-invoice-table-header">Order Quantity</p>
-
           </div>
           <div
             className="generate-invoice-table-display-container"
             key={eachProduct.id}
           >
+            <p className="generate-invoice-table-header">{eachProduct.id}</p>
             <p className="generate-invoice-table-header">
-              {eachProduct.id}
+              {new Date(date).toLocaleDateString()}
             </p>
-            <p className="generate-invoice-table-header">{new Date(date).toLocaleDateString()}</p>
             <p className="generate-invoice-table-header">{eachProduct.name}</p>
             <p className="generate-invoice-table-header">{eachProduct.unit}</p>
-
           </div>
         </div>
         <h5>Calculations</h5>
@@ -92,8 +90,14 @@ function Customerinvoicedata({ data , date}) {
                   {eachProduct.productPrice}
                 </p>
                 <p className="generate-invoice-table-header-1">
-                  {eachProduct.serviceQuantity ? parseFloat(eachProduct.serviceQuantity) *
-                    parseFloat(eachProduct.productPrice) : 0}
+                  {parseFloat(
+                    eachProduct.serviceQuantity
+                      ? (
+                          parseFloat(eachProduct.serviceQuantity) *
+                          parseFloat(eachProduct.productPrice)
+                        ).toFixed(2)
+                      : 0
+                  )}
                 </p>
               </div>
             );
@@ -106,12 +110,12 @@ function Customerinvoicedata({ data , date}) {
             marginRight: "12px",
           }}
         >
-          <p className="generate-invoice-total-amount">Grand Total : {total ? total:0}</p>
+          <p className="generate-invoice-total-amount">
+            Grand Total : {total ? total.toFixed(2) : 0}
+          </p>
         </div>
       </div>
     </>
   );
 }
 export default Customerinvoicedata;
-
-
