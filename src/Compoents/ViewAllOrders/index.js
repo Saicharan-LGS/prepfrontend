@@ -23,7 +23,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
       2: "Received",
       3: "Dimension",
       4: "Label",
-      5: "Invoice",
+      5: "Invoice Generated",
       6: "Invoice Accepted",
       7: "Invoice Rejected",
       8: "Dispatched",
@@ -54,7 +54,6 @@ function ViewAllOrders({ openDetailPageComponent }) {
 
   const handleSearch = (e) => {
     const { name, value } = e.target;
-
     if (name === "orderid") {
       setOrderId(value);
     } else if (name === "filter") {
@@ -112,7 +111,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
     2: "Received",
     3: "Dimension",
     4: "Label",
-    5: "Invoice",
+    5: "Invoice Generated",
     6: "Invoice Accepted",
     7: "Invoice Rejected",
     8: "Dispatched",
@@ -149,7 +148,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
               <option value="Received">Received</option>
               <option value="Dimension">Dimension</option>
               <option value="Label">Label</option>
-              <option value="Invoice">Invoice</option>
+              <option value="Invoice Generated">Invoice Generated</option>
               <option value="Invoice Accepted">Invoice Accepted</option>
               <option value="Invoice Rejected">Invoice Rejected</option>
               <option value="Dispatched">Dispatched</option>

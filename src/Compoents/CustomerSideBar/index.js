@@ -151,7 +151,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
               status === 6 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
-            Invoice Accepted
+            Invoice Accepted / Dispatched
           </MenuItem>
           <MenuItem
             onMouseEnter={handleMouseEnter}

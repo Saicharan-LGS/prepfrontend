@@ -111,7 +111,7 @@ function CustomerAccepted() {
       ) : (
         <div className="admin-order-accepted-product-list">
           <h2 className="admin-order-accepted-order-list-heading">
-            Dispatched Orders
+           Invoice Accepted / Dispatched
           </h2>
           <input
             type="text"
@@ -128,10 +128,12 @@ function CustomerAccepted() {
                 Order Id's
               </p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
-
+            
               <p className="admin-order-accepted-quantity-category">
                 Final Amount
               </p>
+              <p className="admin-order-accepted-name-category">Status</p>
+
               <p className="admin-order-accepted-view-in-detail-category">
                 View
               </p>
@@ -149,6 +151,9 @@ function CustomerAccepted() {
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.discounted_amount.toFixed(2)}
+                      </p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {eachProduct.invoice_status=== "6" ? "Invoice Accepted" : "Dispatched"}
                       </p>
 
                       <BsFillArrowRightCircleFill
