@@ -118,7 +118,7 @@ const ProductServiceEdit = ({ fetchProductServices, id, onClose }) => {
             id="price"
             name="price"
             value={formData.price}
-            onChange={handleChange}
+            readOnly
             className="product-service-input-field"
           />
         </div>

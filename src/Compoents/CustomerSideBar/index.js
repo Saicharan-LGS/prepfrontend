@@ -142,7 +142,17 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           >
             Invoice Pending
           </MenuItem>
-
+          <MenuItem
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            icon={<RiVerifiedBadgeFill fontSize="24px" />}
+            onClick={() => handleSidebarItemClick(6)}
+            style={
+              status === 6 ? { backgroundColor: "#fff", color: "#212d45" } : {}
+            }
+          >
+            Invoice Accepted
+          </MenuItem>
           <MenuItem
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -154,17 +164,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           >
             Invoice Rejected
           </MenuItem>
-          <MenuItem
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            icon={<RiVerifiedBadgeFill fontSize="24px" />}
-            onClick={() => handleSidebarItemClick(6)}
-            style={
-              status === 6 ? { backgroundColor: "#fff", color: "#212d45" } : {}
-            }
-          >
-            Dispatched orders
-          </MenuItem>
+          
           <MenuItem
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}

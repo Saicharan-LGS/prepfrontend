@@ -52,7 +52,7 @@ function CustomerAccepted() {
     const token = sessionStorage.getItem("token");
     try {
       const response = await fetch(
-        `${FETCH_URL}invoicepending/${8}`,
+        `${FETCH_URL}invoicepending/${6}`,
         // Replace with your API endpoint
         {
           method: "GET",
