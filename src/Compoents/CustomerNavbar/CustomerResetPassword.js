@@ -51,7 +51,7 @@ const CustomerResetPasswordUpdate = () => {
           icon: "success",
           title: data.message,
         });
-
+        localStorage.removeItem("email");
         navigate("/");
       } else {
         const data = await response.json();

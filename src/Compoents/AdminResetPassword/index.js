@@ -48,6 +48,7 @@ const AdminResetPassword = () => {
           icon: "success",
           title: data.message,
         });
+        localStorage.removeItem("email");
 
         navigate("/stafflogin");
       } else {
