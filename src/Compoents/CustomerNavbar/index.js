@@ -4,6 +4,8 @@ import * as AiIcons from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { CustomerNavbarData } from "./CustomerNavbar.js";
 import "./index.css";
+import axxpress from "../images/axxpress.png";
+
 import { useNavigate } from "react-router-dom";
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
@@ -102,6 +104,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-container">
+
       <div className={`navbar ${sidebar ? "shifted" : ""}`}>
         <Link to="#" className={activeToggle}>
           <FaIcons.FaBars onClick={showSidebar} />

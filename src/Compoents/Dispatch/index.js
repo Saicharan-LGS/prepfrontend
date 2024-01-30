@@ -129,7 +129,9 @@ function Dispatch() {
       );
     } else {
       return (
-        <p className="admin-order-accepted-quantity-sub-category">Dispatched</p>
+        <p className="admin-order-accepted-quantity-sub-category">
+          Dispatched
+          </p>
       );
     }
   };
@@ -162,6 +164,7 @@ function Dispatch() {
               <option value={5}>Invoice Generated</option>
               <option value={6}>Invoice Accepted</option>
               <option value={7}>Invoice Rejected</option>
+              <option value={8}>Dispatched</option>
             </select>
           </div>
           <div className="admin-order-accepted-table-container">

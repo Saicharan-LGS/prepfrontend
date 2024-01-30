@@ -1,13 +1,12 @@
 //import { Link } from 'react-router-dom';
-import {useEffect,useState}  from 'react'
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axxpress from "../images/axxpress.png";
 import "./index.css";
 import Popup from "reactjs-popup";
 import AdminProfileView from "../AdminProfileView";
 
 function CommonNavbar() {
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [userDetatils, setUserDetails] = useState([]);
 
@@ -22,9 +21,9 @@ function CommonNavbar() {
   const role = sessionStorage.getItem("role");
   const name = sessionStorage.getItem("sname");
 
-  const handleCloseClick=()=>{
-    setIsPopupOpen(false)
-  }
+  const handleCloseClick = () => {
+    setIsPopupOpen(false);
+  };
 
   const REACT_APP_PDF_URL = process.env.REACT_APP_PDF_URL;
 
@@ -52,34 +51,43 @@ function CommonNavbar() {
     fetchProducts();
   }, []);
 
-
   return (
     <div className="common-navbar">
-   <div className="common-navbar-logout-button-container">
+      <img
+        src={axxpress}
+        style={{
+          width: "150px",
+          height: "40px",
+          marginLeft: "40px",
+          marginTop: "3px",
+        }}
+        alt="axxpress"
+      />
+      <div className="common-navbar-logout-button-container">
         <p className="common-navbar-nav-item-name">{name}</p>
         <p className="common-navbar-nav-item-name">{role}</p>
         <Popup
-            closeOnDocumentClick={false}
-            open={isPopupOpen}
-            onClose={handleCloseClick}
-            contentStyle={{ width: "500px", padding: "20px" }}
-            trigger={
-              <img
-                src={`${REACT_APP_PDF_URL}${
-                  userDetatils && userDetatils.profile
-                }`}
-                alt=""
-                className="navbar-profile-image"
-                onClick=""
-              />
-            }
-            position="bottom right"
-          >
-            <AdminProfileView
-              onClose={handleCloseClick}
-              fetchProducts1={fetchProducts}
+          closeOnDocumentClick={false}
+          open={isPopupOpen}
+          onClose={handleCloseClick}
+          contentStyle={{ width: "500px", padding: "20px" }}
+          trigger={
+            <img
+              src={`${REACT_APP_PDF_URL}${
+                userDetatils && userDetatils.profile
+              }`}
+              alt=""
+              className="navbar-profile-image"
+              onClick=""
             />
-          </Popup>
+          }
+          position="bottom right"
+        >
+          <AdminProfileView
+            onClose={handleCloseClick}
+            fetchProducts1={fetchProducts}
+          />
+        </Popup>
         <button className="common-navbar-logout-button" onClick={handleLogout}>
           Logout
         </button>

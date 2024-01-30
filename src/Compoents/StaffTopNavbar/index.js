@@ -1,10 +1,11 @@
 import "./index.css";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import AdminProfileView from "../AdminProfileView";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
+import axxpress from "../images/axxpress.png";
+
 function StaffTopNavbar() {
   const [userDetatils, setUserDetails] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -53,6 +54,7 @@ function StaffTopNavbar() {
 
   return (
     <div className="navbar-main-container">
+      <img src={axxpress} style={{width:"150px", height:"40px", marginLeft:"40px", marginTop:"3px"}} alt="axxpress" />
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>

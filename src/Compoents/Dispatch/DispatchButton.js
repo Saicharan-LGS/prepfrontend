@@ -9,7 +9,6 @@ const DispatchButton = ({ id, status, fetchProducts, orderIds }) => {
         icon: "error",
         title: "Invoice is not accepted. You can't dispatch order",
       });
-
       return;
     } else if (status === "7") {
       Toast.fire({
