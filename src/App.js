@@ -65,7 +65,7 @@ function App() {
         path="/CustomerOtpVerification"
         element={<CustomerOtpVerification />}
       />
-      <Route path="/createpassword/:email" element={<CreatePassword />} />
+      <Route path="/createpassword/:token" element={<CreatePassword />} />
       <Route
         path="/CustomerOtpVerification2"
         element={<CustomerOtpVerification2 />}
