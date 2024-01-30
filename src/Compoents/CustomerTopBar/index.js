@@ -38,9 +38,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
       }); // Replace with your API endpoint
       if (response.ok) {
         const data = await response.json();
-        setUserDetails(
-          data.customer,
-        );
+        setUserDetails(data.customer);
       } else {
         setUserDetails("");
       }
@@ -54,7 +52,16 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-main-container">
-            <img src={axxpress} style={{width:"150px", height:"40px", marginLeft:"40px", marginTop:"3px"}} alt="axxpress" />
+      <img
+        src={axxpress}
+        style={{
+          width: "150px",
+          height: "40px",
+          marginLeft: "40px",
+          marginTop: "3px",
+        }}
+        alt="axxpress"
+      />
 
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
@@ -86,13 +93,13 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
               fetchProducts1={fetchProducts}
             />
           </Popup>
-          <button className="navbar-logout-button" onClick={handleLogout}>
+          {/* <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
           <IoMdLogOut
             className="navbar-logout-button-icon"
             onClick={handleLogout}
-          />
+          /> */}
         </div>
       </div>
     </div>

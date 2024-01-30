@@ -54,7 +54,16 @@ function StaffTopNavbar() {
 
   return (
     <div className="navbar-main-container">
-      <img src={axxpress} style={{width:"150px", height:"40px", marginLeft:"40px", marginTop:"3px"}} alt="axxpress" />
+      <img
+        src={axxpress}
+        style={{
+          width: "150px",
+          height: "40px",
+          marginLeft: "40px",
+          marginTop: "3px",
+        }}
+        alt="axxpress"
+      />
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>
@@ -63,9 +72,11 @@ function StaffTopNavbar() {
             closeOnDocumentClick={false}
             open={isPopupOpen}
             onClose={handleCloseClick}
-            contentStyle={{minWidth: "400px",
-            maxWidth: "650px",
-            padding: "20px", }}
+            contentStyle={{
+              minWidth: "400px",
+              maxWidth: "650px",
+              padding: "20px",
+            }}
             trigger={
               <img
                 src={`${REACT_APP_PDF_URL}${
@@ -83,13 +94,13 @@ function StaffTopNavbar() {
               fetchProducts1={fetchProducts}
             />
           </Popup>
-          <button className="navbar-logout-button" onClick={handleLogout}>
+          {/* <button className="navbar-logout-button" onClick={handleLogout}>
             Logout
           </button>
           <IoMdLogOut
             className="navbar-logout-button-icon"
             onClick={handleLogout}
-          />
+          /> */}
         </div>
       </div>
     </div>

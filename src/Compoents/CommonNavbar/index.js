@@ -5,6 +5,7 @@ import axxpress from "../images/axxpress.png";
 import "./index.css";
 import Popup from "reactjs-popup";
 import AdminProfileView from "../AdminProfileView";
+import Banner from "../Banner";
 
 function CommonNavbar() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -52,47 +53,53 @@ function CommonNavbar() {
   }, []);
 
   return (
-    <div className="common-navbar">
-      <img
-        src={axxpress}
-        style={{
-          width: "150px",
-          height: "40px",
-          marginLeft: "40px",
-          marginTop: "3px",
-        }}
-        alt="axxpress"
-      />
-      <div className="common-navbar-logout-button-container">
-        <p className="common-navbar-nav-item-name">{name}</p>
-        <p className="common-navbar-nav-item-name">{role}</p>
-        <Popup
-          closeOnDocumentClick={false}
-          open={isPopupOpen}
-          onClose={handleCloseClick}
-          contentStyle={{ width: "500px", padding: "20px" }}
-          trigger={
-            <img
-              src={`${REACT_APP_PDF_URL}${
-                userDetatils && userDetatils.profile
-              }`}
-              alt=""
-              className="navbar-profile-image"
-              onClick=""
-            />
-          }
-          position="bottom right"
-        >
-          <AdminProfileView
+    <>
+      <Banner />
+      <div className="common-navbar">
+        <img
+          src={axxpress}
+          style={{
+            width: "150px",
+            height: "40px",
+            marginLeft: "40px",
+            marginTop: "3px",
+          }}
+          alt="axxpress"
+        />
+        <div className="common-navbar-logout-button-container">
+          <p className="common-navbar-nav-item-name">{name}</p>
+          <p className="common-navbar-nav-item-name">{role}</p>
+          <Popup
+            closeOnDocumentClick={false}
+            open={isPopupOpen}
             onClose={handleCloseClick}
-            fetchProducts1={fetchProducts}
-          />
-        </Popup>
-        <button className="common-navbar-logout-button" onClick={handleLogout}>
-          Logout
-        </button>
+            contentStyle={{ width: "500px", padding: "20px" }}
+            trigger={
+              <img
+                src={`${REACT_APP_PDF_URL}${
+                  userDetatils && userDetatils.profile
+                }`}
+                alt=""
+                className="navbar-profile-image"
+                onClick=""
+              />
+            }
+            position="bottom right"
+          >
+            <AdminProfileView
+              onClose={handleCloseClick}
+              fetchProducts1={fetchProducts}
+            />
+          </Popup>
+          <button
+            className="common-navbar-logout-button"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default CommonNavbar;

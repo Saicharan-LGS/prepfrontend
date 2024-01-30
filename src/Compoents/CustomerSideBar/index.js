@@ -16,6 +16,7 @@ import { FaClipboardList } from "react-icons/fa";
 import { ImUpload } from "react-icons/im";
 import Wallet from "../Wallet/index,.js";
 import CustomerTopNavbar from "../CustomerTopBar/index.js";
+import Banner from "../Banner/index.js";
 
 function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -164,7 +165,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           >
             Invoice Rejected
           </MenuItem>
-          
+
           <MenuItem
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
@@ -197,10 +198,13 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
           minHeight: "100vh",
         }}
       >
-        <CustomerTopNavbar
-          totalAmount={totalAmount}
-          fetchTotalAmount={fetchTotalAmount}
-        />
+        <div>
+          <Banner />
+          <CustomerTopNavbar
+            totalAmount={totalAmount}
+            fetchTotalAmount={fetchTotalAmount}
+          />
+        </div>
 
         {parseInt(status) === 5 ? (
           <CustomerHomePage
