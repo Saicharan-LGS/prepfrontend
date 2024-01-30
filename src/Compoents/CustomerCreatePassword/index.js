@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Toast from "../utlis/toast";
 import './index.css' 
+import signup from '../utlis/signup-img-2.png'
 
 const CreatePassword = () => {
   const { email } = useParams();
@@ -69,9 +70,13 @@ const CreatePassword = () => {
  
   return (
     <div className="customer-create-password-main-container">
-    <div className="customer-update-password-main-container" >
       
-      <form onSubmit={handleSubmit}  className="customer-update-password-form-container" style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",padding:"30px", borderRadius:"10px"}}>
+    <div className="customer-update-password-main-container">
+      <div className="customer-create-password-container">
+    <div className="login-image-container">
+          <img src={signup} className="Login-image" alt="" />
+        </div>
+      <form onSubmit={handleSubmit}  className="customer-update-password-form-container" style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",padding:"30px", borderRadius:"10px",width:"320px"}}>
         <h2 className="customer-update-password-heading">Create Password</h2>
         <div className="customer-update-password-input-container">
           <label className="customer-update-password-label-name">Password:</label>
@@ -103,6 +108,7 @@ const CreatePassword = () => {
         </div>
         <button type="submit" className="customer-update-password-button">Create Password</button>
       </form>
+    </div>
     </div>
     </div>
   );

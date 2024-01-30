@@ -16,7 +16,11 @@
   width:90%;
   border-radius:20px;
 }
-
+@media (max-width:912px){
+  .customer-signin-div-container{
+    height:90vh;
+  }
+}
 .customer-signin-form-main-container {
     width: 30%;
     margin: 0px 10px;
@@ -49,6 +53,9 @@
   
 .customer-singnin-form-lable-container {
     margin-bottom: 5px;
+    font-size:18px;
+    color:#212d45;
+    margin:0px;
   }
  .customer-signin-input-container{
     width: 95%;
