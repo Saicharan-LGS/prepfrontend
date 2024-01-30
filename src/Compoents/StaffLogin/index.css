@@ -41,10 +41,10 @@
     
   }
   
-.singnin-form-lable-container {
-    font-weight: bold;
-    margin-bottom: 5px;
-    gap: 4px;
+.signin-form-label-container {
+    font-size:18px;
+    color:#212d45;
+    
   }
   
   .signin-input-text {
