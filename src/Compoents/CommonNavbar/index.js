@@ -56,7 +56,7 @@ function CommonNavbar() {
     <>
       <Banner />
       <div className="common-navbar">
-        <img
+        {/* <img
           src={axxpress}
           style={{
             width: "150px",
@@ -65,7 +65,7 @@ function CommonNavbar() {
             marginTop: "3px",
           }}
           alt="axxpress"
-        />
+        /> */}
         <div className="common-navbar-logout-button-container">
           <p className="common-navbar-nav-item-name">{name}</p>
           <p className="common-navbar-nav-item-name">{role}</p>

@@ -52,7 +52,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-main-container">
-      <img
+      {/* <img
         src={axxpress}
         style={{
           width: "150px",
@@ -61,7 +61,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
           marginTop: "3px",
         }}
         alt="axxpress"
-      />
+      /> */}
 
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
