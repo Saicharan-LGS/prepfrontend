@@ -4,6 +4,8 @@ import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
+import WalletAdd from "./WalletAdd";
+import { Box, Modal } from "@mui/material";
 
 function Wallet() {
   const [products, setProducts] = useState([]);
@@ -14,6 +16,7 @@ function Wallet() {
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState("all");
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isModalOpen, setModalOpen] = React.useState(false);
 
   useEffect(() => {
     const filtered = products.filter((product) => {
@@ -81,9 +84,22 @@ function Wallet() {
     setOrderId(e.target.value);
     setCurrentPage(1);
   };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleAmountAdd =()=>{
+    setModalOpen(true)
+  }
+
   return (
+    <>
     <div className="admin-order-accepted-product-list">
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
       <h2 className="admin-order-accepted-order-list-heading">Transactions</h2>
+      <button className="service-add-button" onClick={handleAmountAdd}>Add</button>
+      </div>
       <div className="admin-order-accepted-search-filter-input-container">
         <input
           type="text"
@@ -163,6 +179,29 @@ function Wallet() {
         )}
       </div>
     </div>
+     <Modal
+     open={isModalOpen}
+     onClose={handleCloseModal}
+     style={{ width: "100%" }}
+   >
+     <Box
+       sx={{
+         position: "absolute",
+         width:"300px",
+         top: "50%",
+         left: "50%",
+    
+         overflow: "scroll",
+         transform: "translate(-50%, -50%)",
+         bgcolor: "background.paper",
+         borderRadius: "8px",
+         p: 3,
+       }}
+     >
+         <WalletAdd  onClose={handleCloseModal} />
+     </Box>
+   </Modal>
+   </>
   );
 }
 
