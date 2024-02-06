@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards-2";
-import './index.css';
+import "./index.css";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { encrypt } from "../Encrypt";
 import Toast from "../utlis/toast";
- 
+
 const CreditCard = () => {
   const [state, setState] = useState({
     number: "",
@@ -14,43 +14,49 @@ const CreditCard = () => {
     cvc: "",
     focus: "",
   });
- 
+
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
- 
+
     if (name === "number") {
       newValue = value.replace(/\D/g, "").slice(0, 16);
     }
- 
+
     setState((prev) => ({ ...prev, [name]: newValue }));
   };
- 
+
   const handleInputFocus = (e) => {
     setState((prev) => ({ ...prev, focus: e.target.name }));
   };
 
   const location = useLocation();
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
 
-    
-  const searchParams = new URLSearchParams(location.search);
-  const encryptedText = searchParams.get("encryptedText");
- 
+    const searchParams = new URLSearchParams(location.search);
+    const encryptedText = searchParams.get("encrypted");
+
+    // Transform the expiry value to the desired format
+    const formattedExpiry = state.expiry.replace(/\D/g, ""); // Remove non-numeric characters
+    const transformedExpiry =
+      formattedExpiry.slice(0, 2) + formattedExpiry.slice(2);
+
     // Prepare the data for the POST request
     const postData = {
       number: encrypt(state.number),
       name: encrypt(state.name),
-      expiry: encrypt(state.expiry),
+      expiry: encrypt(transformedExpiry),
       cvc: encrypt(state.cvc),
       amount: encryptedText,
     };
- 
+
     try {
-      const response = await fetch("http://localhost:3008/api/v1/add", {
+      const response = await fetch("http://localhost:3008/api/v1/addmoney", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -58,16 +64,24 @@ const CreditCard = () => {
         },
         body: JSON.stringify(postData),
       });
- 
+
       if (response.ok) {
-        const data = response.json()
+        const data = await response.json();
         Toast.fire({
           icon: "success",
           title: data.message,
         });
-        console.log("Credit Card Data submitted successfully!");
+        setState({
+          number: "",
+          name: "",
+          expiry: "",
+          cvc: "",
+          focus: "",
+        });
+        // Navigate to /customernavbar
+        navigate("/customernavbar");
       } else {
-        const data = response.json()
+        const data = await response.json();
         Toast.fire({
           icon: "error",
           title: data.message,
@@ -78,7 +92,7 @@ const CreditCard = () => {
       console.error("Error during POST request:", error);
     }
   };
- 
+
   return (
     <div className="credit-card-form-main-container">
       <div className="credit-card-form-sub-container">
@@ -92,24 +106,27 @@ const CreditCard = () => {
         <div className="mt-3 mr-3">
           <form className="credit-card-form-container" onSubmit={handleSubmit}>
             <div className="mb-3">
+              <label>Card Number</label>
               <input
                 type="text"
                 name="number"
                 className="form-control"
-                placeholder="Card Number"
+                placeholder="9999 9999 9999 9999"
                 value={state.number}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 maxLength="16"
+                minLength="16"
                 required
               />
             </div>
             <div className="mb-3">
+              <label>Name</label>
               <input
                 type="text"
                 name="name"
                 className="form-control"
-                placeholder="Name"
+                placeholder="Jhon Smith"
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 required
@@ -117,11 +134,12 @@ const CreditCard = () => {
             </div>
             <div className="row">
               <div className="col-6 mb-3">
+                <label>Expiry Date</label>
                 <input
                   type="text"
                   name="expiry"
                   className="form-control"
-                  placeholder="Valid Thru"
+                  placeholder="mm/yy"
                   pattern="\d\d/\d\d"
                   value={state.expiry}
                   onChange={handleInputChange}
@@ -130,11 +148,12 @@ const CreditCard = () => {
                 />
               </div>
               <div className="col-6 mb-3">
+                <label>Enter CVC Number</label>
                 <input
                   type="text"
                   name="cvc"
                   className="form-control"
-                  placeholder="CVC"
+                  placeholder="123"
                   pattern="\d{3,4}"
                   value={state.cvc}
                   onChange={handleInputChange}
@@ -154,5 +173,5 @@ const CreditCard = () => {
     </div>
   );
 };
- 
+
 export default CreditCard;

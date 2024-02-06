@@ -33,7 +33,7 @@ import SideBar from "./Compoents/StaffNavbar";
 import CustomerSideBar from "./Compoents/CustomerSideBar";
 import CreditCard from "./Compoents/CreditCard";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const role = sessionStorage.getItem("role");
@@ -205,7 +205,14 @@ function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/payment" element={<CreditCard />} />
+      <Route
+        path="/payment"
+        element={
+          <ProtectedRoute allowedRoles={["Customer"]}>
+            <CreditCard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

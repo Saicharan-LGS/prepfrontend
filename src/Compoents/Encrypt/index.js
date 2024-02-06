@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
- 
-const secretKey = "yourSecretKey"; // Replace with your secret key
- 
+
+const secretKey = process.env.REACT_APP_PYT_SECRET;
+
 export function encrypt(dataToEncrypt) {
   const encryptedData = CryptoJS.AES.encrypt(
     dataToEncrypt,
