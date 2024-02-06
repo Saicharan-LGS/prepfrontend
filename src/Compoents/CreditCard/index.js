@@ -17,6 +17,8 @@ const CreditCard = () => {
 
   const navigate = useNavigate();
 
+  const PAY_FETCH_URL = process.env.REACT_APP_PAY_FETCH_URL;
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
@@ -56,7 +58,7 @@ const CreditCard = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3008/api/v1/addmoney", {
+      const response = await fetch(`${PAY_FETCH_URL}addmoney`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
