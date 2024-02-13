@@ -3,7 +3,7 @@ import Cards from "react-credit-cards-2";
 import "./index.css";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useNavigate, useLocation } from "react-router-dom";
-import { encrypt } from "../Encrypt";
+import { decrypt, encrypt } from "../Encrypt";
 import Toast from "../utlis/toast";
 
 const CreditCard = () => {
@@ -33,15 +33,15 @@ const CreditCard = () => {
   const handleInputFocus = (e) => {
     setState((prev) => ({ ...prev, focus: e.target.name }));
   };
-
   const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const encryptedText = searchParams.get("encrypted");
+  const amount1 = decrypt(encryptedText);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
-
-    const searchParams = new URLSearchParams(location.search);
-    const encryptedText = searchParams.get("encrypted");
 
     // Transform the expiry value to the desired format
     const formattedExpiry = state.expiry.replace(/\D/g, ""); // Remove non-numeric characters
@@ -106,6 +106,8 @@ const CreditCard = () => {
           focused={state.focus}
         />
         <div className="mt-3 mr-3">
+          <p className="amount-text"> Amount : ${amount1}</p>
+
           <form className="credit-card-form-container" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label>Card Number</label>

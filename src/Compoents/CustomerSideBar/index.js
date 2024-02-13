@@ -175,7 +175,7 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
               status === 4 ? { backgroundColor: "#fff", color: "#212d45" } : {}
             }
           >
-            Wallet
+            Account
           </MenuItem>
 
           <MenuItem

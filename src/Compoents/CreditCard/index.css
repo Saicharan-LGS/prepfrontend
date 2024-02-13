@@ -46,3 +46,8 @@
       width: 100%;
     }
   }
+
+  .amount-text{
+    font-size:18px;
+    margin-right: 35px;
+  }

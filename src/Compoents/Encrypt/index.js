@@ -9,3 +9,9 @@ export function encrypt(dataToEncrypt) {
   ).toString();
   return encryptedData;
 }
+
+export function decrypt(encryptedData) {
+  const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, secretKey);
+  const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
+  return decryptedData;
+}
