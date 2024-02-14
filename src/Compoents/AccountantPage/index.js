@@ -54,12 +54,14 @@ function AccountOrders({ openDetailPageComponent }) {
         setErrorCard(true);
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 2000);
       }
     } catch (error) {
       setErrorCard(true);
       setTimeout(() => {
         setLoading(false);
+        setProducts([]);
       }, 2000);
     }
   };

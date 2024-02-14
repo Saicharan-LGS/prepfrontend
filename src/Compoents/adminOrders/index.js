@@ -52,11 +52,13 @@ function ProductList({ openDetailPageComponent }) {
         setLoading(false);
       } else {
         setTimeout(() => {
+          setProducts([]);
           setLoading(false);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
+        setProducts([]);
         setLoading(false);
       }, 3000);
     }
@@ -107,14 +109,10 @@ function ProductList({ openDetailPageComponent }) {
               <p className="admin-order-accepted-service-category">
                 Product Name
               </p>
+              <p className="admin-order-accepted-quantity-category">Pending</p>
+              <p className="admin-order-accepted-quantity-category">Received</p>
               <p className="admin-order-accepted-quantity-category">
-                Pending
-              </p>
-              <p className="admin-order-accepted-quantity-category">
-                Received
-              </p>
-              <p className="admin-order-accepted-quantity-category">
-               Total Quantity
+                Total Quantity
               </p>
               <p className="admin-order-accepted-order-tracking-category">
                 Order Tracking Link
@@ -149,12 +147,17 @@ function ProductList({ openDetailPageComponent }) {
                         {eachProduct.product}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                       {eachProduct.unit - eachProduct.quantity_received}
-                      
+                        {eachProduct.unit - eachProduct.quantity_received}
                       </p>
-                      <p className="admin-order-accepted-quantity-sub-category"> {eachProduct.quantity_received}</p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {" "}
+                        {eachProduct.quantity_received}
+                      </p>
 
-                      <p className="admin-order-accepted-quantity-sub-category"> {eachProduct.unit}</p>
+                      <p className="admin-order-accepted-quantity-sub-category">
+                        {" "}
+                        {eachProduct.unit}
+                      </p>
 
                       <p className="admin-order-accepted-order-tracking-sub-category">
                         {eachProduct.tracking_url ? (

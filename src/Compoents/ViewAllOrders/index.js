@@ -85,16 +85,18 @@ function ViewAllOrders({ openDetailPageComponent }) {
         } else {
           setTimeout(() => {
             setLoading(false);
+            setProducts([]);
           }, 3000);
         }
       } catch (error) {
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 3000);
       }
     };
     fetchProducts();
-  }, []);;
+  }, []);
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length

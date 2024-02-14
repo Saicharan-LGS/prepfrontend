@@ -41,13 +41,13 @@ function LabelOrders({ openDetailPageComponent }) {
         setProducts(data.data);
         setLoading(false);
       } else {
-        setProducts("");
+        setProducts([]);
         setTimeout(() => {
           setLoading(false);
         }, 2000);
       }
     } catch (error) {
-      setProducts("");
+      setProducts([]);
       setTimeout(() => {
         setLoading(false);
       }, 2000);

@@ -53,12 +53,14 @@ function DimensionOrderList({ openDetailPageComponent }) {
         setProducts([]);
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 3000);
       }
     } catch (error) {
       setProducts([]);
       setTimeout(() => {
         setLoading(false);
+        setProducts([]);
       }, 3000);
     }
   };

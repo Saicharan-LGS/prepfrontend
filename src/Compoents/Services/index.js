@@ -65,12 +65,16 @@ export const ProductServiceList = () => {
     try {
       const response = await fetch(`${FETCH_URL}productservicelist`);
       if (!response.ok) {
+        setLoading(false);
+        setProductServices([]);
         throw new Error("Failed to fetch product/services");
       }
       const data = await response.json();
       setLoading(false);
       setProductServices(data.productServices);
     } catch (error) {
+      setLoading(false);
+      setProductServices([]);
     }
   };
 
@@ -189,64 +193,69 @@ export const ProductServiceList = () => {
       </Modal>
       {loading ? (
         <Spinner />
-      ) : (<div className="admin-order-accepted-table-container">
-        <div
-          className="admin-order-accepted-category-types"
-          style={{ fontWeight: "600" }}
-        >
-          <p className="customer-list-table-row">ID</p>
-          <p className="customer-list-table-row">Product Name</p>
-          <p className="customer-list-table-row">Category</p>
-          <p className="customer-list-table-row">Price</p>
-          <p className="customer-list-table-row">Date & Time</p>
-          <p className="customer-list-table-row">Enable/Disable</p>
-          <p className="customer-list-table-row">Edit</p>
-        </div>
-        {productServices.map((eachProduct) => {
-          return (
-            <div
-              className="admin-order-accepted-display-of-products-container"
-              key={eachProduct.id}
-            >
-              <p className="customer-list-table-row">{eachProduct.id}</p>
-              <p className="customer-list-table-row">{eachProduct.name}</p>
-              <p className="customer-list-table-row">{eachProduct.category}</p>
-              <p className="customer-list-table-row">{eachProduct.price}</p>
-              <p className="customer-list-table-row">
-                {new Date(eachProduct.data_time).toLocaleString()}
-              </p>
-              <div className="customer-list-table-row">
-                <input
-                  className="customer-list-table-row-input"
-                  type="checkbox"
-                  checked={eachProduct.status === 1 ? true : false}
-                  onChange={() =>
-                    handleToggle(eachProduct.id, eachProduct.status === 1)
-                  } // Assuming status value of 1 means checked
+      ) : (
+        <div className="admin-order-accepted-table-container">
+          <div
+            className="admin-order-accepted-category-types"
+            style={{ fontWeight: "600" }}
+          >
+            <p className="customer-list-table-row">ID</p>
+            <p className="customer-list-table-row">Product Name</p>
+            <p className="customer-list-table-row">Category</p>
+            <p className="customer-list-table-row">Price</p>
+            <p className="customer-list-table-row">Date & Time</p>
+            <p className="customer-list-table-row">Enable/Disable</p>
+            <p className="customer-list-table-row">Edit</p>
+          </div>
+          {currentProducts.map((eachProduct) => {
+            return (
+              <div
+                className="admin-order-accepted-display-of-products-container"
+                key={eachProduct.id}
+              >
+                <p className="customer-list-table-row">{eachProduct.id}</p>
+                <p className="customer-list-table-row">{eachProduct.name}</p>
+                <p className="customer-list-table-row">
+                  {eachProduct.category}
+                </p>
+                <p className="customer-list-table-row">{eachProduct.price}</p>
+                <p className="customer-list-table-row">
+                  {new Date(eachProduct.data_time).toLocaleString()}
+                </p>
+                <div className="customer-list-table-row">
+                  <input
+                    className="customer-list-table-row-input"
+                    type="checkbox"
+                    checked={eachProduct.status === 1 ? true : false}
+                    onChange={() =>
+                      handleToggle(eachProduct.id, eachProduct.status === 1)
+                    } // Assuming status value of 1 means checked
+                  />
+                </div>
+                <RiEditBoxLine
+                  id={eachProduct.id}
+                  value={eachProduct.id}
+                  className="customer-list-view-icon"
+                  onClick={() => handleView(eachProduct.id)}
                 />
               </div>
-              <RiEditBoxLine
-                id={eachProduct.id}
-                value={eachProduct.id}
-                className="customer-list-view-icon"
-                onClick={() => handleView(eachProduct.id)}
-              />
-            </div>
-          );
-        })}<div className="pagination-button-container">
-        <BsFillArrowLeftCircleFill
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage <= 1}
-          className={previousButton}
-        />
-        <span>Page {currentPage}</span>
-        <BsFillArrowRightCircleFill
-          onClick={() => paginate(currentPage + 1)}
-          disabled={indexOfLastProduct >= productServices.length}
-          className={NextButton}
-        />
-      </div>
-      </div>
-    // </div>
+            );
+          })}
+          <div className="pagination-button-container">
+            <BsFillArrowLeftCircleFill
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage <= 1}
+              className={previousButton}
+            />
+            <span>Page {currentPage}</span>
+            <BsFillArrowRightCircleFill
+              onClick={() => paginate(currentPage + 1)}
+              disabled={indexOfLastProduct >= productServices.length}
+              className={NextButton}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

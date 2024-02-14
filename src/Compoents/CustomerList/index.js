@@ -95,10 +95,12 @@ function CustomerList() {
       } else {
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
+        setProducts([]);
         setLoading(false);
       }, 3000);
     }

@@ -48,11 +48,13 @@ function Wallet() {
         setLoading(false);
       } else {
         setTimeout(() => {
+          setProducts([]);
           setLoading(false);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
+        setProducts([]);
         setLoading(false);
       }, 3000);
     }

@@ -86,11 +86,13 @@ function StaffList() {
       } else {
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
+        setProducts([]);
       }, 3000);
     }
   };
@@ -139,7 +141,7 @@ function StaffList() {
             placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
-            style={{padding:"10px"}}
+            style={{ padding: "10px" }}
           />
           <div className="admin-order-accepted-table-container">
             <div
