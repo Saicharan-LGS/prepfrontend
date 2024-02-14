@@ -73,7 +73,7 @@ function CommonNavbar() {
             closeOnDocumentClick={false}
             open={isPopupOpen}
             onClose={handleCloseClick}
-            contentStyle={{ width: "500px", padding: "20px" }}
+            contentStyle={{ minWidth: "500px", padding: "20px" }}
             trigger={
               <img
                 src={`${REACT_APP_PDF_URL}${
