@@ -73,7 +73,6 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
             onClose={handleCloseClick}
             contentStyle={{
               minWidth: "400px",
-              maxWidth: "650px",
               padding: "20px",
             }}
             trigger={

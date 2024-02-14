@@ -47,7 +47,6 @@ function AdminProfileView({ fetchProducts1 }) {
     setIsModelOpen(true);
   };
 
-
   return (
     <>
       <div className="customer-profile-view-main-container">
@@ -85,13 +84,13 @@ function AdminProfileView({ fetchProducts1 }) {
               </div>
             </div>
             <div>
-            <button
+              <button
                 className="customer-profile-view-edit-button"
                 onClick={handleEdit}
               >
                 Edit
               </button>
-              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -103,10 +102,10 @@ function AdminProfileView({ fetchProducts1 }) {
         <Box
           sx={{
             position: "absolute",
-            width: "300px",
+            width: "400px",
             top: "50%",
             left: "50%",
-            
+
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",
@@ -128,14 +127,15 @@ function AdminProfileView({ fetchProducts1 }) {
         <Box
           sx={{
             position: "absolute",
-            width: "300px",
+            width: "400px",
             top: "50%",
             left: "50%",
-            height: "350px",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",
             p: 3,
+            border: "none",
+            outline: "none",
           }}
         >
           <AdminUpdatePassword onClose={handleCloseModal} />

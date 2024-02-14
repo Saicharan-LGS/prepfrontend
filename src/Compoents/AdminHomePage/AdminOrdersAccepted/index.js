@@ -71,7 +71,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
     };
     fetchProducts();
   }, []);
- 
+
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -113,7 +113,7 @@ function AdminOrdersAccepted({ openDetailPageComponent }) {
               <p className="admin-order-accepted-order-tracking-category">
                 Order Tracking Link
               </p>
-            <p className="admin-order-accepted-fnsku-category">
+              <p className="admin-order-accepted-fnsku-category">
                 FNSKU Status
               </p>
               <p className="admin-order-accepted-box-label-category">

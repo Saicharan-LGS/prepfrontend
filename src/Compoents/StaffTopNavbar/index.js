@@ -74,8 +74,8 @@ function StaffTopNavbar() {
             onClose={handleCloseClick}
             contentStyle={{
               minWidth: "400px",
-              maxWidth: "650px",
               padding: "20px",
+              maxWidth: "max-content !importtant",
             }}
             trigger={
               <img

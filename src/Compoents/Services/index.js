@@ -8,6 +8,7 @@ import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
 import { RiEditBoxLine } from "react-icons/ri";
 import ProductServiceEdit from "./productserviceedit";
+import Spinner from "../Spinner";
 
 const customStyles = {
   content: {
@@ -30,6 +31,8 @@ export const ProductServiceList = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editId, setEditId] = useState();
+  const [loading, setLoading] = useState(true);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
@@ -65,8 +68,10 @@ export const ProductServiceList = () => {
         throw new Error("Failed to fetch product/services");
       }
       const data = await response.json();
+      setLoading(false);
       setProductServices(data.productServices);
-    } catch (error) {}
+    } catch (error) {
+    }
   };
 
   useEffect(() => {
@@ -182,7 +187,9 @@ export const ProductServiceList = () => {
           onClose={closeModal}
         />
       </Modal>
-      <div className="admin-order-accepted-table-container">
+      {loading ? (
+        <Spinner />
+      ) : (<div className="admin-order-accepted-table-container">
         <div
           className="admin-order-accepted-category-types"
           style={{ fontWeight: "600" }}
@@ -195,7 +202,7 @@ export const ProductServiceList = () => {
           <p className="customer-list-table-row">Enable/Disable</p>
           <p className="customer-list-table-row">Edit</p>
         </div>
-        {currentProducts.map((eachProduct) => {
+        {productServices.map((eachProduct) => {
           return (
             <div
               className="admin-order-accepted-display-of-products-container"
@@ -226,21 +233,20 @@ export const ProductServiceList = () => {
               />
             </div>
           );
-        })}
-        <div className="pagination-button-container">
-          <BsFillArrowLeftCircleFill
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage <= 1}
-            className={previousButton}
-          />
-          <span>Page {currentPage}</span>
-          <BsFillArrowRightCircleFill
-            onClick={() => paginate(currentPage + 1)}
-            disabled={indexOfLastProduct >= productServices.length}
-            className={NextButton}
-          />
-        </div>
+        })}<div className="pagination-button-container">
+        <BsFillArrowLeftCircleFill
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage <= 1}
+          className={previousButton}
+        />
+        <span>Page {currentPage}</span>
+        <BsFillArrowRightCircleFill
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastProduct >= productServices.length}
+          className={NextButton}
+        />
       </div>
-    </div>
+      </div>
+    // </div>
   );
 };
