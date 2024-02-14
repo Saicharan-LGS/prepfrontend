@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import ProductService from "./ProductService";
 import Toast from "../utlis/toast";
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { ImCancelCircle } from "react-icons/im";
 import "./index.css";
 import { RiEditBoxLine } from "react-icons/ri";
@@ -28,7 +30,10 @@ export const ProductServiceList = () => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editId, setEditId] = useState();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  const [orderId, setOrderId] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
   function openModal() {
     setIsOpen(true);
   }
@@ -42,6 +47,15 @@ export const ProductServiceList = () => {
     setIsOpen(false);
     setEditModalOpen(false);
   }
+  useEffect(() => {
+    const filtered = productServices.filter((product) => {
+      const productIdMatch = product.id.toString().includes(orderId);
+      const productNameMatch = product.name.toLowerCase().includes(orderId);
+      return productIdMatch || productNameMatch;
+    });
+
+    setFilteredProducts(filtered);
+  }, [productServices, orderId, currentPage]);
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const fetchProductServices = async () => {
@@ -52,13 +66,23 @@ export const ProductServiceList = () => {
       }
       const data = await response.json();
       setProductServices(data.productServices);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
     fetchProductServices();
   }, []);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   const handleToggle = async (id, currentStatus) => {
     try {
@@ -96,6 +120,19 @@ export const ProductServiceList = () => {
     setEditId(id);
   };
 
+  const NextButton =
+    indexOfLastProduct >= filteredProducts.length
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
+  const previousButton =
+    currentPage === 1
+      ? `pagination-arrow-container disable-previous-next-button`
+      : `pagination-arrow-container`;
+  const handleSearch = (e) => {
+    setOrderId(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <div style={{ margin: "15px", marginTop: "0px" }}>
       <div className="service-add-button-container">
@@ -105,6 +142,16 @@ export const ProductServiceList = () => {
         >
           Product/Service List
         </h2>
+        <input
+          type="text"
+          name="orderid"
+          value={orderId}
+          onChange={handleSearch}
+          placeholder="Search by Name / Service ID"
+          required
+          className="admin-order-accepted-search-filter-input"
+          style={{ padding: "10px" }}
+        />
         <button
           className="service-add-button"
           style={{ marginRight: "50px" }}
@@ -148,7 +195,7 @@ export const ProductServiceList = () => {
           <p className="customer-list-table-row">Enable/Disable</p>
           <p className="customer-list-table-row">Edit</p>
         </div>
-        {productServices.map((eachProduct) => {
+        {currentProducts.map((eachProduct) => {
           return (
             <div
               className="admin-order-accepted-display-of-products-container"
@@ -180,6 +227,19 @@ export const ProductServiceList = () => {
             </div>
           );
         })}
+        <div className="pagination-button-container">
+          <BsFillArrowLeftCircleFill
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage <= 1}
+            className={previousButton}
+          />
+          <span>Page {currentPage}</span>
+          <BsFillArrowRightCircleFill
+            onClick={() => paginate(currentPage + 1)}
+            disabled={indexOfLastProduct >= productServices.length}
+            className={NextButton}
+          />
+        </div>
       </div>
     </div>
   );
