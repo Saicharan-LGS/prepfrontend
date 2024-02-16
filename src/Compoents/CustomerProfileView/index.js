@@ -85,13 +85,13 @@ function CustomerProfileView({ fetchProducts1 }) {
               </div>
             </div>
             <div>
-            <button
+              <button
                 className="customer-profile-view-edit-button"
                 onClick={handleEdit}
               >
                 Edit
               </button>
-              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -106,7 +106,7 @@ function CustomerProfileView({ fetchProducts1 }) {
             width: "300px",
             top: "50%",
             left: "50%",
-            
+
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",
@@ -129,6 +129,7 @@ function CustomerProfileView({ fetchProducts1 }) {
           sx={{
             position: "absolute",
             width: "300px",
+            overflow: "scroll",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",

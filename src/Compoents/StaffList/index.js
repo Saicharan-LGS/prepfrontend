@@ -139,7 +139,7 @@ function StaffList() {
             placeholder="Search by Name / Order ID"
             required
             className="admin-order-accepted-search-filter-input"
-            style={{padding:"10px"}}
+            style={{ padding: "10px" }}
           />
           <div className="admin-order-accepted-table-container">
             <div
@@ -235,7 +235,7 @@ function StaffList() {
         <Box
           sx={{
             position: "absolute",
-            width: "260px",
+            minWidth: "260px",
             top: "50%",
             left: "50%",
 

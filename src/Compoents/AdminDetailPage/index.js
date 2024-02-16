@@ -563,7 +563,7 @@ function OrderViewDetail({ orderId, setStatus }) {
             width: "70%",
             top: "50%",
             left: "50%",
-            height: "500px",
+
             overflow: "scroll",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
