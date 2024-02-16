@@ -9,9 +9,16 @@ import Toast from "../utlis/toast";
 const CreditCard = () => {
   const [state, setState] = useState({
     number: "",
-    name: "",
     expiry: "",
     cvc: "",
+    firstName: "",
+    lastName: "",
+    company: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
     focus: "",
   });
 
@@ -33,8 +40,8 @@ const CreditCard = () => {
   const handleInputFocus = (e) => {
     setState((prev) => ({ ...prev, focus: e.target.name }));
   };
-  const location = useLocation();
 
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const encryptedText = searchParams.get("encrypted");
   const amount1 = decrypt(encryptedText);
@@ -43,19 +50,26 @@ const CreditCard = () => {
     e.preventDefault();
     const token = sessionStorage.getItem("token");
 
-    // Transform the expiry value to the desired format
-    const formattedExpiry = state.expiry.replace(/\D/g, ""); // Remove non-numeric characters
+    const formattedExpiry = state.expiry.replace(/\D/g, "");
     const transformedExpiry =
       formattedExpiry.slice(0, 2) + formattedExpiry.slice(2);
 
-    // Prepare the data for the POST request
     const postData = {
       number: encrypt(state.number),
-      name: encrypt(state.name),
       expiry: encrypt(transformedExpiry),
       cvc: encrypt(state.cvc),
       amount: encryptedText,
+      firstName: encrypt(state.firstName),
+      lastName: encrypt(state.lastName),
+      company: encrypt(state.company),
+      city: encrypt(state.city),
+      state: encrypt(state.state),
+      zipCode: encrypt(state.zipCode),
+      country: encrypt(state.country),
+      address: encrypt(state.address),
     };
+
+    console.log(postData,state,"ram")
 
     try {
       const response = await fetch(`${PAY_FETCH_URL}addmoney`, {
@@ -64,7 +78,7 @@ const CreditCard = () => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(postData),
+        body: JSON.stringify({postData,state}),
       });
 
       if (response.ok) {
@@ -75,12 +89,18 @@ const CreditCard = () => {
         });
         setState({
           number: "",
-          name: "",
           expiry: "",
           cvc: "",
+          firstName: "",
+          lastName: "",
+          company: "",
+          address: "",
+          city: "",
+          state: "",
+          zipCode: "",
+          country: "",
           focus: "",
         });
-        // Navigate to /customernavbar
         navigate("/customernavbar");
       } else {
         const data = await response.json();
@@ -102,12 +122,13 @@ const CreditCard = () => {
           number={state.number}
           expiry={state.expiry}
           cvc={state.cvc}
-          name={state.name}
+          name={`${state.firstName} ${state.lastName}`}
           focused={state.focus}
         />
         <div className="mt-3 mr-3">
-          <p className="amount-text"> Amount : ${amount1}</p>
-
+          <center>
+                      <p className="amount-text"> Amount : ${amount1}</p>
+          </center>
           <form className="credit-card-form-container" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label>Card Number</label>
@@ -124,23 +145,11 @@ const CreditCard = () => {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                placeholder="Jhon Smith"
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                required
-              />
-            </div>
             <div className="row">
               <div className="col-6 mb-3">
                 <label>Expiry Date</label>
                 <input
-                  type="text"
+                  type="number"
                   name="expiry"
                   className="form-control"
                   placeholder="mm/yy"
@@ -154,7 +163,7 @@ const CreditCard = () => {
               <div className="col-6 mb-3">
                 <label>Enter CVC Number</label>
                 <input
-                  type="text"
+                  type="number"
                   name="cvc"
                   className="form-control"
                   placeholder="123"
@@ -166,10 +175,116 @@ const CreditCard = () => {
                 />
               </div>
             </div>
-            <div className="d-grid">
-              <button type="submit" className="btn btn-dark">
+            <div className="row">
+              <div className="col-6 mb-3">
+                <label>First Name</label>
+                <input
+                  type="text"
+                  name="firstName"
+                  className="form-control"
+                  value={state.firstName}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+              <div className="col-6 mb-3">
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="form-control"
+                  value={state.lastName}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-6 mb-3">
+                <label>Company</label>
+                <input
+                  type="text"
+                  name="company"
+                  className="form-control"
+                  value={state.company}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+              <div className="col-6 mb-3">
+                <label>Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  className="form-control"
+                  value={state.country}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-4 mb-3">
+                <label>City</label>
+                <input
+                  type="text"
+                  name="city"
+                  className="form-control"
+                  value={state.city}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+              <div className="col-4 mb-3">
+                <label>State</label>
+                <input
+                  type="text"
+                  name="state"
+                  className="form-control"
+                  value={state.state}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+              <div className="col-4 mb-3">
+                <label>Zip Code</label>
+                <input
+                  type="text"
+                  name="zipCode"
+                  className="form-control"
+                  value={state.zipCode}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 mb-3">
+                <label>Address</label>
+                <textarea
+                  name="address"
+                  className="form-control"
+                  value={state.address}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  rows="1" 
+                  required
+                />
+              </div>
+            </div>
+            <div className="d-grid ">
+              <center>
+              <button type="submit" className="btn btn-dark w-50">
                 Confirm
               </button>
+              </center>
             </div>
           </form>
         </div>

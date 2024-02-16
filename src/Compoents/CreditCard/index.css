@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 80vh;
+    /* height: 95vh; */
     width: 90%;
     border-radius: 20px;
 }
@@ -48,6 +48,7 @@
   }
 
   .amount-text{
+    font-weight: bold;
     font-size:18px;
     margin-right: 35px;
   }
