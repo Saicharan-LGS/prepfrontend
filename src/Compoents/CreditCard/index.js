@@ -69,8 +69,6 @@ const CreditCard = () => {
       address: encrypt(state.address),
     };
 
-    console.log(postData,state,"ram")
-
     try {
       const response = await fetch(`${PAY_FETCH_URL}addmoney`, {
         method: "POST",
@@ -78,7 +76,7 @@ const CreditCard = () => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({postData,state}),
+        body: JSON.stringify(postData),
       });
 
       if (response.ok) {
@@ -127,7 +125,7 @@ const CreditCard = () => {
         />
         <div className="mt-3 mr-3">
           <center>
-                      <p className="amount-text"> Amount : ${amount1}</p>
+            <p className="amount-text"> Amount : ${amount1}</p>
           </center>
           <form className="credit-card-form-container" onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -274,16 +272,16 @@ const CreditCard = () => {
                   value={state.address}
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
-                  rows="1" 
+                  rows="1"
                   required
                 />
               </div>
             </div>
             <div className="d-grid ">
               <center>
-              <button type="submit" className="btn btn-dark w-50">
-                Confirm
-              </button>
+                <button type="submit" className="btn btn-dark w-50">
+                  Confirm
+                </button>
               </center>
             </div>
           </form>
