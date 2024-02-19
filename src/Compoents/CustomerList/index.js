@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { useNavigate } from "react-router-dom";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
@@ -8,23 +7,21 @@ import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import AddAmountCustomer from "./AddAmount";
-
+ 
 function CustomerList() {
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
   const [productsPerPage] = useState(10);
   const [orderId, setOrderId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
   const [amountId, setAmountId] = useState("");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-
+ 
   const handleToggle = async (id, currentStatus) => {
     try {
       const token = sessionStorage.getItem("token");
@@ -36,10 +33,10 @@ function CustomerList() {
         },
         body: JSON.stringify({ status: !currentStatus }),
       });
-
+ 
       if (response.ok) {
         // Handle success, maybe update the local state
-
+ 
         response.json().then((data) => {
           Toast.fire({
             icon: "success",
@@ -47,7 +44,7 @@ function CustomerList() {
           });
         });
         fetchProducts();
-
+ 
         // You may want to update the local state here if needed
       } else {
         response.json().then((data) => {
@@ -59,28 +56,28 @@ function CustomerList() {
       }
     } catch (error) {}
   };
-
+ 
   useEffect(() => {
     const filtered = products.filter((product) => {
       const productIdMatch = product.id.toString().includes(orderId);
       const productNameMatch = product.name.toLowerCase().includes(orderId);
       return productIdMatch || productNameMatch;
     });
-
+ 
     setFilteredProducts(filtered);
   }, [products, orderId, currentPage]);
-
+ 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
-
+ 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-
+ 
   const fetchProducts = async () => {
     try {
       const token = sessionStorage.getItem("token");
@@ -92,29 +89,32 @@ function CustomerList() {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data.staffMembers, "staffmembers");
         setProducts(data.staffMembers);
         setLoading(false);
       } else {
         setTimeout(() => {
           setLoading(false);
+          setProducts([]);
         }, 3000);
       }
     } catch (error) {
       setTimeout(() => {
+        setProducts([]);
         setLoading(false);
       }, 3000);
     }
   };
-
+ 
   useEffect(() => {
     fetchProducts();
   }, []);
-
+ 
   const handleSearch = (e) => {
     setOrderId(e.target.value);
     setCurrentPage(1);
   };
-
+ 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
       ? `pagination-arrow-container disable-previous-next-button`
@@ -123,12 +123,12 @@ function CustomerList() {
     currentPage === 1
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
-
+ 
   const onclickaddamount = (e) => {
     setAmountId(e.target.value);
     setModalOpen(true);
   };
-
+ 
   return (
     <>
       {loading ? (
@@ -161,9 +161,10 @@ function CustomerList() {
                 Email
               </p>
               <p className="customer-list-table-row">Enable / Disable</p>
-              <p className="customer-list-table-row">Amount</p>
+              <p className="customer-list-table-row">Balance</p>
+              <p className="customer-list-table-row">Add Amount</p>
             </div>
-
+ 
             {filteredProducts.length > 0 ? (
               <>
                 {currentProducts.map((eachProduct) => {
@@ -200,6 +201,9 @@ function CustomerList() {
                           }
                         />
                       </div>
+                      <p className="customer-list-table-row">
+                        {eachProduct.balance ? eachProduct.balance : 0}
+                      </p>
                       <div className="customer-list-table-row">
                         <button
                           value={eachProduct.id}
@@ -241,7 +245,7 @@ function CustomerList() {
                 width: "300px",
                 top: "50%",
                 left: "50%",
-
+                height: "max-content",
                 transform: "translate(-50%, -50%)",
                 bgcolor: "background.paper",
                 borderRadius: "8px",
@@ -256,5 +260,6 @@ function CustomerList() {
     </>
   );
 }
-
+ 
 export default CustomerList;
+ 

@@ -45,6 +45,8 @@
  
   @media (max-width: 767px) {
     .credit-card-form-sub-container {
+      display:  flex;
+      flex-direction: column;
       width: 100%;
     }
   }
