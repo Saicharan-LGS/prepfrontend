@@ -4,15 +4,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     width: 100%;
+    padding:5%;
 }
 .credit-card-form-sub-container{
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 80vh;
+    /* height: 95vh; */
     width: 90%;
     border-radius: 20px;
 }
@@ -31,6 +31,7 @@
 @media (max-width: 1200px) {
     .credit-card-form-sub-container {
       width: 80%;
+      padding: 5%;
     }
   }
  
@@ -38,16 +39,20 @@
     .credit-card-form-sub-container {
       flex-direction: column;
       height: auto;
+      padding: 5%;
     }
   }
  
   @media (max-width: 767px) {
     .credit-card-form-sub-container {
+      display:  flex;
+      flex-direction: column;
       width: 100%;
     }
   }
 
   .amount-text{
+    font-weight: bold;
     font-size:18px;
     margin-right: 35px;
   }

@@ -83,7 +83,6 @@ const DisplayAdminButton = (props) => {
             width: "20%",
             top: "50%",
             left: "50%",
-            height: "150px",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",
             borderRadius: "8px",

@@ -203,7 +203,7 @@ function Wallet() {
         <Box
           sx={{
             position: "absolute",
-            width: "300px",
+            minWidth: "300px",
             top: "50%",
             left: "50%",
 

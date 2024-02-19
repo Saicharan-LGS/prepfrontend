@@ -24,6 +24,7 @@ function Dispatch() {
   const [invoiceStatusFilter, setInvoiceStatusFilter] = useState(6);
   const [customerName, setCustomerName] = useState("");
   const [date, setDate] = useState("");
+  const [statusOfOrder, setStatusOfOrder] = useState("");
   useEffect(() => {
     const filtered = products.filter((product) => {
       const statusMatch =
@@ -102,6 +103,7 @@ function Dispatch() {
     setTotalAmount(each.dispatch.totalamount);
     setCustomerName(each.orders[0].customer_name);
     setModalOpen(true);
+    setStatusOfOrder(each.dispatch.invoice_status);
   };
 
 
@@ -300,6 +302,7 @@ function Dispatch() {
             totalAmount={totalAmount}
             date={date}
             discount={discount}
+            statusOfOrder={statusOfOrder}
             customerName={customerName}
             discountedAmount={discountedAmount}
           />

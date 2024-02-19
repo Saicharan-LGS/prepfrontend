@@ -237,7 +237,7 @@ function StaffList() {
         <Box
           sx={{
             position: "absolute",
-            width: "260px",
+            minWidth: "260px",
             top: "50%",
             left: "50%",
 

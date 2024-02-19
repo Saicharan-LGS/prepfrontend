@@ -56,7 +56,6 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
     await setStatus(id);
   };
   useEffect(() => {
-    console.log("fetch called customer");
     fetchTotalAmount();
   }, []);
 
