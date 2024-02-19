@@ -60,14 +60,14 @@ function CustomerInvoicePage({
 
   const role = sessionStorage.getItem("role");
   const addDiscount = async () => {
-
-    if (statusOfOrder === "5"){
-    }else{
+    if (statusOfOrder === "5") {
+    } else {
+      onClose();
       Toast.fire({
         icon: "error",
         title: "You can't add discount it is not in invoice generation stage",
-      })
-      return
+      });
+      return;
     }
     try {
       const token = sessionStorage.getItem("token");
