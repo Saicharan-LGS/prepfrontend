@@ -28,13 +28,13 @@ const CreditCard = () => {
 
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
-    
+
     setState((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
   const handleInputFocus = (evt) => {
     setState((prev) => ({ ...prev, focus: evt.target.name }));
-  }
+  };
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -63,8 +63,6 @@ const CreditCard = () => {
       country: encrypt(state.country),
       address: encrypt(state.address),
     };
-
-    console.log(postData,state,"ram")
 
     try {
       const response = await fetch(`${PAY_FETCH_URL}addmoney`, {
@@ -110,18 +108,69 @@ const CreditCard = () => {
     }
   };
 
-  const usStates = [   { name: "Alabama", code: "AL" },   { name: "Alaska", code: "AK" },   { name: "Arizona", code: "AZ" },   { name: "Arkansas", code: "AR" },   { name: "California", code: "CA" },   { name: "Colorado", code: "CO" },   { name: "Connecticut", code: "CT" },   { name: "Delaware", code: "DE" },   { name: "Florida", code: "FL" },   { name: "Georgia", code: "GA" },   { name: "Hawaii", code: "HI" },   { name: "Idaho", code: "ID" },   { name: "Illinois", code: "IL" },   { name: "Indiana", code: "IN" },   { name: "Iowa", code: "IA" },   { name: "Kansas", code: "KS" },   { name: "Kentucky", code: "KY" },   { name: "Louisiana", code: "LA" },   { name: "Maine", code: "ME" },   { name: "Maryland", code: "MD" },   { name: "Massachusetts", code: "MA" },   { name: "Michigan", code: "MI" },   { name: "Minnesota", code: "MN" },   { name: "Mississippi", code: "MS" },   { name: "Missouri", code: "MO" },   { name: "Montana", code: "MT" },   { name: "Nebraska", code: "NE" },   { name: "Nevada", code: "NV" },   { name: "New Hampshire", code: "NH" },   { name: "New Jersey", code: "NJ" },   { name: "New Mexico", code: "NM" },   { name: "New York", code: "NY" },   { name: "North Carolina", code: "NC" },   { name: "North Dakota", code: "ND" },   { name: "Ohio", code: "OH" },   { name: "Oklahoma", code: "OK" },   { name: "Oregon", code: "OR" },   { name: "Pennsylvania", code: "PA" },   { name: "Rhode Island", code: "RI" },   { name: "South Carolina", code: "SC" },   { name: "South Dakota", code: "SD" },   { name: "Tennessee", code: "TN" },   { name: "Texas", code: "TX" },   { name: "Utah", code: "UT" },   { name: "Vermont", code: "VT" },   { name: "Virginia", code: "VA" },   { name: "Washington", code: "WA" },   { name: "West Virginia", code: "WV" },   { name: "Wisconsin", code: "WI" },   { name: "Wyoming", code: "WY" } ];
+  const usStates = [
+    { name: "Alabama", code: "AL" },
+    { name: "Alaska", code: "AK" },
+    { name: "Arizona", code: "AZ" },
+    { name: "Arkansas", code: "AR" },
+    { name: "California", code: "CA" },
+    { name: "Colorado", code: "CO" },
+    { name: "Connecticut", code: "CT" },
+    { name: "Delaware", code: "DE" },
+    { name: "Florida", code: "FL" },
+    { name: "Georgia", code: "GA" },
+    { name: "Hawaii", code: "HI" },
+    { name: "Idaho", code: "ID" },
+    { name: "Illinois", code: "IL" },
+    { name: "Indiana", code: "IN" },
+    { name: "Iowa", code: "IA" },
+    { name: "Kansas", code: "KS" },
+    { name: "Kentucky", code: "KY" },
+    { name: "Louisiana", code: "LA" },
+    { name: "Maine", code: "ME" },
+    { name: "Maryland", code: "MD" },
+    { name: "Massachusetts", code: "MA" },
+    { name: "Michigan", code: "MI" },
+    { name: "Minnesota", code: "MN" },
+    { name: "Mississippi", code: "MS" },
+    { name: "Missouri", code: "MO" },
+    { name: "Montana", code: "MT" },
+    { name: "Nebraska", code: "NE" },
+    { name: "Nevada", code: "NV" },
+    { name: "New Hampshire", code: "NH" },
+    { name: "New Jersey", code: "NJ" },
+    { name: "New Mexico", code: "NM" },
+    { name: "New York", code: "NY" },
+    { name: "North Carolina", code: "NC" },
+    { name: "North Dakota", code: "ND" },
+    { name: "Ohio", code: "OH" },
+    { name: "Oklahoma", code: "OK" },
+    { name: "Oregon", code: "OR" },
+    { name: "Pennsylvania", code: "PA" },
+    { name: "Rhode Island", code: "RI" },
+    { name: "South Carolina", code: "SC" },
+    { name: "South Dakota", code: "SD" },
+    { name: "Tennessee", code: "TN" },
+    { name: "Texas", code: "TX" },
+    { name: "Utah", code: "UT" },
+    { name: "Vermont", code: "VT" },
+    { name: "Virginia", code: "VA" },
+    { name: "Washington", code: "WA" },
+    { name: "West Virginia", code: "WV" },
+    { name: "Wisconsin", code: "WI" },
+    { name: "Wyoming", code: "WY" },
+  ];
 
   return (
     <div className="credit-card-form-main-container">
       <div className="credit-card-form-sub-container">
-      <Cards
-        number={state.number}
-        expiry={state.expiry}
-        cvc={state.cvc}
-        name={state.name}
-        focused={state.focus}
-      />
+        <Cards
+          number={state.number}
+          expiry={state.expiry}
+          cvc={state.cvc}
+          name={state.name}
+          focused={state.focus}
+        />
         <div className="mt-3 mr-3">
           <center>
             <p className="amount-text"> Amount : ${amount1}</p>
@@ -166,7 +215,6 @@ const CreditCard = () => {
                   value={state.cvc}
                   onChange={handleInputChange}
                   onFocus={handleInputFocus}
-                 
                   required
                 />
               </div>
@@ -281,8 +329,7 @@ const CreditCard = () => {
                 />
               </div>
             </div>
-          
-            
+
             <div className="d-grid ">
               <center>
                 <button type="submit" className="btn btn-dark w-50">
@@ -298,4 +345,3 @@ const CreditCard = () => {
 };
 
 export default CreditCard;
-
