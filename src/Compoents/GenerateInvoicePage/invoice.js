@@ -40,7 +40,7 @@ function Invoice({ data }) {
             {/* <p className="generate-invoice-table-header">Category</p> */}
             <p className="generate-invoice-table-header">Quantity</p>
             <p className="generate-invoice-table-header">Price</p>
-            <p className="generate-invoice-table-header-1">Total</p>
+            <p className="generate-invoice-table-header">Total</p>
           </div>
           {service.map((eachProduct) => {
             total =
@@ -64,7 +64,7 @@ function Invoice({ data }) {
                 <p className="generate-invoice-table-header">
                   {eachProduct.productPrice}
                 </p>
-                <p className="generate-invoice-table-header-1">
+                <p className="generate-invoice-table-header">
                   {parseFloat(
                     eachProduct.serviceQuantity
                       ? (

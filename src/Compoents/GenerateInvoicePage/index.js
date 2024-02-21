@@ -4,9 +4,10 @@ import "./index.css";
 import { ImCancelCircle } from "react-icons/im";
 import Toast from "../utlis/toast";
 
-function GenerateInvoicePage({ data, onClose, fetchProducts }) {
+function GenerateInvoicePage({ data, onClose, fetchProducts, fixedDiscount }) {
+  console.log(data);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  const [discount, setDiscount] = useState(fixedDiscount);
   const [discountAmount, setDiscountAmount] = useState();
 
   const handleDiscount = (e) => {
@@ -19,13 +20,17 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
     }
     let discountValue = e.target.value;
     let finalAmount = totalAmount - (totalAmount * discountValue) / 100;
-    finalAmount = parseFloat(finalAmount.toFixed(3));
+    finalAmount = parseFloat(finalAmount.toFixed(2));
     setDiscount(e.target.value);
     setDiscountAmount(finalAmount);
   };
+
   useEffect(() => {
-    setDiscountAmount(totalAmount);
-  }, []);
+    // Calculate discounted amount
+    let finalAmount = totalAmount - (totalAmount * discount) / 100;
+    finalAmount = parseFloat(finalAmount.toFixed(2));
+    setDiscountAmount(finalAmount);
+  }, [totalAmount, discount]);
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -75,7 +80,6 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
       );
     }, 0);
     setTotalAmount(total);
-    setDiscountAmount(total);
   }, [data]);
 
   const handleModel = () => {
@@ -85,7 +89,7 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
   return (
     <div>
       <div className="model-close-icon-container">
-      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
+        <ImCancelCircle className="model-close-icon" onClick={handleModel} />
       </div>
       <h1 className="genearte-invoice-heading">Invoice Generation</h1>
       {data.map((each) => (
@@ -94,7 +98,9 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
       <div className="generate-invoice-billing-container">
         <div className="generate-invoice-discount-container">
           <p className="generate-invoice-total-amount">Total Amount</p>
-          <p className="generate-invoice-total-amount-text">{totalAmount.toFixed(2)}</p>
+          <p className="generate-invoice-total-amount-text">
+            {totalAmount.toFixed(2)}
+          </p>
         </div>
         <div className="generate-invoice-discount-container">
           <p className="generate-invoice-total-amount">Discount(%)</p>
@@ -105,8 +111,6 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
             placeholder="Enter discount in Percentage"
             onChange={handleDiscount}
             required
-            min="0"
-            max="99"
           />
         </div>
         <div className="generate-invoice-discount-container">
@@ -120,7 +124,7 @@ function GenerateInvoicePage({ data, onClose, fetchProducts }) {
             className="generate-invoice-total-amount-text"
             style={{ fontWeight: 700, color: "#212d45", fontSize: "20px" }}
           >
-            {discountAmount && discountAmount.toFixed(2)}
+            {discountAmount}
           </p>
         </div>
       </div>

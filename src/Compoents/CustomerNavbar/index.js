@@ -91,6 +91,7 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
       if (response.ok) {
         const data = await response.json();
         setUserDetails(data.customer);
+        // window.location.reload();
       } else {
         setUserDetails("");
       }
@@ -104,7 +105,6 @@ function CustomerNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-container">
-
       <div className={`navbar ${sidebar ? "shifted" : ""}`}>
         <Link to="#" className={activeToggle}>
           <FaIcons.FaBars onClick={showSidebar} />

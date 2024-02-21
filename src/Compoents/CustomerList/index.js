@@ -7,6 +7,7 @@ import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import AddAmountCustomer from "./AddAmount";
+import AddDiscountCustomer from "./AddDiscount";
 
 function CustomerList() {
   const [isModalOpen, setModalOpen] = React.useState(false);
@@ -18,8 +19,10 @@ function CustomerList() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [amountId, setAmountId] = useState("");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const [discountModel, setDiscountModel] = useState(false);
   const handleCloseModal = () => {
     setModalOpen(false);
+    setDiscountModel(false);
   };
 
   const handleToggle = async (id, currentStatus) => {
@@ -128,6 +131,10 @@ function CustomerList() {
     setModalOpen(true);
   };
 
+  const onclickaddDiscount = (e) => {
+    setDiscountModel(true);
+  };
+
   return (
     <>
       {loading ? (
@@ -161,7 +168,9 @@ function CustomerList() {
               </p>
               <p className="customer-list-table-row">Enable / Disable</p>
               <p className="customer-list-table-row">Balance</p>
+              <p className="customer-list-table-row">Discount</p>
               <p className="customer-list-table-row">Add Amount</p>
+              <p className="customer-list-table-row">Add Discount</p>
             </div>
 
             {filteredProducts.length > 0 ? (
@@ -203,10 +212,22 @@ function CustomerList() {
                       <p className="customer-list-table-row">
                         {eachProduct.balance ? eachProduct.balance : 0}
                       </p>
+                      <p className="customer-list-table-row">
+                        {eachProduct.discount ? eachProduct.discount : 0}
+                      </p>
                       <div className="customer-list-table-row">
                         <button
                           value={eachProduct.id}
                           onClick={onclickaddamount}
+                          className="customer-list-amount-button"
+                        >
+                          Add
+                        </button>
+                      </div>
+                      <div className="customer-list-table-row">
+                        <button
+                          value={eachProduct.id}
+                          onClick={onclickaddDiscount}
                           className="customer-list-amount-button"
                         >
                           Add
@@ -251,7 +272,36 @@ function CustomerList() {
                 p: 3,
               }}
             >
-              <AddAmountCustomer id={amountId} onClose={handleCloseModal} />
+              <AddAmountCustomer
+                id={amountId}
+                fetchProducts={fetchProducts}
+                onClose={handleCloseModal}
+              />
+            </Box>
+          </Modal>
+          <Modal
+            open={discountModel}
+            onClose={handleCloseModal}
+            style={{ width: "100%" }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                width: "300px",
+                top: "50%",
+                left: "50%",
+                height: "max-content",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                borderRadius: "8px",
+                p: 3,
+              }}
+            >
+              <AddDiscountCustomer
+                id={amountId}
+                fetchProducts={fetchProducts}
+                onClose={handleCloseModal}
+              />
             </Box>
           </Modal>
         </div>

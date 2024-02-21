@@ -21,7 +21,7 @@ function AccountOrders({ openDetailPageComponent }) {
   const [ErrorCard, setErrorCard] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [fixedDiscount, setFixedDiscount] = useState(0);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
@@ -122,6 +122,7 @@ function AccountOrders({ openDetailPageComponent }) {
             icon: "success",
             title: data.message,
           });
+          setFixedDiscount(data.fixedDiscount);
           setInvoiceOrders(data.orders);
           setModalOpen(true);
         } else {
@@ -281,6 +282,7 @@ function AccountOrders({ openDetailPageComponent }) {
           }}
         >
           <GenerateInvoicePage
+            fixedDiscount={fixedDiscount}
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             data={invoiceOrders}

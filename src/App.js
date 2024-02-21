@@ -36,7 +36,6 @@ import CreditCard from "./Compoents/CreditCard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
-  const role = sessionStorage.getItem("role");
   const [totalAmount, setTotalAmount] = useState(0);
   const token = sessionStorage.getItem("token");
 

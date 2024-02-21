@@ -1,31 +1,48 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import React Router
+// StaffSigninPage.js
+
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.css";
 import Toast from "../utlis/toast";
 import axxpress from "../images/axxpress.png";
 import staffImage from "../utlis/staff-signup-3.jpg";
+import { encryptData, decryptData } from "../utlis/crypto"; // Import encryption and decryption functions
 
 const StaffSigninPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  sessionStorage.removeItem("role");
-  sessionStorage.removeItem("token");
-  sessionStorage.removeItem("sname");
+  const [rememberMe, setRememberMe] = useState(false); // State for "Remember Me" checkbox
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history
+
+  useEffect(() => {
+    const savedEncryptedEmail = localStorage.getItem("staffEncryptedEmail");
+    const savedEncryptedPassword = localStorage.getItem(
+      "staffEncryptedPassword"
+    );
+    if (savedEncryptedEmail && savedEncryptedPassword) {
+      const decryptedEmail = decryptData(savedEncryptedEmail);
+      const decryptedPassword = decryptData(savedEncryptedPassword);
+      setFormData({ email: decryptedEmail, password: decryptedPassword });
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  const handleRememberMeChange = (e) => {
+    setRememberMe(e.target.checked);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(""); // Clear any previous error messages
-    const url = `${FETCH_URL}stafflogin`;
+    const url = `${process.env.REACT_APP_FETCH_URL}stafflogin`;
     const jsonData = {
       email: formData.email,
       password: formData.password,
@@ -48,6 +65,17 @@ const StaffSigninPage = () => {
             sessionStorage.setItem("token", data.token);
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("sname", data.name);
+            // Store credentials in localStorage if "Remember Me" is checked
+            if (rememberMe) {
+              // Encrypt and store the email and password
+              const encryptedEmail = encryptData(formData.email);
+              const encryptedPassword = encryptData(formData.password);
+              localStorage.setItem("staffEncryptedEmail", encryptedEmail);
+              localStorage.setItem("staffEncryptedPassword", encryptedPassword);
+            } else {
+              localStorage.removeItem("staffEncryptedEmail");
+              localStorage.removeItem("staffEncryptedPassword");
+            }
             setTimeout(() => {
               if (data.role === "Admin") {
                 navigate("/admin");
@@ -119,6 +147,23 @@ const StaffSigninPage = () => {
                   required
                   placeholder="Enter Your Password"
                 />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                <input
+                  style={{ margin: "0px 5px 0px 10px" }}
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  checked={rememberMe}
+                  onChange={handleRememberMeChange}
+                />
+                <label htmlFor="rememberMe">Remember Me</label>
               </div>
               <center>
                 <button className="signin-form-button-container" type="submit">

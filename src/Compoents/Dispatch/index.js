@@ -106,7 +106,6 @@ function Dispatch() {
     setStatusOfOrder(each.dispatch.invoice_status);
   };
 
-
   const handleCloseModal = () => {
     setModalOpen(false);
   };
@@ -131,9 +130,7 @@ function Dispatch() {
       );
     } else {
       return (
-        <p className="admin-order-accepted-quantity-sub-category">
-          Dispatched
-          </p>
+        <p className="admin-order-accepted-quantity-sub-category">Dispatched</p>
       );
     }
   };

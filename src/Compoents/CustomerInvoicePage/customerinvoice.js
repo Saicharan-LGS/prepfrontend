@@ -43,6 +43,7 @@ function Customerinvoicedata({ data, date }) {
           <div className="generate-invoice-header-table-container">
             <p className="generate-invoice-table-header">Invoice</p>
             <p className="generate-invoice-table-header">Date</p>
+            <p className="generate-invoice-table-header">Product Name</p>
             <p className="generate-invoice-table-header">Order Name</p>
             <p className="generate-invoice-table-header">Order Quantity</p>
           </div>
@@ -54,6 +55,9 @@ function Customerinvoicedata({ data, date }) {
             <p className="generate-invoice-table-header">
               {new Date(date).toLocaleDateString()}
             </p>
+            <p className="generate-invoice-table-header">
+              {eachProduct.product}
+            </p>
             <p className="generate-invoice-table-header">{eachProduct.name}</p>
             <p className="generate-invoice-table-header">{eachProduct.unit}</p>
           </div>
@@ -62,10 +66,9 @@ function Customerinvoicedata({ data, date }) {
         <div className="generate-invoice-table-container-1">
           <div className="generate-invoice-header-table-container">
             <p className="generate-invoice-table-header">Activity</p>
-            {/* <p className="generate-invoice-table-header">Category</p> */}
             <p className="generate-invoice-table-header">Quantity</p>
             <p className="generate-invoice-table-header">Rate</p>
-            <p className="generate-invoice-table-header-1">Total</p>
+            <p className="generate-invoice-table-header">Total</p>
           </div>
           {service.map((eachProduct) => {
             total =
@@ -80,16 +83,13 @@ function Customerinvoicedata({ data, date }) {
                 <p className="generate-invoice-table-header">
                   {eachProduct.productName}
                 </p>
-                {/* <p className="generate-invoice-table-header">
-                  {eachProduct.productCategory}
-                </p> */}
                 <p className="generate-invoice-table-header">
                   {eachProduct.serviceQuantity}
                 </p>
                 <p className="generate-invoice-table-header">
                   {eachProduct.productPrice}
                 </p>
-                <p className="generate-invoice-table-header-1">
+                <p className="generate-invoice-table-header">
                   {parseFloat(
                     eachProduct.serviceQuantity
                       ? (
