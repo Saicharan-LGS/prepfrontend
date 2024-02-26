@@ -6,7 +6,7 @@ const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
   const [amount, setAmount] = useState(0);
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
-  console.log(id, "called");
+
   const handleInputChange = (event) => {
     let value = parseFloat(event.target.value);
     if (!isNaN(value)) {
@@ -44,7 +44,7 @@ const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
         },
         body: JSON.stringify({ discount: amount }),
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Failed to add amount");
       }
