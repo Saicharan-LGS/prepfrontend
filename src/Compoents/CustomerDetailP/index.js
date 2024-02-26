@@ -18,6 +18,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     status: "",
     instructions: "",
     quantity_received: "",
+    remarkSend1: null,
+    remark: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
@@ -75,6 +77,9 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
+        const remarkFiles =
+          data1.files.filter((file) => file.type === "remarkSend") || [];
+
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
@@ -94,8 +99,10 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           tracking_url: data.tracking_url,
           fnskuSend1: fnskuFiles,
           labelSend1: labelFiles,
+          remarkSend1: remarkFiles,
           status: data.status,
           instructions: data.instructions,
+          remark: data.remark,
           quantity_received: data.quantity_received,
         });
       } else {
@@ -254,6 +261,8 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
     quantity_received,
     status,
     instructions,
+    remarkSend1,
+    remark,
   } = formData;
 
   const handleDimensionUpdate = () => {
@@ -329,6 +338,16 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 className="order-customer-lable-container admin-order-accepted-readonly"
                 type="text"
                 value={quantity_received ? quantity_received : 0}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Remark:</label>
+              <input
+                className={readOnlyInput}
+                type="text"
+                name="remark"
+                value={remark}
                 readOnly
               />
             </div>
@@ -529,6 +548,28 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             ))}
           </div>
         )}
+        <p
+          style={{ marginLeft: "30px", marginTop: "20px", fontWeight: "600" }}
+          className="order-customer-label-name"
+        >
+          Remark Files
+        </p>
+        {remarkSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {remarkSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <AiOutlineFilePdf
+                  key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <center>
           <button
             onClick={handleSubmit}
@@ -550,7 +591,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             width: "70%",
             top: "50%",
             left: "50%",
-            height:"500px",
+            height: "500px",
             overflow: "scroll",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",

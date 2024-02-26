@@ -90,6 +90,10 @@ function AccountOrders({ openDetailPageComponent }) {
     });
   };
 
+  const clearData = () => {
+    setSelectedIds([]);
+  };
+
   const NextButton =
     indexOfLastProduct >= products.length
       ? "pagination-arrow-container disable-previous-next-button"
@@ -286,6 +290,7 @@ function AccountOrders({ openDetailPageComponent }) {
             onClose={handleCloseModal}
             fetchProducts={fetchProducts}
             data={invoiceOrders}
+            clearData={clearData}
           />
         </Box>
       </Modal>

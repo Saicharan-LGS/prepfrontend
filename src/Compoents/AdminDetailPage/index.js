@@ -7,6 +7,7 @@ import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import DimensionUpdatePage from "../DimensionUpdatePage";
+import { FaFileImage } from "react-icons/fa";
 
 function OrderViewDetail({ orderId, setStatus }) {
   const id = orderId;
@@ -21,13 +22,17 @@ function OrderViewDetail({ orderId, setStatus }) {
     labelSend: null,
     fnskuSend1: null,
     labelSend1: null,
+    remarkSend: null,
+    remarkSend1: null,
     status: "",
     instructions: "",
     quantity_received: "",
     status1: "",
+    remark: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
+  const [remarkSendFiles, setRemarkSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
@@ -64,6 +69,9 @@ function OrderViewDetail({ orderId, setStatus }) {
           data1.files.filter((file) => file.type === "fnskuSend") || [];
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
+        const remarkFiles =
+          data1.files.filter((file) => file.type === "remarkSend") || [];
+
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
@@ -84,9 +92,12 @@ function OrderViewDetail({ orderId, setStatus }) {
           labelSend1: labelFiles,
           fnskuSend: null,
           labelSend: null,
+          remarkSend: null,
+          remarkSend1: remarkFiles,
           status: data.status,
           instructions: data.instructions,
           quantity_received: data.quantity_received,
+          remark: data.remark,
           status1: data.status,
         });
       } else {
@@ -139,10 +150,14 @@ function OrderViewDetail({ orderId, setStatus }) {
     formDataToSend.append("unit", unit || "");
     formDataToSend.append("tracking_url", tracking_url || "");
     formDataToSend.append("status", status);
+    formDataToSend.append("remark", remark || "");
     formDataToSend.append("instructions", instructions);
     formDataToSend.append("quantity_received", quantity_received || 0);
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
+    });
+    remarkSendFiles.forEach((file, index) => {
+      formDataToSend.append(`remarkSendFiles`, file);
     });
     formDataToSend.append(
       "selectedProducts",
@@ -169,6 +184,7 @@ function OrderViewDetail({ orderId, setStatus }) {
         fetchData();
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
+        setRemarkSendFiles([]);
       })
       .catch((error) => {});
   };
@@ -191,6 +207,11 @@ function OrderViewDetail({ orderId, setStatus }) {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
+  const handleRemarkSendChange = (e) => {
+    const files = e.target.files;
+    setRemarkSendFiles([...remarkSendFiles, ...files]);
+  };
+
   const {
     date,
     name,
@@ -200,10 +221,12 @@ function OrderViewDetail({ orderId, setStatus }) {
     tracking_url,
     fnskuSend1,
     labelSend1,
+    remarkSend1,
     status,
     instructions,
     status1,
     quantity_received,
+    remark,
   } = formData;
 
   const getQuantityById = (productId) => {
@@ -253,7 +276,7 @@ function OrderViewDetail({ orderId, setStatus }) {
           title: "File deleted successfully.",
         });
 
-        fetchData(); // Update your component state or UI as needed
+        fetchData();
       } else {
         const errorData = await response.json();
       }
@@ -330,6 +353,17 @@ function OrderViewDetail({ orderId, setStatus }) {
                 required
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Remark:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="remark"
+                value={remark}
+                onChange={handleChange}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
@@ -388,6 +422,18 @@ function OrderViewDetail({ orderId, setStatus }) {
                     multiple
                   />
                 </div>
+                <div className="order-customer-input-feild">
+                  <label className="order-customer-label-name">
+                    Remark ({remarkSendFiles.length} files selected) :
+                  </label>
+                  <input
+                    className="order-customer-lable-container order-customer-label-file"
+                    type="file"
+                    name="remarkSend"
+                    onChange={handleRemarkSendChange}
+                    multiple
+                  />
+                </div>
               </>
             ) : null}
           </div>
@@ -426,6 +472,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 onChange={handleChange}
               />
             </div>
+
             {parseInt(status1) < 5 ? (
               <div className="order-customer-input-feild">
                 <label className="order-customer-label-name">Status</label>
@@ -542,6 +589,30 @@ function OrderViewDetail({ orderId, setStatus }) {
             ))}
           </div>
         )}
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Remark Files
+        </p>
+        {remarkSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {remarkSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <FaFileImage
+                  key={each} // Ensure to provide a unique key when mapping over
+                  elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+                <MdDeleteOutline
+                  key={each}
+                  onClick={(e) => onClickDeleteFile(e, each.id)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
         <center>
           <button
             onClick={handleSubmit}
@@ -563,7 +634,7 @@ function OrderViewDetail({ orderId, setStatus }) {
             width: "70%",
             top: "50%",
             left: "50%",
-            height:"500px",
+            height: "500px",
             overflow: "scroll",
             transform: "translate(-50%, -50%)",
             bgcolor: "background.paper",

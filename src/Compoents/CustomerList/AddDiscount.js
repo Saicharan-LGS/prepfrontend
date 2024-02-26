@@ -4,9 +4,9 @@ import Toast from "../utlis/toast";
 
 const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
   const [amount, setAmount] = useState(0);
-  console.log(id, "called");
-  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
+  const FETCH_URL = process.env.REACT_APP_FETCH_URL;
+  console.log(id, "called");
   const handleInputChange = (event) => {
     let value = parseFloat(event.target.value);
     if (!isNaN(value)) {

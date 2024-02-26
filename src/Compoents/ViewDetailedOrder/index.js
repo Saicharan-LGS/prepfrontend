@@ -20,9 +20,12 @@ function ViewDetailedOrder({ setStatus }) {
     labelSend: null,
     fnskuSend1: null,
     labelSend1: null,
+    remarkSend: null,
+    remarkSend1: null,
     status: "",
-   quantity_received: "",
+    quantity_received: "",
     instructions: "",
+    remark: "",
   });
   const [products, setProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
@@ -34,11 +37,10 @@ function ViewDetailedOrder({ setStatus }) {
 
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const PDF_URL = process.env.REACT_APP_PDF_URL;
- 
+
   const getQuantityById = (productId) => {
     return productQuantities[productId];
   };
- 
 
   const fetchData = async () => {
     try {
@@ -56,6 +58,8 @@ function ViewDetailedOrder({ setStatus }) {
 
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
+        const remarkFiles =
+          data1.files.filter((file) => file.type === "remarkSend") || [];
 
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
@@ -66,7 +70,6 @@ function ViewDetailedOrder({ setStatus }) {
         );
         setSelectedProducts(fetchedSelectedProducts);
 
-
         setFormData({
           date: data.date,
           customerName: data.customer_name,
@@ -76,6 +79,8 @@ function ViewDetailedOrder({ setStatus }) {
           trackingURL: data.tracking_url,
           fnskuSend1: fnskuFiles,
           labelSend1: labelFiles,
+          remarkSend1: remarkFiles,
+          remark: data.remark,
           fnskuSend: null,
           labelSend: null,
           status: data.status,
@@ -107,7 +112,6 @@ function ViewDetailedOrder({ setStatus }) {
       })
       .catch((error) => {});
 
-
     fetchData();
   }, [id]);
 
@@ -127,7 +131,9 @@ function ViewDetailedOrder({ setStatus }) {
     fnskuSend1,
     labelSend1,
     instructions,
-    quantity_received
+    quantity_received,
+    remark,
+    remarkSend1,
   } = formData;
 
   const handleDimensionUpdate = () => {
@@ -189,7 +195,7 @@ function ViewDetailedOrder({ setStatus }) {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-              Quantity Recieved
+                Quantity Recieved
               </label>
               <input
                 className="order-customer-lable-container admin-order-accepted-readonly"
@@ -205,7 +211,6 @@ function ViewDetailedOrder({ setStatus }) {
             >
               See Dimensions
             </p>
-           
           </div>
           <div className="order-customer-field2-container">
             <div className="order-customer-input-feild">
@@ -227,6 +232,16 @@ function ViewDetailedOrder({ setStatus }) {
                 type="text"
                 name="productName"
                 value={productName}
+                readOnly
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Remark:</label>
+              <input
+                className="order-customer-lable-container"
+                type="text"
+                name="remark"
+                value={remark}
                 readOnly
               />
             </div>
@@ -257,7 +272,7 @@ function ViewDetailedOrder({ setStatus }) {
                     id={`product-${product.id}`}
                     name={`product-${product.id}`}
                     value={getQuantityById(product.id)}
-                   readOnly
+                    readOnly
                     placeholder="Enter Quantity"
                     className="order-customer-service-input"
                   />
@@ -332,6 +347,35 @@ function ViewDetailedOrder({ setStatus }) {
                 />
               </div>
             ))}
+            <p
+              style={{
+                marginLeft: "30px",
+                marginTop: "20px",
+                fontWeight: "600",
+              }}
+              className="order-customer-label-name"
+            >
+              Remark Files
+            </p>
+            {remarkSend1 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  marginLeft: "30px",
+                }}
+              >
+                {remarkSend1.map((each) => (
+                  <div style={{ display: "flex", margin: "20px" }}>
+                    <AiOutlineFilePdf
+                      key={each} // Ensure to provide a unique key when mapping over elements
+                      onClick={() => openFileInNewTab(each.name)}
+                      className="viewpdf-button"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -354,7 +398,7 @@ function ViewDetailedOrder({ setStatus }) {
             p: 3,
           }}
         >
-            <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
+          <CustomerDimensionView updateId={id} onClose={handleCloseModal} />
         </Box>
       </Modal>
     </>
