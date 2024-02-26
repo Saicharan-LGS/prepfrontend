@@ -5,6 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { Box, Modal } from "@mui/material";
+import { FaFileImage } from "react-icons/fa";
 import CustomerDimensionView from "../CustomerDimensionView";
 
 function CustomerOrderViewDetail({ orderId, setStatus }) {
@@ -349,6 +350,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
                 value={remark}
                 onChange={handleChange}
                 rows={2}
+                readOnly
                 required
               />
             </div>
@@ -561,7 +563,7 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
           >
             {remarkSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
-                <AiOutlineFilePdf
+                <FaFileImage
                   key={each} // Ensure to provide a unique key when mapping over elements
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"

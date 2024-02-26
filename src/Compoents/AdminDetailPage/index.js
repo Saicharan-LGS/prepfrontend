@@ -361,7 +361,7 @@ function OrderViewDetail({ orderId, setStatus }) {
                 value={remark}
                 onChange={handleChange}
                 rows={2}
-                required
+                readOnly={parseInt(status) >= 5 ? true : false}
               />
             </div>
             <p

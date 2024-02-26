@@ -6,6 +6,7 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import CustomerDimensionView from "../CustomerDimensionView";
 import { Box, Modal } from "@mui/material";
 import { IoArrowBackCircle } from "react-icons/io5";
+import {FaFileImage} from "react-icons/fa";
 
 function ViewDetailedOrder({ setStatus }) {
   const { id } = useParams();
@@ -368,7 +369,7 @@ function ViewDetailedOrder({ setStatus }) {
               >
                 {remarkSend1.map((each) => (
                   <div style={{ display: "flex", margin: "20px" }}>
-                    <AiOutlineFilePdf
+                    <FaFileImage
                       key={each} // Ensure to provide a unique key when mapping over elements
                       onClick={() => openFileInNewTab(each.name)}
                       className="viewpdf-button"
