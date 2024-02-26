@@ -237,11 +237,12 @@ function ViewDetailedOrder({ setStatus }) {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Remark:</label>
-              <input
+              <textarea
                 className="order-customer-lable-container"
                 type="text"
                 name="remark"
                 value={remark}
+                rows={2}
                 readOnly
               />
             </div>

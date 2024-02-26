@@ -343,12 +343,13 @@ function CustomerOrderViewDetail({ orderId, setStatus }) {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Remark:</label>
-              <input
-                className={readOnlyInput}
-                type="text"
+              <textarea
+                className="order-customer-lable-container"
                 name="remark"
                 value={remark}
-                readOnly
+                onChange={handleChange}
+                rows={2}
+                required
               />
             </div>
           </div>

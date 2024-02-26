@@ -224,13 +224,13 @@ function Dispatch() {
                         ))}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.dispatch.totalamount.toFixed(2)}
+                        {eachProduct.dispatch.totalamount? eachProduct.dispatch.totalamount.toFixed(2) : 0}
                       </p>
                       <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.dispatch.discount.toFixed(2)}
+                        {eachProduct.dispatch.discount? eachProduct.dispatch.discount.toFixed(2) : 0}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.dispatch.discounted_amount.toFixed(2)}
+                        {eachProduct.dispatch.discounted_amount? eachProduct.dispatch.discounted_amount.toFixed(2) : 0}
                       </p>
                       {setStatus(
                         eachProduct.dispatch.invoice_status,

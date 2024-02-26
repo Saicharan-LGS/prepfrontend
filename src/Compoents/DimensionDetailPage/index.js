@@ -349,12 +349,12 @@ function DimensionNewDetailPage() {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">Remark:</label>
-              <input
+              <textarea
                 className="order-customer-lable-container"
-                type="text"
                 name="remark"
                 value={remark}
                 onChange={handleChange}
+                rows={2}
                 required
               />
             </div>
