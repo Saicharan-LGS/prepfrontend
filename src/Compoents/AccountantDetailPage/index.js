@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { IoArrowBackCircle } from "react-icons/io5";
-import { MdDeleteOutline } from "react-icons/md";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
+import { FaFileImage } from "react-icons/fa";
 
 import CustomerDimensionView from "../CustomerDimensionView";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,9 +29,13 @@ function AccountantDetailPage() {
     status: "",
     quantity_received: "",
     instructions: "",
+    remarkSend: null,
+    remarkSend1: null,
+    remark: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
+  const [remarkSendFiles, setRemarkSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
@@ -70,6 +74,8 @@ function AccountantDetailPage() {
           data1.files.filter((file) => file.type === "fnskuSend") || [];
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
+        const remarkFiles =
+          data1.files.filter((file) => file.type === "remarkSend") || [];
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
@@ -91,6 +97,9 @@ function AccountantDetailPage() {
           quantity_received: data.quantity_received,
           status: data.status,
           instructions: data.instructions,
+          remarkSend: null,
+          remarkSend1: remarkFiles,
+          remark: data.remark,
         });
       } else {
       }
@@ -141,9 +150,13 @@ function AccountantDetailPage() {
     formDataToSend.append("tracking_url", tracking_url || "");
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
+    formDataToSend.append("remark", remark || "");
 
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
+    });
+    remarkSendFiles.forEach((file, index) => {
+      formDataToSend.append(`remarkSendFiles`, file);
     });
 
     formDataToSend.append(
@@ -171,6 +184,7 @@ function AccountantDetailPage() {
         fetchData();
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
+        setRemarkSendFiles([]);
       })
       .catch((error) => {});
   };
@@ -183,14 +197,9 @@ function AccountantDetailPage() {
     }
   };
 
-  const handleFnskuSendChange = (e) => {
+  const handleRemarkSendChange = (e) => {
     const files = e.target.files;
-    setFnskuSendFiles([...fnskuSendFiles, ...files]);
-  };
-
-  const handleLabelSendChange = (e) => {
-    const files = e.target.files;
-    setLabelSendFiles([...labelSendFiles, ...files]);
+    setRemarkSendFiles([...remarkSendFiles, ...files]);
   };
 
   const {
@@ -205,6 +214,8 @@ function AccountantDetailPage() {
     status,
     instructions,
     quantity_received,
+    remark,
+    remarkSend1,
   } = formData;
 
   const getQuantityById = (productId) => {
@@ -225,42 +236,6 @@ function AccountantDetailPage() {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-  };
-
-  const onClickDeleteFile = async (e, fileId) => {
-    e.preventDefault();
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this file?"
-    );
-
-    if (!isConfirmed) {
-      return;
-    }
-
-    try {
-      const requestData = {
-        orderId: orderId,
-      };
-      const response = await fetch(`${FETCH_URL}deleteFile/${fileId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      if (response.ok) {
-        Toast.fire({
-          icon: "success",
-          title: "File deleted successfully.",
-        });
-
-        fetchData(); // Update your component state or UI as needed
-      } else {
-        const errorData = await response.json();
-      }
-    } catch (error) {}
   };
 
   const navigate = useNavigate();
@@ -321,6 +296,17 @@ function AccountantDetailPage() {
                 required
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Remark:</label>
+              <textarea
+                className="order-customer-lable-container"
+                name="remark"
+                value={remark}
+                onChange={handleChange}
+                rows={2}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
@@ -349,6 +335,18 @@ function AccountantDetailPage() {
                 readOnly
                 value={product}
                 required
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Remark ({remarkSendFiles.length} files selected) :
+              </label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="remarkSend"
+                onChange={handleRemarkSendChange}
+                multiple
               />
             </div>
             <div className="order-customer-service-container">
@@ -471,6 +469,25 @@ function AccountantDetailPage() {
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
                   key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Remark Files
+        </p>
+        {remarkSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {remarkSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <FaFileImage
+                  key={each} // Ensure to provide a unique key when mapping over
+                  elements
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />
