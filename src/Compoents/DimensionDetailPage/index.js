@@ -348,7 +348,7 @@ function DimensionNewDetailPage() {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Product Images:</label>
+              <label className="order-customer-label-name">Remark :</label>
               <textarea
                 className="order-customer-lable-container"
                 name="remark"
@@ -568,7 +568,8 @@ function DimensionNewDetailPage() {
           >
             {remarkSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
-                <FaFileImage style={{color:'#1e90ff'}}
+                <FaFileImage
+                  style={{ color: "#1e90ff" }}
                   key={each} // Ensure to provide a unique key when mapping over
                   elements
                   onClick={() => openFileInNewTab(each.name)}

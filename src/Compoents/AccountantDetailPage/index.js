@@ -297,7 +297,7 @@ function AccountantDetailPage() {
               />
             </div>
             <div className="order-customer-input-feild">
-              <label className="order-customer-label-name">Product Images :</label>
+              <label className="order-customer-label-name">Remark</label>
               <textarea
                 className="order-customer-lable-container"
                 name="remark"
@@ -339,7 +339,7 @@ function AccountantDetailPage() {
             </div>
             <div className="order-customer-input-feild">
               <label className="order-customer-label-name">
-                Remark ({remarkSendFiles.length} files selected) :
+                Product Images ({remarkSendFiles.length} files selected) :
               </label>
               <input
                 className="order-customer-lable-container order-customer-label-file"
@@ -477,7 +477,7 @@ function AccountantDetailPage() {
           </div>
         )}
         <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
-         Product Images
+          Product Images
         </p>
         {remarkSend1 && (
           <div
@@ -485,7 +485,8 @@ function AccountantDetailPage() {
           >
             {remarkSend1.map((each) => (
               <div style={{ display: "flex", margin: "20px" }}>
-                <FaFileImage style={{color:'#1e90ff'}}
+                <FaFileImage
+                  style={{ color: "#1e90ff" }}
                   key={each} // Ensure to provide a unique key when mapping over
                   elements
                   onClick={() => openFileInNewTab(each.name)}

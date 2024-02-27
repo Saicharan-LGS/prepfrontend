@@ -6,11 +6,7 @@ import DimensionDetailPage from "../DimensionsDetailPage";
 import "./index.css";
 import { ImCancelCircle } from "react-icons/im";
 
-function DimensionUpdatePage({
-  updateId,
-  fetchProducts,
-  onClose,
-}) {
+function DimensionUpdatePage({ updateId, fetchProducts, onClose }) {
   const [dimensionList, setDimensionList] = useState([]);
   const [addDimesions, setAddDimensions] = useState(false);
   const [formData, setFormData] = useState({
@@ -69,8 +65,7 @@ function DimensionUpdatePage({
       }
       const data = await response.json();
       setDimensionList(data.dimensions);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   useEffect(() => {
     fetchData1();
@@ -111,13 +106,12 @@ function DimensionUpdatePage({
           icon: "success",
           title: data.message,
         });
-        fetchProducts();
         onClose();
+        fetchProducts();
       } else {
         const data = await response.json();
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleModel = () => {
@@ -126,8 +120,8 @@ function DimensionUpdatePage({
 
   return (
     <div className="admin-order-accepted-product-list">
-     <div className="model-close-icon-container">
-      <ImCancelCircle className="model-close-icon" onClick={handleModel}/>
+      <div className="model-close-icon-container">
+        <ImCancelCircle className="model-close-icon" onClick={handleModel} />
       </div>
       <div className="dimension-update-page-heading-flex">
         <h2 className="admin-order-accepted-order-list-heading">
