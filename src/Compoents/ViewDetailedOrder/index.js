@@ -349,15 +349,8 @@ function ViewDetailedOrder({ setStatus }) {
                 />
               </div>
             ))}
-            <p
-              style={{
-                marginLeft: "30px",
-                marginTop: "20px",
-                fontWeight: "600",
-              }}
-              className="order-customer-label-name"
-            >
-              Remark Files
+            <p className="order-customer-label-name">
+              Product Images
             </p>
             {remarkSend1 && (
               <div
@@ -369,7 +362,7 @@ function ViewDetailedOrder({ setStatus }) {
               >
                 {remarkSend1.map((each) => (
                   <div style={{ display: "flex", margin: "20px" }}>
-                    <FaFileImage
+                    <FaFileImage style={{color:'#1e90ff'}}
                       key={each} // Ensure to provide a unique key when mapping over elements
                       onClick={() => openFileInNewTab(each.name)}
                       className="viewpdf-button"
