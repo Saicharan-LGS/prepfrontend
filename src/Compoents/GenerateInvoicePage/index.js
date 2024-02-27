@@ -4,8 +4,13 @@ import "./index.css";
 import { ImCancelCircle } from "react-icons/im";
 import Toast from "../utlis/toast";
 
-function GenerateInvoicePage({ data, onClose, fetchProducts, fixedDiscount }) {
-  console.log(data);
+function GenerateInvoicePage({
+  data,
+  onClose,
+  fetchProducts,
+  fixedDiscount,
+  clearData,
+}) {
   const [totalAmount, setTotalAmount] = useState(0);
   const [discount, setDiscount] = useState(fixedDiscount);
   const [discountAmount, setDiscountAmount] = useState();
@@ -64,6 +69,7 @@ function GenerateInvoicePage({ data, onClose, fetchProducts, fixedDiscount }) {
       }
       onClose();
       fetchProducts();
+      clearData();
     } catch (error) {}
   };
 

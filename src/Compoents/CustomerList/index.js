@@ -132,6 +132,7 @@ function CustomerList() {
   };
 
   const onclickaddDiscount = (e) => {
+    setAmountId(e.target.value);
     setDiscountModel(true);
   };
 

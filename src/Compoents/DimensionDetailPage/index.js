@@ -6,6 +6,7 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import Toast from "../utlis/toast";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
+import { FaFileImage } from "react-icons/fa";
 
 import CustomerDimensionView from "../CustomerDimensionView";
 import { useNavigate, useParams } from "react-router-dom";
@@ -29,9 +30,13 @@ function DimensionNewDetailPage() {
     status: "",
     quantity_received: "",
     instructions: "",
+    remarkSend: null,
+    remarkSend1: null,
+    remark: "",
   });
   const [fnskuSendFiles, setFnskuSendFiles] = useState([]);
   const [labelSendFiles, setLabelSendFiles] = useState([]);
+  const [remarkSendFiles, setRemarkSendFiles] = useState([]);
   const [isModalOpen, setModalOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [productQuantities, setProductQuantities] = useState({});
@@ -70,6 +75,8 @@ function DimensionNewDetailPage() {
           data1.files.filter((file) => file.type === "fnskuSend") || [];
         const labelFiles =
           data1.files.filter((file) => file.type === "labelSend") || [];
+        const remarkFiles =
+          data1.files.filter((file) => file.type === "remarkSend") || [];
         data1.services.Products.forEach((item) => {
           productQuantities[item.services] = item.quantity;
         });
@@ -91,6 +98,9 @@ function DimensionNewDetailPage() {
           quantity_received: data.quantity_received,
           status: data.status,
           instructions: data.instructions,
+          remarkSend: null,
+          remarkSend1: remarkFiles,
+          remark: data.remark,
         });
       } else {
       }
@@ -141,9 +151,13 @@ function DimensionNewDetailPage() {
     formDataToSend.append("tracking_url", tracking_url || "");
     formDataToSend.append("status", status);
     formDataToSend.append("instructions", instructions);
+    formDataToSend.append("remark", remark || "");
 
     fnskuSendFiles.forEach((file, index) => {
       formDataToSend.append(`fnskuSendFiles`, file);
+    });
+    remarkSendFiles.forEach((file, index) => {
+      formDataToSend.append(`remarkSendFiles`, file);
     });
 
     formDataToSend.append(
@@ -171,6 +185,7 @@ function DimensionNewDetailPage() {
         fetchData();
         setFnskuSendFiles([]);
         setLabelSendFiles([]);
+        setRemarkSendFiles([]);
       })
       .catch((error) => {});
   };
@@ -193,6 +208,11 @@ function DimensionNewDetailPage() {
     setLabelSendFiles([...labelSendFiles, ...files]);
   };
 
+  const handleRemarkSendChange = (e) => {
+    const files = e.target.files;
+    setRemarkSendFiles([...remarkSendFiles, ...files]);
+  };
+
   const {
     date,
     name,
@@ -205,6 +225,8 @@ function DimensionNewDetailPage() {
     status,
     instructions,
     quantity_received,
+    remark,
+    remarkSend1,
   } = formData;
 
   const getQuantityById = (productId) => {
@@ -325,6 +347,17 @@ function DimensionNewDetailPage() {
                 required
               />
             </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">Remark:</label>
+              <textarea
+                className="order-customer-lable-container"
+                name="remark"
+                value={remark}
+                onChange={handleChange}
+                rows={2}
+                required
+              />
+            </div>
             <p
               className="order-customer-dimension-update-button-container"
               onClick={handleDimensionUpdate}
@@ -376,6 +409,18 @@ function DimensionNewDetailPage() {
                 type="file"
                 name="labelSend"
                 onChange={handleLabelSendChange}
+                multiple
+              />
+            </div>
+            <div className="order-customer-input-feild">
+              <label className="order-customer-label-name">
+                Remark ({remarkSendFiles.length} files selected) :
+              </label>
+              <input
+                className="order-customer-lable-container order-customer-label-file"
+                type="file"
+                name="remarkSend"
+                onChange={handleRemarkSendChange}
                 multiple
               />
             </div>
@@ -503,6 +548,29 @@ function DimensionNewDetailPage() {
               <div style={{ display: "flex", margin: "20px" }}>
                 <AiOutlineFilePdf
                   key={each} // Ensure to provide a unique key when mapping over elements
+                  onClick={() => openFileInNewTab(each.name)}
+                  className="viewpdf-button"
+                />
+                <MdDeleteOutline
+                  key={each}
+                  onClick={(e) => onClickDeleteFile(e, each.id)}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+        <p style={{ marginLeft: "30px" }} className="order-customer-label-name">
+          Remark Files
+        </p>
+        {remarkSend1 && (
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginLeft: "30px" }}
+          >
+            {remarkSend1.map((each) => (
+              <div style={{ display: "flex", margin: "20px" }}>
+                <FaFileImage
+                  key={each} // Ensure to provide a unique key when mapping over
+                  elements
                   onClick={() => openFileInNewTab(each.name)}
                   className="viewpdf-button"
                 />

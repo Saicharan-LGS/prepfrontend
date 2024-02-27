@@ -4,7 +4,7 @@ import Toast from "../utlis/toast";
 
 const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
   const [amount, setAmount] = useState(0);
-  console.log(id, "called");
+
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
 
   const handleInputChange = (event) => {
@@ -44,7 +44,7 @@ const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
         },
         body: JSON.stringify({ discount: amount }),
       });
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("Failed to add amount");
       }
