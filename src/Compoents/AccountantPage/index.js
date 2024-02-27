@@ -74,7 +74,7 @@ function AccountOrders({ openDetailPageComponent }) {
     if (role === "Admin") {
       openDetailPageComponent(productId);
     } else {
-      navigate(`/viewDetailedorder/${productId}`);
+      navigate(`/AccountantDetailPage/${productId}`);
     }
   };
 

@@ -34,6 +34,7 @@ import CustomerSideBar from "./Compoents/CustomerSideBar";
 import CreditCard from "./Compoents/CreditCard";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import AccountantDetailPage from "./Compoents/AccountantDetailPage";
 
 function App() {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -93,6 +94,14 @@ function App() {
         element={
           <ProtectedRoute allowedRoles={["Label", "Dimension"]}>
             <DimensionNewDetailPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/AccountantDetailPage/:id"
+        element={
+          <ProtectedRoute allowedRoles={["Accountant"]}>
+            <AccountantDetailPage />
           </ProtectedRoute>
         }
       />
