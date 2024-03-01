@@ -16,7 +16,7 @@ const AddDiscountCustomer = ({ id, onClose, fetchProducts }) => {
 
   const handleAddAmount = async () => {
     const isConfirmed = window.confirm(
-      `Are you sure you want to add ${amount.toFixed(2)} discount?`
+      `Are you sure you want to add ${amount ? amount.toFixed(2) : 0} discount?`
     );
 
     if (!isConfirmed) {

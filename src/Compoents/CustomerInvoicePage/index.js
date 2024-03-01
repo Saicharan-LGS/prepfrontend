@@ -157,7 +157,7 @@ function CustomerInvoicePage({
           <div className="generate-invoice-discount-container">
             <p className="generate-invoice-total-amount">Total Amount</p>
             <p className="generate-invoice-total-amount-text">
-              {totalAmount.toFixed(2)}
+              {totalAmount ? totalAmount.toFixed(2) : ""}
             </p>
           </div>
           {role === "Admin" && (

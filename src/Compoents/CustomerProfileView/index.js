@@ -103,7 +103,7 @@ function CustomerProfileView({ fetchProducts1 }) {
         <Box
           sx={{
             position: "absolute",
-            width: "300px",
+            // width: "300px",
             top: "50%",
             left: "50%",
 

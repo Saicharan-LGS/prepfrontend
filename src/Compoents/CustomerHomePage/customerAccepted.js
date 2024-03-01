@@ -147,10 +147,14 @@ function CustomerAccepted() {
                         {JSON.parse(eachProduct.orders).join(", ")}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.totalamount.toFixed(2)}
+                        {eachProduct.totalamount
+                          ? eachProduct.totalamount.toFixed(2)
+                          : ""}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.discounted_amount.toFixed(2)}
+                        {eachProduct.discounted_amount
+                          ? eachProduct.discounted_amount.toFixed(2)
+                          : ""}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
                         {eachProduct.invoice_status === "6"
