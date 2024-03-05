@@ -4,7 +4,8 @@ import AdminProfileView from "../AdminProfileView";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
-import axxpress from "../images/axxpress.png";
+import axxpress from "../images/axwhite.png";
+import Clock from "../Clock";
 
 function StaffTopNavbar() {
   const [userDetatils, setUserDetails] = useState([]);
@@ -53,8 +54,8 @@ function StaffTopNavbar() {
   }, []);
 
   return (
-    <div className="navbar-main-container">
-      {/* <img
+    <div className="navbar-main-container" style={{ paddingRight: "40px" }}>
+      <img
         src={axxpress}
         style={{
           width: "150px",
@@ -63,7 +64,7 @@ function StaffTopNavbar() {
           marginTop: "3px",
         }}
         alt="axxpress"
-      /> */}
+      />
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
           <p className="navbar-nav-item-name">{name}</p>
@@ -101,6 +102,7 @@ function StaffTopNavbar() {
             className="navbar-logout-button-icon"
             onClick={handleLogout}
           /> */}
+          <Clock handleLogout={handleLogout} />
         </div>
       </div>
     </div>

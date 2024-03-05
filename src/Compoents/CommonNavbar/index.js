@@ -6,6 +6,7 @@ import "./index.css";
 import Popup from "reactjs-popup";
 import AdminProfileView from "../AdminProfileView";
 import Banner from "../Banner";
+import Clock from "../Clock";
 
 function CommonNavbar() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -54,9 +55,9 @@ function CommonNavbar() {
 
   return (
     <>
-      <Banner />
-      <div className="common-navbar">
-        {/* <img
+      {/* <Banner /> */}
+      <div className="common-navbar" style={{ paddingRight: "40px" }}>
+        <img
           src={axxpress}
           style={{
             width: "150px",
@@ -65,7 +66,7 @@ function CommonNavbar() {
             marginTop: "3px",
           }}
           alt="axxpress"
-        /> */}
+        />
         <div className="common-navbar-logout-button-container">
           <p className="common-navbar-nav-item-name">{name}</p>
           <p className="common-navbar-nav-item-name">{role}</p>
@@ -97,6 +98,7 @@ function CommonNavbar() {
           >
             Logout
           </button>
+          <Clock key={2} initialTime={new Date()} handleLogout={handleLogout} />
         </div>
       </div>
     </>

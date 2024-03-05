@@ -48,7 +48,6 @@ const CreditCard = () => {
     const formattedExpiry = state.expiry.replace(/\D/g, "");
     const transformedExpiry =
       formattedExpiry.slice(0, 2) + formattedExpiry.slice(2);
-
     const postData = {
       number: encrypt(state.number),
       expiry: encrypt(transformedExpiry),
@@ -272,7 +271,7 @@ const CreditCard = () => {
                   required
                 />
               </div>
-              <div className="col-4 mb-3">
+              {/* <div className="col-4 mb-3">
                 <label>State</label>
                 <select
                   name="state"
@@ -289,6 +288,29 @@ const CreditCard = () => {
                     </option>
                   ))}
                 </select>
+              </div> */}
+              <div className="col-4 mb-3">
+                <label>State</label>
+                <input
+                  placeholder="Enter State Code"
+                  type="text"
+                  name="state"
+                  className="form-control"
+                  value={state.state}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  required
+                />
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "11px",
+                    textAlign: "center",
+                    margin: "0px",
+                  }}
+                >
+                  Please verify state code before entering
+                </p>
               </div>
               <div className="col-4 mb-3">
                 <label>Zip Code</label>
