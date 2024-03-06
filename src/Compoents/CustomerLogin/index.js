@@ -12,6 +12,9 @@ const CustomerLogin = () => {
     email: "",
     password: "",
   });
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("role");
+  sessionStorage.removeItem("sname");
   const [rememberMe, setRememberMe] = useState(false); // State for "Remember Me" checkbox
   const [errors, setErrors] = useState({});
   const [loginError, setLoginError] = useState(""); // State for login error message
