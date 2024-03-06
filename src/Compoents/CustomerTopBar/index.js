@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
-import axxpress from "../images/axxpress.1.png";
+import axxpress from "../images/Axxpress1-1.png";
 import CustomerProfileView from "../CustomerProfileView";
 import TransactionSummary from "../CustomerNavbar/Amount";
 import Clock from "../Clock";

@@ -4,7 +4,7 @@ import AdminProfileView from "../AdminProfileView";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
 import { IoMdLogOut } from "react-icons/io";
-import axxpress from "../images/axwhite.png";
+import axxpress from "../images/Axxpress1-1.png";
 import Clock from "../Clock";
 
 function StaffTopNavbar() {

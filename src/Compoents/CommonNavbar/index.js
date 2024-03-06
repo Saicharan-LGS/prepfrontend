@@ -1,7 +1,7 @@
 //import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axxpress from "../images/axxpress.png";
+import axxpress from "../images/Axxpress1-1.png";
 import "./index.css";
 import Popup from "reactjs-popup";
 import AdminProfileView from "../AdminProfileView";
