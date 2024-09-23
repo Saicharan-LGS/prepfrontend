@@ -1,10 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { ImCancelCircle } from "react-icons/im";
+import DimensionDetailPage from "../DimensionsDetailPage";
 import DimensionsUpdate from "../DimensionsUpdate";
 import Toast from "../utlis/toast";
-import DimensionDetailPage from "../DimensionsDetailPage";
 import "./index.css";
-import { ImCancelCircle } from "react-icons/im";
 
 function DimensionUpdatePage({ updateId, fetchProducts, onClose }) {
   const [dimensionList, setDimensionList] = useState([]);
@@ -151,7 +150,7 @@ function DimensionUpdatePage({ updateId, fetchProducts, onClose }) {
           <p className="admin-order-accepted-service-category">Product Name</p>
           <p className="admin-order-accepted-quantity-category">Quantity</p>
           <p className="admin-order-accepted-order-tracking-category">
-            Order Tracking Link
+            Order Tracking
           </p>
         </div>
 

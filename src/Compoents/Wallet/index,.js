@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import "./index.css";
-import {
-  BsFillArrowRightCircleFill,
-  BsFillArrowLeftCircleFill,
-} from "react-icons/bs";
-import WalletAdd from "./WalletAdd";
 import { Box, Modal } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+import "./index.css";
+import WalletAdd from "./WalletAdd";
 
 function Wallet() {
   const [products, setProducts] = useState([]);
@@ -108,9 +108,11 @@ function Wallet() {
           <h2 className="admin-order-accepted-order-list-heading">
             Transactions
           </h2>
-          <button className="service-add-button" onClick={handleAmountAdd}>
-            Top Up
-          </button>
+          <div>
+            <button className="service-add-button" onClick={handleAmountAdd}>
+              Top Up
+            </button>
+          </div>
         </div>
         <div className="admin-order-accepted-search-filter-input-container">
           <input

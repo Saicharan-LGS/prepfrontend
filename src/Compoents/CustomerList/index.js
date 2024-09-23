@@ -1,13 +1,20 @@
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+import { RiEditBoxLine } from "react-icons/ri";
 import Spinner from "../Spinner";
 import Toast from "../utlis/toast";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
+
 import AddAmountCustomer from "./AddAmount";
 import AddDiscountCustomer from "./AddDiscount";
+import EditCustomerDetails from "./EditCustomer";
+import "./index.css";
+import WalletRemove from "./WalletRemove";
 
 function CustomerList() {
   const [isModalOpen, setModalOpen] = React.useState(false);
@@ -20,9 +27,24 @@ function CustomerList() {
   const [amountId, setAmountId] = useState("");
   const FETCH_URL = process.env.REACT_APP_FETCH_URL;
   const [discountModel, setDiscountModel] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [editCustomerId, setEditCustomerId] = useState("");
+  const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
   const handleCloseModal = () => {
     setModalOpen(false);
     setDiscountModel(false);
+    setEditModalOpen(false);
+    setRemoveModalOpen(false);
+  };
+
+  const handleRemove = (id) => {
+    setAmountId(id);
+    setRemoveModalOpen(true);
+  };
+
+  const handleEdit = (id) => {
+    setEditCustomerId(id);
+    setEditModalOpen(true);
   };
 
   const handleToggle = async (id, currentStatus) => {
@@ -163,15 +185,24 @@ function CustomerList() {
               <p className="customer-list-table-row" style={{ width: "10%" }}>
                 Customer Id
               </p>
-              <p className="customer-list-table-row">Customer Name</p>
-              <p className="customer-list-table-row" style={{ width: "30%" }}>
+              <p className="customer-list-table-row" style={{ width: "25%" }}>
+                Customer Name<span>(Group Name)</span>
+              </p>
+              <p className="customer-list-table-row" style={{ width: "35%" }}>
                 Email
               </p>
-              <p className="customer-list-table-row">Enable / Disable</p>
+              <p className="customer-list-table-row" style={{ width: "10%" }}>
+                Status
+              </p>
               <p className="customer-list-table-row">Balance</p>
-              <p className="customer-list-table-row">Discount</p>
-              <p className="customer-list-table-row">Add Amount</p>
+              <p className="customer-list-table-row" style={{ width: "10%" }}>
+                Discount
+              </p>
+              <p className="customer-list-table-row"> Amount</p>
               <p className="customer-list-table-row">Add Discount</p>
+              <p className="customer-list-table-row" style={{ width: "10%" }}>
+                Edit Customer
+              </p>
             </div>
 
             {filteredProducts.length > 0 ? (
@@ -188,16 +219,23 @@ function CustomerList() {
                       >
                         {eachProduct.id}
                       </p>
-                      <p className="customer-list-table-row">
+                      <p
+                        className="customer-list-table-row"
+                        style={{ width: "25%" }}
+                      >
                         {eachProduct.name}
+                        <span>{eachProduct.whatsapp_group_name}</span>
                       </p>
                       <p
                         className="customer-list-table-row"
-                        style={{ width: "30%" }}
+                        style={{ width: "35%" }}
                       >
                         {eachProduct.email}
                       </p>
-                      <div className="customer-list-table-row">
+                      <div
+                        className="customer-list-table-row"
+                        style={{ width: "10%" }}
+                      >
                         <input
                           type="checkbox"
                           className="customer-list-table-row-input"
@@ -213,17 +251,35 @@ function CustomerList() {
                       <p className="customer-list-table-row">
                         {eachProduct.balance ? eachProduct.balance : 0}
                       </p>
-                      <p className="customer-list-table-row">
+                      <p
+                        className="customer-list-table-row"
+                        style={{ width: "10%" }}
+                      >
                         {eachProduct.discount ? eachProduct.discount : 0}
                       </p>
-                      <div className="customer-list-table-row">
-                        <button
+                      <div
+                        className="customer-list-table-row"
+                        style={{ flexDirection: "row" }}
+                      >
+                        <AiFillPlusCircle
+                          style={{
+                            color: "#008000",
+                            backgroundColor: "#fff",
+                            fontSize: 30,
+                          }}
                           value={eachProduct.id}
                           onClick={onclickaddamount}
-                          className="customer-list-amount-button"
-                        >
-                          Add
-                        </button>
+                        />
+
+                        <AiFillMinusCircle
+                          style={{
+                            color: "red",
+                            backgroundColor: "#fff",
+                            fontSize: 30,
+                          }}
+                          value={eachProduct.id}
+                          onClick={() => handleRemove(eachProduct.id)}
+                        />
                       </div>
                       <div className="customer-list-table-row">
                         <button
@@ -233,6 +289,16 @@ function CustomerList() {
                         >
                           Add
                         </button>
+                      </div>
+                      <div
+                        className="customer-list-table-row"
+                        style={{ width: "10%" }}
+                      >
+                        <RiEditBoxLine
+                          style={{ width: 45 }}
+                          onClick={() => handleEdit(eachProduct.id)}
+                          className="customer-list-view-icon"
+                        />
                       </div>
                     </div>
                   );
@@ -263,7 +329,7 @@ function CustomerList() {
             <Box
               sx={{
                 position: "absolute",
-                width: "300px",
+                width: "400px",
                 top: "50%",
                 left: "50%",
                 height: "max-content",
@@ -299,6 +365,55 @@ function CustomerList() {
               }}
             >
               <AddDiscountCustomer
+                id={amountId}
+                fetchProducts={fetchProducts}
+                onClose={handleCloseModal}
+              />
+            </Box>
+          </Modal>
+          <Modal
+            open={isEditModalOpen}
+            onClose={handleCloseModal}
+            style={{ width: "100%" }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                minWidth: "260px",
+                top: "50%",
+                left: "50%",
+
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                borderRadius: "8px",
+                p: 3,
+              }}
+            >
+              <EditCustomerDetails
+                id={editCustomerId}
+                onClose={handleCloseModal}
+                fetchProducts={fetchProducts}
+              />
+            </Box>
+          </Modal>
+          <Modal
+            open={isRemoveModalOpen}
+            onClose={handleCloseModal}
+            style={{ width: "100%" }}
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                minWidth: "260px",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                bgcolor: "background.paper",
+                borderRadius: "8px",
+                p: 3,
+              }}
+            >
+              <WalletRemove
                 id={amountId}
                 fetchProducts={fetchProducts}
                 onClose={handleCloseModal}

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import LabelPost from "./labelPost";
-import { useNavigate } from "react-router-dom";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 
 import CommonNavbar from "../CommonNavbar";
 import EmptyOrder from "../EmptyOrder";
@@ -90,7 +92,7 @@ function LabelOrders({ openDetailPageComponent }) {
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">Order Id</p>
               <p className="admin-order-accepted-name-category">
-                Customer Name
+                Customer Name<span>(Group Name)</span>
               </p>
               <p className="admin-order-accepted-name-category">Order Name</p>
               <p className="admin-order-accepted-service-category">
@@ -98,7 +100,7 @@ function LabelOrders({ openDetailPageComponent }) {
               </p>
               <p className="admin-order-accepted-quantity-category">Quantity</p>
               <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
+                Order Tracking
               </p>
               <p className="admin-order-accepted-fnsku-category">
                 FNSKU Status
@@ -124,6 +126,9 @@ function LabelOrders({ openDetailPageComponent }) {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.customer_name}
+                        {eachProduct.whatsapp_group_name && (
+                          <span>({eachProduct.whatsapp_group_name})</span>
+                        )}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.name}

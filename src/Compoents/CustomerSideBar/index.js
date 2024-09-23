@@ -1,22 +1,21 @@
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { BsFillBoxSeamFill, BsXOctagonFill } from "react-icons/bs";
-import { IoLogOut } from "react-icons/io5";
-import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect, useState } from "react";
+import { BsFillBoxSeamFill, BsXOctagonFill } from "react-icons/bs";
+import { FaClipboardList } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ImUpload } from "react-icons/im";
+import { IoLogOut, IoWalletSharp } from "react-icons/io5";
+import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
 import { useNavigate } from "react-router-dom";
-import { IoWalletSharp } from "react-icons/io5";
+import Banner from "../Banner/index.js";
+import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
 import CustomerHomePage from "../CustomerHomePage";
 import CustomerAccepted from "../CustomerHomePage/customerAccepted.js";
-import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerAllProducts from "../CustomerHomePage/customerAllproducts.js";
+import CustomerRejected from "../CustomerHomePage/customerRejected.js";
 import CustomerOrder from "../customerOrder/index.js";
-import CustomerOrderViewDetail from "../CustomerDetailP/index.js";
-import { FaClipboardList } from "react-icons/fa";
-import { ImUpload } from "react-icons/im";
-import Wallet from "../Wallet/index,.js";
 import CustomerTopNavbar from "../CustomerTopBar/index.js";
-import Banner from "../Banner/index.js";
+import Wallet from "../Wallet/index,.js";
 
 function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
   const [isCollapsed, setIsCollapsed] = useState(true);

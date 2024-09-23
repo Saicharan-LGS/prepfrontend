@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import Spinner from "../Spinner";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
+import Spinner from "../Spinner";
+import "./index.css";
 function CustomerAllProducts({ openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -166,7 +168,7 @@ function CustomerAllProducts({ openDetailPage }) {
               </p>
               <p className="admin-order-accepted-quantity-category">Quantity</p>
               <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
+                Order Tracking
               </p>
               <p className="admin-order-accepted-fnsku-category">Status</p>
               <p className="admin-order-accepted-view-in-detail-category">
@@ -211,7 +213,7 @@ function CustomerAllProducts({ openDetailPage }) {
                       <p className="admin-order-accepted-quantity-sub-category">
                         {statusLabels[eachProduct.status] || "Unknown Status"}
                       </p>
-                       <BsFillArrowRightCircleFill
+                      <BsFillArrowRightCircleFill
                         id={eachProduct.id}
                         value={eachProduct.id}
                         onClick={() => openDetailPage(eachProduct.id)}

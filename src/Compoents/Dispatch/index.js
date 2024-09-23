@@ -1,13 +1,15 @@
+import { Box, Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
+import CommonNavbar from "../CommonNavbar";
+import CustomerInvoicePage from "../CustomerInvoicePage";
+import EmptyOrder from "../EmptyOrder";
 import Spinner from "../Spinner";
 import DispatchButton from "./DispatchButton";
-import EmptyOrder from "../EmptyOrder";
-import { Box, Modal } from "@mui/material";
-import CustomerInvoicePage from "../CustomerInvoicePage";
-import CommonNavbar from "../CommonNavbar";
+import "./index.css";
 function Dispatch() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -172,7 +174,7 @@ function Dispatch() {
                 Order Id's
               </p>
               <p className="admin-order-accepted-order-id-category">
-                custome Name
+                Customer Name<span>(Group Name)</span>
               </p>
               <p className="admin-order-accepted-order-id-category">
                 Order Names
@@ -206,6 +208,11 @@ function Dispatch() {
                       </p>
                       <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders[0].customer_name}
+                        {eachProduct.orders[0].whatsapp_group_name && (
+                          <span>
+                            ({eachProduct.orders[0].whatsapp_group_name})
+                          </span>
+                        )}
                       </p>
                       <p className="admin-order-accepted-order-id-sub-category">
                         {eachProduct.orders.map((order, index) => (
@@ -224,13 +231,19 @@ function Dispatch() {
                         ))}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
-                        {eachProduct.dispatch.totalamount? eachProduct.dispatch.totalamount.toFixed(2) : 0}
+                        {eachProduct.dispatch.totalamount
+                          ? eachProduct.dispatch.totalamount.toFixed(2)
+                          : 0}
                       </p>
                       <p className="admin-order-accepted-service-sub-category">
-                        {eachProduct.dispatch.discount? eachProduct.dispatch.discount.toFixed(2) : 0}
+                        {eachProduct.dispatch.discount
+                          ? eachProduct.dispatch.discount.toFixed(2)
+                          : 0}
                       </p>
                       <p className="admin-order-accepted-quantity-sub-category">
-                        {eachProduct.dispatch.discounted_amount? eachProduct.dispatch.discounted_amount.toFixed(2) : 0}
+                        {eachProduct.dispatch.discounted_amount
+                          ? eachProduct.dispatch.discounted_amount.toFixed(2)
+                          : 0}
                       </p>
                       {setStatus(
                         eachProduct.dispatch.invoice_status,

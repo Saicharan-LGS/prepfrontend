@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 
 //import { AiFillCaretRight } from "react-icons/ai";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import Spinner from "../Spinner";
 
-import CustomerButton from "./customerButton";
-import EmptyOrder from "../EmptyOrder";
 import { Box, Modal } from "@mui/material";
 import CustomerInvoicePage from "../CustomerInvoicePage";
+import EmptyOrder from "../EmptyOrder";
+import CustomerButton from "./customerButton";
 function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,6 +69,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
       );
       if (response.ok) {
         const data = await response.json();
+
         setProducts(data);
         setLoading(false);
       } else {
@@ -132,6 +135,7 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
               <p className="admin-order-accepted-order-id-category">
                 Order Id's
               </p>
+              <p className="admin-order-accepted-date-category">Date & Time</p>
               <p className="admin-order-accepted-name-category">Total Amount</p>
 
               <p className="admin-order-accepted-quantity-category">
@@ -146,10 +150,16 @@ function CustomerHomePage({ fetchTotalAmount, openDetailPage }) {
             {filteredProducts.length > 0 ? (
               <>
                 {currentProducts.map((eachProduct) => {
+                  const formattedDateTime = new Date(
+                    eachProduct.data_time
+                  ).toLocaleString();
                   return (
                     <div className="admin-order-accepted-display-of-products-container">
                       <p className="admin-order-accepted-order-id-sub-category">
                         {JSON.parse(eachProduct.orders).join(", ")}
+                      </p>
+                      <p className="admin-order-accepted-date-category-date">
+                        {formattedDateTime}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.totalamount

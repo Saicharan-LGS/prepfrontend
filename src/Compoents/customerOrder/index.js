@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import "./index.css";
-import Toast from "../utlis/toast";
+import React, { useEffect, useState } from "react";
 import Button from "../Button";
+import Toast from "../utlis/toast";
+import "./index.css";
 
 const CustomerOrder = () => {
   const [date, setDate] = useState("");
@@ -18,6 +18,10 @@ const CustomerOrder = () => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [showLoader, setShowLoader] = useState(false);
 
+  const [whatsappGroupName, setWhatsappGroupName] = useState("");
+
+  const [isFnskuLabelAttached, setIsFnskuLabelAttached] = useState(false);
+  const [isBoxLabelAttached, setIsBoxLabelAttached] = useState(false);
 
   const handleProductSelection = (e, productId) => {
     const isChecked = e.target.checked;
@@ -49,6 +53,7 @@ const CustomerOrder = () => {
       })
       .then((data) => {
         setCustomerId(data.id);
+        setWhatsappGroupName(data.whatsapp_group_name);
       })
       .catch(() => {});
 
@@ -69,11 +74,10 @@ const CustomerOrder = () => {
       .then((productsData) => {
         setProducts(productsData.products);
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
 
     // Fetch services
-   
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
@@ -124,14 +128,13 @@ const CustomerOrder = () => {
   };
 
   const handleSubmit = async (e) => {
-    setShowLoader(true)
+    setShowLoader(true);
     e.preventDefault();
     const selectedProductsWithQuantity = selectedProducts.map((productId) => ({
       id: productId,
       quantity: 0,
     }));
 
-  
     try {
       const token = sessionStorage.getItem("token");
       const formData = new FormData();
@@ -142,16 +145,20 @@ const CustomerOrder = () => {
       formData.append("units", units);
       formData.append("tracking_url", trackingURL);
 
-      // Append multiple files for fnskuSend
-      fnskuSendFiles.forEach((file, index) => {
-        formData.append(`fnskuSendFiles`, file);
-      });
+      if (isFnskuLabelAttached) {
+        fnskuSendFiles.forEach((file) => {
+          formData.append("fnskuSendFiles", file);
+        });
+      }
 
-      labelSendFiles.forEach((file, index) => {
-        formData.append(`labelSendFiles`, file);
-      });
+      if (isBoxLabelAttached) {
+        labelSendFiles.forEach((file) => {
+          formData.append("labelSendFiles", file);
+        });
+      }
 
       formData.append("customer_id", customerId);
+      formData.append("whatsapp_group_name", whatsappGroupName);
       formData.append("instructions", instructions);
       formData.append(
         "selectedProducts",
@@ -171,7 +178,7 @@ const CustomerOrder = () => {
             icon: "success",
             title: data.message,
           });
-          setShowLoader(false)
+          setShowLoader(false);
         });
         setProductName("");
         setUnits("");
@@ -188,10 +195,10 @@ const CustomerOrder = () => {
             title: data.message,
           });
         });
-        setShowLoader(false)
+        setShowLoader(false);
       }
     } catch (error) {
-      setShowLoader(false)
+      setShowLoader(false);
     }
   };
 
@@ -228,16 +235,42 @@ const CustomerOrder = () => {
                 />
               </div>
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">
-                  FNSKU ({fnskuSendFiles.length} files selected):
+                <label className="order-customer-radio-label-name-venu">
+                  Are you attaching FNSKU label in letter format with 30 labels
+                  per sheet?
                 </label>
-                <input
-                  className="order-customer-lable-container order-customer-label-file"
-                  type="file"
-                  name="fnskuSend"
-                  onChange={handleFnskuSendChange}
-                  multiple
-                />
+                <div className="order-customer-radio-container-venu">
+                  <input
+                    type="radio"
+                    name="fnskuLabelAttached"
+                    value="yes"
+                    onChange={() => setIsFnskuLabelAttached(true)}
+                    checked={isFnskuLabelAttached}
+                  />{" "}
+                  Yes
+                  <input
+                    type="radio"
+                    name="fnskuLabelAttached"
+                    value="no"
+                    onChange={() => setIsFnskuLabelAttached(false)}
+                    checked={!isFnskuLabelAttached}
+                  />{" "}
+                  No
+                </div>
+                {isFnskuLabelAttached && (
+                  <div>
+                    <label className="order-customer-label-name">
+                      FNSKU ({fnskuSendFiles.length} files selected):
+                    </label>
+                    <input
+                      className="order-customer-lable-container order-customer-label-file"
+                      type="file"
+                      name="fnskuSend"
+                      onChange={handleFnskuSendChange}
+                      multiple
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div className="order-customer-field2-container">
@@ -269,17 +302,43 @@ const CustomerOrder = () => {
                 />
               </div>
               <div className="order-customer-input-feild">
-                <label className="order-customer-label-name">
-                  Label ({labelSendFiles.length} files selected):
+                <label className="order-customer-radio-label-name-venu">
+                  Are you attaching box label in 6*4 format?
                 </label>
-                <input
-                  className="order-customer-lable-container order-customer-label-file"
-                  type="file"
-                  name="labelSend"
-                  onChange={handleLabelSendChange}
-                  multiple
-                />
+                <div className="order-customer-radio-container-venu">
+                  <input
+                    type="radio"
+                    name="boxLabelAttached"
+                    value="yes"
+                    onChange={() => setIsBoxLabelAttached(true)}
+                    checked={isBoxLabelAttached}
+                  />{" "}
+                  Yes
+                  <input
+                    type="radio"
+                    name="boxLabelAttached"
+                    value="no"
+                    onChange={() => setIsBoxLabelAttached(false)}
+                    checked={!isBoxLabelAttached}
+                  />{" "}
+                  No
+                </div>
+                {isBoxLabelAttached && (
+                  <div>
+                    <label className="order-customer-label-name">
+                      Box Label ({labelSendFiles.length} files selected):
+                    </label>
+                    <input
+                      className="order-customer-lable-container order-customer-label-file"
+                      type="file"
+                      name="labelSend"
+                      onChange={handleLabelSendChange}
+                      multiple
+                    />
+                  </div>
+                )}
               </div>
+
               <div className="order-customer-service-container">
                 <label className="order-customer-service-name">
                   Products :
@@ -346,15 +405,16 @@ const CustomerOrder = () => {
               </div>
             </div>
           </div>
-          <div className="order-customer-submit-button-container" >
-            <div style={{width:"200px",textAlign:"center",marginTop:"10px"}}>
-          <Button
-              text="Submit"
-              type="Submit"
-              loading={showLoader}
-              disabled={showLoader}
-              
-            />
+          <div className="order-customer-submit-button-container">
+            <div
+              style={{ width: "200px", textAlign: "center", marginTop: "10px" }}
+            >
+              <Button
+                text="Submit"
+                type="Submit"
+                loading={showLoader}
+                disabled={showLoader}
+              />
             </div>
           </div>
         </form>

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../../Spinner";
+import "./index.css";
 
 import EmptyOrder from "../../EmptyOrder";
 
@@ -70,7 +72,6 @@ function AdminOrdersRejected({ openDetailPageComponent }) {
     };
     fetchProducts();
   }, []);
- 
 
   const NextButton =
     indexOfLastProduct >= filteredProducts.length
@@ -103,7 +104,7 @@ function AdminOrdersRejected({ openDetailPageComponent }) {
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">Order Id</p>
               <p className="admin-order-accepted-name-category">
-                Customer Name
+                Customer Name<span>(Group Name)</span>
               </p>
               <p className="admin-order-accepted-name-category">Order Name</p>
               <p className="admin-order-accepted-service-category">
@@ -111,7 +112,7 @@ function AdminOrdersRejected({ openDetailPageComponent }) {
               </p>
               <p className="admin-order-accepted-quantity-category">Quantity</p>
               <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
+                Order Tracking
               </p>
               {/* <p className="admin-order-accepted-decline-category">Decline</p>
           <p className="admin-order-accepted-accept-category">Accept</p> */}
@@ -135,6 +136,9 @@ function AdminOrdersRejected({ openDetailPageComponent }) {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.customer_name}
+                        {eachProduct.whatsapp_group_name && (
+                          <span>({eachProduct.whatsapp_group_name})</span>
+                        )}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.name}

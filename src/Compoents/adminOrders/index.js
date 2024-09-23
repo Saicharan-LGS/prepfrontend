@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./index.css";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import Spinner from "../Spinner";
+import "./index.css";
 
 import DisplayAdminButton from "./adminButton";
 function ProductList({ openDetailPageComponent }) {
@@ -103,7 +105,7 @@ function ProductList({ openDetailPageComponent }) {
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">Order Id</p>
               <p className="admin-order-accepted-name-category">
-                Customer Name
+                Customer Name<span>(Group Name)</span>
               </p>
               <p className="admin-order-accepted-name-category">Order Name</p>
               <p className="admin-order-accepted-service-category">
@@ -115,7 +117,7 @@ function ProductList({ openDetailPageComponent }) {
                 Total Quantity
               </p>
               <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
+                Order Tracking
               </p>
 
               <p className="admin-order-accepted-accept-category">Received</p>
@@ -139,6 +141,9 @@ function ProductList({ openDetailPageComponent }) {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.customer_name}
+                        {eachProduct.whatsapp_group_name && (
+                          <span>({eachProduct.whatsapp_group_name})</span>
+                        )}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.name}

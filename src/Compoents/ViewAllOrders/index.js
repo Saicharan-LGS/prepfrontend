@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import "../adminOrders/index.css";
-import "./index.css";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import EmptyOrder from "../EmptyOrder";
 import Spinner from "../Spinner";
+import "./index.css";
 
 function ViewAllOrders({ openDetailPageComponent }) {
   const [products, setProducts] = useState([]);
@@ -160,7 +162,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
             <div className="admin-order-accepted-category-types">
               <p className="admin-order-accepted-order-id-category">Order Id</p>
               <p className="admin-order-accepted-name-category">
-                Customer Name
+                Customer Name<span>(Group Name)</span>
               </p>
               <p className="admin-order-accepted-name-category">Order Name</p>
               <p className="admin-order-accepted-service-category">
@@ -168,7 +170,7 @@ function ViewAllOrders({ openDetailPageComponent }) {
               </p>
               <p className="admin-order-accepted-quantity-category">Quantity</p>
               <p className="admin-order-accepted-order-tracking-category">
-                Order Tracking Link
+                Order Tracking
               </p>
               <p className="admin-order-accepted-fnsku-category">Status</p>
               <p className="admin-order-accepted-fnsku-category">FNSKU</p>
@@ -190,6 +192,9 @@ function ViewAllOrders({ openDetailPageComponent }) {
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.customer_name}
+                        {eachProduct.whatsapp_group_name && (
+                          <span>({eachProduct.whatsapp_group_name})</span>
+                        )}
                       </p>
                       <p className="admin-order-accepted-name-sub-category">
                         {eachProduct.name}
