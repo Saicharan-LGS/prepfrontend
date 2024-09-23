@@ -266,7 +266,6 @@ function SideBar() {
         }}
       >
         <div>
-          <Banner />
           <StaffTopNavbar />
         </div>
 

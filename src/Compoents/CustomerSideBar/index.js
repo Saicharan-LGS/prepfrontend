@@ -197,7 +197,6 @@ function CustomerSideBar({ totalAmount, fetchTotalAmount }) {
         }}
       >
         <div>
-          <Banner />
           <CustomerTopNavbar
             totalAmount={totalAmount}
             fetchTotalAmount={fetchTotalAmount}

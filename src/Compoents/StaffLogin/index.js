@@ -13,6 +13,9 @@ const StaffSigninPage = () => {
     email: "",
     password: "",
   });
+  sessionStorage.removeItem("token");
+  sessionStorage.removeItem("role");
+  sessionStorage.removeItem("sname");
   const [rememberMe, setRememberMe] = useState(false); // State for "Remember Me" checkbox
   const [error, setError] = useState(""); // State variable for error message
   const navigate = useNavigate(); // Get access to the navigation history

@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Popup from "reactjs-popup";
-import { IoMdLogOut } from "react-icons/io";
-import axxpress from "../images/axxpress.png";
+import axxpress from "../images/Axxpress1-1.png";
 import CustomerProfileView from "../CustomerProfileView";
 import TransactionSummary from "../CustomerNavbar/Amount";
+import Clock from "../Clock";
 function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
   const [userDetatils, setUserDetails] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -52,7 +52,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
 
   return (
     <div className="navbar-main-container">
-      {/* <img
+      <img
         src={axxpress}
         style={{
           width: "150px",
@@ -61,7 +61,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
           marginTop: "3px",
         }}
         alt="axxpress"
-      /> */}
+      />
 
       <div className="navbar-sub-container">
         <div className="navbar-logout-button-container">
@@ -99,6 +99,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
             className="navbar-logout-button-icon"
             onClick={handleLogout}
           /> */}
+          <Clock key={1} initialTime={new Date()} handleLogout={handleLogout} />
         </div>
       </div>
     </div>
