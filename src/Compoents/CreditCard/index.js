@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards-2";
-import "./index.css";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { decrypt, encrypt } from "../Encrypt";
 import Toast from "../utlis/toast";
+import "./index.css";
 
 const CreditCard = () => {
   const [state, setState] = useState({
@@ -100,10 +100,12 @@ const CreditCard = () => {
           icon: "error",
           title: data.message,
         });
-        console.error("Failed to submit Credit Card Data");
       }
     } catch (error) {
-      console.error("Error during POST request:", error);
+      Toast.fire({
+        icon: "success",
+        title: error.message,
+      });
     }
   };
 
@@ -271,7 +273,7 @@ const CreditCard = () => {
                   required
                 />
               </div>
-              {/* <div className="col-4 mb-3">
+              <div className="col-4 mb-3">
                 <label>State</label>
                 <select
                   name="state"
@@ -288,8 +290,8 @@ const CreditCard = () => {
                     </option>
                   ))}
                 </select>
-              </div> */}
-              <div className="col-4 mb-3">
+              </div>
+              {/* <div className="col-4 mb-3">
                 <label>State</label>
                 <input
                   placeholder="Enter State Code"
@@ -311,7 +313,7 @@ const CreditCard = () => {
                 >
                   Please verify state code before entering
                 </p>
-              </div>
+              </div> */}
               <div className="col-4 mb-3">
                 <label>Zip Code</label>
                 <input

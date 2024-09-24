@@ -1,11 +1,9 @@
-import "./index.css";
-import { useNavigate } from "react-router-dom";
-import AdminProfileView from "../AdminProfileView";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
-import { IoMdLogOut } from "react-icons/io";
+import AdminProfileView from "../AdminProfileView";
 import axxpress from "../images/Axxpress1-1.png";
-import Clock from "../Clock";
+import "./index.css";
 
 function StaffTopNavbar() {
   const [userDetatils, setUserDetails] = useState([]);
@@ -102,7 +100,7 @@ function StaffTopNavbar() {
             className="navbar-logout-button-icon"
             onClick={handleLogout}
           /> */}
-          <Clock handleLogout={handleLogout} />
+          {/* <Clock handleLogout={handleLogout} /> */}
         </div>
       </div>
     </div>

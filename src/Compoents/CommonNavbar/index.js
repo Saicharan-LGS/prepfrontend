@@ -1,12 +1,10 @@
 //import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axxpress from "../images/Axxpress1-1.png";
-import "./index.css";
 import Popup from "reactjs-popup";
 import AdminProfileView from "../AdminProfileView";
-import Banner from "../Banner";
-import Clock from "../Clock";
+import axxpress from "../images/Axxpress1-1.png";
+import "./index.css";
 
 function CommonNavbar() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -98,7 +96,7 @@ function CommonNavbar() {
           >
             Logout
           </button>
-          <Clock key={2} initialTime={new Date()} handleLogout={handleLogout} />
+          {/* <Clock key={2} initialTime={new Date()} handleLogout={handleLogout} /> */}
         </div>
       </div>
     </>

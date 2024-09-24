@@ -1,10 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
-import axxpress from "../images/Axxpress1-1.png";
-import CustomerProfileView from "../CustomerProfileView";
 import TransactionSummary from "../CustomerNavbar/Amount";
-import Clock from "../Clock";
+import CustomerProfileView from "../CustomerProfileView";
+import axxpress from "../images/Axxpress1-1.png";
 function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
   const [userDetatils, setUserDetails] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -99,7 +98,7 @@ function CustomerTopNavbar({ totalAmount, fetchTotalAmount }) {
             className="navbar-logout-button-icon"
             onClick={handleLogout}
           /> */}
-          <Clock key={1} initialTime={new Date()} handleLogout={handleLogout} />
+          {/* <Clock key={1} initialTime={new Date()} handleLogout={handleLogout} /> */}
         </div>
       </div>
     </div>

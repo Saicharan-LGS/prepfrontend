@@ -148,8 +148,8 @@ function CustomerList() {
       ? `pagination-arrow-container disable-previous-next-button`
       : `pagination-arrow-container`;
 
-  const onclickaddamount = (e) => {
-    setAmountId(e.target.value);
+  const onclickaddamount = (id) => {
+    setAmountId(id);
     setModalOpen(true);
   };
 
@@ -224,7 +224,7 @@ function CustomerList() {
                         style={{ width: "25%" }}
                       >
                         {eachProduct.name}
-                        <span>{eachProduct.whatsapp_group_name}</span>
+                        <span>({eachProduct.whatsapp_group_name})</span>
                       </p>
                       <p
                         className="customer-list-table-row"
@@ -267,8 +267,7 @@ function CustomerList() {
                             backgroundColor: "#fff",
                             fontSize: 30,
                           }}
-                          value={eachProduct.id}
-                          onClick={onclickaddamount}
+                          onClick={() => onclickaddamount(eachProduct.id)}
                         />
 
                         <AiFillMinusCircle
