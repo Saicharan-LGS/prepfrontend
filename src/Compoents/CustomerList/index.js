@@ -224,7 +224,9 @@ function CustomerList() {
                         style={{ width: "25%" }}
                       >
                         {eachProduct.name}
-                        <span>({eachProduct.whatsapp_group_name})</span>
+                        {eachProduct.whatsapp_group_name && (
+                          <span>({eachProduct.whatsapp_group_name})</span>
+                        )}
                       </p>
                       <p
                         className="customer-list-table-row"
